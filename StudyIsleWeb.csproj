@@ -84,6 +84,8 @@
     <Content Include="assets\css\site.css" />
     <Content Include="GoogleCallback.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="Student\StudentIndex.aspx" />
+    <Content Include="Student\Student_Logout.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -109,10 +111,32 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
+    <Compile Include="Student\StudentDashboard.Master.cs">
+      <DependentUpon>StudentDashboard.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\StudentDashboard.Master.designer.cs">
+      <DependentUpon>StudentDashboard.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Student\StudentIndex.aspx.cs">
+      <DependentUpon>StudentIndex.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\StudentIndex.aspx.designer.cs">
+      <DependentUpon>StudentIndex.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\Student_Logout.aspx.cs">
+      <DependentUpon>Student_Logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\Student_Logout.aspx.designer.cs">
+      <DependentUpon>Student_Logout.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Site.Master" />
+    <Content Include="Student\StudentDashboard.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -120,6 +144,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

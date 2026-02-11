@@ -191,3 +191,14 @@ footer {
         animation: fadeIn 0.2s ease-in-out;
     }
 }
+
+
+/* Sidebar toggle effect */
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: -250px;
+    transition: 0.3s;
+}
+
+#sidebar-wrapper {
+    transition: 0.3s;
+}

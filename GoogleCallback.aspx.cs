@@ -74,10 +74,14 @@ namespace StudyIsleWeb
                     if (userCount == 0)
                     {
                         // Insert new user
+                        //string insertQuery = @"INSERT INTO Users 
+                        //       (FullName, Email, LoginProvider, CreatedAt, LastLoginAt)
+                        //       VALUES 
+                        //       (@FullName, @Email, 'Google', GETDATE(), GETDATE())";
                         string insertQuery = @"INSERT INTO Users 
-                               (FullName, Email, LoginProvider, CreatedAt, LastLoginAt)
-                               VALUES 
-                               (@FullName, @Email, 'Google', GETDATE(), GETDATE())";
+                       (FullName, Email, LoginProvider, Role, CreatedAt, LastLoginAt)
+                       VALUES 
+                       (@FullName, @Email, 'Google', 'Student', GETDATE(), GETDATE())";
 
                         SqlCommand insertCmd = new SqlCommand(insertQuery, con);
                         insertCmd.Parameters.AddWithValue("@FullName", fullName);
@@ -96,8 +100,11 @@ namespace StudyIsleWeb
                         updateCmd.ExecuteNonQuery();
                     }
                 }
+                Session["UserEmail"] = email;
+                Session["UserName"] = fullName;
 
-                Response.Write("User Saved Successfully");
+                Response.Redirect("~/Student/StudentIndex.aspx");
+
 
             }
         }
