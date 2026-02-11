@@ -6,13 +6,17 @@ using System.Configuration;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
+using System.Data;
+using System.Data.SqlClient;
+
 
 
 namespace StudyIsleWeb
 {
     public partial class GoogleCallback : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
+        string cs = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
+        protected async void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
@@ -56,9 +60,45 @@ namespace StudyIsleWeb
                 string email = payload.Email;
                 string fullName = payload.Name;
 
-                Response.Write("Login Successful<br/>");
-                Response.Write("Name: " + fullName + "<br/>");
-                Response.Write("Email: " + email);
+                using (SqlConnection con = new SqlConnection(cs))
+                {
+                    con.Open();
+
+                    // Check if user exists
+                    string checkQuery = "SELECT COUNT(*) FROM Users WHERE Email=@Email";
+                    SqlCommand checkCmd = new SqlCommand(checkQuery, con);
+                    checkCmd.Parameters.AddWithValue("@Email", email);
+
+                    int userCount = (int)checkCmd.ExecuteScalar();
+
+                    if (userCount == 0)
+                    {
+                        // Insert new user
+                        string insertQuery = @"INSERT INTO Users 
+                               (FullName, Email, LoginProvider, CreatedAt, LastLoginAt)
+                               VALUES 
+                               (@FullName, @Email, 'Google', GETDATE(), GETDATE())";
+
+                        SqlCommand insertCmd = new SqlCommand(insertQuery, con);
+                        insertCmd.Parameters.AddWithValue("@FullName", fullName);
+                        insertCmd.Parameters.AddWithValue("@Email", email);
+
+                        insertCmd.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        // Update Last Login
+                        string updateQuery = "UPDATE Users SET LastLoginAt = GETDATE() WHERE Email=@Email";
+
+                        SqlCommand updateCmd = new SqlCommand(updateQuery, con);
+                        updateCmd.Parameters.AddWithValue("@Email", email);
+
+                        updateCmd.ExecuteNonQuery();
+                    }
+                }
+
+                Response.Write("User Saved Successfully");
+
             }
         }
 

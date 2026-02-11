@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="GoogleCallback.aspx.cs" Inherits="StudyIsleWeb.GoogleCallback" %>
+﻿<%@ Page Language="C#" Async="true" AutoEventWireup="true" CodeBehind="GoogleCallback.aspx.cs" Inherits="StudyIsleWeb.GoogleCallback" %>
 
 <!DOCTYPE html>
 
