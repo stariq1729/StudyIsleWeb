@@ -124,10 +124,11 @@
 
                 <!-- Google Sign-In (UI Only) -->
         <div class="mb-3">
-            <div class="google-btn">
-                <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google" />
-                Continue with Google
-            </div>
+            <asp:Button ID="btnGoogleLogin" runat="server"
+    Text="Continue with Google"
+    CssClass="google-btn w-100"
+    OnClick="btnGoogleLogin_Click" />
+
         </div>
 
 
