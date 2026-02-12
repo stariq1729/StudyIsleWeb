@@ -3,11 +3,12 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
-using System.Data;
-using System.Data.SqlClient;
+using System.Web.Security;
 
 
 
@@ -16,6 +17,8 @@ namespace StudyIsleWeb
     public partial class GoogleCallback : System.Web.UI.Page
     {
         string cs = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
+        private string role;
+
         protected async void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -64,7 +67,7 @@ namespace StudyIsleWeb
                 {
                     con.Open();
 
-                    // Check if user exists
+                    // 1️⃣ Check if user exists
                     string checkQuery = "SELECT COUNT(*) FROM Users WHERE Email=@Email";
                     SqlCommand checkCmd = new SqlCommand(checkQuery, con);
                     checkCmd.Parameters.AddWithValue("@Email", email);
@@ -74,14 +77,10 @@ namespace StudyIsleWeb
                     if (userCount == 0)
                     {
                         // Insert new user
-                        //string insertQuery = @"INSERT INTO Users 
-                        //       (FullName, Email, LoginProvider, CreatedAt, LastLoginAt)
-                        //       VALUES 
-                        //       (@FullName, @Email, 'Google', GETDATE(), GETDATE())";
                         string insertQuery = @"INSERT INTO Users 
-                       (FullName, Email, LoginProvider, Role, CreatedAt, LastLoginAt)
-                       VALUES 
-                       (@FullName, @Email, 'Google', 'Student', GETDATE(), GETDATE())";
+                               (FullName, Email, LoginProvider, Role, CreatedAt, LastLoginAt)
+                               VALUES 
+                               (@FullName, @Email, 'Google', 'Student', GETDATE(), GETDATE())";
 
                         SqlCommand insertCmd = new SqlCommand(insertQuery, con);
                         insertCmd.Parameters.AddWithValue("@FullName", fullName);
@@ -91,19 +90,42 @@ namespace StudyIsleWeb
                     }
                     else
                     {
-                        // Update Last Login
+                        // Update last login
                         string updateQuery = "UPDATE Users SET LastLoginAt = GETDATE() WHERE Email=@Email";
-
                         SqlCommand updateCmd = new SqlCommand(updateQuery, con);
                         updateCmd.Parameters.AddWithValue("@Email", email);
 
                         updateCmd.ExecuteNonQuery();
                     }
-                }
-                Session["UserEmail"] = email;
-                Session["UserName"] = fullName;
 
-                Response.Redirect("~/Student/StudentIndex.aspx");
+                    // 🔹 ADD ROLE FETCH CODE HERE (IMPORTANT)
+
+                    string roleQuery = "SELECT Role FROM Users WHERE Email=@Email";
+                    SqlCommand roleCmd = new SqlCommand(roleQuery, con);
+                    roleCmd.Parameters.AddWithValue("@Email", email);
+
+                    string role = roleCmd.ExecuteScalar().ToString();
+
+                    // 🔹 Create session
+                    Session["UserEmail"] = email;
+                    Session["UserName"] = fullName;
+                    Session["UserRole"] = role;
+                }
+
+                // 🔹 Redirect AFTER connection closes
+                if (role == "Student")
+                {
+                    Response.Redirect("~/Student/StudentIndex.aspx");
+                }
+                else if (role == "Admin")
+                {
+                    Response.Redirect("~/Admin/AdminIndex.aspx");
+                }
+                else
+                {
+                    Response.Redirect("~/Login.aspx");
+                }
+
 
 
             }
