@@ -372,7 +372,8 @@
                                 <asp:Button ID="btnSubmit"
                                     runat="server"
                                     Text="Submit Application →"
-                                    CssClass="btn-submit" />
+                                    CssClass="btn-submit"
+                                    OnClick="btnSubmit_Click"/>
                             </div>
 
                         </div>
