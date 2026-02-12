@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\css\site.css" />
+    <Content Include="Default.aspx" />
     <Content Include="GoogleCallback.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Student\StudentIndex.aspx" />
@@ -89,6 +90,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="GoogleCallback.aspx.cs">
       <DependentUpon>GoogleCallback.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
