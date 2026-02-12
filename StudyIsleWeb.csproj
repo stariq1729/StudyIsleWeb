@@ -81,7 +81,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\css\hero.css" />
+    <Content Include="assets\css\interactive.css" />
     <Content Include="assets\css\site.css" />
+    <Content Include="assets\css\strip.css" />
     <Content Include="Default.aspx" />
     <Content Include="GoogleCallback.aspx" />
     <Content Include="Login.aspx" />

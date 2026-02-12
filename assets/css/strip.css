@@ -1,0 +1,29 @@
+﻿/* ================= ACHIEVEMENT STRIP ================= */
+
+.achievement-strip {
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    color: #ffffff;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 12px 0;
+}
+
+.strip-content {
+    display: inline-block;
+    animation: scrollStrip 25s linear infinite;
+}
+
+    .strip-content span {
+        margin: 0 40px;
+        font-weight: 500;
+    }
+
+@keyframes scrollStrip {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}

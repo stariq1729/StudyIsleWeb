@@ -1,0 +1,166 @@
+﻿/* ================= HERO SECTION ================= */
+
+.hero-section {
+    background: linear-gradient(135deg, #eef1ff, #e3e8ff);
+    padding: 120px 0 180px 0;
+}
+
+/* Title */
+.hero-title {
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #1d1d1f;
+    margin-bottom: 24px;
+}
+
+.hero-subtitle {
+    font-size: 18px;
+    color: #6c757d;
+    max-width: 500px;
+    margin-bottom: 30px;
+}
+
+/* Class Buttons */
+.class-btn {
+    border-radius: 12px;
+    padding: 8px 16px;
+    font-size: 14px;
+    min-width: 95px;
+    background: #f3f4f6;
+    border: 1px solid #e0e0e0;
+    color: #333;
+    transition: all 0.2s ease;
+}
+
+    .class-btn:hover {
+        background: #e0e7ff;
+        border-color: #6366f1;
+        color: #4f46e5;
+    }
+
+    .class-btn.active {
+        background: linear-gradient(135deg, #4f46e5, #6366f1);
+        color: #ffffff;
+        border: none;
+        box-shadow: 0 6px 14px rgba(79,70,229,0.4);
+    }
+
+/* Primary Button Override */
+.btn-primary {
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    border: none;
+    border-radius: 12px;
+}
+
+    .btn-primary:hover {
+        opacity: 0.9;
+    }
+
+/* Card */
+.class-card {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    max-width: 490px;
+}
+
+/* Image Area */
+.hero-image-wrapper {
+    position: relative;
+    max-width: 520px;
+    margin-left: auto;
+}
+
+.image-card {
+    background: #ffffff;
+    border-radius: 26px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.image-inner {
+    padding: 14px 14px 0 16px;
+}
+
+    .image-inner img {
+        width: 100%;
+        height: 320px;
+        object-fit: cover;
+        border-radius: 18px;
+        display: block;
+    }
+
+/* Floating Badge */
+.floating-badge {
+    position: absolute;
+    top: 20px;
+    left: -25px;
+    background: #ffffff;
+    padding: 12px 18px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    z-index: 2;
+}
+
+/* Rank Card */
+.rank-card {
+    position: absolute;
+    bottom: -20px;
+    right: -15px;
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    color: #ffffff;
+    padding: 18px;
+    border-radius: 18px;
+    width: 210px;
+    z-index: 3;
+    box-shadow: 0 20px 40px rgba(79,70,229,0.4);
+}
+
+.progress-line {
+    height: 4px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+
+    .hero-section {
+        padding: 80px 0 100px 0;
+        text-align: center;
+    }
+
+    .hero-image-wrapper {
+        margin: 40px auto 0 auto;
+    }
+
+    .floating-badge,
+    .rank-card {
+        position: static;
+        margin-top: 15px;
+    }
+
+    .rank-card {
+        width: 100%;
+    }
+
+    .image-inner img {
+        height: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 36px;
+    }
+
+    .hero-section {
+        padding: 60px 0;
+    }
+}
