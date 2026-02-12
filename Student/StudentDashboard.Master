@@ -21,7 +21,7 @@
     <link href="~/Assets/css/hero.css" rel="stylesheet" />
 <link href="~/Assets/css/strip.css" rel="stylesheet" />
 <link href="~/Assets/css/interactive.css" rel="stylesheet" />
-
+    <link href="~/Assets/css/Enquiry.css" rel="stylesheet" />
 
     <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
 </head>

@@ -22,6 +22,13 @@
    <%-- added google fonts(poppins)--%>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <!-- Custom CSS -->
+    <link href="assets/css/site.css" rel="stylesheet" />
+
+    <link href="~/Assets/css/hero.css" rel="stylesheet" />
+<link href="~/Assets/css/strip.css" rel="stylesheet" />
+<link href="~/Assets/css/interactive.css" rel="stylesheet" />
+    <link href="~/Assets/css/Enquiry.css" rel="stylesheet" />
 
     <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
 </head>

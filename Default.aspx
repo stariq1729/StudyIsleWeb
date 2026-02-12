@@ -186,5 +186,206 @@
     </div>
 </section>
 
+<!-- ================= ENQUIRY SECTION START ================= -->
+<section class="enquiry-section py-5">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <!-- LEFT SIDE -->
+            <div class="col-lg-6 mb-5 mb-lg-0 enquiry-left">
+
+                <div class="admission-badge">
+                    Admissions Open 2025–26
+                </div>
+
+                <h2 class="main-heading">
+                    Unlock Your <br />
+                    <span class="gradient-text">Academic Potential</span>
+                </h2>
+
+                <p class="main-description">
+                    Join thousands of students across the globe who have transformed 
+                    their grades with our personalized 1-on-1 expert coaching.
+                    Our counselors will call you to build a custom roadmap for your success.
+                </p>
+
+                <div class="feature-wrapper">
+
+                    <div class="feature-item">
+                        <div class="icon-box blue">
+                            <i class="bi bi-person"></i>
+                        </div>
+                        <div>
+                            <h6>Senior Counselors</h6>
+                            <p>Expert 1-on-1 call for academic planning.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="icon-box orange">
+                            <i class="bi bi-award"></i>
+                        </div>
+                        <div>
+                            <h6>Top-Tier Results</h6>
+                            <p>Specialized tutors for IB, CBSE, IGCSE & AP.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="icon-box green">
+                            <i class="bi bi-globe"></i>
+                        </div>
+                        <div>
+                            <h6>Global Recognition</h6>
+                            <p>Supporting students in 20+ countries worldwide.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="rating-box">
+                    <strong>4.9/5</strong> from over 12,000 students
+                </div>
+
+            </div>
+
+           <!-- RIGHT SIDE FORM -->
+            <div class="col-lg-6">
+                <div class="enquiry-card">
+
+                    <div class="card-top-border"></div>
+
+                    <div class="card-body p-4">
+
+                        <h4 class="form-title">Student Inquiry Form</h4>
+                        <p class="form-subtitle">
+                            Takes less than 2 minutes to complete
+                        </p>
+
+                        <div class="row g-3 mt-2">
+
+                            <!-- Name -->
+                            <div class="col-md-6">
+                                <asp:TextBox ID="txtName" runat="server"
+                                    CssClass="custom-input"
+                                    placeholder="Student Name" />
+                            </div>
+
+                            <!-- Email -->
+                            <div class="col-md-6">
+                                <asp:TextBox ID="txtEmail" runat="server"
+                                    CssClass="custom-input"
+                                    TextMode="Email"
+                                    placeholder="Email ID" />
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="col-md-6">
+                                <asp:TextBox ID="txtPhone" runat="server"
+                                    CssClass="custom-input"
+                                    placeholder="WhatsApp / Phone Number" />
+                            </div>
+
+                            <!-- Country -->
+                            <div class="col-md-6">
+                                <asp:DropDownList ID="ddlCountry"
+                                    runat="server"
+                                    CssClass="custom-input">
+                                    <asp:ListItem Text="Select Country" Value="" />
+                                    <asp:ListItem>India</asp:ListItem>
+                                    <asp:ListItem>UAE</asp:ListItem>
+                                    <asp:ListItem>USA</asp:ListItem>
+                                    <asp:ListItem>UK</asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+
+                            <!-- Grade -->
+                            <div class="col-md-6">
+                                <asp:DropDownList ID="ddlGrade"
+                                    runat="server"
+                                    CssClass="custom-input">
+                                    <asp:ListItem Text="Current Class / Grade" Value="" />
+                                    <asp:ListItem>Grade 8</asp:ListItem>
+                                    <asp:ListItem>Grade 9</asp:ListItem>
+                                    <asp:ListItem>Grade 10</asp:ListItem>
+                                    <asp:ListItem>Grade 11</asp:ListItem>
+                                    <asp:ListItem>Grade 12</asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+
+                            <!-- Board -->
+                            <div class="col-md-6">
+                                <asp:DropDownList ID="ddlBoard"
+                                    runat="server"
+                                    CssClass="custom-input">
+                                    <asp:ListItem Text="Board / Curriculum" Value="" />
+                                    <asp:ListItem>CBSE</asp:ListItem>
+                                    <asp:ListItem>ICSE</asp:ListItem>
+                                    <asp:ListItem>IB</asp:ListItem>
+                                    <asp:ListItem>Cambridge</asp:ListItem>
+                                    <asp:ListItem>IGCSE</asp:ListItem>
+                                    <asp:ListItem>AP</asp:ListItem>
+                                    <asp:ListItem>A-Level</asp:ListItem>
+                                    <asp:ListItem>Other</asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+
+                            <!-- Subjects -->
+                            <div class="col-12">
+                                <label class="section-label">Subject Interests</label>
+
+                                <asp:CheckBoxList ID="chkSubjects"
+                                    runat="server"
+                                    RepeatDirection="Horizontal"
+                                    CssClass="subject-pill-list">
+
+                                    <asp:ListItem>Maths</asp:ListItem>
+                                    <asp:ListItem>Physics</asp:ListItem>
+                                    <asp:ListItem>Chemistry</asp:ListItem>
+                                    <asp:ListItem>Biology</asp:ListItem>
+                                    <asp:ListItem>Economics</asp:ListItem>
+                                    <asp:ListItem>English</asp:ListItem>
+
+                                </asp:CheckBoxList>
+                            </div>
+
+                            <!-- Timeline -->
+                            <div class="col-12">
+                                <label class="section-label">
+                                    When do you want to start classes?
+                                </label>
+
+                                <asp:RadioButtonList ID="rblTimeline"
+                                    runat="server"
+                                    RepeatDirection="Horizontal"
+                                    CssClass="timeline-list">
+
+                                    <asp:ListItem>Immediately</asp:ListItem>
+                                    <asp:ListItem>Within 1 Month</asp:ListItem>
+                                    <asp:ListItem>Just Enquiring</asp:ListItem>
+
+                                </asp:RadioButtonList>
+                            </div>
+
+                            <!-- Submit -->
+                            <div class="col-12">
+                                <asp:Button ID="btnSubmit"
+                                    runat="server"
+                                    Text="Submit Application →"
+                                    CssClass="btn-submit" />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- ================= ENQUIRY SECTION END ================= -->
+
+
+
 
 </asp:Content>
