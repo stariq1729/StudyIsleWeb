@@ -258,6 +258,79 @@ label {
 
     </div>
 </div>
+        <div class="col-md-6 mb-3">
+    <label>Current Employment Status *</label>
+    <asp:DropDownList ID="ddlEmployment" runat="server" CssClass="form-select">
+        <asp:ListItem Value="">Select</asp:ListItem>
+        <asp:ListItem>Working in School</asp:ListItem>
+        <asp:ListItem>Coaching Institute</asp:ListItem>
+        <asp:ListItem>Freelancer</asp:ListItem>
+        <asp:ListItem>Not Working</asp:ListItem>
+    </asp:DropDownList>
+</div>
+<div class="mt-4">
+    <label class="fw-semibold">Classes / Grades Comfortable With *</label>
+
+    <div class="subject-grid">
+
+        <label class="custom-check">
+            <asp:CheckBox ID="chk6to8" runat="server" />
+            <span>Class 6–8</span>
+        </label>
+
+        <label class="custom-check">
+            <asp:CheckBox ID="chk9to10" runat="server" />
+            <span>Class 9–10</span>
+        </label>
+
+        <label class="custom-check">
+            <asp:CheckBox ID="chk11to12" runat="server" />
+            <span>Class 11–12</span>
+        </label>
+
+    </div>
+</div>
+<div class="mt-4">
+    <label class="fw-semibold">Boards You Have Experience With *</label>
+
+    <div class="subject-grid">
+
+        <label class="custom-check">
+            <asp:CheckBox ID="chkCBSE" runat="server" />
+            <span>CBSE</span>
+        </label>
+
+        <label class="custom-check">
+            <asp:CheckBox ID="chkICSE" runat="server" />
+            <span>ICSE</span>
+        </label>
+
+        <label class="custom-check">
+            <asp:CheckBox ID="chkIB" runat="server" />
+            <span>IB</span>
+        </label>
+
+        <label class="custom-check">
+            <asp:CheckBox ID="chkIGCSE" runat="server" />
+            <span>IGCSE</span>
+        </label>
+
+        <label class="custom-check">
+            <asp:CheckBox ID="chkAP" runat="server" />
+            <span>AP</span>
+        </label>
+
+        <label class="custom-check">
+            <asp:CheckBox ID="chkStateBoard" runat="server" />
+            <span>State Board</span>
+        </label>
+
+    </div>
+</div>
+<div class="mt-4">
+    <label>Demo Class Link (YouTube / Drive)</label>
+    <asp:TextBox ID="txtDemoLink" runat="server" CssClass="form-control" />
+</div>
 
 
         <!-- Resume -->
@@ -270,7 +343,8 @@ label {
         <div class="text-center mt-4">
             <asp:Button ID="btnSubmit" runat="server"
                 Text="Submit Application"
-                CssClass="btn submit-btn" />
+                CssClass="btn submit-btn"
+                OnClick="btnSubmit_Click"/>
         </div>
 
     </div>
