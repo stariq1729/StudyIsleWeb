@@ -29,6 +29,8 @@
 <link href="~/Assets/css/strip.css" rel="stylesheet" />
 <link href="~/Assets/css/interactive.css" rel="stylesheet" />
     <link href="~/Assets/css/Enquiry.css" rel="stylesheet" />
+    <link href="~/Assets/css/CourseSection.css" rel="stylesheet" />
+     <link href="~/Assets/css/BooksSection.css" rel="stylesheet" />
 
     <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
 </head>
@@ -41,7 +43,7 @@
             <div class="container">
 
                 <!-- Logo -->
-                <a class="navbar-brand fw-bold text-primary fs-4" href="#">
+                <a class="navbar-brand fw-bold text-primary fs-4" href="Default.aspx">
                     StudyIsle
                 </a>
 
@@ -132,8 +134,8 @@
 
                     <!-- Right Buttons -->
                     <div class="d-flex gap-2">
-                        <a href="#" class="btn btn-outline-primary px-4">Login</a>
-                        <a href="#" class="btn btn-primary px-4">Enroll Now</a>
+                        <a href="Login.aspx" class="btn btn-outline-primary px-4">Login</a>
+                        <a href="Login.aspx" class="btn btn-primary px-4">Enroll Now</a>
                     </div>
 
                 </div>

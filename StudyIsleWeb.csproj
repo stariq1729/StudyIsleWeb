@@ -81,6 +81,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\css\BooksSection.css" />
+    <Content Include="assets\css\CourseSection.css" />
     <Content Include="assets\css\Enquiry.css" />
     <Content Include="assets\css\hero.css" />
     <Content Include="assets\css\interactive.css" />

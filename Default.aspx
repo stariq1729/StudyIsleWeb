@@ -186,6 +186,279 @@
     </div>
 </section>
 
+  <%--  =======Course section start from here======--%>
+    
+<section class="course-section">
+    <div class="container">
+
+        <!-- Header -->
+        <div class="text-center">
+            <h2 class="section-title">Choose Your Learning Path</h2>
+            <p class="section-subtitle">
+                Explore structured programs tailored for every academic goal.
+            </p>
+        </div>
+
+        <!-- Filter Pills -->
+<div class="text-center filter-wrapper">
+    <button type="button" class="filter-btn active">All</button>
+    <button type="button" class="filter-btn">Class 6-8 Foundation</button>
+    <button type="button" class="filter-btn">Class 9-10 Boards</button>
+    <button type="button" class="filter-btn">JEE / NEET</button>
+    <button type="button" class="filter-btn">International Boards</button>
+    <button type="button" class="filter-btn">Career Counselling</button>
+</div>
+
+
+        <!-- Course Grid -->
+        <div class="row g-4">
+
+            <!-- Repeat this block for 6 cards -->
+
+            <div class="col-lg-4 col-md-6 col-12">
+
+                <div class="course-card">
+                    <div class="course-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1200" />
+
+                        <span class="course-badge">CLASS 9-10 BOARDS</span>
+                    </div>
+                    <div class="course-body">
+                        <h5 class="course-title">Class 10 CBSE Board Mastery</h5>
+                        <ul class="course-features">
+                            <li>Daily Live Classes</li>
+                            <li>Notes & PDFs</li>
+                            <li>Weekly Mock Tests</li>
+                        </ul>
+                    </div>
+                    <div class="course-footer d-flex justify-content-between">
+                        <span class="course-price">₹2,499/mo</span>
+                        <a href="#" class="course-link">Explore Course →</a>
+                    </div>
+                </div>
+            </div>
+                       <div class="col-lg-4 col-md-6 col-12">
+
+                <div class="course-card">
+                    <div class="course-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200" />
+
+                        <span class="course-badge">CLASS 9-10 BOARDS</span>
+                    </div>
+                    <div class="course-body">
+                        <h5 class="course-title">Class 10 CBSE Board Mastery</h5>
+                        <ul class="course-features">
+                            <li>Daily Live Classes</li>
+                            <li>Notes & PDFs</li>
+                            <li>Weekly Mock Tests</li>
+                        </ul>
+                    </div>
+                    <div class="course-footer d-flex justify-content-between">
+                        <span class="course-price">₹2,499/mo</span>
+                        <a href="#" class="course-link">Explore Course →</a>
+                    </div>
+                </div>
+            </div>
+                        <div class="col-lg-4 col-md-6 col-12">
+
+                <div class="course-card">
+                    <div class="course-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1200" />
+
+                        <span class="course-badge">CLASS 9-10 BOARDS</span>
+                    </div>
+                    <div class="course-body">
+                        <h5 class="course-title">Class 10 CBSE Board Mastery</h5>
+                        <ul class="course-features">
+                            <li>Daily Live Classes</li>
+                            <li>Notes & PDFs</li>
+                            <li>Weekly Mock Tests</li>
+                        </ul>
+                    </div>
+                    <div class="course-footer d-flex justify-content-between">
+                        <span class="course-price">₹2,499/mo</span>
+                        <a href="#" class="course-link">Explore Course →</a>
+                    </div>
+                </div>
+            </div>
+                        <div class="col-lg-4 col-md-6 col-12">
+
+                <div class="course-card">
+                    <div class="course-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1584697964358-3e14ca57658b?q=80&w=1200" />
+
+                        <span class="course-badge">CLASS 9-10 BOARDS</span>
+                    </div>
+                    <div class="course-body">
+                        <h5 class="course-title">Class 10 CBSE Board Mastery</h5>
+                        <ul class="course-features">
+                            <li>Daily Live Classes</li>
+                            <li>Notes & PDFs</li>
+                            <li>Weekly Mock Tests</li>
+                        </ul>
+                    </div>
+                    <div class="course-footer d-flex justify-content-between">
+                        <span class="course-price">₹2,499/mo</span>
+                        <a href="#" class="course-link">Explore Course →</a>
+                    </div>
+                </div>
+            </div>
+                       <div class="col-lg-4 col-md-6 col-12">
+
+                <div class="course-card">
+                    <div class="course-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=1200" />
+
+                        <span class="course-badge">CLASS 9-10 BOARDS</span>
+                    </div>
+                    <div class="course-body">
+                        <h5 class="course-title">Class 10 CBSE Board Mastery</h5>
+                        <ul class="course-features">
+                            <li>Daily Live Classes</li>
+                            <li>Notes & PDFs</li>
+                            <li>Weekly Mock Tests</li>
+                        </ul>
+                    </div>
+                    <div class="course-footer d-flex justify-content-between">
+                        <span class="course-price">₹2,499/mo</span>
+                        <a href="#" class="course-link">Explore Course →</a>
+                    </div>
+                </div>
+            </div>
+                       <div class="col-lg-4 col-md-6 col-12">
+
+                <div class="course-card">
+                    <div class="course-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200" />
+
+                        <span class="course-badge">CLASS 9-10 BOARDS</span>
+                    </div>
+                    <div class="course-body">
+                        <h5 class="course-title">Class 10 CBSE Board Mastery</h5>
+                        <ul class="course-features">
+                            <li>Daily Live Classes</li>
+                            <li>Notes & PDFs</li>
+                            <li>Weekly Mock Tests</li>
+                        </ul>
+                    </div>
+                    <div class="course-footer d-flex justify-content-between">
+                        <span class="course-price">₹2,499/mo</span>
+                        <a href="#" class="course-link">Explore Course →</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+   <%-- ==course section end==--%>
+
+   <%-- == Books section start from here==--%>
+
+   <section class="ncert-section">
+    <div class="container">
+
+        <!-- Header Row -->
+        <div class="row align-items-center mb-5">
+            <div class="col-md-8">
+                <h1 class="ncert-title">Free NCERT & Revision Hub</h1>
+                <p class="ncert-subtitle">
+                    Access thousands of chapter-wise solutions, revision notes, and past year papers curated by experts.
+                </p>
+            </div>
+
+            <div class="col-md-4 text-md-end text-start mt-3 mt-md-0">
+                <a href="#" class="view-all-btn">
+                    View All Resources →
+                </a>
+            </div>
+        </div>
+
+        <!-- Subject Row -->
+        <div class="row g-4 justify-content-center text-center">
+
+            <div class="col-lg-2 col-md-4 col-6">
+                <a href="Mathematics.aspx" class="subject-card">
+                    <div class="icon-box math">Σ</div>
+                    <h6>Mathematics</h6>
+                    <span>SOLUTIONS • NOTES</span>
+                </a>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-6">
+                <a href="Physics.aspx" class="subject-card">
+                    <div class="icon-box physics">⚙</div>
+                    <h6>Physics</h6>
+                    <span>SOLUTIONS • NOTES</span>
+                </a>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-6">
+                <a href="Chemistry.aspx" class="subject-card">
+                    <div class="icon-box chemistry">🧪</div>
+                    <h6>Chemistry</h6>
+                    <span>SOLUTIONS • NOTES</span>
+                </a>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-6">
+                <a href="Biology.aspx" class="subject-card">
+                    <div class="icon-box biology">🧬</div>
+                    <h6>Biology</h6>
+                    <span>SOLUTIONS • NOTES</span>
+                </a>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-6">
+                <a href="English.aspx" class="subject-card">
+                    <div class="icon-box english">A</div>
+                    <h6>English</h6>
+                    <span>SOLUTIONS • NOTES</span>
+                </a>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-6">
+                <a href="SST.aspx" class="subject-card">
+                    <div class="icon-box sst">🌍</div>
+                    <h6>SST</h6>
+                    <span>SOLUTIONS • NOTES</span>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Bottom Feature Row -->
+        <div class="row mt-5 g-4">
+
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <h6>RD Sharma Solutions</h6>
+                    <p>Concept-wise solutions for all grades.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <h6>Revision Notes</h6>
+                    <p>Summarized notes for last-minute prep.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <h6>Previous Year Papers</h6>
+                    <p>10-Year board exam paper vault.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+
 <!-- ================= ENQUIRY SECTION START ================= -->
 <section class="enquiry-section py-5">
     <div class="container">

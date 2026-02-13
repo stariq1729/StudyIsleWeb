@@ -1,0 +1,215 @@
+﻿/* ======================================
+   NCERT SECTION
+====================================== */
+
+.ncert-section {
+    padding: 90px 0;
+    background: #f6f7fb;
+}
+
+/* ================= HEADER ================= */
+
+.ncert-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.ncert-subtitle {
+    color: #6c757d;
+    max-width: 600px;
+    font-size: 15px;
+}
+
+/* View All Button */
+
+.view-all-btn {
+    display: inline-block;
+    padding: 10px 22px;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #4f46e5;
+    font-weight: 500;
+    transition: 0.3s;
+    background: #ffffff;
+}
+
+    .view-all-btn:hover {
+        background: #4f46e5;
+        color: #ffffff;
+    }
+
+/* ======================================
+   SUBJECT CARD
+====================================== */
+
+.subject-card {
+    display: block;
+    padding: 35px 15px;
+    border-radius: 18px;
+    background: #ffffff;
+    text-decoration: none;
+    transition: 0.3s ease;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+    height: 100%;
+}
+
+    .subject-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .subject-card h6 {
+        margin-top: 18px;
+        font-weight: 600;
+        font-size: 15px;
+        color: #1c1c1c;
+    }
+
+    .subject-card span {
+        font-size: 11px;
+        letter-spacing: 1px;
+        color: #9ca3af;
+    }
+
+/* ================= ICON ================= */
+
+.icon-box {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #ffffff;
+}
+
+/* Subject Colors */
+
+.math {
+    background: #3b82f6;
+}
+
+.physics {
+    background: #8b5cf6;
+}
+
+.chemistry {
+    background: #10b981;
+}
+
+.biology {
+    background: #ef4444;
+}
+
+.english {
+    background: #f59e0b;
+}
+
+.sst {
+    background: #14b8a6;
+}
+
+/* ======================================
+   FEATURE CARDS
+====================================== */
+
+.feature-card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+    transition: 0.3s;
+    height: 100%;
+}
+
+    .feature-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    }
+
+    .feature-card h6 {
+        font-weight: 600;
+        margin-bottom: 6px;
+    }
+
+    .feature-card p {
+        font-size: 14px;
+        color: #6c757d;
+        margin-bottom: 0;
+    }
+
+/* ======================================
+   RESPONSIVE FIXES
+====================================== */
+
+/* Tablet */
+
+@media (max-width: 991px) {
+
+    .ncert-title {
+        font-size: 26px;
+    }
+
+    .ncert-subtitle {
+        font-size: 14px;
+    }
+
+    .subject-card {
+        padding: 30px 15px;
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 576px) {
+
+    .ncert-section {
+        padding: 60px 0;
+    }
+
+    .ncert-title {
+        font-size: 22px;
+        text-align: center;
+    }
+
+    .ncert-subtitle {
+        text-align: center;
+        margin: 0 auto 20px;
+    }
+
+    /* Center View Button */
+    .view-all-btn {
+        display: block;
+        text-align: center;
+        margin: 10px auto 0;
+        width: 80%;
+    }
+
+    /* Smaller Cards */
+    .subject-card {
+        padding: 25px 12px;
+    }
+
+    .icon-box {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    .subject-card h6 {
+        font-size: 14px;
+    }
+
+    .subject-card span {
+        font-size: 10px;
+    }
+
+    /* Feature cards spacing */
+    .feature-card {
+        padding: 20px;
+    }
+}
