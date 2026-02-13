@@ -661,6 +661,93 @@
 </section>
 
 
+   <%-- ==========AI-Powered section start from here========--%>
+
+   <section class="ai-section">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <!-- LEFT SIDE -->
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <div class="ai-card">
+
+                    <div class="card-header-row">
+                        <div>
+                            <h6>Ayush's Performance</h6>
+                            <span>Physics • Mock Test Series #14</span>
+                        </div>
+                        <div class="rank-badge">TOP 5% RANK</div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="chart-area"></div>
+
+                    <div class="metrics-row">
+                        <div class="metric-box">
+                            <span>Accuracy</span>
+                            <h4>94.2%</h4>
+                        </div>
+                        <div class="metric-box">
+                            <span>Time Spent</span>
+                            <h4>42 mins</h4>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- RIGHT SIDE -->
+            <div class="col-lg-6">
+
+                <span class="ai-badge">AI-Powered Insights</span>
+
+                <h2 class="ai-heading">
+                    Reports That Drive Rank Improvements.
+                </h2>
+
+                <p class="ai-description">
+                    We go beyond just scores. Our AI engine analyzes your behavior to identify conceptual gaps, time-management issues, and strength areas.
+                </p>
+
+                <div class="feature-item">
+                    <div class="icon-box">
+                        <i class="fa fa-brain"></i>
+                    </div>
+                    <div>
+                        <h6>Gap Identification</h6>
+                        <p>We pinpoint exactly which sub-topic is pulling your score down.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="icon-box">
+                        <i class="fa fa-chart-line"></i>
+                    </div>
+                    <div>
+                        <h6>Comparative Analytics</h6>
+                        <p>See where you stand against the top 1% percentile nationwide.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="icon-box">
+                        <i class="fa fa-arrow-trend-up"></i>
+                    </div>
+                    <div>
+                        <h6>Predictive Ranking</h6>
+                        <p>Get an estimated JEE/NEET rank based on consistent test patterns.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
 
 <!-- ================= ENQUIRY SECTION START ================= -->
 <section class="enquiry-section">

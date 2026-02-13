@@ -1,0 +1,182 @@
+﻿/* =========================
+   AI SECTION
+========================= */
+
+.ai-section {
+    padding: 120px 0;
+    background: #f7f9fd;
+}
+
+/* =========================
+   DARK CARD
+========================= */
+
+.ai-card {
+    background: linear-gradient(120deg, #0f1b3d 0%, #121f47 60%, #0c1734 100%);
+    border-radius: 28px;
+    padding: 38px;
+    color: #fff;
+    box-shadow: 0 50px 100px rgba(10, 20, 60, 0.25);
+    position: relative;
+}
+
+/* Header */
+
+.card-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .card-header-row h6 {
+        font-size: 15px;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .card-header-row span {
+        font-size: 12px;
+        color: #9aa4c7;
+    }
+
+.rank-badge {
+    background: #5b5ce6;
+    padding: 6px 15px;
+    border-radius: 40px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* Divider */
+
+.divider {
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+    margin: 25px 0;
+}
+
+/* =========================
+   CHART AREA
+========================= */
+
+.chart-area {
+    height: 170px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #5a4fdc 0%, #4c46b5 50%, #3b3795 100%);
+    margin-bottom: 40px;
+    position: relative;
+}
+
+    /* subtle highlight overlay */
+    .chart-area::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.15), transparent 50%);
+        border-radius: 18px;
+    }
+
+/* =========================
+   METRICS
+========================= */
+
+.metrics-row {
+    display: flex;
+    gap: 28px;
+}
+
+.metric-box {
+    flex: 1;
+    background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+    padding: 24px;
+    border-radius: 20px;
+}
+
+    .metric-box span {
+        font-size: 12px;
+        color: #aab4e8;
+    }
+
+    .metric-box h4 {
+        margin: 10px 0 0;
+        font-size: 22px;
+        font-weight: 600;
+    }
+
+/* =========================
+   RIGHT SIDE
+========================= */
+
+.ai-badge {
+    background: #e8ecff;
+    color: #5b5ce6;
+    padding: 7px 18px;
+    border-radius: 40px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.ai-heading {
+    margin-top: 24px;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    max-width: 520px;
+}
+
+.ai-description {
+    margin-top: 22px;
+    color: #6b7280;
+    line-height: 1.7;
+    max-width: 500px;
+}
+
+/* Feature */
+
+.feature-item {
+    display: flex;
+    gap: 18px;
+    margin-top: 32px;
+}
+
+.icon-box {
+    width: 44px;
+    height: 44px;
+    background: #f1f3fa;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #5b5ce6;
+    font-size: 16px;
+}
+
+.feature-item h6 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.feature-item p {
+    margin: 6px 0 0;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 992px) {
+
+    .ai-section {
+        padding: 80px 0;
+    }
+
+    .ai-heading {
+        font-size: 28px;
+    }
+
+    .metrics-row {
+        flex-direction: column;
+    }
+}
