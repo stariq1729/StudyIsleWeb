@@ -746,6 +746,83 @@
     </div>
 </section>
 
+   <%-- =====================================================--%>
+<!-- Tutors Section -->
+<section class="tutors-section">
+    <div class="container text-center">
+
+        <!-- Section Heading -->
+        <h2 class="tutors-title">Learn From the Masters</h2>
+        <p class="tutors-subtitle">
+            Our teachers aren’t just experts in their subjects; they are mentors who inspire curious minds.
+        </p>
+
+        <!-- Tutors Row -->
+        <div class="row justify-content-center mt-5">
+
+            <!-- Tutor 1 -->
+            <div class="col-lg-4 col-md-6 mb-5">
+                <div class="tutor-item">
+
+                    <div class="tutor-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=400&q=80"
+                             class="tutor-img"
+                             alt="Tutor">
+
+                        <span class="verify-badge">✓</span>
+                    </div>
+
+                    <h6 class="tutor-name">Dr. Anand Verma</h6>
+                    <p class="tutor-subject">Biology Specialist</p>
+                    <p class="tutor-exp">Ph.D., AIIMS Delhi • 15+ Years Exp</p>
+
+                    <div class="tutor-rating">★★★★★</div>
+
+                </div>
+            </div>
+
+            <!-- Tutor 2 -->
+            <div class="col-lg-4 col-md-6 mb-5">
+                <div class="tutor-item">
+
+                    <div class="tutor-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=400&q=80"
+                             class="tutor-img"
+                             alt="Tutor">
+
+                        <span class="verify-badge">✓</span>
+                    </div>
+
+                    <h6 class="tutor-name">Sameer Pathak</h6>
+                    <p class="tutor-subject">Physics Guru</p>
+                    <p class="tutor-exp">IIT Bombay Alumnus • 12+ Years Exp</p>
+
+                    <div class="tutor-rating">★★★★★</div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Join CTA -->
+        <div class="join-tutor-box">
+            <div class="row align-items-center">
+                <div class="col-md-8 text-md-start text-center">
+                    <h6 class="mb-1">Are you a passionate educator?</h6>
+                    <p>Join our community of world-class tutors and impact thousands of lives.</p>
+                </div>
+
+                <div class="col-md-4 text-md-end text-center mt-3 mt-md-0">
+                    <a href="JoinTutor.aspx" class="btn join-outline-btn">
+                        Join as a Tutor
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
 
 
 

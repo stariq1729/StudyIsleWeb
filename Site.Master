@@ -39,6 +39,7 @@
     <link href="~/Assets/css/Testimonialsection.css" rel="stylesheet" />
     <link href="~/Assets/css/NoteSection.css" rel="stylesheet" />
     <link href="~/Assets/css/AISection.css" rel="stylesheet" />
+    <link href="~/Assets/css/TutorSection.css" rel="stylesheet" />
 
     <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
 </head>
