@@ -4,113 +4,137 @@
 
 .ncert-section {
     padding: 90px 0;
-    background: #f6f7fb;
+    background: linear-gradient(180deg, #f8f9ff 0%, #f3f4f9 100%);
 }
 
 /* ================= HEADER ================= */
 
 .ncert-title {
-    font-size: 32px;
+    font-size: 34px;
     font-weight: 700;
-    margin-bottom: 10px;
+    color: #1f2937;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
 }
 
 .ncert-subtitle {
-    color: #6c757d;
-    max-width: 600px;
+    color: #6b7280;
     font-size: 15px;
+    max-width: 620px;
+    line-height: 1.6;
 }
 
 /* View All Button */
 
 .view-all-btn {
-    display: inline-block;
-    padding: 10px 22px;
-    border: 1px solid #dcdcdc;
-    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 11px 22px;
+    border-radius: 12px;
     text-decoration: none;
-    color: #4f46e5;
     font-weight: 500;
-    transition: 0.3s;
+    font-size: 14px;
+    border: 1px solid #e5e7eb;
     background: #ffffff;
+    color: #4f46e5;
+    transition: all 0.25s ease;
 }
 
     .view-all-btn:hover {
         background: #4f46e5;
         color: #ffffff;
+        box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
     }
 
 /* ======================================
    SUBJECT CARD
 ====================================== */
+/* ======================================
+   SUBJECT CARD (Compact Version)
+====================================== */
+
+/* ======================================
+   SUBJECT CARD (Compact Version)
+====================================== */
 
 .subject-card {
     display: block;
-    padding: 35px 15px;
+    padding: 28px 14px; /* Reduced from 40px */
     border-radius: 18px;
     background: #ffffff;
     text-decoration: none;
-    transition: 0.3s ease;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+    transition: all 0.25s ease;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
     height: 100%;
 }
 
     .subject-card:hover {
         transform: translateY(-6px);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.07);
     }
 
     .subject-card h6 {
-        margin-top: 18px;
+        margin-top: 16px; /* Reduced spacing */
         font-weight: 600;
-        font-size: 15px;
-        color: #1c1c1c;
+        font-size: 14px; /* Slightly smaller */
+        color: #111827;
     }
 
     .subject-card span {
-        font-size: 11px;
+        font-size: 10px;
         letter-spacing: 1px;
         color: #9ca3af;
     }
 
+/* Smaller Icon */
+
+.ncert-section .icon-box {
+    width: 52px; /* Reduced from 64px */
+    height: 52px;
+    border-radius: 14px;
+    font-size: 20px;
+}
+
 /* ================= ICON ================= */
 
-.icon-box {
-    width: 60px;
-    height: 60px;
+.ncert-section .icon-box {
+    width: 64px;
+    height: 64px;
     margin: 0 auto;
-    border-radius: 14px;
+    border-radius: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 24px;
     color: #ffffff;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 /* Subject Colors */
 
 .math {
-    background: #3b82f6;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
 }
 
 .physics {
-    background: #8b5cf6;
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
 }
 
 .chemistry {
-    background: #10b981;
+    background: linear-gradient(135deg, #10b981, #059669);
 }
 
 .biology {
-    background: #ef4444;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
 }
 
 .english {
-    background: #f59e0b;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
 }
 
 .sst {
-    background: #14b8a6;
+    background: linear-gradient(135deg, #14b8a6, #0f766e);
 }
 
 /* ======================================
@@ -119,56 +143,50 @@
 
 .feature-card {
     background: #ffffff;
-    padding: 25px;
-    border-radius: 14px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.04);
-    transition: 0.3s;
+    padding: 28px 26px;
+    border-radius: 18px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.04);
+    transition: all 0.25s ease;
     height: 100%;
 }
 
     .feature-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+        transform: translateY(-6px);
+        box-shadow: 0 14px 35px rgba(0, 0, 0, 0.07);
     }
 
     .feature-card h6 {
         font-weight: 600;
+        font-size: 15px;
         margin-bottom: 6px;
+        color: #111827;
     }
 
     .feature-card p {
         font-size: 14px;
-        color: #6c757d;
+        color: #6b7280;
         margin-bottom: 0;
     }
 
 /* ======================================
-   RESPONSIVE FIXES
+   RESPONSIVE POLISH
 ====================================== */
-
-/* Tablet */
 
 @media (max-width: 991px) {
 
     .ncert-title {
-        font-size: 26px;
-    }
-
-    .ncert-subtitle {
-        font-size: 14px;
+        font-size: 28px;
     }
 
     .subject-card {
-        padding: 30px 15px;
+        padding: 34px 16px;
     }
 }
-
-/* Mobile */
 
 @media (max-width: 576px) {
 
     .ncert-section {
-        padding: 60px 0;
+        padding: 70px 0;
     }
 
     .ncert-title {
@@ -181,35 +199,25 @@
         margin: 0 auto 20px;
     }
 
-    /* Center View Button */
     .view-all-btn {
         display: block;
+        margin: 15px auto 0;
         text-align: center;
-        margin: 10px auto 0;
-        width: 80%;
+        width: 85%;
+        justify-content: center;
     }
 
-    /* Smaller Cards */
     .subject-card {
-        padding: 25px 12px;
+        padding: 28px 14px;
     }
 
     .icon-box {
-        width: 50px;
-        height: 50px;
+        width: 55px;
+        height: 55px;
         font-size: 20px;
     }
 
-    .subject-card h6 {
-        font-size: 14px;
-    }
-
-    .subject-card span {
-        font-size: 10px;
-    }
-
-    /* Feature cards spacing */
     .feature-card {
-        padding: 20px;
+        padding: 22px;
     }
 }

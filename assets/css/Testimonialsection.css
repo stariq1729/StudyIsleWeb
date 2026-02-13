@@ -1,0 +1,169 @@
+﻿/* ==============================
+   RESULTS SECTION
+============================== */
+
+.results-section {
+    background-color: #f4f6fb;
+}
+
+/* Header */
+
+.section-icon {
+    font-size: 22px;
+    color: #f59e0b;
+}
+
+.results-title {
+    font-weight: 700;
+    font-size: 28px;
+    letter-spacing: 1px;
+}
+
+.results-subtitle {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+/* Result Card */
+
+.result-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 30px 20px;
+    text-align: center;
+    position: relative;
+    height: 100%;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+    .result-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    }
+
+/* Topper Badge */
+
+/* ==============================
+   POLISHED RESULT CARD
+============================== */
+
+.result-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 22px 18px 24px 18px;
+    text-align: center;
+    position: relative;
+    height: 100%;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+    transition: all 0.25s ease;
+}
+
+    .result-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(79, 70, 229, 0.12);
+    }
+
+/* Topper Badge */
+
+.topper-badge {
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #f59e0b;
+    color: #fff;
+    font-size: 9px;
+    padding: 3px 10px;
+    border-radius: 30px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Student Image */
+
+.student-img {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-top: 30px;
+    margin-bottom: 12px;
+    border: 3px solid #f3f4f6;
+}
+
+/* Student Name */
+
+.student-name {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+/* Rank / Achievement */
+
+.student-rank {
+    color: #4f46e5;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+/* Exam Label */
+
+.exam-label {
+    font-size: 11px;
+    color: #6b7280;
+    letter-spacing: 0.3px;
+}
+
+
+
+/* Featured Banner */
+
+.featured-testimonial {
+    background: linear-gradient(135deg, #5b5be3, #6d28d9);
+    color: #fff;
+    padding: 40px;
+    border-radius: 25px;
+}
+
+.featured-quote {
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.featured-author {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.watch-btn {
+    background: #fff;
+    color: #4f46e5;
+    padding: 10px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+}
+
+    .watch-btn:hover {
+        background: #f1f1f1;
+    }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .result-card {
+        padding: 20px 16px;
+    }
+
+
+
+
+    .featured-testimonial {
+        text-align: center;
+    }
+}
+}

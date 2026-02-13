@@ -211,7 +211,7 @@
 
 
         <!-- Course Grid -->
-        <div class="row g-4">
+        <div class="row g-3">
 
             <!-- Repeat this block for 6 cards -->
 
@@ -376,7 +376,7 @@
         </div>
 
         <!-- Subject Row -->
-        <div class="row g-4 justify-content-center text-center">
+        <div class="row g-2 justify-content-center text-center">
 
             <div class="col-lg-2 col-md-4 col-6">
                 <a href="Mathematics.aspx" class="subject-card">
@@ -458,9 +458,213 @@
 </section>
 
 
+   <%-- ===========TESTIMONIALS SECTION START FROM HERE===========--%>
+
+<section class="results-section py-5">
+    <div class="container">
+
+        <!-- Section Header -->
+        <div class="text-center mb-5">
+            <div class="section-icon mb-2">
+                <i class="bi bi-trophy-fill"></i>
+            </div>
+            <h2 class="results-title">RESULTS THAT SPEAK FOR US</h2>
+            <p class="results-subtitle">
+                Over 50,000 students selected in top IITs & medical colleges in the last 3 years.
+            </p>
+        </div>
+
+        <!-- Result Cards -->
+        <div class="row g-3 justify-content-center">
+
+            <!-- Card 1 -->
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <div class="result-card">
+                    <span class="topper-badge">TOPPER</span>
+
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg"
+                        class="student-img" alt="Student" />
+
+                    <h6 class="student-name">Aditi Jain</h6>
+                    <div class="student-rank">AIR 1</div>
+                    <small class="exam-label">JEE ADV 2024</small>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <div class="result-card">
+                    <span class="topper-badge">TOPPER</span>
+
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg"
+                        class="student-img" alt="Student" />
+
+                    <h6 class="student-name">Rahul S.</h6>
+                    <div class="student-rank">99.98 %ile</div>
+                    <small class="exam-label">CAT 2023</small>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <div class="result-card">
+                    <span class="topper-badge">TOPPER</span>
+
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg"
+                        class="student-img" alt="Student" />
+
+                    <h6 class="student-name">Priya K.</h6>
+                    <div class="student-rank">AIR 52</div>
+                    <small class="exam-label">NEET 2024</small>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                <div class="result-card">
+                    <span class="topper-badge">TOPPER</span>
+
+                    <img src="https://randomuser.me/api/portraits/men/45.jpg"
+                        class="student-img" alt="Student" />
+
+                    <h6 class="student-name">Vihan D.</h6>
+                    <div class="student-rank">98% Board</div>
+                    <small class="exam-label">CBSE 10th</small>
+                </div>
+            </div>
+
+        </div>
+        <br />
+        <!-- Featured Purple Testimonial -->
+        <div class="featured-testimonial mt-5">
+            <div class="row align-items-center">
+                <div class="col-lg-8 col-12">
+                    <h4 class="featured-quote">
+                        "It wasn't just a course, it was a lifestyle change for my prep."
+                    </h4>
+                    <p class="featured-author">
+                        — Mother of AIR 45, JEE Advanced 2024
+                    </p>
+                </div>
+
+                <div class="col-lg-4 col-12 text-lg-end mt-3 mt-lg-0">
+                    <a href="#" class="watch-btn">Watch Testimonial</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+   <%-- ============Notes section start from here ==========--%>
+    <!-- Study Notes Section -->
+<section class="notes-section">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <!-- LEFT CONTENT -->
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <div class="notes-content">
+                    <h2 class="notes-heading">
+                        Everything You Need to <br />
+                        Succeed.
+                    </h2>
+
+                    <p class="notes-description">
+                        Don't waste time hunting for materials. Our Study Hub is a curated
+                        repository of high-quality resources designed by top academic experts.
+                    </p>
+
+                    <ul class="notes-features">
+                        <li>Expert-verified content for all boards</li>
+                        <li>Updated as per latest 2024–25 syllabus</li>
+                        <li>Downloadable for offline study</li>
+                        <li>Interactive explanations for hard concepts</li>
+                    </ul>
+
+                    <a href="#" class="studyhub-btn">
+                        Access Full Study Hub
+                    </a>
+                </div>
+            </div>
+
+            <!-- RIGHT CARDS -->
+<div class="col-lg-6">
+    <div class="row g-3 notes-grid">
+
+        <div class="col-md-4 col-sm-6">
+            <a href="/Notes/ChapterNotes.aspx" class="note-card pastel-blue">
+                <div class="note-icon">
+                    <i class="bi bi-file-earmark-text"></i>
+                </div>
+                <h5 class="note-title">Chapter Notes</h5>
+                <p class="note-sub">2,500+ PDFs</p>
+            </a>
+        </div>
+
+        <div class="col-md-4 col-sm-6">
+            <a href="/Notes/MCQs.aspx" class="note-card pastel-green">
+                <div class="note-icon">
+                    <i class="bi bi-question-circle"></i>
+                </div>
+                <h5 class="note-title">Topic MCQs</h5>
+                <p class="note-sub">50,000+ Qs</p>
+            </a>
+        </div>
+
+        <div class="col-md-4 col-sm-6">
+            <a href="/Notes/MockTests.aspx" class="note-card pastel-purple">
+                <div class="note-icon">
+                    <i class="bi bi-journal-check"></i>
+                </div>
+                <h5 class="note-title">Mock Tests</h5>
+                <p class="note-sub">500+ Series</p>
+            </a>
+        </div>
+
+        <div class="col-md-4 col-sm-6">
+            <a href="/Notes/PreviousYear.aspx" class="note-card pastel-orange">
+                <div class="note-icon">
+                    <i class="bi bi-clock-history"></i>
+                </div>
+                <h5 class="note-title">Previous Year Qs</h5>
+                <p class="note-sub">15 Years</p>
+            </a>
+        </div>
+
+        <div class="col-md-4 col-sm-6">
+            <a href="/Notes/VideoConcepts.aspx" class="note-card pastel-pink">
+                <div class="note-icon">
+                    <i class="bi bi-play-circle"></i>
+                </div>
+                <h5 class="note-title">Video Concepts</h5>
+                <p class="note-sub">10,000+ Mins</p>
+            </a>
+        </div>
+
+        <div class="col-md-4 col-sm-6">
+            <a href="/Notes/NCERT.aspx" class="note-card pastel-cyan">
+                <div class="note-icon">
+                    <i class="bi bi-book"></i>
+                </div>
+                <h5 class="note-title">NCERT Solutions</h5>
+                <p class="note-sub">All Subjects</p>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+
+        </div>
+    </div>
+</section>
+
+
 
 <!-- ================= ENQUIRY SECTION START ================= -->
-<section class="enquiry-section py-5">
+<section class="enquiry-section">
+
     <div class="container">
         <div class="row align-items-center">
 

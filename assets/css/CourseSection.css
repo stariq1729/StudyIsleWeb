@@ -7,16 +7,16 @@
     padding: 70px 0;
 }
 
-    .course-section .container {
-        max-width: 1140px; /* keeps left-right breathing space */
-    }
+    /*.course-section .container {
+        max-width: 1140px;*/ /* keeps left-right breathing space */
+    /*}*/
 
 /* ===============================
    SECTION HEADER
 ================================ */
 
 .section-title {
-    font-size: 32px;
+    font-size: 30px;
     font-weight: 700;
     color: #111827;
 }
@@ -32,7 +32,7 @@
 ================================ */
 
 .filter-wrapper {
-    margin-top: 30px;
+    margin-top: 25px;
     margin-bottom: 45px;
 }
 
@@ -68,7 +68,7 @@
     border: 1px solid #e5e7eb;
     overflow: hidden;
     transition: all 0.3s ease;
-    height: 100%;
+    height: 90%;
     display: flex;
     flex-direction: column;
 }
