@@ -82,6 +82,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\css\AISection.css" />
+    <Content Include="assets\css\BlogSection.css" />
+    <Content Include="assets\css\Blogspage.css" />
     <Content Include="assets\css\BooksSection.css" />
     <Content Include="assets\css\CareerGuide.css" />
     <Content Include="assets\css\CourseSection.css" />
@@ -93,6 +95,7 @@
     <Content Include="assets\css\strip.css" />
     <Content Include="assets\css\Testimonialsection.css" />
     <Content Include="assets\css\TutorSection.css" />
+    <Content Include="Blogs.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="GoogleCallback.aspx" />
     <Content Include="JoinTutor.aspx" />
@@ -102,6 +105,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Blogs.aspx.cs">
+      <DependentUpon>Blogs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Blogs.aspx.designer.cs">
+      <DependentUpon>Blogs.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

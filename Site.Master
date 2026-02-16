@@ -43,7 +43,8 @@
     <link href="~/Assets/css/CareerGuide.css" rel="stylesheet" />
     <link href="~/Assets/css/BlogSection.css" rel="stylesheet" />
     
-
+  <%--  ===========================Pages css file==========================--%>
+    <link href="~/Assets/css/BlogsPage.css" rel="stylesheet" />
     <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
 </head>
 
