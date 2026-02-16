@@ -41,6 +41,7 @@
     <link href="~/Assets/css/NoteSection.css" rel="stylesheet" />
     <link href="~/Assets/css/AISection.css" rel="stylesheet" />
     <link href="~/Assets/css/CareerGuide.css" rel="stylesheet" />
+    <link href="~/Assets/css/BlogSection.css" rel="stylesheet" />
     
 
     <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>

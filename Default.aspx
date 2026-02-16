@@ -1120,6 +1120,143 @@
 <!-- ================= ENQUIRY SECTION END ================= -->
 
 
+    <%--==================blog sectio start from here ==================--%>
+
+<section class="blogs-section">
+
+    <div class="container">
+
+        <!-- HERO -->
+        <div class="blogs-hero text-center">
+            <h1 class="blogs-main-title">Student Success Hub</h1>
+            <p class="blogs-description">
+                High-impact strategies, resources, and expert tips to ace
+                <span>CBSE</span>, <span>JEE</span>, and <span>NEET</span> exams.
+            </p>
+
+            <!-- Category Tabs -->
+            <div class="blogs-filters">
+                <button class="filter-btn active">Latest Updates</button>
+                <button class="filter-btn">JEE Main & Advanced</button>
+                <button class="filter-btn">NEET UG</button>
+                <button class="filter-btn">CBSE Boards</button>
+                <button class="filter-btn">Study Strategy</button>
+            </div>
+        </div>
+
+
+        <!-- BLOG CARDS -->
+        <div class="row g-4 mt-4">
+
+            <!-- CARD 1 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="blog-card">
+
+                    <div class="blog-img">
+                        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b" />
+                        <span class="blog-badge">JEE</span>
+                    </div>
+
+                    <div class="blog-content">
+
+                        <div class="blog-author">
+                            <span class="author-name">Dr. Anand Verma</span>
+                            <span class="dot">•</span>
+                            <span>Feb 18, 2025</span>
+                        </div>
+
+                        <h3 class="blog-title">
+                            JEE Main 2025: A Comprehensive 6-Month Roadmap to 99+ Percentile
+                        </h3>
+
+                        <p class="blog-excerpt">
+                            Cracking JEE requires more than just hard work; it requires a strategic approach to Physics, Chemistry, and Mathematics.
+                        </p>
+
+                        <div class="blog-footer">
+                            <span class="read-time">10 min read</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- CARD 2 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="blog-card">
+
+                    <div class="blog-img">
+                        <img src="https://images.unsplash.com/photo-1581090700227-4c4f50c90c1b" />
+                        <span class="blog-badge">NEET</span>
+                    </div>
+
+                    <div class="blog-content">
+
+                        <div class="blog-author">
+                            <span class="author-name">Meera Sharma</span>
+                            <span class="dot">•</span>
+                            <span>Feb 16, 2025</span>
+                        </div>
+
+                        <h3 class="blog-title">
+                            Mastering NEET Biology: Top 10 Diagrams You Must Practice
+                        </h3>
+
+                        <p class="blog-excerpt">
+                            Biology accounts for 50% of your NEET score. Mastering NCERT diagrams can give you a significant advantage.
+                        </p>
+
+                        <div class="blog-footer">
+                            <span class="read-time">7 min read</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- CARD 3 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="blog-card">
+
+                    <div class="blog-img">
+                        <img src="https://images.unsplash.com/photo-1588072432836-e10032774350" />
+                        <span class="blog-badge">CBSE</span>
+                    </div>
+
+                    <div class="blog-content">
+
+                        <div class="blog-author">
+                            <span class="author-name">Meera Sharma</span>
+                            <span class="dot">•</span>
+                            <span>Feb 14, 2025</span>
+                        </div>
+
+                        <h3 class="blog-title">
+                            How to Score 100/100 in CBSE Class 12 Mathematics
+                        </h3>
+
+                        <p class="blog-excerpt">
+                            Board exams require a different mindset compared to competitive exams. Presentation and marking scheme are crucial.
+                        </p>
+
+                        <div class="blog-footer">
+                            <span class="read-time">8 min read</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
 
 
 </asp:Content>
