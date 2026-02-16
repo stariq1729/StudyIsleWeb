@@ -4,7 +4,7 @@
 
 .blogs-wrapper {
     background: #f8f9fc;
-    padding: 80px 0;
+    padding: 70px 0;
 }
 
 /* HERO */
@@ -16,7 +16,7 @@
 
 .hero-subtitle {
     max-width: 650px;
-    margin: 15px auto 25px;
+    margin: 15px auto 20px;
     color: #6c757d;
 }
 
@@ -31,7 +31,7 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 10px;
 }
 
 .tab-btn {
@@ -90,7 +90,7 @@
 
 .category-badge {
     position: absolute;
-    top: 15px;
+    top: 12px;
     left: 15px;
     background: #5b5ce2;
     color: #fff;
