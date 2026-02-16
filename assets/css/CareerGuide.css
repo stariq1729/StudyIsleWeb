@@ -56,14 +56,16 @@
 .career-features {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px 20px;
-    margin-bottom: 25px;
+    column-gap: 30px; /* horizontal spacing */
+    row-gap: 2px; /* smaller vertical spacing */
+    margin-bottom: 20px;
 }
+
 
 .feature-item {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 8px;
     font-size: 15px;
     color: #ffffff;
 }

@@ -1,22 +1,19 @@
 ﻿/* ===============================
    GLOBAL CONTENT WIDTH
 ================================ */
-
-.container {
-    max-width: 1100px !important;
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1100px;
+    }
 }
 
+/*.container {
+    max-width: 1100px !important;
+}
+*/
 /* ======================================
    GLOBAL SCALE SYSTEM
 ====================================== */
-
-html {
-    font-size: 15px; /* default is 16px */
-}
-
-body {
-    font-size: 1rem;
-}
 
 /* ================================
    GLOBAL RESET & BASE
@@ -47,20 +44,35 @@ section {
 /* ================================
    NAVBAR STYLING
 ================================ */
-
-/* Brand */
-.navbar-brand {
-    font-size: 1.4rem;
-    font-weight: 700;
+/* Compact Navbar */
+.navbar {
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
 }
 
-/* Main nav links */
 .nav-custom {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.95rem;
+}
+
+.navbar-brand {
+    font-size: 1.25rem;
+}
+
+.navbar .btn {
+    padding: 6px 14px;
+    font-size: 0.9rem;
+}
+
+/* Brand */
+
+/* Main nav links */
+/*.nav-custom {
     font-size: 1.05rem;
     font-weight: 600;
     padding: 0.5rem 0.75rem;
     color: #444;
-}
+}*/
 
     .nav-custom:hover,
     .nav-custom:focus {

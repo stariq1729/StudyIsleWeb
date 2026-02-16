@@ -37,6 +37,7 @@
     <link href="~/Assets/css/CourseSection.css" rel="stylesheet" />
      <link href="~/Assets/css/BooksSection.css" rel="stylesheet" />
     <link href="~/Assets/css/Testimonialsection.css" rel="stylesheet" />
+    <link href="~/Assets/css/TutorSection.css" rel="stylesheet" />
     <link href="~/Assets/css/NoteSection.css" rel="stylesheet" />
     <link href="~/Assets/css/AISection.css" rel="stylesheet" />
     <link href="~/Assets/css/CareerGuide.css" rel="stylesheet" />
@@ -49,7 +50,8 @@
     <form id="form1" runat="server">
 
         <!-- ================= HEADER / NAVBAR ================= -->
-        <nav class="navbar navbar-expand-lg bg-white shadow-sm py-3 sticky-top">
+            <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+
             <div class="container">
 
                 <!-- Logo -->
