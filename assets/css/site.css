@@ -45,6 +45,35 @@ section {
    NAVBAR STYLING
 ================================ */
 /* Compact Navbar */
+/* ===== FORCE NAVBAR ONE LINE ===== */
+
+.navbar-nav {
+    flex-wrap: nowrap; /* prevent wrapping */
+}
+
+.nav-custom {
+    font-size: 0.95rem; /* slightly smaller */
+    font-weight: 500;
+    padding: 0.4rem 0.6rem; /* less horizontal space */
+    white-space: nowrap; /* prevent text break */
+}
+
+/* Reduce space between items */
+.navbar-nav {
+    gap: 0.5rem;
+}
+
+/* Smaller brand */
+.navbar-brand {
+    font-size: 1.2rem;
+}
+
+/* Smaller buttons */
+.navbar .btn {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+}
+
 .navbar {
     padding-top: 6px !important;
     padding-bottom: 6px !important;
@@ -55,14 +84,7 @@ section {
     font-size: 0.95rem;
 }
 
-.navbar-brand {
-    font-size: 1.25rem;
-}
 
-.navbar .btn {
-    padding: 6px 14px;
-    font-size: 0.9rem;
-}
 
 /* Brand */
 

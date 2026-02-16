@@ -69,7 +69,9 @@
                 <div class="collapse navbar-collapse" id="mainNavbar">
 
                     <!-- Center Menu -->
-                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-3">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+
+                    
 
                         <li class="nav-item">
                             <a class="nav-link nav-custom" href="#">Home</a>
@@ -146,7 +148,7 @@
 
                     <!-- Right Buttons -->
                     <div class="d-flex gap-2">
-                        <a href="Login.aspx" class="btn btn-outline-primary px-4">Login</a>
+                       <%-- <a href="Login.aspx" class="btn btn-outline-primary px-4">Login</a>--%>
                         <a href="Login.aspx" class="btn btn-primary px-4">Enroll Now</a>
                     </div>
 
