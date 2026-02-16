@@ -1,6 +1,6 @@
-﻿/* ===============================
+﻿/* ==================================
    BLOGS SECTION
-================================ */
+================================== */
 
 .blogs-section {
     padding: 80px 0;
@@ -25,7 +25,7 @@
         font-weight: 600;
     }
 
-/* FILTER BUTTONS */
+/* FILTERS */
 
 .blogs-filters {
     display: flex;
@@ -58,15 +58,23 @@
     overflow: hidden;
     border: 1px solid #eee;
     transition: 0.3s ease;
-    height: 100%;
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
     .blog-card:hover {
+        transform: translateY(-5px);
         box-shadow: 0 15px 35px rgba(0,0,0,0.06);
-        transform: translateY(-4px);
     }
+
+/* CLICKABLE AREA */
+
+.blog-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
 
 /* IMAGE */
 
@@ -97,9 +105,6 @@
 
 .blog-content {
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
 }
 
 .blog-author {
@@ -122,14 +127,40 @@
 .blog-excerpt {
     font-size: 14px;
     color: #6c757d;
-    flex-grow: 1;
 }
 
-.blog-footer {
-    margin-top: 15px;
+/* ACTION FOOTER */
+
+.blog-actions {
+    padding: 15px 20px;
+    border-top: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.read-time {
     font-size: 13px;
     color: #999;
 }
+
+.action-icons {
+    display: flex;
+    gap: 12px;
+}
+
+.icon-btn {
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    color: #777;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    .icon-btn:hover {
+        color: #5b5ce2;
+    }
 
 /* RESPONSIVE */
 
