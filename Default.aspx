@@ -457,6 +457,108 @@
     </div>
 </section>
 
+    <%--============Career Guidance section start from here========--%>
+    <!-- =========================
+     CAREER GUIDANCE SECTION
+========================== -->
+<section class="career-section">
+    <div class="container">
+        <div class="career-wrapper">
+
+            <div class="row align-items-center">
+
+                <!-- LEFT CONTENT -->
+                <div class="col-lg-6 career-left">
+                    
+                    <span class="career-badge">
+                        ★ Personalized Guidance
+                    </span>
+
+                    <h2 class="career-heading">
+                        Not sure where to start? 
+                        <span>Speak 1-on-1.</span>
+                    </h2>
+
+                    <p class="career-description">
+                        Every child is unique. Our expert academic counselors provide 
+                        personalized roadmaps for your specific goals—completely free.
+                    </p>
+
+                    <div class="career-features">
+                        <div class="feature-item">
+                            <i class="bi bi-calendar-check"></i>
+                            Pick your preferred time
+                        </div>
+
+                        <div class="feature-item">
+                            <i class="bi bi-camera-video"></i>
+                            Video or Voice consultation
+                        </div>
+
+                        <div class="feature-item">
+                            <i class="bi bi-file-earmark-text"></i>
+                            Detailed Academic Report
+                        </div>
+
+                        <div class="feature-item">
+                            <i class="bi bi-shield-check"></i>
+                            100% Personal Attention
+                        </div>
+                    </div>
+
+                    <div class="career-cta-area">
+                        <a href="https://studyisle.edumilestones.com/" class="career-cta">
+                            Schedule 1:1 Call →
+                        </a>
+
+                        <div class="online-status">
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <small>14 counselors online now</small>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT CARD -->
+                <div class="col-lg-6 career-right">
+                    
+                    <div class="counsellor-card">
+
+                        <div class="counsellor-top">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Counsellor" />
+                            <h5>Dr. Shweta Iyer</h5>
+                            <p>Senior Academic Counselor</p>
+                        </div>
+
+                        <div class="counsellor-info">
+                            <div class="info-row">
+                                <span>Experience</span>
+                                <strong>12+ Years</strong>
+                            </div>
+
+                            <div class="info-row">
+                                <span>Specialization</span>
+                                <strong>JEE & NEET Expert</strong>
+                            </div>
+                        </div>
+
+                        <div class="next-slot">
+                            Next Available Slot<br />
+                            <strong>Today, 4:30 PM</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
 
    <%-- ===========TESTIMONIALS SECTION START FROM HERE===========--%>
 

@@ -1,0 +1,234 @@
+﻿/* ======================================
+   CAREER GUIDANCE SECTION
+====================================== */
+
+.career-section {
+    padding: 80px 0;
+    background: #f5f6fb; /* outer light background */
+}
+
+/* Main dark container */
+.career-wrapper {
+    background: #1f1b4d;
+    border-radius: 28px;
+    padding: 55px 60px;
+}
+    .career-wrapper .row {
+        --bs-gutter-x: 3rem; /* reduce default bootstrap horizontal gap */
+    }
+
+
+/* ======================================
+   LEFT CONTENT
+====================================== */
+
+.career-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.12);
+    color: #ffd95e;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 18px;
+}
+
+.career-heading {
+    font-size: 34px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.3;
+    margin-bottom: 18px;
+}
+
+    .career-heading span {
+        color: #7d8cff;
+    }
+
+.career-description {
+    color: #d6d6ff;
+    font-size: 17px;
+    max-width: 480px;
+    margin-bottom: 28px;
+}
+
+/* Features */
+.career-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 20px;
+    margin-bottom: 25px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 15px;
+    color: #ffffff;
+}
+
+    .feature-item i {
+        color: #7d8cff;
+        font-size: 16px;
+    }
+
+/* CTA Area */
+.career-cta-area {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.career-cta {
+    background: #ffffff;
+    color: #1f1b4d;
+    padding: 12px 26px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+    .career-cta:hover {
+        background: #7d8cff;
+        color: #ffffff;
+    }
+
+.online-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #cfcfff;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background: #7d8cff;
+    border-radius: 50%;
+}
+
+/* ======================================
+   RIGHT COUNSELLOR CARD (COMPACT)
+====================================== */
+
+.counsellor-card {
+    background: rgba(255,255,255,0.07);
+    border-radius: 30px;
+    padding: 26px 28px;
+    max-width: 540px; /* increased width */
+    margin-left: 0; /* remove auto push */
+    color: #ffffff;
+}
+
+
+/* Profile */
+.counsellor-top {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+    .counsellor-top img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-bottom: 6px;
+    }
+
+    .counsellor-top h5 {
+        font-size: 15px;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .counsellor-top p {
+        font-size: 11px;
+        color: #cfcfff;
+        margin: 0;
+    }
+
+/* Info Rows */
+.counsellor-info {
+    margin-bottom: 12px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.09);
+    padding: 7px 12px;
+    border-radius: 10px;
+    margin-bottom: 7px;
+    font-size: 12px;
+}
+
+    .info-row span {
+        color: #dcdcff;
+    }
+
+    .info-row strong {
+        font-weight: 600;
+    }
+
+/* Next Slot */
+.next-slot {
+    background: linear-gradient(90deg, #5a67ff, #7d8cff);
+    padding: 11px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+    .next-slot strong {
+        font-size: 13px;
+    }
+
+/* ======================================
+   RESPONSIVE
+====================================== */
+
+@media (max-width: 992px) {
+
+    .career-wrapper {
+        padding: 40px 30px;
+    }
+
+    .career-heading {
+        font-size: 26px;
+    }
+
+    .career-features {
+        grid-template-columns: 1fr;
+    }
+
+    .career-cta-area {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .counsellor-card {
+        margin-top: 35px;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+
+    .career-wrapper {
+        padding: 30px 20px;
+    }
+
+    .career-heading {
+        font-size: 22px;
+    }
+
+    .career-description {
+        font-size: 13px;
+    }
+}

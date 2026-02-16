@@ -83,6 +83,7 @@
   <ItemGroup>
     <Content Include="assets\css\AISection.css" />
     <Content Include="assets\css\BooksSection.css" />
+    <Content Include="assets\css\CareerGuide.css" />
     <Content Include="assets\css\CourseSection.css" />
     <Content Include="assets\css\Enquiry.css" />
     <Content Include="assets\css\hero.css" />
