@@ -129,9 +129,41 @@
                             <a class="nav-link nav-custom" href="#">Live Classes</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link nav-custom" href="#">Study Hub</a>
-                        </li>
+                        <li class="nav-item dropdown position-static">
+     <a class="nav-link nav-custom dropdown-toggle" href="#" role="button"
+        data-bs-toggle="dropdown">
+         Study Hub
+     </a>
+
+     <div class="dropdown-menu mega-dropdown border-0 shadow-lg p-3">
+
+         <div class="container">
+             <div class="row">
+
+                 <div class="col-md-4">
+                     <h6 class="fw-bold text-uppercase mb-3">Competitive Exams</h6>
+                     <ul class="list-unstyled">
+                         <li><a class="dropdown-item" href="#">CBSE</a></li>
+                         <li><a class="dropdown-item" href="#">NCERT</a></li>
+                         <li><a class="dropdown-item" href="#">ICSE</a></li>
+                         <li><a class="dropdown-item" href="#">NEET/JEE</a></li>
+                     </ul>
+                 </div>
+
+                 <div class="col-md-4">
+                     <h6 class="fw-bold text-uppercase mb-3">School Boards</h6>
+                     <ul class="list-unstyled">
+                         <li><a class="dropdown-item" href="#">CBSE Class 6–12</a></li>
+                         <li><a class="dropdown-item" href="#">ICSE / ISC</a></li>
+                         <li><a class="dropdown-item" href="#">State Boards</a></li>
+                         <li><a class="dropdown-item" href="#">Olympiads</a></li>
+                     </ul>
+                 </div>
+
+             </div>
+         </div>
+     </div>
+ </li>
 
                         <li class="nav-item">
                             <a class="nav-link nav-custom" href="#">Test Series</a>
