@@ -492,7 +492,7 @@
 
                         <div class="feature-item">
                             <i class="bi bi-camera-video"></i>
-                            Video or consultation
+                            Video  consultation
                         </div>
 
                         <div class="feature-item">
