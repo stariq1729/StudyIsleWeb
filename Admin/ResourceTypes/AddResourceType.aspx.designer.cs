@@ -51,6 +51,15 @@ namespace StudyIsleWeb.Admin.ResourceTypes
         protected global::System.Web.UI.WebControls.CheckBox chkIsActive;
 
         /// <summary>
+        /// chkIsPremium control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkIsPremium;
+
+        /// <summary>
         /// btnSave control.
         /// </summary>
         /// <remarks>

@@ -32,6 +32,10 @@
                 Text=" Is Active"
                 Checked="true" />
         </div>
+        <div class="form-check mb-3">
+    <asp:CheckBox ID="chkIsPremium" runat="server" CssClass="form-check-input" />
+    <label class="form-check-label">Is Premium</label>
+</div>
 
         <!-- Button -->
         <asp:Button ID="btnSave" runat="server"
