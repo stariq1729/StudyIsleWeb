@@ -22,6 +22,15 @@
             <asp:BoundField DataField="ClassName" HeaderText="Class" />
 
             <asp:BoundField DataField="SubjectName" HeaderText="Subject" />
+            <asp:TemplateField HeaderText="Action">
+    <ItemTemplate>
+        <a href='EditSubject.aspx?id=<%# Eval("SubjectId") %>'
+           class="btn btn-sm btn-warning">
+           Edit
+        </a>
+    </ItemTemplate>
+</asp:TemplateField>
+
 
             <asp:TemplateField HeaderText="Status">
                 <ItemTemplate>
