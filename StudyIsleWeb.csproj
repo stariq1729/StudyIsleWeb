@@ -88,6 +88,8 @@
     <Content Include="Admin\Classes\EditClass.aspx" />
     <Content Include="Admin\Classes\ManageClasses.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
+    <Content Include="Admin\Resources\AddResources.aspx" />
+    <Content Include="Admin\Resources\ManageResources.aspx" />
     <Content Include="Admin\ResourceTypes\AddResourceType.aspx" />
     <Content Include="Admin\ResourceTypes\EditResourceType.aspx" />
     <Content Include="Admin\ResourceTypes\ManageResourceTypes.aspx" />
@@ -109,6 +111,7 @@
     <Content Include="assets\css\Testimonialsection.css" />
     <Content Include="assets\css\TutorSection.css" />
     <Content Include="Blogs.aspx" />
+    <Content Include="Content\Admin\add-resource.css" />
     <Content Include="Content\Admin\board-form.css" />
     <Content Include="Content\Admin\Boards.css" />
     <Content Include="Content\Admin\Classes.css" />
@@ -179,6 +182,20 @@
     </Compile>
     <Compile Include="Admin\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Resources\AddResources.aspx.cs">
+      <DependentUpon>AddResources.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Resources\AddResources.aspx.designer.cs">
+      <DependentUpon>AddResources.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Resources\ManageResources.aspx.cs">
+      <DependentUpon>ManageResources.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Resources\ManageResources.aspx.designer.cs">
+      <DependentUpon>ManageResources.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\ResourceTypes\AddResourceType.aspx.cs">
       <DependentUpon>AddResourceType.aspx</DependentUpon>
