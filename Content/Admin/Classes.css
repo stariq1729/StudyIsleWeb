@@ -6,3 +6,13 @@
     font-weight: 700;
     margin-bottom: 20px;
 }
+.form-card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+}
+
+.form-title {
+    font-weight: 700;
+    margin-bottom: 25px;
+}

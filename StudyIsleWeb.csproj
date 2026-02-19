@@ -84,6 +84,7 @@
     <Content Include="Admin\Boards\AddBoards.aspx" />
     <Content Include="Admin\Boards\EditBoard.aspx" />
     <Content Include="Admin\Boards\ManageBoards.aspx" />
+    <Content Include="Admin\Classes\AddClass.aspx" />
     <Content Include="Admin\Classes\ManageClasses.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
     <Content Include="assets\css\AISection.css" />
@@ -141,6 +142,13 @@
     </Compile>
     <Compile Include="Admin\Boards\ManageBoards.aspx.designer.cs">
       <DependentUpon>ManageBoards.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Classes\AddClass.aspx.cs">
+      <DependentUpon>AddClass.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Classes\AddClass.aspx.designer.cs">
+      <DependentUpon>AddClass.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Classes\ManageClasses.aspx.cs">
       <DependentUpon>ManageClasses.aspx</DependentUpon>
