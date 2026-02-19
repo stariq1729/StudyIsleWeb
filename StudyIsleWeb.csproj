@@ -88,7 +88,9 @@
     <Content Include="Admin\Classes\EditClass.aspx" />
     <Content Include="Admin\Classes\ManageClasses.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
+    <Content Include="Admin\ResourceTypes\ManageResourceTypes.aspx" />
     <Content Include="Admin\Subjects\AddSubject.aspx" />
+    <Content Include="Admin\Subjects\EditSubject.aspx" />
     <Content Include="Admin\Subjects\ManageSubjects.aspx" />
     <Content Include="assets\css\AISection.css" />
     <Content Include="assets\css\BlogSection.css" />
@@ -109,6 +111,7 @@
     <Content Include="Content\Admin\Boards.css" />
     <Content Include="Content\Admin\Classes.css" />
     <Content Include="Content\Admin\dashboard.css" />
+    <Content Include="Content\Admin\resourse-types.css" />
     <Content Include="Content\Admin\subjects.css" />
     <Content Include="Default.aspx" />
     <Content Include="GoogleCallback.aspx" />
@@ -175,12 +178,26 @@
     <Compile Include="Admin\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\ResourceTypes\ManageResourceTypes.aspx.cs">
+      <DependentUpon>ManageResourceTypes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ResourceTypes\ManageResourceTypes.aspx.designer.cs">
+      <DependentUpon>ManageResourceTypes.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Subjects\AddSubject.aspx.cs">
       <DependentUpon>AddSubject.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\Subjects\AddSubject.aspx.designer.cs">
       <DependentUpon>AddSubject.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Subjects\EditSubject.aspx.cs">
+      <DependentUpon>EditSubject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Subjects\EditSubject.aspx.designer.cs">
+      <DependentUpon>EditSubject.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Subjects\ManageSubjects.aspx.cs">
       <DependentUpon>ManageSubjects.aspx</DependentUpon>
