@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -15,24 +16,52 @@ namespace StudyIsleWeb
 
         }
 
-        protected void btnGoogleLogin_Click(object sender, EventArgs e)
+        protected void btnLogin_Click(object sender, EventArgs e)
         {
-            string clientId = ConfigurationManager.AppSettings["GoogleClientId"];
-            string redirectUri = "https://localhost:44301/GoogleCallback.aspx";
-        
+            string email = txtEmail.Text.Trim();
+            string password = txtPassword.Text.Trim();
 
-            string scope = "openid email profile";
+            string cs = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
 
-            string googleAuthUrl =
-                "https://accounts.google.com/o/oauth2/v2/auth" +
-                "?client_id=" + clientId +
-                "&redirect_uri=" + HttpUtility.UrlEncode(redirectUri) +
-                "&response_type=code" +
-                "&scope=" + HttpUtility.UrlEncode(scope) +
-                "&access_type=offline" +
-                "&prompt=select_account";
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                con.Open();
 
-            Response.Redirect(googleAuthUrl);
+                string query = @"SELECT UserId, FullName, Role 
+                         FROM Users 
+                         WHERE Email=@Email 
+                         AND PasswordHash=@Password 
+                         AND IsActive=1";
+
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@Email", email);
+                cmd.Parameters.AddWithValue("@Password", password);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    Session["UserId"] = reader["UserId"];
+                    Session["UserName"] = reader["FullName"].ToString();
+                    Session["UserRole"] = reader["Role"].ToString();
+
+                    string role = reader["Role"].ToString();
+
+                    if (role == "Admin")
+                    {
+                        Response.Redirect("~/Admin/Dashboard.aspx");
+                    }
+                    else
+                    {
+                        Response.Redirect("~/Student/StudentIndex.aspx");
+                    }
+                }
+                else
+                {
+                    //lblError.Text = "Invalid email or password.";
+                }
+            }
         }
+
     }
 }

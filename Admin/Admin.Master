@@ -1,0 +1,87 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="StudyIsleWeb.Admin.Admin" %>
+
+<%--<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="StudyIsleWeb.Admin.Admin" %>
+--%>
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>StudyIsle Admin Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            background-color: #f4f6f9;
+        }
+
+        .admin-sidebar {
+            width: 240px;
+            min-height: 100vh;
+            background: #1e293b;
+            color: white;
+            position: fixed;
+        }
+
+        .admin-sidebar a {
+            color: #cbd5e1;
+            text-decoration: none;
+            display: block;
+            padding: 12px 20px;
+        }
+
+        .admin-sidebar a:hover {
+            background: #334155;
+            color: white;
+        }
+
+        .admin-content {
+            margin-left: 240px;
+            padding: 30px;
+        }
+
+        .admin-header {
+            background: white;
+            padding: 15px 30px;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 25px;
+        }
+    </style>
+
+    <asp:ContentPlaceHolder ID="head" runat="server" />
+</head>
+
+<body>
+    <form id="form1" runat="server">
+
+        <!-- Sidebar -->
+        <div class="admin-sidebar">
+            <h4 class="text-center py-3">StudyIsle Admin</h4>
+            <a href="/Admin/Dashboard.aspx">Dashboard</a>
+            <a href="/Admin/Boards/ManageBoards.aspx">Boards</a>
+            <a href="/Admin/Classes/ManageClasses.aspx">Classes</a>
+            <a href="/Admin/Subjects/ManageSubjects.aspx">Subjects</a>
+            <a href="/Admin/ResourceTypes/ManageResourceTypes.aspx">Resource Types</a>
+            <a href="/Admin/Resources/ManageResources.aspx">Resources</a>
+            <asp:LinkButton ID="btnLogout" runat="server" OnClick="btnLogout_Click" CssClass="d-block px-3 py-2 text-danger">
+                Logout
+            </asp:LinkButton>
+        </div>
+
+        <!-- Content -->
+        <div class="admin-content">
+
+            <div class="admin-header d-flex justify-content-between">
+                <h5>Admin Panel</h5>
+                <span>Welcome, <asp:Literal ID="litAdminName" runat="server"></asp:Literal></span>
+            </div>
+
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
+
+        </div>
+
+    </form>
+</body>
+</html>
+
