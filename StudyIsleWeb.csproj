@@ -81,6 +81,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\Boards\AddBoards.aspx" />
     <Content Include="Admin\Boards\ManageBoards.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
     <Content Include="assets\css\AISection.css" />
@@ -98,6 +99,7 @@
     <Content Include="assets\css\Testimonialsection.css" />
     <Content Include="assets\css\TutorSection.css" />
     <Content Include="Blogs.aspx" />
+    <Content Include="Content\Admin\board-form.css" />
     <Content Include="Content\Admin\Boards.css" />
     <Content Include="Content\Admin\dashboard.css" />
     <Content Include="Default.aspx" />
@@ -115,6 +117,13 @@
     </Compile>
     <Compile Include="Admin\Admin.Master.designer.cs">
       <DependentUpon>Admin.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Boards\AddBoards.aspx.cs">
+      <DependentUpon>AddBoards.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Boards\AddBoards.aspx.designer.cs">
+      <DependentUpon>AddBoards.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Boards\ManageBoards.aspx.cs">
       <DependentUpon>ManageBoards.aspx</DependentUpon>

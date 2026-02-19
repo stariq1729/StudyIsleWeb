@@ -13,6 +13,7 @@
     <%-- adding css file for admin dashboard--%>
     <link href="/Content/Admin/dashboard.css" rel="stylesheet" />
     <link href="/Content/Admin/boards.css" rel="stylesheet" />
+<link href="/Content/Admin/board-form.css" rel="stylesheet" />
 
 
     <style>

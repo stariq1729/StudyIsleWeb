@@ -5,7 +5,7 @@
 
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h4 class="page-title">Manage Boards</h4>
-        <a href="AddBoard.aspx" class="btn btn-primary btn-add">+ Add Board</a>
+        <a href="AddBoards.aspx" class="btn btn-primary btn-add">+ Add Board</a>
     </div>
 
     <asp:GridView ID="gvBoards" runat="server" 
@@ -20,6 +20,16 @@
             <asp:BoundField DataField="BoardName" HeaderText="Board Name" />
 
             <asp:BoundField DataField="HasClassLayer" HeaderText="Has Class Layer" />
+
+            <asp:TemplateField HeaderText="Action">
+    <ItemTemplate>
+        <a href='EditBoard.aspx?id=<%# Eval("BoardId") %>' 
+           class="btn btn-sm btn-warning">
+           Edit
+        </a>
+    </ItemTemplate>
+</asp:TemplateField>
+
 
             <asp:TemplateField HeaderText="Status">
                 <ItemTemplate>
