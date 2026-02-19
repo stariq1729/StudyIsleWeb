@@ -14,6 +14,8 @@
     <link href="/Content/Admin/dashboard.css" rel="stylesheet" />
     <link href="/Content/Admin/boards.css" rel="stylesheet" />
 <link href="/Content/Admin/board-form.css" rel="stylesheet" />
+    <link href="/Content/Admin/classes.css" rel="stylesheet" />
+
 
 
     <style>
