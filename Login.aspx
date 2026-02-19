@@ -116,6 +116,7 @@
         <!-- Login Button -->
         <asp:Button ID="btnLogin" runat="server"
             Text="Login"
+            OnClick="btnLogin_Click"
             CssClass="btn btn-primary w-100 py-2" />
                 <!-- Divider -->
         <div class="divider">
@@ -127,8 +128,8 @@
             <asp:Button ID="btnGoogleLogin" runat="server"
     Text="Continue with Google"
     CssClass="google-btn w-100"
-    OnClick="btnGoogleLogin_Click" />
-
+    />
+<%--  OnClick="btnGoogleLogin_Click" remove the OnClick event handler for btnGoogleLogin since it's not implemented yet--%>
         </div>
 
 

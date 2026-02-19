@@ -30,7 +30,7 @@ namespace StudyIsleWeb
                 string query = @"SELECT UserId, FullName, Role 
                          FROM Users 
                          WHERE Email=@Email 
-                         AND PasswordHash=@Password 
+                         AND Password=@Password 
                          AND IsActive=1";
 
                 SqlCommand cmd = new SqlCommand(query, con);

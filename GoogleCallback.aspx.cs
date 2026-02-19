@@ -104,7 +104,8 @@ namespace StudyIsleWeb
                     SqlCommand roleCmd = new SqlCommand(roleQuery, con);
                     roleCmd.Parameters.AddWithValue("@Email", email);
 
-                    string role = roleCmd.ExecuteScalar().ToString();
+                    role = roleCmd.ExecuteScalar().ToString();
+
 
                     // 🔹 Create session
                     Session["UserEmail"] = email;
