@@ -21,7 +21,8 @@
 
             <asp:BoundField DataField="ResourceTypeId" HeaderText="ID" />
 
-            <asp:BoundField DataField="Name" HeaderText="Name" />
+           <asp:BoundField DataField="TypeName" HeaderText="Type Name" />
+
 
             <asp:BoundField DataField="Slug" HeaderText="Slug" />
 

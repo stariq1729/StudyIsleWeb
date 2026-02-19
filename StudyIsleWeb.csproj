@@ -88,6 +88,7 @@
     <Content Include="Admin\Classes\EditClass.aspx" />
     <Content Include="Admin\Classes\ManageClasses.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
+    <Content Include="Admin\ResourceTypes\AddResourceType.aspx" />
     <Content Include="Admin\ResourceTypes\ManageResourceTypes.aspx" />
     <Content Include="Admin\Subjects\AddSubject.aspx" />
     <Content Include="Admin\Subjects\EditSubject.aspx" />
@@ -177,6 +178,13 @@
     </Compile>
     <Compile Include="Admin\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ResourceTypes\AddResourceType.aspx.cs">
+      <DependentUpon>AddResourceType.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ResourceTypes\AddResourceType.aspx.designer.cs">
+      <DependentUpon>AddResourceType.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\ResourceTypes\ManageResourceTypes.aspx.cs">
       <DependentUpon>ManageResourceTypes.aspx</DependentUpon>
