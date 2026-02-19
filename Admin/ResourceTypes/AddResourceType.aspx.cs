@@ -36,13 +36,14 @@ namespace StudyIsleWeb.Admin.ResourceTypes
             using (SqlConnection con = new SqlConnection(cs))
             {
                 string query = @"INSERT INTO ResourceTypes 
-                                (Name, Slug, IsActive, CreatedAt)
-                                VALUES
-                                (@Name, @Slug, @IsActive, GETDATE())";
+(TypeName, Slug, IsPremium, IsActive, DisplayOrder, CreatedAt)
+VALUES
+(@TypeName, @Slug, @IsPremium, @IsActive, @DisplayOrder, GETDATE())
+";
 
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
-                    cmd.Parameters.AddWithValue("@Name", name);
+                    cmd.Parameters.AddWithValue("@TypeName", name);
                     cmd.Parameters.AddWithValue("@Slug", slug);
                     cmd.Parameters.AddWithValue("@IsActive", isActive);
 
