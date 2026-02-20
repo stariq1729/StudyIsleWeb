@@ -9,7 +9,9 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <!-- HERO SECTION -->
+<asp:Panel ID="pnlBoardLanding" runat="server">
+
+    <!-- HERO -->
     <section class="board-hero">
         <h1>
             <asp:Literal ID="litBoardTitle" runat="server"></asp:Literal>
@@ -17,9 +19,9 @@
         <p>Access free textbooks, solutions, and study materials.</p>
     </section>
 
-    <!-- RESOURCE TYPE CARDS -->
+    <!-- RESOURCE CARDS -->
     <section class="resource-type-section">
-        <div class="container">
+        <div class="container-grid">
             <asp:Repeater ID="rptResourceTypes" runat="server">
                 <ItemTemplate>
                     <div class="resource-card">
@@ -34,7 +36,47 @@
             </asp:Repeater>
         </div>
     </section>
+    <!-- ================= CLASS SECTION ================= -->
 
+<asp:Panel ID="pnlClassSection" runat="server" Visible="false">
+
+    <section class="class-section">
+        <h2>Select Your Class</h2>
+
+        <div class="class-container">
+            <asp:Repeater ID="rptClasses" runat="server">
+                <ItemTemplate>
+                    <a class='class-pill <%# Eval("Slug").ToString() == Request.QueryString["class"] ? "active-class" : "" %>'
+                       href='Books.aspx?board=<%# Eval("BoardSlug") %>&type=<%# Eval("TypeSlug") %>&class=<%# Eval("Slug") %>'>
+                        <%# Eval("ClassName") %>
+                    </a>
+                </ItemTemplate>
+            </asp:Repeater>
+        </div>
+    </section>
+
+</asp:Panel>
+
+
+
+<!-- ================= SUBJECT SECTION ================= -->
+
+<asp:Panel ID="pnlSubjectSection" runat="server" Visible="false">
+
+    <section class="subject-section">
+        <div class="subject-container">
+            <asp:Repeater ID="rptSubjects" runat="server">
+                <ItemTemplate>
+                    <div class="subject-card">
+                        <h3><%# Eval("SubjectName") %></h3>
+                        <a href="#">View Books →</a>
+                    </div>
+                </ItemTemplate>
+            </asp:Repeater>
+        </div>
+    </section>
+
+</asp:Panel>
     <!-- ========================= -->
 <!-- STATS SECTION -->
 <!-- ========================= -->
@@ -104,5 +146,5 @@
         <a href="#" class="cta-btn">Explore Books Now</a>
     </div>
 </section>
-
+    </asp:Panel>
 </asp:Content>

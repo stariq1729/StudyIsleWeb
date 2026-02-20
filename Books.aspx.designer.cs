@@ -15,6 +15,15 @@ namespace StudyIsleWeb
     {
 
         /// <summary>
+        /// pnlBoardLanding control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlBoardLanding;
+
+        /// <summary>
         /// litBoardTitle control.
         /// </summary>
         /// <remarks>
@@ -31,6 +40,42 @@ namespace StudyIsleWeb
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptResourceTypes;
+
+        /// <summary>
+        /// pnlClassSection control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlClassSection;
+
+        /// <summary>
+        /// rptClasses control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptClasses;
+
+        /// <summary>
+        /// pnlSubjectSection control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlSubjectSection;
+
+        /// <summary>
+        /// rptSubjects control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptSubjects;
 
         /// <summary>
         /// litBoardWhy control.
