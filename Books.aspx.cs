@@ -52,6 +52,7 @@ namespace StudyIsleWeb
                         string boardName = reader["BoardName"].ToString();
 
                         litBoardTitle.Text = boardName + " Resources";
+                        litBoardWhy.Text = boardName;
 
                         reader.Close();
                         LoadResourceTypes(boardSlug);
