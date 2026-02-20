@@ -117,6 +117,7 @@
     <Content Include="Content\Admin\Boards.css" />
     <Content Include="Content\Admin\Classes.css" />
     <Content Include="Content\Admin\dashboard.css" />
+    <Content Include="Content\Admin\resources.css" />
     <Content Include="Content\Admin\resourse-types.css" />
     <Content Include="Content\Admin\subjects.css" />
     <Content Include="Default.aspx" />

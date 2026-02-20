@@ -18,6 +18,7 @@
 <link href="/Content/Admin/subjects.css" rel="stylesheet" />
   <link href="/Content/Admin/resource-types.css" rel="stylesheet" />
 
+    <link href="/Content/Admin/resources.css" rel="stylesheet" />
 
     <style>
         body {
