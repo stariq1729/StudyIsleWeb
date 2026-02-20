@@ -3,17 +3,17 @@ using StudyIsleWeb.Admin.ResourceTypes;
 using StudyIsleWeb.Admin.Subjects;
 using System;
 using System.Configuration;
-using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 
+
 namespace StudyIsleWeb.Admin.Resources
 {
-    public partial class AddResource : System.Web.UI.Page
+    public partial class AddResources : System.Web.UI.Page
     {
-        string cs = ConfigurationManager.ConnectionStrings["StudyIsleDB"].ConnectionString;
+        string cs = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,9 +24,9 @@ namespace StudyIsleWeb.Admin.Resources
             }
         }
 
-        // ===============================
+        // =========================
         // LOAD DROPDOWNS
-        // ===============================
+        // =========================
 
         private void LoadBoards()
         {
@@ -43,7 +43,6 @@ namespace StudyIsleWeb.Admin.Resources
                     ddlBoard.DataBind();
                 }
             }
-
             ddlBoard.Items.Insert(0, "-- Select Board --");
         }
 
@@ -63,7 +62,6 @@ namespace StudyIsleWeb.Admin.Resources
                     ddlClass.DataBind();
                 }
             }
-
             ddlClass.Items.Insert(0, "-- Select Class --");
         }
 
@@ -88,7 +86,6 @@ namespace StudyIsleWeb.Admin.Resources
                     ddlSubject.DataBind();
                 }
             }
-
             ddlSubject.Items.Insert(0, "-- Select Subject --");
         }
 
@@ -107,13 +104,12 @@ namespace StudyIsleWeb.Admin.Resources
                     ddlResourceType.DataBind();
                 }
             }
-
             ddlResourceType.Items.Insert(0, "-- Select Type --");
         }
 
-        // ===============================
-        // DROPDOWN EVENTS
-        // ===============================
+        // =========================
+        // EVENTS
+        // =========================
 
         protected void ddlBoard_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -122,7 +118,17 @@ namespace StudyIsleWeb.Admin.Resources
 
             if (int.TryParse(ddlBoard.SelectedValue, out int boardId))
             {
-                LoadClasses(boardId);
+                bool hasClassLayer = BoardHasClassLayer(boardId);
+
+                if (hasClassLayer)
+                {
+                    LoadClasses(boardId);
+                }
+                else
+                {
+                    // No class layer → load subjects directly
+                    LoadSubjects(boardId, null);
+                }
             }
         }
 
@@ -140,40 +146,45 @@ namespace StudyIsleWeb.Admin.Resources
             }
         }
 
-        // ===============================
+        // =========================
         // SAVE RESOURCE
-        // ===============================
+        // =========================
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
             if (!ValidateForm())
                 return;
 
+            lblMessage.Text = "SaveFile starting...";
+
             string filePath = SaveFile();
+
+            lblMessage.Text = "File saved at: " + filePath;
+            
 
             using (SqlConnection con = new SqlConnection(cs))
             {
                 string query = @"
-                    INSERT INTO Resources
-                    (BoardId, ClassId, SubjectId, ResourceTypeId,
-                     Title, Description, FilePath,
-                     IsPremium, IsActive, DownloadCount, CreatedAt)
-                    VALUES
-                    (@BoardId, @ClassId, @SubjectId, @ResourceTypeId,
-                     @Title, @Description, @FilePath,
-                     @IsPremium, @IsActive, 0, GETDATE())";
+                INSERT INTO Resources
+                (BoardId, ClassId, SubjectId, ResourceTypeId,
+                 Title, Description, FilePath,
+                 IsPremium, IsActive, DownloadCount, CreatedAt)
+                VALUES
+                (@BoardId, @ClassId, @SubjectId, @ResourceTypeId,
+                 @Title, @Description, @FilePath,
+                 @IsPremium, @IsActive, 0, GETDATE())";
 
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@BoardId", ddlBoard.SelectedValue);
                     cmd.Parameters.AddWithValue("@ClassId",
-                        string.IsNullOrEmpty(ddlClass.SelectedValue) ? (object)DBNull.Value : ddlClass.SelectedValue);
+                        ddlClass.SelectedIndex > 0 ? (object)ddlClass.SelectedValue : DBNull.Value);
                     cmd.Parameters.AddWithValue("@SubjectId", ddlSubject.SelectedValue);
                     cmd.Parameters.AddWithValue("@ResourceTypeId", ddlResourceType.SelectedValue);
                     cmd.Parameters.AddWithValue("@Title", txtTitle.Text.Trim());
-                    cmd.Parameters.AddWithValue("@Description", DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Description", txtDescription.Text.Trim());
                     cmd.Parameters.AddWithValue("@FilePath", filePath);
-                    cmd.Parameters.AddWithValue("@IsPremium", false);
+                    cmd.Parameters.AddWithValue("@IsPremium", chkIsPremium.Checked);
                     cmd.Parameters.AddWithValue("@IsActive", chkIsActive.Checked);
 
                     con.Open();
@@ -184,12 +195,30 @@ namespace StudyIsleWeb.Admin.Resources
             Response.Redirect("ManageResources.aspx");
         }
 
-        // ===============================
+        // =========================
         // VALIDATION
-        // ===============================
+        // =========================
 
         private bool ValidateForm()
         {
+            // Enforce Class Layer Rule
+            if (ddlBoard.SelectedIndex > 0)
+            {
+                int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
+                bool hasClassLayer = BoardHasClassLayer(boardId);
+
+                if (hasClassLayer && ddlClass.SelectedIndex == 0)
+                {
+                    lblMessage.Text = "This board requires a class selection.";
+                    return false;
+                }
+
+                if (!hasClassLayer && ddlClass.SelectedIndex > 0)
+                {
+                    lblMessage.Text = "This board does not support classes.";
+                    return false;
+                }
+            }
             if (ddlBoard.SelectedIndex == 0 ||
                 ddlSubject.SelectedIndex == 0 ||
                 ddlResourceType.SelectedIndex == 0 ||
@@ -217,41 +246,57 @@ namespace StudyIsleWeb.Admin.Resources
             return true;
         }
 
-        // ===============================
-        // FILE SAVE ENGINE
-        // ===============================
+        // =========================
+        // FILE SAVE
+        // =========================
 
         private string SaveFile()
         {
+            // Get Board Slug
             string boardSlug = GetSlug("Boards", "BoardId", ddlBoard.SelectedValue);
-            string classSlug = ddlClass.SelectedIndex > 0
-                ? GetSlug("Classes", "ClassId", ddlClass.SelectedValue)
-                : null;
-            string subjectSlug = GetSlug("Subjects", "SubjectId", ddlSubject.SelectedValue);
-            string typeSlug = GetSlug("ResourceTypes", "ResourceTypeId", ddlResourceType.SelectedValue);
 
+            // Base Upload path
             string basePath = Server.MapPath("~/Uploads/");
-            string folderPath = basePath + boardSlug + "\\";
 
-            if (classSlug != null)
-                folderPath += classSlug + "\\";
-
-            folderPath += subjectSlug + "\\" + typeSlug + "\\";
+            // Create Board folder path
+            string folderPath = Path.Combine(basePath, boardSlug);
+            // Add Class folder if selected
+            if (ddlClass.SelectedIndex > 0)
+            {
+                string classFolder = CleanFolderName(ddlClass.SelectedItem.Text);
+                folderPath = Path.Combine(folderPath, classFolder);
+            }
+            // Add Subject folder
+            string subjectSlug = GetSlug("Subjects", "SubjectId", ddlSubject.SelectedValue);
+            folderPath = Path.Combine(folderPath, subjectSlug);
+            // Add ResourceType folder
+            string typeSlug = GetSlug("ResourceTypes", "ResourceTypeId", ddlResourceType.SelectedValue);
+            folderPath = Path.Combine(folderPath, typeSlug);
 
             if (!Directory.Exists(folderPath))
                 Directory.CreateDirectory(folderPath);
 
+            // Clean file name
             string cleanFileName = Regex.Replace(txtTitle.Text.Trim(), @"[^a-zA-Z0-9]", "_");
-            string ext = Path.GetExtension(fileUpload.FileName);
-            string fullPath = folderPath + cleanFileName + ext;
 
+            string ext = Path.GetExtension(fileUpload.FileName);
+            string fullPath = Path.Combine(folderPath, cleanFileName + ext);
+
+            // Save file
+            lblMessage.Text = "Saving to: " + fullPath;
             fileUpload.SaveAs(fullPath);
 
-            string relativePath = fullPath.Replace(Server.MapPath("~/"), "").Replace("\\", "/");
+            // Convert to relative path
+            string relativePath = fullPath
+                .Replace(Server.MapPath("~/"), "")
+                .Replace("\\", "/");
 
             return "/" + relativePath;
         }
-
+        private string CleanFolderName(string text)
+        {
+            return Regex.Replace(text.ToLower(), @"[^a-z0-9]", "-");
+        }
         private string GetSlug(string table, string idField, string idValue)
         {
             using (SqlConnection con = new SqlConnection(cs))
@@ -262,7 +307,24 @@ namespace StudyIsleWeb.Admin.Resources
                 {
                     cmd.Parameters.AddWithValue("@Id", idValue);
                     con.Open();
-                    return cmd.ExecuteScalar().ToString();
+
+                    object result = cmd.ExecuteScalar();
+                    return result != null ? result.ToString() : "";
+                }
+            }
+        }
+        private bool BoardHasClassLayer(int boardId)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                string query = "SELECT HasClassLayer FROM Boards WHERE BoardId=@BoardId";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@BoardId", boardId);
+                    con.Open();
+
+                    return Convert.ToBoolean(cmd.ExecuteScalar());
                 }
             }
         }

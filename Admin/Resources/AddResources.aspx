@@ -8,7 +8,7 @@
 
     <asp:Label ID="lblMessage" runat="server" CssClass="text-danger"></asp:Label>
 
-    <!-- Board -->
+   <%--  Board -->--%>
     <div class="mb-3">
         <label>Board</label>
         <asp:DropDownList ID="ddlBoard" runat="server"
@@ -17,8 +17,7 @@
             OnSelectedIndexChanged="ddlBoard_SelectedIndexChanged">
         </asp:DropDownList>
     </div>
-
-    <!-- Class -->
+ <%--Class -->--%>
     <div class="mb-3">
         <label>Class</label>
         <asp:DropDownList ID="ddlClass" runat="server"
@@ -28,7 +27,7 @@
         </asp:DropDownList>
     </div>
 
-    <!-- Subject -->
+    <%---- Subject -->--%>
     <div class="mb-3">
         <label>Subject</label>
         <asp:DropDownList ID="ddlSubject" runat="server"
@@ -36,7 +35,7 @@
         </asp:DropDownList>
     </div>
 
-    <!-- Resource Type -->
+    <%--- Resource Type -->--%>
     <div class="mb-3">
         <label>Resource Type</label>
         <asp:DropDownList ID="ddlResourceType" runat="server"
@@ -44,46 +43,51 @@
         </asp:DropDownList>
     </div>
 
-    <!-- Title -->
+   <%-- -- Title -->--%>
     <div class="mb-3">
         <label>Title</label>
         <asp:TextBox ID="txtTitle" runat="server"
-            CssClass="form-control"
-            AutoPostBack="true"
-            OnTextChanged="txtTitle_TextChanged">
-        </asp:TextBox>
-    </div>
-
-    <!-- Slug -->
-    <div class="mb-3">
-        <label>Slug</label>
-        <asp:TextBox ID="txtSlug" runat="server"
             CssClass="form-control">
         </asp:TextBox>
     </div>
 
-    <!-- File Upload -->
+   <%-- - Description -->--%>
+    <div class="mb-3">
+        <label>Description</label>
+        <asp:TextBox ID="txtDescription" runat="server"
+            CssClass="form-control"
+            TextMode="MultiLine"
+            Rows="4">
+        </asp:TextBox>
+    </div>
+
+   <%-- -- File Upload -->--%>
     <div class="mb-3">
         <label>Upload File</label>
         <asp:FileUpload ID="fileUpload" runat="server"
             CssClass="form-control" />
     </div>
 
-    <!-- Is Active -->
+   <%-- -- Premium -->--%>
+    <div class="mb-3">
+        <asp:CheckBox ID="chkIsPremium" runat="server"
+            Text=" Premium Resource" />
+    </div>
+
+    <%---- Active -->--%>
     <div class="mb-3">
         <asp:CheckBox ID="chkIsActive" runat="server"
             Text=" Is Active"
             Checked="true" />
     </div>
 
-    <asp:Button ID="btnSave" runat="server"
+    <asp:Button ID="btnSave"
+        runat="server"
         Text="Save Resource"
         CssClass="btn btn-success"
         OnClick="btnSave_Click" />
 
-    <a href="ManageResources.aspx" class="btn btn-secondary ms-2">
-        Cancel
-    </a>
-
 </div>
+
+
 </asp:Content>

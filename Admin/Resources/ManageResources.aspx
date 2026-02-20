@@ -5,7 +5,7 @@
     <%-- Header -->--%>
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h4 class="page-title">Manage Resources</h4>
-        <a href="AddResource.aspx" class="btn btn-primary">
+        <a href="AddResources.aspx" class="btn btn-primary">
             + Add Resource
         </a>
     </div>

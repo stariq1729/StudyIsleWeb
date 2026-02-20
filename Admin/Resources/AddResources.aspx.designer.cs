@@ -69,13 +69,13 @@ namespace StudyIsleWeb.Admin.Resources
         protected global::System.Web.UI.WebControls.TextBox txtTitle;
 
         /// <summary>
-        /// txtSlug control.
+        /// txtDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSlug;
+        protected global::System.Web.UI.WebControls.TextBox txtDescription;
 
         /// <summary>
         /// fileUpload control.
@@ -85,6 +85,15 @@ namespace StudyIsleWeb.Admin.Resources
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload fileUpload;
+
+        /// <summary>
+        /// chkIsPremium control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkIsPremium;
 
         /// <summary>
         /// chkIsActive control.
