@@ -83,7 +83,7 @@
                         <li class="nav-item dropdown position-static">
                             <a class="nav-link nav-custom dropdown-toggle" href="#" role="button"
                                data-bs-toggle="dropdown">
-                                Courses
+                                StudyHub
                             </a>
 
                             <div class="dropdown-menu mega-dropdown border-0 shadow-lg p-3">
@@ -104,10 +104,10 @@
                                         <div class="col-md-4">
                                             <h6 class="fw-bold text-uppercase mb-3">School Boards</h6>
                                             <ul class="list-unstyled">
-                                                <li><a class="dropdown-item" href="#">CBSE Class 6–12</a></li>
+                                                <li><a class="dropdown-item" href="#">CBSE </a></li>
                                                 <li><a class="dropdown-item" href="#">ICSE / ISC</a></li>
                                                 <li><a class="dropdown-item" href="#">State Boards</a></li>
-                                                <li><a class="dropdown-item" href="#">Olympiads</a></li>
+                                                <li><a class="dropdown-item" href="#">NCERT</a></li>
                                             </ul>
                                         </div>
 

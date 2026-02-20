@@ -111,7 +111,9 @@
     <Content Include="assets\css\strip.css" />
     <Content Include="assets\css\Testimonialsection.css" />
     <Content Include="assets\css\TutorSection.css" />
+    <Content Include="assets\Public\books.css" />
     <Content Include="Blogs.aspx" />
+    <Content Include="Books.aspx" />
     <Content Include="Content\Admin\add-resource.css" />
     <Content Include="Content\Admin\board-form.css" />
     <Content Include="Content\Admin\Boards.css" />
@@ -254,6 +256,13 @@
     </Compile>
     <Compile Include="Blogs.aspx.designer.cs">
       <DependentUpon>Blogs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Books.aspx.cs">
+      <DependentUpon>Books.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Books.aspx.designer.cs">
+      <DependentUpon>Books.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
