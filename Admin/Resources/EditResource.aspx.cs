@@ -223,7 +223,138 @@ namespace StudyIsleWeb.Admin.Resources
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            // We implement update logic in next step
+            int resourceId = Convert.ToInt32(hfResourceId.Value);
+
+            if (ddlBoard.SelectedIndex == 0 || ddlSubject.SelectedIndex == 0 || ddlType.SelectedIndex == 0)
+                return;
+
+            int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
+            int? classId = null;
+
+            if (ddlClass.Visible && ddlClass.SelectedIndex > 0)
+                classId = Convert.ToInt32(ddlClass.SelectedValue);
+
+            int subjectId = Convert.ToInt32(ddlSubject.SelectedValue);
+            int typeId = Convert.ToInt32(ddlType.SelectedValue);
+
+            string title = txtTitle.Text.Trim();
+            string description = txtDescription.Text.Trim();
+            bool isPremium = chkPremium.Checked;
+            bool isActive = chkActive.Checked;
+
+            string existingFilePath = "";
+            string newFilePath = "";
+
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                con.Open();
+
+                // Get existing file path
+                using (SqlCommand cmd = new SqlCommand("SELECT FilePath FROM Resources WHERE ResourceId=@Id", con))
+                {
+                    cmd.Parameters.AddWithValue("@Id", resourceId);
+                    existingFilePath = cmd.ExecuteScalar().ToString();
+                }
+
+                newFilePath = existingFilePath;
+
+                // If new file uploaded
+                if (fuFile.HasFile)
+                {
+                    string extension = System.IO.Path.GetExtension(fuFile.FileName).ToLower();
+
+                    // Basic extension validation
+                    string[] allowed = { ".pdf", ".doc", ".docx", ".ppt", ".pptx", ".jpg", ".png" };
+                    if (!Array.Exists(allowed, ext => ext == extension))
+                        return;
+
+                    // Fetch slugs for path rebuild
+                    string boardSlug = "";
+                    string subjectSlug = "";
+                    string typeSlug = "";
+                    string className = "";
+
+                    using (SqlCommand cmdMeta = new SqlCommand(@"
+                SELECT b.Slug, s.Slug, rt.Slug, c.ClassName
+                FROM Boards b
+                INNER JOIN Subjects s ON s.SubjectId=@SubjectId
+                INNER JOIN ResourceTypes rt ON rt.ResourceTypeId=@TypeId
+                LEFT JOIN Classes c ON c.ClassId=@ClassId
+                WHERE b.BoardId=@BoardId", con))
+                    {
+                        cmdMeta.Parameters.AddWithValue("@BoardId", boardId);
+                        cmdMeta.Parameters.AddWithValue("@SubjectId", subjectId);
+                        cmdMeta.Parameters.AddWithValue("@TypeId", typeId);
+                        cmdMeta.Parameters.AddWithValue("@ClassId", (object)classId ?? DBNull.Value);
+
+                        using (SqlDataReader dr = cmdMeta.ExecuteReader())
+                        {
+                            if (dr.Read())
+                            {
+                                boardSlug = dr[0].ToString();
+                                subjectSlug = dr[1].ToString();
+                                typeSlug = dr[2].ToString();
+                                className = dr[3] == DBNull.Value ? "" : dr[3].ToString();
+                            }
+                        }
+                    }
+
+                    string folderPath = "~/Uploads/" + boardSlug + "/";
+
+                    if (!string.IsNullOrEmpty(className))
+                        folderPath += className + "/";
+
+                    folderPath += subjectSlug + "/" + typeSlug + "/";
+
+                    string physicalPath = Server.MapPath(folderPath);
+
+                    if (!System.IO.Directory.Exists(physicalPath))
+                        System.IO.Directory.CreateDirectory(physicalPath);
+
+                    string fileName = Guid.NewGuid().ToString() + extension;
+
+                    string fullPath = System.IO.Path.Combine(physicalPath, fileName);
+
+                    fuFile.SaveAs(fullPath);
+
+                    newFilePath = folderPath + fileName;
+
+                    // Delete old file
+                    string oldPhysical = Server.MapPath(existingFilePath);
+                    if (System.IO.File.Exists(oldPhysical))
+                        System.IO.File.Delete(oldPhysical);
+                }
+
+                // UPDATE QUERY
+                using (SqlCommand cmdUpdate = new SqlCommand(@"
+            UPDATE Resources
+            SET BoardId=@BoardId,
+                ClassId=@ClassId,
+                SubjectId=@SubjectId,
+                ResourceTypeId=@TypeId,
+                Title=@Title,
+                Description=@Description,
+                FilePath=@FilePath,
+                IsPremium=@IsPremium,
+                IsActive=@IsActive
+            WHERE ResourceId=@Id", con))
+                {
+                    cmdUpdate.Parameters.AddWithValue("@BoardId", boardId);
+                    cmdUpdate.Parameters.AddWithValue("@ClassId", (object)classId ?? DBNull.Value);
+                    cmdUpdate.Parameters.AddWithValue("@SubjectId", subjectId);
+                    cmdUpdate.Parameters.AddWithValue("@TypeId", typeId);
+                    cmdUpdate.Parameters.AddWithValue("@Title", title);
+                    cmdUpdate.Parameters.AddWithValue("@Description", description);
+                    cmdUpdate.Parameters.AddWithValue("@FilePath", newFilePath);
+                    cmdUpdate.Parameters.AddWithValue("@IsPremium", isPremium);
+                    cmdUpdate.Parameters.AddWithValue("@IsActive", isActive);
+                    cmdUpdate.Parameters.AddWithValue("@Id", resourceId);
+
+                    cmdUpdate.ExecuteNonQuery();
+                }
+            }
+
+            Response.Redirect("ManageResources.aspx");
         }
     }
 }
