@@ -65,6 +65,13 @@ namespace StudyIsleWeb.Admin.Resources
 
                 LoadResources();
             }
+
+            if (e.CommandName == "EditResource")
+            {
+                int id = Convert.ToInt32(e.CommandArgument);
+
+                Response.Redirect("EditResource.aspx?id=" + id);
+            }
         }
     }
 }

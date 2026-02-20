@@ -63,14 +63,16 @@
             </asp:TemplateField>
 
           <%--  Edit -->--%>
-            <asp:TemplateField HeaderText="Action">
-                <ItemTemplate>
-                    <a href='EditResource.aspx?id=<%# Eval("ResourceId") %>'
-                       class="btn btn-sm btn-warning">
-                        Edit
-                    </a>
-                </ItemTemplate>
-            </asp:TemplateField>
+           <asp:TemplateField HeaderText="Action">
+    <ItemTemplate>
+        <asp:LinkButton ID="btnEdit" runat="server"
+            CssClass="btn btn-sm btn-warning"
+            CommandName="EditResource"
+            CommandArgument='<%# Eval("ResourceId") %>'>
+            Edit
+        </asp:LinkButton>
+    </ItemTemplate>
+</asp:TemplateField>
 
         </Columns>
 
