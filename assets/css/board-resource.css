@@ -1,0 +1,50 @@
+﻿/* HEADER SECTION */
+.board-resource-header {
+    padding: 60px 0;
+    background: #f4f6fb;
+}
+
+    .board-resource-header h1 {
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .board-resource-header p {
+        margin-bottom: 25px;
+        color: #555;
+    }
+
+
+/* CLASS TABS */
+.class-tabs {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.class-btn {
+    padding: 8px 18px;
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+    .class-btn:hover {
+        background: #eee;
+    }
+
+    .class-btn.active {
+        background: #4b3dbf;
+        color: #fff;
+        border-color: #4b3dbf;
+    }
+
+
+/* BODY */
+.resource-body {
+    padding: 60px 0;
+}
