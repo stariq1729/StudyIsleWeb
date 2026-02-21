@@ -12,10 +12,10 @@ namespace StudyIsleWeb
 
             // NCERT route
             routes.MapPageRoute(
-                "NCERTRoute",
-                "ncert/{resourcetype}",
-                "~/NCERT.aspx"
-            );
+     "NCERTResourceRoute",
+     "ncert/{resourcetype}",
+     "~/BoardResource.aspx"
+ );
         }
     }
 }

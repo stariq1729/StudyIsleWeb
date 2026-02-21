@@ -124,6 +124,7 @@
     <Content Include="Content\Admin\resourse-types.css" />
     <Content Include="Content\Admin\subjects.css" />
     <Content Include="Default.aspx" />
+    <Content Include="Global.asax" />
     <Content Include="GoogleCallback.aspx" />
     <Content Include="JoinTutor.aspx" />
     <Content Include="Login.aspx" />
@@ -252,6 +253,7 @@
     <Compile Include="Admin\Subjects\ManageSubjects.aspx.designer.cs">
       <DependentUpon>ManageSubjects.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Blogs.aspx.cs">
       <DependentUpon>Blogs.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -272,6 +274,9 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GoogleCallback.aspx.cs">
       <DependentUpon>GoogleCallback.aspx</DependentUpon>
