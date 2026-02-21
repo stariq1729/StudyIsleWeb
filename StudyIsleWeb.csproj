@@ -100,6 +100,7 @@
     <Content Include="assets\css\AISection.css" />
     <Content Include="assets\css\BlogSection.css" />
     <Content Include="assets\css\Blogspage.css" />
+    <Content Include="assets\css\board-resource.css" />
     <Content Include="assets\css\BooksSection.css" />
     <Content Include="assets\css\CareerGuide.css" />
     <Content Include="assets\css\CourseSection.css" />
@@ -114,6 +115,7 @@
     <Content Include="assets\css\TutorSection.css" />
     <Content Include="assets\Public\books.css" />
     <Content Include="Blogs.aspx" />
+    <Content Include="BoardResource.aspx" />
     <Content Include="Books.aspx" />
     <Content Include="Content\Admin\add-resource.css" />
     <Content Include="Content\Admin\board-form.css" />
@@ -260,6 +262,13 @@
     </Compile>
     <Compile Include="Blogs.aspx.designer.cs">
       <DependentUpon>Blogs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BoardResource.aspx.cs">
+      <DependentUpon>BoardResource.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BoardResource.aspx.designer.cs">
+      <DependentUpon>BoardResource.aspx</DependentUpon>
     </Compile>
     <Compile Include="Books.aspx.cs">
       <DependentUpon>Books.aspx</DependentUpon>
