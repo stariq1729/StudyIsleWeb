@@ -23,7 +23,7 @@
                 <div class="resource-card">
                     <h5><%# Eval("TypeName") %></h5>
                     <p>Explore <%# Eval("TypeName") %> resources</p>
-                    <a href="NcertBooks.aspx" class="btn-explore">Explore →</a>
+                    <a href="NcertBook.aspx" class="btn-explore">Explore →</a>
                 </div>
             </div>
         </ItemTemplate>

@@ -48,3 +48,78 @@
 .resource-body {
     padding: 60px 0;
 }
+/* SUBJECT SECTION */
+.subject-section {
+    margin-bottom: 50px;
+}
+
+.subject-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.subject-bar {
+    width: 4px;
+    height: 20px;
+    background: #4b3dbf;
+    border-radius: 2px;
+}
+
+.subject-header h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* BOOK CARD AREA */
+.books-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* BOOK CARD */
+.book-card {
+    width: 260px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    overflow: hidden;
+    transition: 0.3s ease;
+}
+
+    .book-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .book-card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+    }
+
+.book-info {
+    padding: 15px;
+}
+
+    .book-info h5 {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 12px;
+    }
+
+.read-btn {
+    display: inline-block;
+    padding: 6px 14px;
+    background: #4b3dbf;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+    .read-btn:hover {
+        background: #372aa8;
+    }

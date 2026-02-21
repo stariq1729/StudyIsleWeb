@@ -131,6 +131,7 @@
     <Content Include="JoinTutor.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="NCERT.aspx" />
+    <Content Include="NcertBook.aspx" />
     <Content Include="Student\StudentIndex.aspx" />
     <Content Include="Student\Student_Logout.aspx" />
     <Content Include="Web.config" />
@@ -314,6 +315,13 @@
     </Compile>
     <Compile Include="NCERT.aspx.designer.cs">
       <DependentUpon>NCERT.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="NcertBook.aspx.cs">
+      <DependentUpon>NcertBook.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NcertBook.aspx.designer.cs">
+      <DependentUpon>NcertBook.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
