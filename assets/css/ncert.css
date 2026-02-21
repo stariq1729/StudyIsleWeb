@@ -1,0 +1,127 @@
+﻿/* HERO */
+.board-hero {
+    background: linear-gradient(90deg, #2c3e90, #6a3093);
+    padding: 80px 0;
+    color: #fff;
+}
+
+    .board-hero h1 {
+        font-size: 36px;
+        font-weight: 700;
+    }
+
+    .board-hero p {
+        margin-top: 10px;
+        font-size: 16px;
+    }
+
+/* RESOURCE SECTION */
+.resource-section {
+    padding: 80px 0;
+    background: #f4f6fb;
+}
+
+.resource-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    transition: 0.3s ease;
+}
+
+    .resource-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .resource-card h5 {
+        font-weight: 600;
+    }
+
+    .resource-card p {
+        font-size: 14px;
+        margin: 10px 0 20px;
+    }
+
+.btn-explore {
+    display: inline-block;
+    padding: 6px 18px;
+    background: #4b3dbf;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+    .btn-explore:hover {
+        background: #372aa8;
+    }
+/* STATS */
+.board-stats {
+    background: #ffffff;
+    padding: 50px 0;
+}
+
+    .board-stats h3 {
+        font-weight: 700;
+        color: #2c3e90;
+    }
+
+    .board-stats p {
+        font-size: 14px;
+        color: #666;
+    }
+
+
+/* WHY SECTION */
+.why-section {
+    padding: 80px 0;
+    background: #f4f6fb;
+}
+
+    .why-section h2 {
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+.benefit-box {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+    .benefit-box ul {
+        padding-left: 20px;
+    }
+
+    .benefit-box li {
+        margin-bottom: 10px;
+    }
+
+
+/* CTA */
+.board-cta {
+    background: linear-gradient(90deg, #2c3e90, #6a3093);
+    padding: 60px 0;
+    color: #fff;
+}
+
+    .board-cta h2 {
+        font-weight: 700;
+    }
+
+.cta-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 24px;
+    background: #ffffff;
+    color: #4b3dbf;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+    .cta-btn:hover {
+        background: #eee;
+    }
