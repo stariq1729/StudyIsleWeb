@@ -111,7 +111,7 @@ namespace StudyIsleWeb
                              FROM ResourceTypes
                              WHERE IsActive=1
                              AND Slug IN ('books','solutions','sample-papers','previous-papers','notes','syllabus')
-                             ORDER BY DisplayOrder";
+                             ";
 
                 SqlCommand cmd = new SqlCommand(q, con);
                 con.Open();
@@ -137,7 +137,7 @@ namespace StudyIsleWeb
                 string q = @"SELECT ClassName, Slug
                              FROM Classes
                              WHERE BoardId=@BoardId AND IsActive=1
-                             ORDER BY DisplayOrder";
+                             ";
 
                 SqlCommand cmd = new SqlCommand(q, con);
                 cmd.Parameters.AddWithValue("@BoardId", boardId);
@@ -169,7 +169,7 @@ namespace StudyIsleWeb
                              FROM Subjects s
                              INNER JOIN Classes c ON s.ClassId=c.ClassId
                              WHERE c.Slug=@Slug AND s.IsActive=1
-                             ORDER BY s.DisplayOrder";
+                             ";
 
                 SqlCommand cmd = new SqlCommand(q, con);
                 cmd.Parameters.AddWithValue("@Slug", classSlug);
