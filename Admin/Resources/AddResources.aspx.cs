@@ -156,6 +156,7 @@ namespace StudyIsleWeb.Admin.Resources
                 return;
 
             lblMessage.Text = "SaveFile starting...";
+            string slug = GenerateSlug(txtTitle.Text.Trim());
 
             string filePath = SaveFile();
 
@@ -165,15 +166,14 @@ namespace StudyIsleWeb.Admin.Resources
             using (SqlConnection con = new SqlConnection(cs))
             {
                 string query = @"
-                INSERT INTO Resources
-                (BoardId, ClassId, SubjectId, ResourceTypeId,
-                 Title, Description, FilePath,
-                 IsPremium, IsActive, DownloadCount, CreatedAt)
-                VALUES
-                (@BoardId, @ClassId, @SubjectId, @ResourceTypeId,
-                 @Title, @Description, @FilePath,
-                 @IsPremium, @IsActive, 0, GETDATE())";
-
+INSERT INTO Resources
+(BoardId, ClassId, SubjectId, ResourceTypeId,
+ Title, Slug, Description, FilePath,
+ IsPremium, IsActive, DownloadCount, CreatedAt)
+VALUES
+(@BoardId, @ClassId, @SubjectId, @ResourceTypeId,
+ @Title, @Slug, @Description, @FilePath,
+ @IsPremium, @IsActive, 0, GETDATE())";
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@BoardId", ddlBoard.SelectedValue);
@@ -182,6 +182,7 @@ namespace StudyIsleWeb.Admin.Resources
                     cmd.Parameters.AddWithValue("@SubjectId", ddlSubject.SelectedValue);
                     cmd.Parameters.AddWithValue("@ResourceTypeId", ddlResourceType.SelectedValue);
                     cmd.Parameters.AddWithValue("@Title", txtTitle.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Slug", slug);
                     cmd.Parameters.AddWithValue("@Description", txtDescription.Text.Trim());
                     cmd.Parameters.AddWithValue("@FilePath", filePath);
                     cmd.Parameters.AddWithValue("@IsPremium", chkIsPremium.Checked);
@@ -313,6 +314,7 @@ namespace StudyIsleWeb.Admin.Resources
                 }
             }
         }
+
         private bool BoardHasClassLayer(int boardId)
         {
             using (SqlConnection con = new SqlConnection(cs))
@@ -327,6 +329,44 @@ namespace StudyIsleWeb.Admin.Resources
                     return Convert.ToBoolean(cmd.ExecuteScalar());
                 }
             }
+        }
+        private string GenerateSlug(string title)
+        {
+            // Convert to lowercase
+            string slug = title.ToLower().Trim();
+
+            // Replace invalid chars with dash
+            slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
+            slug = Regex.Replace(slug, @"\s+", "-");
+            slug = Regex.Replace(slug, @"-+", "-");
+
+            string originalSlug = slug;
+            int count = 2;
+
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                con.Open();
+
+                while (true)
+                {
+                    string query = "SELECT COUNT(*) FROM Resources WHERE Slug = @Slug";
+
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@Slug", slug);
+
+                        int exists = (int)cmd.ExecuteScalar();
+
+                        if (exists == 0)
+                            break;
+
+                        slug = originalSlug + "-" + count;
+                        count++;
+                    }
+                }
+            }
+
+            return slug;
         }
     }
 }
