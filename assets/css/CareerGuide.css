@@ -3,18 +3,18 @@
 ====================================== */
 
 .career-section {
-    padding: 80px 0;
-    background: #f5f6fb; /* outer light background */
+    padding: 10px 0;
+    background: #f5f6fb;
 }
 
-/* Main dark container */
 .career-wrapper {
     background: #1f1b4d;
     border-radius: 28px;
-    padding: 55px 60px;
+    padding: 48px 52px;
 }
+
     .career-wrapper .row {
-        --bs-gutter-x: 2rem; /* reduce default bootstrap horizontal gap */
+        --bs-gutter-x: 1rem; /* changed: was 2.5rem, now much tighter */
     }
 
 
@@ -24,21 +24,22 @@
 
 .career-badge {
     display: inline-block;
-    background: rgba(255,255,255,0.12);
+    background: rgba(255, 255, 255, 0.12);
     color: #ffd95e;
-    padding: 6px 12px;
+    padding: 5px 14px;
     border-radius: 20px;
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 600;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
+    letter-spacing: 0.3px;
 }
 
 .career-heading {
-    font-size: 34px;
+    font-size: 32px;
     font-weight: 700;
     color: #ffffff;
-    line-height: 1.3;
-    margin-bottom: 18px;
+    line-height: 1.25;
+    margin-bottom: 14px;
 }
 
     .career-heading span {
@@ -46,51 +47,60 @@
     }
 
 .career-description {
-    color: #d6d6ff;
-    font-size: 15px;
-    max-width: 480px;
-    margin-bottom: 28px;
+    color: #c8c8f0;
+    font-size: 14px;
+    line-height: 1.6;
+    max-width: 440px;
+    margin-bottom: 16px;
 }
 
-/* Features */
+/* Features Grid */
 .career-features {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    column-gap: 30px; /* horizontal spacing */
-    row-gap: 0px; /* smaller vertical spacing */
+    column-gap: 16px;
+    row-gap: 0;
     margin-bottom: 20px;
 }
-
 
 .feature-item {
     display: flex;
     align-items: center;
     gap: 8px;
     font-size: 13px;
-    color: #ffffff;
+    color: #e0e0ff;
+    font-weight: 500;
+    line-height: 1.4;
+    padding: 5px 0;
+    margin: 0;
 }
 
     .feature-item i {
         color: #7d8cff;
-        font-size: 16px;
+        font-size: 15px;
+        flex-shrink: 0;
     }
 
 /* CTA Area */
 .career-cta-area {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 18px;
+    flex-wrap: wrap;
 }
 
 .career-cta {
     background: #ffffff;
     color: #1f1b4d;
-    padding: 12px 26px;
+    padding: 11px 24px;
     border-radius: 12px;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 14px;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
 
     .career-cta:hover {
@@ -101,9 +111,9 @@
 .online-status {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     font-size: 12px;
-    color: #cfcfff;
+    color: #b0b0e0;
 }
 
 .dot {
@@ -111,84 +121,218 @@
     height: 8px;
     background: #7d8cff;
     border-radius: 50%;
+    animation: pulse-dot 1.6s ease-in-out infinite;
 }
+
+    .dot:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .dot:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+@keyframes pulse-dot {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.35;
+    }
+}
+
 
 /* ======================================
-   RIGHT COUNSELLOR CARD (COMPACT)
+   RIGHT — CARD WRAPPER
 ====================================== */
 
+.career-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Wrapper is overflow:visible so success badge can poke out */
+.counsellor-card-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    padding-bottom: 30px; /* ADD this so badge has room below */
+}
+
+/* Card is overflow:hidden so ribbon is clipped neatly inside */
 .counsellor-card {
-    background: rgba(255,255,255,0.07);
-    border-radius: 30px;
-    padding: 26px 28px;
-    max-width: 540px; /* increased width */
-    margin-left: 0; /* remove auto push */
+    position: relative;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 24px 22px 20px;
+    width: 100%;
     color: #ffffff;
+    overflow: hidden;
 }
 
 
-/* Profile */
+/* ======================================
+   YELLOW CORNER RIBBON
+====================================== */
+
+.slots-ribbon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 80px 80px 0;
+    border-color: transparent #ffd95e transparent transparent;
+    z-index: 2;
+}
+
+.slots-ribbon-text {
+    position: absolute;
+    top: 12px;
+    right: 4px;
+    font-size: 8.5px;
+    font-weight: 800;
+    color: #1f1b4d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.25;
+    text-align: center;
+    transform: rotate(45deg);
+    width: 44px;
+    z-index: 3;
+}
+
+
+/* ======================================
+   PROFILE
+====================================== */
+
 .counsellor-top {
     text-align: center;
     margin-bottom: 16px;
 }
 
     .counsellor-top img {
-        width: 60px;
-        height: 80px;
+        width: 72px;
+        height: 72px;
         border-radius: 50%;
-        margin-bottom: 6px;
+        object-fit: cover;
+        border: 3px solid rgba(125, 140, 255, 0.5);
+        margin-bottom: 10px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .counsellor-top h5 {
-        font-size: 17px;
-        font-weight: 600;
-        margin: 0;
+        font-size: 16px;
+        font-weight: 700;
+        margin: 0 0 4px;
+        color: #ffffff;
     }
 
     .counsellor-top p {
-        font-size: 12px;
-        color: #cfcfff;
+        font-size: 10px;
+        color: #9898cc;
         margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.9px;
+        font-weight: 600;
     }
 
-/* Info Rows */
+
+/* ======================================
+   INFO ROWS
+====================================== */
+
 .counsellor-info {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .info-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(255,255,255,0.09);
-    padding: 7px 12px;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 8px 13px;
     border-radius: 10px;
-    margin-bottom: 7px;
-    font-size: 13px;
+    margin-bottom: 6px;
 }
 
     .info-row span {
-        color: #dcdcff;
+        color: #9898cc;
+        font-size: 12px;
     }
 
     .info-row strong {
-        font-weight: 600;
+        font-weight: 700;
+        font-size: 13px;
+        color: #ffffff;
     }
 
-/* Next Slot */
+
+/* ======================================
+   NEXT SLOT
+====================================== */
+
 .next-slot {
     background: linear-gradient(90deg, #5a67ff, #7d8cff);
-    padding: 11px;
+    padding: 12px 14px;
     border-radius: 12px;
     text-align: center;
     font-size: 12px;
-    margin-top: 10px;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.4;
 }
 
     .next-slot strong {
-        font-size: 13px;
+        font-size: 14px;
+        display: block;
+        color: #ffffff;
+        font-weight: 700;
+        margin-top: 2px;
     }
+
+
+/* ======================================
+   SUCCESS STORY BADGE
+====================================== */
+
+.success-badge {
+    position: absolute;
+    bottom: 0px; /* changed: sit below the card slightly */
+    left: -49px; /* changed: aligned to card left edge */
+    background: #ffd95e;
+    color: #1f1b4d;
+    padding: 10px 14px;
+    border-radius: 12px;
+    max-width: 150px;
+    line-height: 1.45;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    transform: rotate(-3deg);
+    z-index: 10;
+}
+
+    .success-badge .badge-label {
+        font-size: 9px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        margin-bottom: 5px;
+        display: block;
+        opacity: 0.7;
+    }
+
+    .success-badge p {
+        margin: 0;
+        font-weight: 700;
+        font-size: 11px;
+        font-style: italic;
+    }
+
 
 /* ======================================
    RESPONSIVE
@@ -197,7 +341,7 @@
 @media (max-width: 992px) {
 
     .career-wrapper {
-        padding: 40px 30px;
+        padding: 36px 28px;
     }
 
     .career-heading {
@@ -206,24 +350,33 @@
 
     .career-features {
         grid-template-columns: 1fr;
+        row-gap: 0;
     }
 
     .career-cta-area {
         flex-direction: column;
         align-items: flex-start;
-        gap: 14px;
+        gap: 12px;
     }
 
-    .counsellor-card {
-        margin-top: 35px;
+    .career-right {
+        justify-content: center;
+    }
+
+    .counsellor-card-wrapper {
+        margin-top: 40px;
         max-width: 100%;
+    }
+
+    .success-badge {
+        left: 10px;
     }
 }
 
 @media (max-width: 576px) {
 
     .career-wrapper {
-        padding: 30px 20px;
+        padding: 28px 18px;
     }
 
     .career-heading {
