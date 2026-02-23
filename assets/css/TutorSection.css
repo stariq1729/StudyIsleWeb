@@ -95,8 +95,8 @@ section.tutors-section {
 /* Join Box */
 .join-tutor-box {
     background: #f1f5f9;
-    padding: 15px 15px;
-    border-radius: 50px;
+    padding: 10px 15px;
+    border-radius: 40px;
     margin-top: 60px; /* More separation */
 }
 
