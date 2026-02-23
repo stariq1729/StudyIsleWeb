@@ -21,7 +21,7 @@
 
     .interactive-image-card img {
         width: 100%;
-        height: 420px;
+        height: 380px;
         object-fit: cover;
         display: block;
     }
