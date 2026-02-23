@@ -8,7 +8,7 @@
 /*}*/
 section.tutors-section {
     background: #f8f9fc;
-    padding: 110px 0;
+    padding: 30px 0;
 }
 
 
@@ -95,9 +95,9 @@ section.tutors-section {
 /* Join Box */
 .join-tutor-box {
     background: #f1f5f9;
-    padding: 40px 50px;
-    border-radius: 18px;
-    margin-top: 70px; /* More separation */
+    padding: 15px 15px;
+    border-radius: 50px;
+    margin-top: 60px; /* More separation */
 }
 
 
