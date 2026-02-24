@@ -3,46 +3,77 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <h4 class="page-title">Manage Boards</h4>
-        <a href="AddBoards.aspx" class="btn btn-primary btn-add">+ Add Board</a>
+    <div class="admin-header">
+        <div>
+            <h4 class="page-title">Manage Boards</h4>
+            <p class="page-subtitle">Create and manage education boards</p>
+        </div>
+
+        <div>
+            <a href="AddBoards.aspx" class="btn btn-primary btn-add">
+                + Add Board
+            </a>
+        </div>
     </div>
 
-    <asp:GridView ID="gvBoards" runat="server" 
-        AutoGenerateColumns="False" 
-        CssClass="table table-bordered"
-        OnRowCommand="gvBoards_RowCommand">
+    <div class="card admin-card">
 
-        <Columns>
+        <asp:GridView ID="gvBoards" runat="server"
+            AutoGenerateColumns="False"
+            CssClass="table table-hover admin-table"
+            OnRowCommand="gvBoards_RowCommand"
+            DataKeyNames="BoardId">
 
-            <asp:BoundField DataField="BoardId" HeaderText="ID" />
+            <Columns>
 
-            <asp:BoundField DataField="BoardName" HeaderText="Board Name" />
+                <asp:BoundField DataField="BoardId" HeaderText="ID" />
 
-            <asp:BoundField DataField="HasClassLayer" HeaderText="Has Class Layer" />
+                <asp:BoundField DataField="BoardName" HeaderText="Board Name" />
 
-            <asp:TemplateField HeaderText="Action">
-    <ItemTemplate>
-        <a href='EditBoard.aspx?id=<%# Eval("BoardId") %>' 
-           class="btn btn-sm btn-warning">
-           Edit
-        </a>
-    </ItemTemplate>
-</asp:TemplateField>
+                <asp:BoundField DataField="Slug" HeaderText="Slug" />
 
+                <asp:TemplateField HeaderText="Has Class">
+                    <ItemTemplate>
+                        <%# Convert.ToBoolean(Eval("HasClassLayer")) 
+                            ? "<span class='badge badge-info'>Yes</span>" 
+                            : "<span class='badge badge-secondary'>No</span>" %>
+                    </ItemTemplate>
+                </asp:TemplateField>
 
-            <asp:TemplateField HeaderText="Status">
-                <ItemTemplate>
-                    <asp:LinkButton ID="btnToggle" runat="server"
-                        CommandName="ToggleActive"
-                        CommandArgument='<%# Eval("BoardId") %>'
-                        CssClass='<%# Convert.ToBoolean(Eval("IsActive")) ? "badge badge-active text-white p-2" : "badge badge-inactive text-white p-2" %>'>
-                        <%# Convert.ToBoolean(Eval("IsActive")) ? "Active" : "Inactive" %>
-                    </asp:LinkButton>
-                </ItemTemplate>
-            </asp:TemplateField>
+                <asp:TemplateField HeaderText="Created">
+                    <ItemTemplate>
+                        <%# Convert.ToDateTime(Eval("CreatedAt")).ToString("dd MMM yyyy") %>
+                    </ItemTemplate>
+                </asp:TemplateField>
 
-        </Columns>
+                <asp:TemplateField HeaderText="Status">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="btnToggle" runat="server"
+                            CommandName="ToggleActive"
+                            CommandArgument='<%# Eval("BoardId") %>'
+                            CssClass='<%# Convert.ToBoolean(Eval("IsActive")) 
+                                ? "badge badge-active" 
+                                : "badge badge-inactive" %>'>
+                            <%# Convert.ToBoolean(Eval("IsActive")) 
+                                ? "Active" 
+                                : "Inactive" %>
+                        </asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
 
-    </asp:GridView>
+                <asp:TemplateField HeaderText="Action">
+                    <ItemTemplate>
+                        <a href='EditBoard.aspx?id=<%# Eval("BoardId") %>'
+                            class="btn btn-sm btn-warning me-2">
+                            Edit
+                        </a>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+            </Columns>
+
+        </asp:GridView>
+
+    </div>
+
 </asp:Content>
