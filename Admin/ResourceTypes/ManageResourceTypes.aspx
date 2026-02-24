@@ -2,60 +2,95 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
- <%--Header -->--%>
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h4 class="page-title">Manage Resource Types</h4>
-        <a href="AddResourceType.aspx" class="btn btn-primary">
-            + Add Resource Type
-        </a>
+
+    <div class="admin-header">
+        <div>
+            <h4 class="page-title">Manage Resource Types</h4>
+            <p class="page-subtitle">Controls system hierarchy flow</p>
+        </div>
+
+        <div>
+            <a href="AddResourceType.aspx" class="btn btn-primary btn-add">
+                + Add Resource Type
+            </a>
+        </div>
     </div>
 
-   <%-- Table -->--%>
-    <asp:GridView ID="gvResourceTypes" runat="server"
-        AutoGenerateColumns="False"
-        CssClass="table table-bordered table-striped"
-        HeaderStyle-CssClass="table-dark"
-        OnRowCommand="gvResourceTypes_RowCommand">
+    <div class="card admin-card">
 
-        <Columns>
+        <asp:GridView ID="gvResourceTypes" runat="server"
+            AutoGenerateColumns="False"
+            CssClass="table table-hover admin-table"
+            OnRowCommand="gvResourceTypes_RowCommand"
+            DataKeyNames="ResourceTypeId">
 
-            <asp:BoundField DataField="ResourceTypeId" HeaderText="ID" />
+            <Columns>
 
-           <asp:BoundField DataField="TypeName" HeaderText="Type Name" />
+                <asp:BoundField DataField="ResourceTypeId" HeaderText="ID" />
 
+                <asp:BoundField DataField="TypeName" HeaderText="Type Name" />
 
-            <asp:BoundField DataField="Slug" HeaderText="Slug" />
+                <asp:BoundField DataField="Slug" HeaderText="Slug" />
 
-            <%--Edit Button -->--%>
-            <asp:TemplateField HeaderText="Action">
-                <ItemTemplate>
-                    <a href='EditResourceType.aspx?id=<%# Eval("ResourceTypeId") %>'
-                       class="btn btn-sm btn-warning">
-                        Edit
-                    </a>
-                </ItemTemplate>
-            </asp:TemplateField>
+                <asp:TemplateField HeaderText="Premium">
+                    <ItemTemplate>
+                        <%# Convert.ToBoolean(Eval("IsPremium"))
+                            ? "<span class='badge badge-warning'>Premium</span>"
+                            : "<span class='badge badge-secondary'>Free</span>" %>
+                    </ItemTemplate>
+                </asp:TemplateField>
 
-          <%--  Status Toggle --%>
-            <asp:TemplateField HeaderText="Status">
-                <ItemTemplate>
-                    <asp:LinkButton ID="btnToggle" runat="server"
-                        CommandName="ToggleStatus"
-                        CommandArgument='<%# Eval("ResourceTypeId") %>'
-                        CssClass='<%# Convert.ToBoolean(Eval("IsActive")) 
-                            ? "badge bg-success text-white p-2" 
-                            : "badge bg-danger text-white p-2" %>'>
+                <asp:BoundField DataField="DisplayOrder" HeaderText="Order" />
 
-                        <%# Convert.ToBoolean(Eval("IsActive")) 
-                            ? "Active" 
-                            : "Inactive" %>
+                <asp:TemplateField HeaderText="Flow Flags">
+                    <ItemTemplate>
 
-                    </asp:LinkButton>
-                </ItemTemplate>
-            </asp:TemplateField>
+                        <%# Convert.ToBoolean(Eval("HasClass"))
+                            ? "<span class='flag-badge'>Class</span>" : "" %>
 
-        </Columns>
+                        <%# Convert.ToBoolean(Eval("HasSubject"))
+                            ? "<span class='flag-badge'>Subject</span>" : "" %>
 
-    </asp:GridView>
+                        <%# Convert.ToBoolean(Eval("HasChapter"))
+                            ? "<span class='flag-badge'>Chapter</span>" : "" %>
+
+                        <%# Convert.ToBoolean(Eval("HasYear"))
+                            ? "<span class='flag-badge'>Year</span>" : "" %>
+
+                        <%# Convert.ToBoolean(Eval("HasSubCategory"))
+                            ? "<span class='flag-badge'>SubCategory</span>" : "" %>
+
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+                <asp:TemplateField HeaderText="Status">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="btnToggle" runat="server"
+                            CommandName="ToggleActive"
+                            CommandArgument='<%# Eval("ResourceTypeId") %>'
+                            CssClass='<%# Convert.ToBoolean(Eval("IsActive"))
+                                ? "badge badge-active"
+                                : "badge badge-inactive" %>'>
+                            <%# Convert.ToBoolean(Eval("IsActive"))
+                                ? "Active"
+                                : "Inactive" %>
+                        </asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+                <asp:TemplateField HeaderText="Action">
+                    <ItemTemplate>
+                        <a href='EditResourceType.aspx?id=<%# Eval("ResourceTypeId") %>'
+                            class="btn btn-sm btn-warning">
+                            Edit
+                        </a>
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+            </Columns>
+
+        </asp:GridView>
+
+    </div>
 
 </asp:Content>
