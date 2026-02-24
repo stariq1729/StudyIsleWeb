@@ -1,49 +1,52 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace StudyIsleWeb.Admin.Boards
 {
     public partial class EditBoard : System.Web.UI.Page
     {
-        private readonly string cs = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
+        private readonly string cs =
+            ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
+
+        private int boardId;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!int.TryParse(Request.QueryString["id"], out boardId))
+            {
+                Response.Redirect("ManageBoards.aspx");
+                return;
+            }
+
             if (!IsPostBack)
             {
-                if (Request.QueryString["id"] != null)
-                {
-                    int boardId = Convert.ToInt32(Request.QueryString["id"]);
-                    LoadBoard(boardId);
-                }
-                else
-                {
-                    Response.Redirect("ManageBoards.aspx");
-                }
+                LoadBoard();
             }
         }
 
-        private void LoadBoard(int boardId)
+        private void LoadBoard()
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                con.Open();
-
-                string query = "SELECT * FROM Boards WHERE BoardId=@BoardId";
+                string query = @"SELECT BoardName, Slug, 
+                                        HasClassLayer, IsActive
+                                 FROM Boards
+                                 WHERE BoardId=@BoardId";
 
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@BoardId", boardId);
 
-                SqlDataReader reader = cmd.ExecuteReader();
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
 
-                if (reader.Read())
+                if (dr.Read())
                 {
-                    hfBoardId.Value = reader["BoardId"].ToString();
-                    txtBoardName.Text = reader["BoardName"].ToString();
-                    txtSlug.Text = reader["Slug"].ToString();
-                    chkHasClassLayer.Checked = Convert.ToBoolean(reader["HasClassLayer"]);
-                    chkIsActive.Checked = Convert.ToBoolean(reader["IsActive"]);
+                    txtBoardName.Text = dr["BoardName"].ToString();
+                    txtSlug.Text = dr["Slug"].ToString();
+                    chkHasClassLayer.Checked = Convert.ToBoolean(dr["HasClassLayer"]);
+                    chkIsActive.Checked = Convert.ToBoolean(dr["IsActive"]);
                 }
                 else
                 {
@@ -52,25 +55,39 @@ namespace StudyIsleWeb.Admin.Boards
             }
         }
 
+        protected void txtBoardName_TextChanged(object sender, EventArgs e)
+        {
+            txtSlug.Text = GenerateSlug(txtBoardName.Text.Trim());
+        }
+
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            int boardId = Convert.ToInt32(hfBoardId.Value);
             string boardName = txtBoardName.Text.Trim();
-            string slug = txtSlug.Text.Trim();
+            string slug = GenerateSlug(txtSlug.Text.Trim());
             bool hasClassLayer = chkHasClassLayer.Checked;
             bool isActive = chkIsActive.Checked;
 
-            if (IsSlugExists(slug, boardId))
+            if (string.IsNullOrWhiteSpace(boardName))
             {
-                lblMessage.Text = "Slug already exists.";
+                lblMessage.Text = "Board Name is required.";
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(slug))
+            {
+                lblMessage.Text = "Slug is required.";
+                return;
+            }
+
+            if (IsSlugExists(slug))
+            {
+                lblMessage.Text = "Slug already exists. Please use different slug.";
                 return;
             }
 
             using (SqlConnection con = new SqlConnection(cs))
             {
-                con.Open();
-
-                string query = @"UPDATE Boards 
+                string query = @"UPDATE Boards
                                  SET BoardName=@BoardName,
                                      Slug=@Slug,
                                      HasClassLayer=@HasClassLayer,
@@ -78,36 +95,47 @@ namespace StudyIsleWeb.Admin.Boards
                                  WHERE BoardId=@BoardId";
 
                 SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@BoardId", boardId);
+
                 cmd.Parameters.AddWithValue("@BoardName", boardName);
                 cmd.Parameters.AddWithValue("@Slug", slug);
                 cmd.Parameters.AddWithValue("@HasClassLayer", hasClassLayer);
                 cmd.Parameters.AddWithValue("@IsActive", isActive);
+                cmd.Parameters.AddWithValue("@BoardId", boardId);
 
+                con.Open();
                 cmd.ExecuteNonQuery();
             }
 
             Response.Redirect("ManageBoards.aspx");
         }
 
-        private bool IsSlugExists(string slug, int boardId)
+        private bool IsSlugExists(string slug)
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                con.Open();
-
-                string query = @"SELECT COUNT(*) 
-                                 FROM Boards 
-                                 WHERE Slug=@Slug 
-                                 AND BoardId!=@BoardId";
+                string query = @"SELECT COUNT(*)
+                                 FROM Boards
+                                 WHERE Slug=@Slug
+                                 AND BoardId<>@BoardId";
 
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@Slug", slug);
                 cmd.Parameters.AddWithValue("@BoardId", boardId);
 
+                con.Open();
                 int count = (int)cmd.ExecuteScalar();
+
                 return count > 0;
             }
+        }
+
+        private string GenerateSlug(string input)
+        {
+            string slug = input.ToLower();
+            slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
+            slug = Regex.Replace(slug, @"\s+", " ").Trim();
+            slug = slug.Replace(" ", "-");
+            return slug;
         }
     }
 }
