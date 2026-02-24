@@ -12,7 +12,6 @@ namespace StudyIsleWeb.Admin.ResourceTypes
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Validate query string
             if (!int.TryParse(Request.QueryString["id"], out resourceTypeId))
             {
                 Response.Redirect("ManageResourceTypes.aspx");
@@ -29,30 +28,33 @@ namespace StudyIsleWeb.Admin.ResourceTypes
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string query = @"SELECT TypeName, Slug, IsActive 
-                                 FROM ResourceTypes 
+                string query = @"SELECT *
+                                 FROM ResourceTypes
                                  WHERE ResourceTypeId=@Id";
 
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    cmd.Parameters.AddWithValue("@Id", resourceTypeId);
-                    con.Open();
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@Id", resourceTypeId);
 
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        if (dr.Read())
-                        {
-                            // Use the correct column names from the table
-                            txtName.Text = dr["TypeName"].ToString();
-                            txtSlug.Text = dr["Slug"].ToString();
-                            chkIsActive.Checked = Convert.ToBoolean(dr["IsActive"]);
-                        }
-                        else
-                        {
-                            // If no record found, redirect
-                            Response.Redirect("ManageResourceTypes.aspx");
-                        }
-                    }
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    txtName.Text = dr["TypeName"].ToString();
+                    txtSlug.Text = dr["Slug"].ToString();
+                    txtDisplayOrder.Text = dr["DisplayOrder"].ToString();
+                    chkIsPremium.Checked = Convert.ToBoolean(dr["IsPremium"]);
+                    chkIsActive.Checked = Convert.ToBoolean(dr["IsActive"]);
+
+                    chkHasClass.Checked = Convert.ToBoolean(dr["HasClass"]);
+                    chkHasSubject.Checked = Convert.ToBoolean(dr["HasSubject"]);
+                    chkHasChapter.Checked = Convert.ToBoolean(dr["HasChapter"]);
+                    chkHasYear.Checked = Convert.ToBoolean(dr["HasYear"]);
+                    chkHasSubCategory.Checked = Convert.ToBoolean(dr["HasSubCategory"]);
+                }
+                else
+                {
+                    Response.Redirect("ManageResourceTypes.aspx");
                 }
             }
         }
@@ -64,64 +66,49 @@ namespace StudyIsleWeb.Admin.ResourceTypes
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            string name = txtName.Text.Trim();
-            string slug = txtSlug.Text.Trim();
-            bool isActive = chkIsActive.Checked;
-
-            // Validation
-            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(slug))
+            if (string.IsNullOrWhiteSpace(txtName.Text))
             {
-                lblMessage.Text = "Name and Slug are required.";
+                lblMessage.Text = "Type Name is required.";
                 return;
             }
 
-            if (IsSlugExists(slug))
-            {
-                lblMessage.Text = "Slug already exists.";
-                return;
-            }
+            int displayOrder = 0;
+            int.TryParse(txtDisplayOrder.Text, out displayOrder);
 
             using (SqlConnection con = new SqlConnection(cs))
             {
                 string query = @"UPDATE ResourceTypes
                                  SET TypeName=@TypeName,
                                      Slug=@Slug,
-                                     IsActive=@IsActive
+                                     DisplayOrder=@DisplayOrder,
+                                     IsPremium=@IsPremium,
+                                     IsActive=@IsActive,
+                                     HasClass=@HasClass,
+                                     HasSubject=@HasSubject,
+                                     HasChapter=@HasChapter,
+                                     HasYear=@HasYear,
+                                     HasSubCategory=@HasSubCategory
                                  WHERE ResourceTypeId=@Id";
 
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    cmd.Parameters.AddWithValue("@TypeName", name); // Correct column name
-                    cmd.Parameters.AddWithValue("@Slug", slug);
-                    cmd.Parameters.AddWithValue("@IsActive", isActive);
-                    cmd.Parameters.AddWithValue("@Id", resourceTypeId);
+                SqlCommand cmd = new SqlCommand(query, con);
 
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                }
+                cmd.Parameters.AddWithValue("@TypeName", txtName.Text.Trim());
+                cmd.Parameters.AddWithValue("@Slug", GenerateSlug(txtSlug.Text));
+                cmd.Parameters.AddWithValue("@DisplayOrder", displayOrder);
+                cmd.Parameters.AddWithValue("@IsPremium", chkIsPremium.Checked);
+                cmd.Parameters.AddWithValue("@IsActive", chkIsActive.Checked);
+                cmd.Parameters.AddWithValue("@HasClass", chkHasClass.Checked);
+                cmd.Parameters.AddWithValue("@HasSubject", chkHasSubject.Checked);
+                cmd.Parameters.AddWithValue("@HasChapter", chkHasChapter.Checked);
+                cmd.Parameters.AddWithValue("@HasYear", chkHasYear.Checked);
+                cmd.Parameters.AddWithValue("@HasSubCategory", chkHasSubCategory.Checked);
+                cmd.Parameters.AddWithValue("@Id", resourceTypeId);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
             }
 
             Response.Redirect("ManageResourceTypes.aspx");
-        }
-
-        private bool IsSlugExists(string slug)
-        {
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                string query = @"SELECT COUNT(*) 
-                                 FROM ResourceTypes 
-                                 WHERE Slug=@Slug AND ResourceTypeId<>@Id";
-
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    cmd.Parameters.AddWithValue("@Slug", slug);
-                    cmd.Parameters.AddWithValue("@Id", resourceTypeId);
-
-                    con.Open();
-                    int count = (int)cmd.ExecuteScalar();
-                    return count > 0;
-                }
-            }
         }
 
         private string GenerateSlug(string text)
