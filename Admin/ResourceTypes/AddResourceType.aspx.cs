@@ -9,78 +9,64 @@ namespace StudyIsleWeb.Admin.ResourceTypes
     {
         string cs = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
 
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        // Auto generate slug when name changes
         protected void txtName_TextChanged(object sender, EventArgs e)
         {
-            txtSlug.Text = GenerateSlug(txtName.Text.Trim());
+            txtSlug.Text = GenerateSlug(txtName.Text);
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            string name = txtName.Text.Trim();
-            string slug = txtSlug.Text.Trim();
-            bool isActive = chkIsActive.Checked;
-
-            // Basic validation
-            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(slug))
+            if (string.IsNullOrWhiteSpace(txtName.Text))
             {
-                lblMessage.Text = "Name and Slug are required.";
+                lblMessage.Text = "Type Name is required.";
                 return;
             }
 
-            if (IsSlugExists(slug))
-            {
-                lblMessage.Text = "Slug already exists.";
-                return;
-            }
+            int displayOrder = 0;
+            int.TryParse(txtDisplayOrder.Text, out displayOrder);
 
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string query = @"INSERT INTO ResourceTypes 
-(TypeName, Slug, IsPremium, IsActive, DisplayOrder, CreatedAt)
-VALUES
-(@TypeName, @Slug, @IsPremium, @IsActive, @DisplayOrder, GETDATE())";
-                
+                string query = @"INSERT INTO ResourceTypes
+                                (TypeName, Slug, IsPremium, IsActive,
+                                 DisplayOrder, CreatedAt,
+                                 HasClass, HasSubject, HasChapter,
+                                 HasYear, HasSubCategory)
+                                 VALUES
+                                (@TypeName, @Slug, @IsPremium, @IsActive,
+                                 @DisplayOrder, GETDATE(),
+                                 @HasClass, @HasSubject, @HasChapter,
+                                 @HasYear, @HasSubCategory)";
 
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    cmd.Parameters.AddWithValue("@TypeName", name);
-                    cmd.Parameters.AddWithValue("@Slug", slug);
-                    cmd.Parameters.AddWithValue("@IsPremium", false); // <-- new
-                    cmd.Parameters.AddWithValue("@IsActive", isActive);
-                    cmd.Parameters.AddWithValue("@DisplayOrder", 0); // or any default value
+                SqlCommand cmd = new SqlCommand(query, con);
 
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                }
+                cmd.Parameters.AddWithValue("@TypeName", txtName.Text.Trim());
+                cmd.Parameters.AddWithValue("@Slug", GenerateSlug(txtSlug.Text));
+                cmd.Parameters.AddWithValue("@IsPremium", chkIsPremium.Checked);
+                cmd.Parameters.AddWithValue("@IsActive", chkIsActive.Checked);
+                cmd.Parameters.AddWithValue("@DisplayOrder", displayOrder);
+                cmd.Parameters.AddWithValue("@HasClass", chkHasClass.Checked);
+                cmd.Parameters.AddWithValue("@HasSubject", chkHasSubject.Checked);
+                cmd.Parameters.AddWithValue("@HasChapter", chkHasChapter.Checked);
+                cmd.Parameters.AddWithValue("@HasYear", chkHasYear.Checked);
+                cmd.Parameters.AddWithValue("@HasSubCategory", chkHasSubCategory.Checked);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
             }
 
             Response.Redirect("ManageResourceTypes.aspx");
         }
 
-        private bool IsSlugExists(string slug)
+        private string GenerateSlug(string input)
         {
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                string query = "SELECT COUNT(*) FROM ResourceTypes WHERE Slug=@Slug";
-
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    cmd.Parameters.AddWithValue("@Slug", slug);
-                    con.Open();
-
-                    int count = (int)cmd.ExecuteScalar();
-                    return count > 0;
-                }
-            }
-        }
-
-        private string GenerateSlug(string text)
-        {
-            text = text.ToLower();
-            text = Regex.Replace(text, @"[^a-z0-9\s-]", "");
-            text = Regex.Replace(text, @"\s+", " ").Trim();
-            text = text.Replace(" ", "-");
-            return text;
+            return input.Trim().ToLower().Replace(" ", "-");
         }
     }
 }
