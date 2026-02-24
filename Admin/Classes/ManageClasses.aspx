@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <!-- Board Filter -->
+   <%-- Board Filter -->--%>
     <div class="card admin-card mb-3 p-3">
         <div class="row">
             <div class="col-md-4">
@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    <!-- Grid -->
+  <%--  Grid -->--%>
     <div class="card admin-card">
 
         <asp:GridView ID="gvClasses" runat="server"
