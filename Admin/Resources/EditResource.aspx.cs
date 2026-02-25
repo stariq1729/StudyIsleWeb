@@ -2,359 +2,279 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
+using System.Web.UI.WebControls;
 
 namespace StudyIsleWeb.Admin.Resources
 {
     public partial class EditResource : System.Web.UI.Page
     {
         string cs = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
+        int resourceId;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!int.TryParse(Request.QueryString["id"], out resourceId))
+            {
+                Response.Redirect("ManageResources.aspx");
+                return;
+            }
+
             if (!IsPostBack)
             {
-                if (Request.QueryString["id"] == null)
-                {
-                    Response.Redirect("ManageResources.aspx");
-                }
-
-                int resourceId;
-                if (!int.TryParse(Request.QueryString["id"], out resourceId))
-                {
-                    Response.Redirect("ManageResources.aspx");
-                }
-
                 hfResourceId.Value = resourceId.ToString();
-
                 LoadBoards();
                 LoadResourceTypes();
-                LoadResource(resourceId);
+                LoadResourceData();
             }
         }
 
-        // ---------------- LOAD BOARDS ----------------
+        #region Load Methods
 
         private void LoadBoards()
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string query = "SELECT BoardId, BoardName FROM Boards WHERE IsActive = 1 ORDER BY BoardName";
+                SqlDataAdapter da = new SqlDataAdapter(
+                    "SELECT BoardId, BoardName FROM Boards WHERE IsActive=1", con);
 
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    con.Open();
-                    ddlBoard.DataSource = cmd.ExecuteReader();
-                    ddlBoard.DataTextField = "BoardName";
-                    ddlBoard.DataValueField = "BoardId";
-                    ddlBoard.DataBind();
-                }
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                ddlBoard.DataSource = dt;
+                ddlBoard.DataTextField = "BoardName";
+                ddlBoard.DataValueField = "BoardId";
+                ddlBoard.DataBind();
             }
-
-            ddlBoard.Items.Insert(0, "-- Select Board --");
         }
-
-        // ---------------- LOAD CLASSES ----------------
-
-        private void LoadClasses(int boardId)
-        {
-            ddlClass.Items.Clear();
-
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                string query = "SELECT ClassId, ClassName FROM Classes WHERE BoardId=@BoardId AND IsActive=1 ORDER BY DisplayOrder";
-
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    cmd.Parameters.AddWithValue("@BoardId", boardId);
-                    con.Open();
-                    ddlClass.DataSource = cmd.ExecuteReader();
-                    ddlClass.DataTextField = "ClassName";
-                    ddlClass.DataValueField = "ClassId";
-                    ddlClass.DataBind();
-                }
-            }
-
-            ddlClass.Items.Insert(0, "-- Select Class --");
-        }
-
-        // ---------------- LOAD SUBJECTS ----------------
-
-        private void LoadSubjects(int boardId, int? classId)
-        {
-            ddlSubject.Items.Clear();
-
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                string query;
-
-                if (classId.HasValue)
-                {
-                    query = @"SELECT SubjectId, SubjectName 
-                              FROM Subjects 
-                              WHERE BoardId=@BoardId AND ClassId=@ClassId AND IsActive=1 
-                              ORDER BY SubjectName";
-                }
-                else
-                {
-                    query = @"SELECT SubjectId, SubjectName 
-                              FROM Subjects 
-                              WHERE BoardId=@BoardId AND ClassId IS NULL AND IsActive=1 
-                              ORDER BY SubjectName";
-                }
-
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    cmd.Parameters.AddWithValue("@BoardId", boardId);
-
-                    if (classId.HasValue)
-                        cmd.Parameters.AddWithValue("@ClassId", classId.Value);
-
-                    con.Open();
-                    ddlSubject.DataSource = cmd.ExecuteReader();
-                    ddlSubject.DataTextField = "SubjectName";
-                    ddlSubject.DataValueField = "SubjectId";
-                    ddlSubject.DataBind();
-                }
-            }
-
-            ddlSubject.Items.Insert(0, "-- Select Subject --");
-        }
-
-        // ---------------- LOAD RESOURCE TYPES ----------------
 
         private void LoadResourceTypes()
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string query = "SELECT ResourceTypeId, TypeName FROM ResourceTypes WHERE IsActive=1 ORDER BY DisplayOrder";
+                SqlDataAdapter da = new SqlDataAdapter(
+                    "SELECT ResourceTypeId, TypeName FROM ResourceTypes WHERE IsActive=1", con);
 
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    con.Open();
-                    ddlType.DataSource = cmd.ExecuteReader();
-                    ddlType.DataTextField = "TypeName";
-                    ddlType.DataValueField = "ResourceTypeId";
-                    ddlType.DataBind();
-                }
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                ddlResourceType.DataSource = dt;
+                ddlResourceType.DataTextField = "TypeName";
+                ddlResourceType.DataValueField = "ResourceTypeId";
+                ddlResourceType.DataBind();
             }
-
-            ddlType.Items.Insert(0, "-- Select Type --");
         }
 
-        // ---------------- LOAD RESOURCE ----------------
-
-        private void LoadResource(int resourceId)
+        private void LoadResourceData()
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string query = @"
-                SELECT *
-                FROM Resources
-                WHERE ResourceId=@Id";
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT * FROM Resources WHERE ResourceId=@Id", con);
+                cmd.Parameters.AddWithValue("@Id", resourceId);
 
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
                 {
-                    cmd.Parameters.AddWithValue("@Id", resourceId);
-                    con.Open();
+                    ddlBoard.SelectedValue = dr["BoardId"].ToString();
+                    ddlResourceType.SelectedValue = dr["ResourceTypeId"].ToString();
 
-                    SqlDataReader dr = cmd.ExecuteReader();
+                    txtTitle.Text = dr["Title"].ToString();
+                    txtDescription.Text = dr["Description"].ToString();
+                    chkIsPremium.Checked = Convert.ToBoolean(dr["IsPremium"]);
+                }
+            }
 
-                    if (dr.Read())
-                    {
-                        ddlBoard.SelectedValue = dr["BoardId"].ToString();
+            ddlResourceType_SelectedIndexChanged(null, null);
 
-                        int boardId = Convert.ToInt32(dr["BoardId"]);
-                        object classObj = dr["ClassId"];
+            // Load dependent dropdowns
+            ddlBoard_SelectedIndexChanged(null, null);
+            ddlClass_SelectedIndexChanged(null, null);
+            ddlSubject_SelectedIndexChanged(null, null);
 
-                        if (classObj != DBNull.Value)
-                        {
-                            int classId = Convert.ToInt32(classObj);
-                            LoadClasses(boardId);
-                            ddlClass.SelectedValue = classId.ToString();
-                            LoadSubjects(boardId, classId);
-                        }
-                        else
-                        {
-                            LoadSubjects(boardId, null);
-                            ddlClass.Visible = false;
-                        }
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT * FROM Resources WHERE ResourceId=@Id", con);
+                cmd.Parameters.AddWithValue("@Id", resourceId);
 
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    if (dr["ClassId"] != DBNull.Value)
+                        ddlClass.SelectedValue = dr["ClassId"].ToString();
+
+                    if (dr["SubjectId"] != DBNull.Value)
                         ddlSubject.SelectedValue = dr["SubjectId"].ToString();
-                        ddlType.SelectedValue = dr["ResourceTypeId"].ToString();
 
-                        txtTitle.Text = dr["Title"].ToString();
-                        txtDescription.Text = dr["Description"].ToString();
+                    if (dr["ChapterId"] != DBNull.Value)
+                        ddlChapter.SelectedValue = dr["ChapterId"].ToString();
 
-                        chkPremium.Checked = Convert.ToBoolean(dr["IsPremium"]);
-                        chkActive.Checked = Convert.ToBoolean(dr["IsActive"]);
+                    if (dr["YearId"] != DBNull.Value)
+                        ddlYear.SelectedValue = dr["YearId"].ToString();
 
-                        lnkCurrentFile.NavigateUrl = dr["FilePath"].ToString();
-                        lnkCurrentFile.Text = "View Current File";
-                    }
-                    else
-                    {
-                        Response.Redirect("ManageResources.aspx");
-                    }
+                    if (dr["SubCategoryId"] != DBNull.Value)
+                        ddlSubCategory.SelectedValue = dr["SubCategoryId"].ToString();
                 }
             }
         }
 
-        // ---------------- DROPDOWN EVENTS ----------------
+        #endregion
+
+        #region Dropdown Events
 
         protected void ddlBoard_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlBoard.SelectedIndex > 0)
+            using (SqlConnection con = new SqlConnection(cs))
             {
-                int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
-                LoadClasses(boardId);
-                LoadSubjects(boardId, null);
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT ClassId, ClassName FROM Classes WHERE BoardId=@BoardId", con);
+                cmd.Parameters.AddWithValue("@BoardId", ddlBoard.SelectedValue);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                ddlClass.DataSource = dt;
+                ddlClass.DataTextField = "ClassName";
+                ddlClass.DataValueField = "ClassId";
+                ddlClass.DataBind();
+                ddlClass.Items.Insert(0, new ListItem("-- Select Class --", "0"));
             }
         }
 
         protected void ddlClass_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlBoard.SelectedIndex > 0 && ddlClass.SelectedIndex > 0)
+            using (SqlConnection con = new SqlConnection(cs))
             {
-                int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
-                int classId = Convert.ToInt32(ddlClass.SelectedValue);
-                LoadSubjects(boardId, classId);
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT SubjectId, SubjectName FROM Subjects WHERE ClassId=@ClassId", con);
+                cmd.Parameters.AddWithValue("@ClassId", ddlClass.SelectedValue);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                ddlSubject.DataSource = dt;
+                ddlSubject.DataTextField = "SubjectName";
+                ddlSubject.DataValueField = "SubjectId";
+                ddlSubject.DataBind();
+                ddlSubject.Items.Insert(0, new ListItem("-- Select Subject --", "0"));
             }
         }
 
+        protected void ddlSubject_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT ChapterId, ChapterName FROM Chapters WHERE SubjectId=@SubjectId", con);
+                cmd.Parameters.AddWithValue("@SubjectId", ddlSubject.SelectedValue);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                ddlChapter.DataSource = dt;
+                ddlChapter.DataTextField = "ChapterName";
+                ddlChapter.DataValueField = "ChapterId";
+                ddlChapter.DataBind();
+                ddlChapter.Items.Insert(0, new ListItem("-- Select Chapter --", "0"));
+            }
+        }
+
+        protected void ddlResourceType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand(
+                    @"SELECT HasClass, HasSubject, HasChapter, HasYear, HasSubCategory
+                      FROM ResourceTypes WHERE ResourceTypeId=@Id", con);
+                cmd.Parameters.AddWithValue("@Id", ddlResourceType.SelectedValue);
+
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    pnlClass.Visible = Convert.ToBoolean(dr["HasClass"]);
+                    pnlSubject.Visible = Convert.ToBoolean(dr["HasSubject"]);
+                    pnlChapter.Visible = Convert.ToBoolean(dr["HasChapter"]);
+                    pnlYear.Visible = Convert.ToBoolean(dr["HasYear"]);
+                    pnlSubCategory.Visible = Convert.ToBoolean(dr["HasSubCategory"]);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Update
+
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            int resourceId = Convert.ToInt32(hfResourceId.Value);
+            string filePath = null;
+            string contentType = null;
 
-            if (ddlBoard.SelectedIndex == 0 || ddlSubject.SelectedIndex == 0 || ddlType.SelectedIndex == 0)
-                return;
+            if (fuFile.HasFile)
+            {
+                string folder = Server.MapPath("~/Uploads/");
+                if (!Directory.Exists(folder))
+                    Directory.CreateDirectory(folder);
 
-            int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
-            int? classId = null;
+                string fileName = Guid.NewGuid() + Path.GetExtension(fuFile.FileName);
+                fuFile.SaveAs(folder + fileName);
 
-            if (ddlClass.Visible && ddlClass.SelectedIndex > 0)
-                classId = Convert.ToInt32(ddlClass.SelectedValue);
-
-            int subjectId = Convert.ToInt32(ddlSubject.SelectedValue);
-            int typeId = Convert.ToInt32(ddlType.SelectedValue);
-
-            string title = txtTitle.Text.Trim();
-            string description = txtDescription.Text.Trim();
-            bool isPremium = chkPremium.Checked;
-            bool isActive = chkActive.Checked;
-
-            string existingFilePath = "";
-            string newFilePath = "";
+                filePath = "/Uploads/" + fileName;
+                contentType = fuFile.PostedFile.ContentType;
+            }
 
             using (SqlConnection con = new SqlConnection(cs))
             {
+                string query = @"UPDATE Resources SET
+                                BoardId=@BoardId,
+                                ResourceTypeId=@TypeId,
+                                ClassId=@ClassId,
+                                SubjectId=@SubjectId,
+                                ChapterId=@ChapterId,
+                                YearId=@YearId,
+                                SubCategoryId=@SubCategoryId,
+                                Title=@Title,
+                                Description=@Description,
+                                IsPremium=@IsPremium"
+                                + (filePath != null ? ", FilePath=@FilePath, ContentType=@ContentType" : "")
+                                + " WHERE ResourceId=@Id";
+
+                SqlCommand cmd = new SqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@BoardId", ddlBoard.SelectedValue);
+                cmd.Parameters.AddWithValue("@TypeId", ddlResourceType.SelectedValue);
+                cmd.Parameters.AddWithValue("@ClassId", ddlClass.SelectedIndex > 0 ? (object)ddlClass.SelectedValue : DBNull.Value);
+                cmd.Parameters.AddWithValue("@SubjectId", ddlSubject.SelectedIndex > 0 ? (object)ddlSubject.SelectedValue : DBNull.Value);
+                cmd.Parameters.AddWithValue("@ChapterId", ddlChapter.SelectedIndex > 0 ? (object)ddlChapter.SelectedValue : DBNull.Value);
+                cmd.Parameters.AddWithValue("@YearId", ddlYear.SelectedIndex > 0 ? (object)ddlYear.SelectedValue : DBNull.Value);
+                cmd.Parameters.AddWithValue("@SubCategoryId", ddlSubCategory.SelectedIndex > 0 ? (object)ddlSubCategory.SelectedValue : DBNull.Value);
+                cmd.Parameters.AddWithValue("@Title", txtTitle.Text.Trim());
+                cmd.Parameters.AddWithValue("@Description", txtDescription.Text.Trim());
+                cmd.Parameters.AddWithValue("@IsPremium", chkIsPremium.Checked);
+                cmd.Parameters.AddWithValue("@Id", resourceId);
+
+                if (filePath != null)
+                {
+                    cmd.Parameters.AddWithValue("@FilePath", filePath);
+                    cmd.Parameters.AddWithValue("@ContentType", contentType);
+                }
+
                 con.Open();
-
-                // Get existing file path
-                using (SqlCommand cmd = new SqlCommand("SELECT FilePath FROM Resources WHERE ResourceId=@Id", con))
-                {
-                    cmd.Parameters.AddWithValue("@Id", resourceId);
-                    existingFilePath = cmd.ExecuteScalar().ToString();
-                }
-
-                newFilePath = existingFilePath;
-
-                // If new file uploaded
-                if (fuFile.HasFile)
-                {
-                    string extension = System.IO.Path.GetExtension(fuFile.FileName).ToLower();
-
-                    // Basic extension validation
-                    string[] allowed = { ".pdf", ".doc", ".docx", ".ppt", ".pptx", ".jpg", ".png" };
-                    if (!Array.Exists(allowed, ext => ext == extension))
-                        return;
-
-                    // Fetch slugs for path rebuild
-                    string boardSlug = "";
-                    string subjectSlug = "";
-                    string typeSlug = "";
-                    string className = "";
-
-                    using (SqlCommand cmdMeta = new SqlCommand(@"
-                SELECT b.Slug, s.Slug, rt.Slug, c.ClassName
-                FROM Boards b
-                INNER JOIN Subjects s ON s.SubjectId=@SubjectId
-                INNER JOIN ResourceTypes rt ON rt.ResourceTypeId=@TypeId
-                LEFT JOIN Classes c ON c.ClassId=@ClassId
-                WHERE b.BoardId=@BoardId", con))
-                    {
-                        cmdMeta.Parameters.AddWithValue("@BoardId", boardId);
-                        cmdMeta.Parameters.AddWithValue("@SubjectId", subjectId);
-                        cmdMeta.Parameters.AddWithValue("@TypeId", typeId);
-                        cmdMeta.Parameters.AddWithValue("@ClassId", (object)classId ?? DBNull.Value);
-
-                        using (SqlDataReader dr = cmdMeta.ExecuteReader())
-                        {
-                            if (dr.Read())
-                            {
-                                boardSlug = dr[0].ToString();
-                                subjectSlug = dr[1].ToString();
-                                typeSlug = dr[2].ToString();
-                                className = dr[3] == DBNull.Value ? "" : dr[3].ToString();
-                            }
-                        }
-                    }
-
-                    string folderPath = "~/Uploads/" + boardSlug + "/";
-
-                    if (!string.IsNullOrEmpty(className))
-                        folderPath += className + "/";
-
-                    folderPath += subjectSlug + "/" + typeSlug + "/";
-
-                    string physicalPath = Server.MapPath(folderPath);
-
-                    if (!System.IO.Directory.Exists(physicalPath))
-                        System.IO.Directory.CreateDirectory(physicalPath);
-
-                    string fileName = Guid.NewGuid().ToString() + extension;
-
-                    string fullPath = System.IO.Path.Combine(physicalPath, fileName);
-
-                    fuFile.SaveAs(fullPath);
-
-                    newFilePath = folderPath + fileName;
-
-                    // Delete old file
-                    string oldPhysical = Server.MapPath(existingFilePath);
-                    if (System.IO.File.Exists(oldPhysical))
-                        System.IO.File.Delete(oldPhysical);
-                }
-
-                // UPDATE QUERY
-                using (SqlCommand cmdUpdate = new SqlCommand(@"
-            UPDATE Resources
-            SET BoardId=@BoardId,
-                ClassId=@ClassId,
-                SubjectId=@SubjectId,
-                ResourceTypeId=@TypeId,
-                Title=@Title,
-                Description=@Description,
-                FilePath=@FilePath,
-                IsPremium=@IsPremium,
-                IsActive=@IsActive
-            WHERE ResourceId=@Id", con))
-                {
-                    cmdUpdate.Parameters.AddWithValue("@BoardId", boardId);
-                    cmdUpdate.Parameters.AddWithValue("@ClassId", (object)classId ?? DBNull.Value);
-                    cmdUpdate.Parameters.AddWithValue("@SubjectId", subjectId);
-                    cmdUpdate.Parameters.AddWithValue("@TypeId", typeId);
-                    cmdUpdate.Parameters.AddWithValue("@Title", title);
-                    cmdUpdate.Parameters.AddWithValue("@Description", description);
-                    cmdUpdate.Parameters.AddWithValue("@FilePath", newFilePath);
-                    cmdUpdate.Parameters.AddWithValue("@IsPremium", isPremium);
-                    cmdUpdate.Parameters.AddWithValue("@IsActive", isActive);
-                    cmdUpdate.Parameters.AddWithValue("@Id", resourceId);
-
-                    cmdUpdate.ExecuteNonQuery();
-                }
+                cmd.ExecuteNonQuery();
             }
 
             Response.Redirect("ManageResources.aspx");
         }
+
+        #endregion
     }
 }

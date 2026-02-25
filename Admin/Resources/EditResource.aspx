@@ -1,119 +1,121 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="EditResource.aspx.cs" Inherits="StudyIsleWeb.Admin.Resources.EditResource" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
+
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="page-title">Edit Resource</h4>
-    <a href="ManageResources.aspx" class="btn btn-secondary">
-        ← Back to Resources
-    </a>
-</div>
 
-<asp:HiddenField ID="hfResourceId" runat="server" />
+<h4 class="mb-3">Edit Resource</h4>
 
-<div class="card shadow-sm">
-    <div class="card-body">
+<asp:Label ID="lblMessage" runat="server" CssClass="text-danger"></asp:Label>
 
-        <div class="row g-3">
+<div class="card p-4 shadow-sm">
 
-            <!-- Board -->
-            <div class="col-md-6">
-                <label class="form-label">Board</label>
-                <asp:DropDownList ID="ddlBoard" runat="server"
-                    CssClass="form-select" AutoPostBack="true"
-                    OnSelectedIndexChanged="ddlBoard_SelectedIndexChanged">
-                </asp:DropDownList>
-            </div>
+    <asp:HiddenField ID="hfResourceId" runat="server" />
 
-            <!-- Class -->
-            <div class="col-md-6">
-                <label class="form-label">Class</label>
-                <asp:DropDownList ID="ddlClass" runat="server"
-                    CssClass="form-select" AutoPostBack="true"
-                    OnSelectedIndexChanged="ddlClass_SelectedIndexChanged">
-                </asp:DropDownList>
-            </div>
-
-            <!-- Subject -->
-            <div class="col-md-6">
-                <label class="form-label">Subject</label>
-                <asp:DropDownList ID="ddlSubject" runat="server"
-                    CssClass="form-select">
-                </asp:DropDownList>
-            </div>
-
-            <!-- Resource Type -->
-            <div class="col-md-6">
-                <label class="form-label">Resource Type</label>
-                <asp:DropDownList ID="ddlType" runat="server"
-                    CssClass="form-select">
-                </asp:DropDownList>
-            </div>
-
-            <!-- Title -->
-            <div class="col-md-12">
-                <label class="form-label">Title</label>
-                <asp:TextBox ID="txtTitle" runat="server"
-                    CssClass="form-control">
-                </asp:TextBox>
-            </div>
-
-            <!-- Description -->
-            <div class="col-md-12">
-                <label class="form-label">Description</label>
-                <asp:TextBox ID="txtDescription" runat="server"
-                    CssClass="form-control"
-                    TextMode="MultiLine" Rows="4">
-                </asp:TextBox>
-            </div>
-
-            <!-- Current File -->
-            <div class="col-md-12">
-                <label class="form-label">Current File</label>
-                <asp:HyperLink ID="lnkCurrentFile" runat="server"
-                    CssClass="text-decoration-none"
-                    Target="_blank">
-                </asp:HyperLink>
-            </div>
-
-            <!-- Replace File -->
-            <div class="col-md-12">
-                <label class="form-label">Replace File (Optional)</label>
-                <asp:FileUpload ID="fuFile" runat="server"
-                    CssClass="form-control" />
-            </div>
-
-            <!-- Premium -->
-            <div class="col-md-6">
-                <div class="form-check mt-3">
-                    <asp:CheckBox ID="chkPremium" runat="server"
-                        CssClass="form-check-input" />
-                    <label class="form-check-label">
-                        Premium Resource
-                    </label>
-                </div>
-            </div>
-
-            <!-- Active -->
-            <div class="col-md-6">
-                <div class="form-check mt-3">
-                    <asp:CheckBox ID="chkActive" runat="server"
-                        CssClass="form-check-input" />
-                    <label class="form-check-label">
-                        Active
-                    </label>
-                </div>
-            </div>
-
-            <!-- Save -->
-            <div class="col-12 text-end">
-                <asp:Button ID="btnUpdate" runat="server"
-                    Text="Update Resource"
-                    CssClass="btn btn-primary"
-                    OnClick="btnUpdate_Click" />
-            </div>
-
-        </div>
+    <!-- Board -->
+    <div class="mb-3">
+        <label>Board</label>
+        <asp:DropDownList ID="ddlBoard" runat="server"
+            CssClass="form-control"
+            AutoPostBack="true"
+            OnSelectedIndexChanged="ddlBoard_SelectedIndexChanged" />
     </div>
+
+    <!-- Resource Type -->
+    <div class="mb-3">
+        <label>Resource Type</label>
+        <asp:DropDownList ID="ddlResourceType" runat="server"
+            CssClass="form-control"
+            AutoPostBack="true"
+            OnSelectedIndexChanged="ddlResourceType_SelectedIndexChanged" />
+    </div>
+
+    <!-- Class -->
+    <asp:Panel ID="pnlClass" runat="server" Visible="false">
+        <div class="mb-3">
+            <label>Class</label>
+            <asp:DropDownList ID="ddlClass" runat="server"
+                CssClass="form-control"
+                AutoPostBack="true"
+                OnSelectedIndexChanged="ddlClass_SelectedIndexChanged" />
+        </div>
+    </asp:Panel>
+
+    <!-- Subject -->
+    <asp:Panel ID="pnlSubject" runat="server" Visible="false">
+        <div class="mb-3">
+            <label>Subject</label>
+            <asp:DropDownList ID="ddlSubject" runat="server"
+                CssClass="form-control"
+                AutoPostBack="true"
+                OnSelectedIndexChanged="ddlSubject_SelectedIndexChanged" />
+        </div>
+    </asp:Panel>
+
+    <!-- Chapter -->
+    <asp:Panel ID="pnlChapter" runat="server" Visible="false">
+        <div class="mb-3">
+            <label>Chapter</label>
+            <asp:DropDownList ID="ddlChapter" runat="server"
+                CssClass="form-control" />
+        </div>
+    </asp:Panel>
+
+    <!-- Year -->
+    <asp:Panel ID="pnlYear" runat="server" Visible="false">
+        <div class="mb-3">
+            <label>Year</label>
+            <asp:DropDownList ID="ddlYear" runat="server"
+                CssClass="form-control" />
+        </div>
+    </asp:Panel>
+
+    <!-- SubCategory -->
+    <asp:Panel ID="pnlSubCategory" runat="server" Visible="false">
+        <div class="mb-3">
+            <label>SubCategory</label>
+            <asp:DropDownList ID="ddlSubCategory" runat="server"
+                CssClass="form-control" />
+        </div>
+    </asp:Panel>
+
+    <!-- Title -->
+    <div class="mb-3">
+        <label>Title</label>
+        <asp:TextBox ID="txtTitle" runat="server"
+            CssClass="form-control" />
+    </div>
+
+    <!-- Description -->
+    <div class="mb-3">
+        <label>Description</label>
+        <asp:TextBox ID="txtDescription" runat="server"
+            CssClass="form-control"
+            TextMode="MultiLine"
+            Rows="4" />
+    </div>
+
+    <!-- File -->
+    <div class="mb-3">
+        <label>Replace File (optional)</label>
+        <asp:FileUpload ID="fuFile" runat="server"
+            CssClass="form-control" />
+    </div>
+
+    <!-- Premium -->
+    <div class="form-check mb-3">
+        <asp:CheckBox ID="chkIsPremium"
+            runat="server"
+            CssClass="form-check-input" />
+        <label class="form-check-label">Is Premium</label>
+    </div>
+
+    <asp:Button ID="btnUpdate" runat="server"
+        Text="Update Resource"
+        CssClass="btn btn-success"
+        OnClick="btnUpdate_Click" />
+
 </div>
+
 </asp:Content>

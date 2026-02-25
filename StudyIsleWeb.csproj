@@ -122,6 +122,7 @@
     <Content Include="Content\Admin\add-resource.css" />
     <Content Include="Content\Admin\board-form.css" />
     <Content Include="Content\Admin\Boards.css" />
+    <Content Include="Content\Admin\chapters.css" />
     <Content Include="Content\Admin\Classes.css" />
     <Content Include="Content\Admin\dashboard.css" />
     <Content Include="Content\Admin\resources.css" />
