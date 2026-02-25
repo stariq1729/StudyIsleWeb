@@ -2,12 +2,14 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace StudyIsleWeb.Admin.Classes
 {
     public partial class AddClass : System.Web.UI.Page
     {
-        private readonly string cs = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
+        private readonly string cs =
+            ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,11 +23,7 @@ namespace StudyIsleWeb.Admin.Classes
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                con.Open();
-
-                string query = @"SELECT BoardId, BoardName 
-                                 FROM Boards 
-                                 WHERE IsActive = 1";
+                string query = "SELECT BoardId, BoardName FROM Boards WHERE IsActive=1";
 
                 SqlDataAdapter da = new SqlDataAdapter(query, con);
                 DataTable dt = new DataTable();
@@ -40,61 +38,85 @@ namespace StudyIsleWeb.Admin.Classes
             }
         }
 
+        protected void txtClassName_TextChanged(object sender, EventArgs e)
+        {
+            txtSlug.Text = GenerateSlug(txtClassName.Text.Trim());
+        }
+
         protected void btnSave_Click(object sender, EventArgs e)
         {
             if (ddlBoard.SelectedIndex == 0)
             {
-                lblMessage.Text = "Please select a board.";
+                lblMessage.Text = "Please select a Board.";
                 return;
             }
 
-            int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
             string className = txtClassName.Text.Trim();
-            int displayOrder = Convert.ToInt32(txtDisplayOrder.Text);
-            bool isActive = chkIsActive.Checked;
+            string slug = GenerateSlug(txtSlug.Text.Trim());
+            int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
 
-            if (!BoardSupportsClasses(boardId))
+            int displayOrder = 0;
+            int.TryParse(txtDisplayOrder.Text, out displayOrder);
+
+            if (string.IsNullOrWhiteSpace(className))
             {
-                lblMessage.Text = "This board does not support class layer.";
+                lblMessage.Text = "Class Name is required.";
+                return;
+            }
+
+            if (IsSlugExists(slug, boardId))
+            {
+                lblMessage.Text = "Slug already exists for this board.";
                 return;
             }
 
             using (SqlConnection con = new SqlConnection(cs))
             {
-                con.Open();
-
                 string query = @"INSERT INTO Classes
-                                 (BoardId, ClassName, DisplayOrder, IsActive, CreatedAt)
+                                (BoardId, ClassName, Slug, DisplayOrder, IsActive, CreatedAt)
                                  VALUES
-                                 (@BoardId, @ClassName, @DisplayOrder, @IsActive, GETDATE())";
+                                (@BoardId, @ClassName, @Slug, @DisplayOrder, @IsActive, GETDATE())";
 
                 SqlCommand cmd = new SqlCommand(query, con);
+
                 cmd.Parameters.AddWithValue("@BoardId", boardId);
                 cmd.Parameters.AddWithValue("@ClassName", className);
+                cmd.Parameters.AddWithValue("@Slug", slug);
                 cmd.Parameters.AddWithValue("@DisplayOrder", displayOrder);
-                cmd.Parameters.AddWithValue("@IsActive", isActive);
+                cmd.Parameters.AddWithValue("@IsActive", chkIsActive.Checked);
 
+                con.Open();
                 cmd.ExecuteNonQuery();
             }
 
             Response.Redirect("ManageClasses.aspx");
         }
 
-        private bool BoardSupportsClasses(int boardId)
+        private bool IsSlugExists(string slug, int boardId)
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                con.Open();
-
-                string query = "SELECT HasClassLayer FROM Boards WHERE BoardId=@BoardId";
+                string query = @"SELECT COUNT(*)
+                                 FROM Classes
+                                 WHERE Slug=@Slug AND BoardId=@BoardId";
 
                 SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@Slug", slug);
                 cmd.Parameters.AddWithValue("@BoardId", boardId);
 
-                bool hasClassLayer = Convert.ToBoolean(cmd.ExecuteScalar());
+                con.Open();
+                int count = (int)cmd.ExecuteScalar();
 
-                return hasClassLayer;
+                return count > 0;
             }
+        }
+
+        private string GenerateSlug(string input)
+        {
+            string slug = input.ToLower();
+            slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
+            slug = Regex.Replace(slug, @"\s+", " ").Trim();
+            return slug.Replace(" ", "-");
         }
     }
 }
