@@ -1,0 +1,24 @@
+﻿/* =========================
+   Boards Management
+========================= */
+
+.page-title {
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.btn-add {
+    border-radius: 8px;
+}
+
+.table thead {
+    background-color: #f1f5f9;
+}
+
+.badge-active {
+    background-color: #22c55e;
+}
+
+.badge-inactive {
+    background-color: #ef4444;
+}
