@@ -15,6 +15,24 @@ namespace StudyIsleWeb.Admin.Subjects
     {
 
         /// <summary>
+        /// ddlBoardFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlBoardFilter;
+
+        /// <summary>
+        /// ddlClassFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlClassFilter;
+
+        /// <summary>
         /// gvSubjects control.
         /// </summary>
         /// <remarks>

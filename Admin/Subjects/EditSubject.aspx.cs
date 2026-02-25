@@ -2,28 +2,29 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace StudyIsleWeb.Admin.Subjects
 {
     public partial class EditSubject : System.Web.UI.Page
     {
-        private readonly string cs = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
+        private readonly string cs =
+            ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
+
+        private int subjectId;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!int.TryParse(Request.QueryString["id"], out subjectId))
+            {
+                Response.Redirect("ManageSubjects.aspx");
+                return;
+            }
+
             if (!IsPostBack)
             {
                 LoadBoards();
-
-                if (Request.QueryString["id"] != null)
-                {
-                    int subjectId = Convert.ToInt32(Request.QueryString["id"]);
-                    LoadSubject(subjectId);
-                }
-                else
-                {
-                    Response.Redirect("ManageSubjects.aspx");
-                }
+                LoadSubject();
             }
         }
 
@@ -31,11 +32,9 @@ namespace StudyIsleWeb.Admin.Subjects
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                con.Open();
+                SqlDataAdapter da = new SqlDataAdapter(
+                    "SELECT BoardId, BoardName FROM Boards", con);
 
-                string query = "SELECT BoardId, BoardName FROM Boards WHERE IsActive=1";
-
-                SqlDataAdapter da = new SqlDataAdapter(query, con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
 
@@ -46,74 +45,13 @@ namespace StudyIsleWeb.Admin.Subjects
             }
         }
 
-        private void LoadSubject(int subjectId)
-        {
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                con.Open();
-
-                string query = "SELECT * FROM Subjects WHERE SubjectId=@SubjectId";
-
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@SubjectId", subjectId);
-
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
-                {
-                    hfSubjectId.Value = reader["SubjectId"].ToString();
-                    ddlBoard.SelectedValue = reader["BoardId"].ToString();
-                    txtSubjectName.Text = reader["SubjectName"].ToString();
-                    txtSlug.Text = reader["Slug"].ToString();
-                    txtDescription.Text = reader["Description"].ToString();
-                    chkIsActive.Checked = Convert.ToBoolean(reader["IsActive"]);
-                }
-            }
-
-            ddlBoard_SelectedIndexChanged(null, null);
-
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                con.Open();
-
-                string query = "SELECT ClassId FROM Subjects WHERE SubjectId=@SubjectId";
-
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@SubjectId", subjectId);
-
-                object classId = cmd.ExecuteScalar();
-
-                if (classId != DBNull.Value && classId != null)
-                {
-                    ddlClass.SelectedValue = classId.ToString();
-                }
-            }
-        }
-
-        protected void ddlBoard_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
-
-            if (BoardSupportsClasses(boardId))
-            {
-                LoadClasses(boardId);
-                classContainer.Visible = true;
-            }
-            else
-            {
-                classContainer.Visible = false;
-            }
-        }
-
         private void LoadClasses(int boardId)
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                con.Open();
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT ClassId, ClassName FROM Classes WHERE BoardId=@BoardId", con);
 
-                string query = "SELECT ClassId, ClassName FROM Classes WHERE BoardId=@BoardId AND IsActive=1";
-
-                SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@BoardId", boardId);
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -124,32 +62,62 @@ namespace StudyIsleWeb.Admin.Subjects
                 ddlClass.DataTextField = "ClassName";
                 ddlClass.DataValueField = "ClassId";
                 ddlClass.DataBind();
+
+                ddlClass.Items.Insert(0,
+                    new System.Web.UI.WebControls.ListItem("-- No Class --", "0"));
             }
+        }
+
+        private void LoadSubject()
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT * FROM Subjects WHERE SubjectId=@Id", con);
+
+                cmd.Parameters.AddWithValue("@Id", subjectId);
+
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    ddlBoard.SelectedValue = dr["BoardId"].ToString();
+
+                    int boardId = Convert.ToInt32(dr["BoardId"]);
+                    LoadClasses(boardId);
+
+                    if (dr["ClassId"] != DBNull.Value)
+                        ddlClass.SelectedValue = dr["ClassId"].ToString();
+                    else
+                        ddlClass.SelectedValue = "0";
+
+                    txtSubjectName.Text = dr["SubjectName"].ToString();
+                    txtSlug.Text = dr["Slug"].ToString();
+                    txtDescription.Text = dr["Description"].ToString();
+                    chkIsActive.Checked = Convert.ToBoolean(dr["IsActive"]);
+                }
+            }
+        }
+
+        protected void ddlBoard_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadClasses(Convert.ToInt32(ddlBoard.SelectedValue));
+        }
+
+        protected void txtSubjectName_TextChanged(object sender, EventArgs e)
+        {
+            txtSlug.Text = GenerateSlug(txtSubjectName.Text.Trim());
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            int subjectId = Convert.ToInt32(hfSubjectId.Value);
+            string slug = GenerateSlug(txtSlug.Text.Trim());
             int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
-            int? classId = null;
+            int classId = ddlClass.SelectedValue == "0"
+                ? 0 : Convert.ToInt32(ddlClass.SelectedValue);
 
-            if (BoardSupportsClasses(boardId))
-            {
-                if (ddlClass.SelectedIndex < 0)
-                {
-                    lblMessage.Text = "Please select class.";
-                    return;
-                }
-
-                classId = Convert.ToInt32(ddlClass.SelectedValue);
-            }
-
-            string subjectName = txtSubjectName.Text.Trim();
-            string slug = txtSlug.Text.Trim();
-            string description = txtDescription.Text.Trim();
-            bool isActive = chkIsActive.Checked;
-
-            if (IsSlugExists(slug, subjectId))
+            if (IsSlugExists(slug, boardId, classId))
             {
                 lblMessage.Text = "Slug already exists.";
                 return;
@@ -157,63 +125,61 @@ namespace StudyIsleWeb.Admin.Subjects
 
             using (SqlConnection con = new SqlConnection(cs))
             {
-                con.Open();
+                SqlCommand cmd = new SqlCommand(
+                    @"UPDATE Subjects
+                      SET BoardId=@BoardId,
+                          ClassId=@ClassId,
+                          SubjectName=@SubjectName,
+                          Slug=@Slug,
+                          Description=@Description,
+                          IsActive=@IsActive
+                      WHERE SubjectId=@Id", con);
 
-                string query = @"UPDATE Subjects
-                                 SET BoardId=@BoardId,
-                                     ClassId=@ClassId,
-                                     SubjectName=@SubjectName,
-                                     Slug=@Slug,
-                                     Description=@Description,
-                                     IsActive=@IsActive
-                                 WHERE SubjectId=@SubjectId";
-
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@SubjectId", subjectId);
                 cmd.Parameters.AddWithValue("@BoardId", boardId);
-                cmd.Parameters.AddWithValue("@ClassId", (object)classId ?? DBNull.Value);
-                cmd.Parameters.AddWithValue("@SubjectName", subjectName);
+                cmd.Parameters.AddWithValue("@ClassId",
+                    classId == 0 ? (object)DBNull.Value : classId);
+                cmd.Parameters.AddWithValue("@SubjectName", txtSubjectName.Text.Trim());
                 cmd.Parameters.AddWithValue("@Slug", slug);
-                cmd.Parameters.AddWithValue("@Description", description);
-                cmd.Parameters.AddWithValue("@IsActive", isActive);
+                cmd.Parameters.AddWithValue("@Description", txtDescription.Text.Trim());
+                cmd.Parameters.AddWithValue("@IsActive", chkIsActive.Checked);
+                cmd.Parameters.AddWithValue("@Id", subjectId);
 
+                con.Open();
                 cmd.ExecuteNonQuery();
             }
 
             Response.Redirect("ManageSubjects.aspx");
         }
 
-        private bool BoardSupportsClasses(int boardId)
+        private bool IsSlugExists(string slug, int boardId, int classId)
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                con.Open();
+                SqlCommand cmd = new SqlCommand(
+                    @"SELECT COUNT(*)
+                      FROM Subjects
+                      WHERE Slug=@Slug
+                      AND BoardId=@BoardId
+                      AND (ClassId=@ClassId OR (ClassId IS NULL AND @ClassId=0))
+                      AND SubjectId<>@Id", con);
 
-                string query = "SELECT HasClassLayer FROM Boards WHERE BoardId=@BoardId";
-
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@BoardId", boardId);
-
-                return Convert.ToBoolean(cmd.ExecuteScalar());
-            }
-        }
-
-        private bool IsSlugExists(string slug, int subjectId)
-        {
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                con.Open();
-
-                string query = @"SELECT COUNT(*) FROM Subjects 
-                                 WHERE Slug=@Slug AND SubjectId!=@SubjectId";
-
-                SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@Slug", slug);
-                cmd.Parameters.AddWithValue("@SubjectId", subjectId);
+                cmd.Parameters.AddWithValue("@BoardId", boardId);
+                cmd.Parameters.AddWithValue("@ClassId", classId);
+                cmd.Parameters.AddWithValue("@Id", subjectId);
 
+                con.Open();
                 int count = (int)cmd.ExecuteScalar();
                 return count > 0;
             }
+        }
+
+        private string GenerateSlug(string input)
+        {
+            string slug = input.ToLower();
+            slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
+            slug = Regex.Replace(slug, @"\s+", " ").Trim();
+            return slug.Replace(" ", "-");
         }
     }
 }
