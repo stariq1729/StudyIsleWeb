@@ -38,6 +38,7 @@ namespace StudyIsleWeb.Admin.ResourceTypes
                 if (dr.Read())
                 {
                     txtName.Text = dr["TypeName"].ToString();
+                    txtDescription.Text = dr["Description"].ToString(); // Load description
                     txtSlug.Text = dr["Slug"].ToString();
                     txtDisplayOrder.Text = dr["DisplayOrder"].ToString();
                     chkIsPremium.Checked = Convert.ToBoolean(dr["IsPremium"]);
@@ -85,12 +86,13 @@ namespace StudyIsleWeb.Admin.ResourceTypes
             {
                 using (SqlConnection con = new SqlConnection(cs))
                 {
+                    // Inside btnUpdate_Click
                     string query = @"UPDATE ResourceTypes SET 
-                                    TypeName=@TypeName, Slug=@Slug, IconImage=@IconImage, 
-                                    IsPremium=@IsPremium, IsActive=@IsActive, DisplayOrder=@DisplayOrder,
-                                    HasClass=@HasClass, HasSubject=@HasSubject, HasChapter=@HasChapter, 
-                                    HasYear=@HasYear, HasSubCategory=@HasSubCategory
-                                    WHERE ResourceTypeId=@Id";
+                TypeName=@TypeName, Slug=@Slug, Description=@Description, IconImage=@IconImage, 
+                IsPremium=@IsPremium, IsActive=@IsActive, DisplayOrder=@DisplayOrder,
+                HasClass=@HasClass, HasSubject=@HasSubject, HasChapter=@HasChapter, 
+                HasYear=@HasYear, HasSubCategory=@HasSubCategory
+                WHERE ResourceTypeId=@Id";
 
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@TypeName", txtName.Text.Trim());
@@ -105,6 +107,7 @@ namespace StudyIsleWeb.Admin.ResourceTypes
                     cmd.Parameters.AddWithValue("@HasYear", chkHasYear.Checked);
                     cmd.Parameters.AddWithValue("@HasSubCategory", chkHasSubCategory.Checked);
                     cmd.Parameters.AddWithValue("@Id", resourceTypeId);
+                    cmd.Parameters.AddWithValue("@Description", txtDescription.Text.Trim()); // Update parameter
 
                     con.Open();
                     cmd.ExecuteNonQuery();

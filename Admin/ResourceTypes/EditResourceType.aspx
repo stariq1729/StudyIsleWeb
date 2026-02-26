@@ -23,7 +23,11 @@
                         <label class="form-label fw-bold">Slug</label>
                         <asp:TextBox ID="txtSlug" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
-
+                    <div class="mb-3">
+    <label class="form-label fw-bold">Description</label>
+    <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control" 
+        TextMode="MultiLine" Rows="2"></asp:TextBox>
+</div>
                     <div class="mb-3">
                         <label class="form-label fw-bold">Display Order</label>
                         <asp:TextBox ID="txtDisplayOrder" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>

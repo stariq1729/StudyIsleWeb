@@ -17,7 +17,11 @@
                         <label class="form-label font-weight-bold">Type Name</label>
                         <asp:TextBox ID="txtName" runat="server" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtName_TextChanged"></asp:TextBox>
                     </div>
-
+                    <div class="mb-3">
+    <label class="form-label fw-bold">Description</label>
+    <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control" 
+        TextMode="MultiLine" Rows="2" placeholder="e.g., Full digital textbooks for all subjects and classes."></asp:TextBox>
+</div>
                     <div class="mb-3">
                         <label class="form-label font-weight-bold">Slug</label>
                         <asp:TextBox ID="txtSlug" runat="server" CssClass="form-control"></asp:TextBox>

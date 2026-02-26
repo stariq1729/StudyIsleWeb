@@ -118,6 +118,7 @@
     <Content Include="assets\Public\books.css" />
     <Content Include="Blogs.aspx" />
     <Content Include="BoardResource.aspx" />
+    <Content Include="BoardResourceTypes.aspx" />
     <Content Include="Books.aspx" />
     <Content Include="Content\Admin\add-resource.css" />
     <Content Include="Content\Admin\board-form.css" />
@@ -287,6 +288,13 @@
     </Compile>
     <Compile Include="BoardResource.aspx.designer.cs">
       <DependentUpon>BoardResource.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BoardResourceTypes.aspx.cs">
+      <DependentUpon>BoardResourceTypes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BoardResourceTypes.aspx.designer.cs">
+      <DependentUpon>BoardResourceTypes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Books.aspx.cs">
       <DependentUpon>Books.aspx</DependentUpon>

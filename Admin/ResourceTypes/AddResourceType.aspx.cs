@@ -25,7 +25,7 @@ namespace StudyIsleWeb.Admin.ResourceTypes
                 return;
             }
 
-            string iconFileName = "default-icon.png"; // Fallback default
+            string iconFileName = "Default-icon.png"; // Fallback default
 
             // Handle Image Upload
             if (fuIcon.HasFile)
@@ -39,7 +39,7 @@ namespace StudyIsleWeb.Admin.ResourceTypes
                     {
                         // Create unique name to prevent overwriting
                         iconFileName = "resource_" + DateTime.Now.Ticks + extension;
-                        string folderPath = Server.MapPath("~/Uploads/ResourceIcons/");
+                        string folderPath = Server.MapPath("~/Uploads/ResourceIcons/Icon");
 
                         if (!Directory.Exists(folderPath))
                         {
@@ -68,21 +68,19 @@ namespace StudyIsleWeb.Admin.ResourceTypes
             {
                 using (SqlConnection con = new SqlConnection(cs))
                 {
-                    string query = @"INSERT INTO ResourceTypes
-                                    (TypeName, Slug, IconImage, IsPremium, IsActive,
-                                     DisplayOrder, CreatedAt,
-                                     HasClass, HasSubject, HasChapter,
-                                     HasYear, HasSubCategory)
-                                     VALUES
-                                    (@TypeName, @Slug, @IconImage, @IsPremium, @IsActive,
-                                     @DisplayOrder, GETDATE(),
-                                     @HasClass, @HasSubject, @HasChapter,
-                                     @HasYear, @HasSubCategory)";
+                    // Inside your Save/Insert button click event
+                    string query = @"INSERT INTO ResourceTypes 
+                (TypeName, Slug, Description, IconImage, IsPremium, IsActive, DisplayOrder, 
+                 HasClass, HasSubject, HasChapter, HasYear, HasSubCategory) 
+                VALUES 
+                (@TypeName, @Slug, @Description, @IconImage, @IsPremium, @IsActive, @DisplayOrder, 
+                 @HasClass, @HasSubject, @HasChapter, @HasYear, @HasSubCategory)";
 
                     SqlCommand cmd = new SqlCommand(query, con);
-
                     cmd.Parameters.AddWithValue("@TypeName", txtName.Text.Trim());
-                    cmd.Parameters.AddWithValue("@Slug", GenerateSlug(txtSlug.Text));
+                    cmd.Parameters.AddWithValue("@Slug", txtSlug.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Description", txtDescription.Text.Trim()); // New Parameter
+                                                                                             // ... (add all other existing parameters)
                     cmd.Parameters.AddWithValue("@IconImage", iconFileName); // Saves filename to DB
                     cmd.Parameters.AddWithValue("@IsPremium", chkIsPremium.Checked);
                     cmd.Parameters.AddWithValue("@IsActive", chkIsActive.Checked);
