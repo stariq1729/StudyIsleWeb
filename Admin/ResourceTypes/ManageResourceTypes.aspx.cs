@@ -18,31 +18,46 @@ namespace StudyIsleWeb.Admin.ResourceTypes
             }
         }
 
+        protected void btnFilter_Click(object sender, EventArgs e)
+        {
+            LoadResourceTypes();
+        }
+
         private void LoadResourceTypes()
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string query = @"SELECT 
-                                    ResourceTypeId,
-                                    TypeName,
-                                    Slug,
-                                    IsPremium,
-                                    IsActive,
-                                    DisplayOrder,
-                                    HasClass,
-                                    HasSubject,
-                                    HasChapter,
-                                    HasYear,
-                                    HasSubCategory
-                                 FROM ResourceTypes
-                                 ORDER BY DisplayOrder ASC";
+                // Added IconImage to SELECT
+                string query = @"SELECT * FROM ResourceTypes WHERE 1=1";
 
-                SqlDataAdapter da = new SqlDataAdapter(query, con);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
+                // Apply Filters
+                if (!string.IsNullOrEmpty(txtSearch.Text.Trim()))
+                {
+                    query += " AND (TypeName LIKE @Search OR Slug LIKE @Search)";
+                }
 
-                gvResourceTypes.DataSource = dt;
-                gvResourceTypes.DataBind();
+                if (!string.IsNullOrEmpty(ddlStatus.SelectedValue))
+                {
+                    query += " AND IsActive = @Status";
+                }
+
+                query += " ORDER BY DisplayOrder ASC";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    if (!string.IsNullOrEmpty(txtSearch.Text.Trim()))
+                        cmd.Parameters.AddWithValue("@Search", "%" + txtSearch.Text.Trim() + "%");
+
+                    if (!string.IsNullOrEmpty(ddlStatus.SelectedValue))
+                        cmd.Parameters.AddWithValue("@Status", ddlStatus.SelectedValue);
+
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    gvResourceTypes.DataSource = dt;
+                    gvResourceTypes.DataBind();
+                }
             }
         }
 
@@ -54,9 +69,8 @@ namespace StudyIsleWeb.Admin.ResourceTypes
 
                 using (SqlConnection con = new SqlConnection(cs))
                 {
-                    string query = @"UPDATE ResourceTypes
-                                     SET IsActive =
-                                     CASE WHEN IsActive = 1 THEN 0 ELSE 1 END
+                    string query = @"UPDATE ResourceTypes 
+                                     SET IsActive = CASE WHEN IsActive = 1 THEN 0 ELSE 1 END 
                                      WHERE ResourceTypeId = @Id";
 
                     SqlCommand cmd = new SqlCommand(query, con);

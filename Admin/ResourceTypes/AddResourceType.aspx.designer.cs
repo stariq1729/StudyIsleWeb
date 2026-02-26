@@ -42,6 +42,15 @@ namespace StudyIsleWeb.Admin.ResourceTypes
         protected global::System.Web.UI.WebControls.TextBox txtSlug;
 
         /// <summary>
+        /// fuIcon control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuIcon;
+
+        /// <summary>
         /// txtDisplayOrder control.
         /// </summary>
         /// <remarks>
