@@ -10,7 +10,6 @@ namespace StudyIsleWeb.Admin.Boards
     {
         private readonly string cs = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
 
-        // 2️⃣ Page Load
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -19,49 +18,65 @@ namespace StudyIsleWeb.Admin.Boards
             }
         }
 
-        // 3️⃣ Load Boards into GridView
-        private void LoadBoards()
+        // Logic for Search Filter
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            LoadBoards(txtSearch.Text.Trim());
+        }
+
+        protected void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            LoadBoards(txtSearch.Text.Trim());
+        }
+
+        private void LoadBoards(string searchTerm = "")
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string query = @"SELECT 
-                                    BoardId,
-                                    BoardName,
-                                    Slug,
-                                    HasClassLayer,
-                                    IsActive,
-                                    CreatedAt
-                                 FROM Boards
-                                 ORDER BY CreatedAt DESC";
+                // Added HeroTitle and HeroSubtitle to the SELECT statement
+                string query = @"SELECT BoardId, BoardName, Slug, HeroTitle, HeroSubtitle, 
+                                 HasClassLayer, IsActive, CreatedAt 
+                                 FROM Boards";
 
-                SqlDataAdapter da = new SqlDataAdapter(query, con);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
+                if (!string.IsNullOrEmpty(searchTerm))
+                {
+                    query += " WHERE BoardName LIKE @Search OR HeroTitle LIKE @Search";
+                }
 
-                gvBoards.DataSource = dt;
-                gvBoards.DataBind();
+                query += " ORDER BY CreatedAt DESC";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    if (!string.IsNullOrEmpty(searchTerm))
+                    {
+                        cmd.Parameters.AddWithValue("@Search", "%" + searchTerm + "%");
+                    }
+
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    gvBoards.DataSource = dt;
+                    gvBoards.DataBind();
+                }
             }
         }
 
-        // 4️⃣ GridView Row Command (Toggle Active)
         protected void gvBoards_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "ToggleActive")
             {
                 int boardId = Convert.ToInt32(e.CommandArgument);
-
                 ToggleBoardStatus(boardId);
             }
         }
 
-        // 5️⃣ Toggle Active / Inactive
         private void ToggleBoardStatus(int boardId)
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string query = @"UPDATE Boards
-                                 SET IsActive =
-                                 CASE WHEN IsActive = 1 THEN 0 ELSE 1 END
+                string query = @"UPDATE Boards 
+                                 SET IsActive = CASE WHEN IsActive = 1 THEN 0 ELSE 1 END 
                                  WHERE BoardId = @BoardId";
 
                 SqlCommand cmd = new SqlCommand(query, con);
@@ -70,9 +85,7 @@ namespace StudyIsleWeb.Admin.Boards
                 con.Open();
                 cmd.ExecuteNonQuery();
             }
-
-            // Reload grid after update
-            LoadBoards();
+            LoadBoards(txtSearch.Text.Trim());
         }
     }
 }
