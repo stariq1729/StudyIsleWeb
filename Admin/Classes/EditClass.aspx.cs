@@ -8,9 +8,7 @@ namespace StudyIsleWeb.Admin.Classes
 {
     public partial class EditClass : System.Web.UI.Page
     {
-        private readonly string cs =
-            ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
-
+        private readonly string cs = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
         private int classId;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -32,12 +30,9 @@ namespace StudyIsleWeb.Admin.Classes
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                SqlDataAdapter da = new SqlDataAdapter(
-                    "SELECT BoardId, BoardName FROM Boards", con);
-
+                SqlDataAdapter da = new SqlDataAdapter("SELECT BoardId, BoardName FROM Boards WHERE IsActive=1", con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
-
                 ddlBoard.DataSource = dt;
                 ddlBoard.DataTextField = "BoardName";
                 ddlBoard.DataValueField = "BoardId";
@@ -49,8 +44,8 @@ namespace StudyIsleWeb.Admin.Classes
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
+                // Updated to fetch new columns
                 string query = "SELECT * FROM Classes WHERE ClassId=@Id";
-
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@Id", classId);
 
@@ -64,6 +59,10 @@ namespace StudyIsleWeb.Admin.Classes
                     txtSlug.Text = dr["Slug"].ToString();
                     txtDisplayOrder.Text = dr["DisplayOrder"].ToString();
                     chkIsActive.Checked = Convert.ToBoolean(dr["IsActive"]);
+
+                    // Populate new fields
+                    txtPageTitle.Text = dr["PageTitle"] != DBNull.Value ? dr["PageTitle"].ToString() : "";
+                    txtPageSubtitle.Text = dr["PageSubtitle"] != DBNull.Value ? dr["PageSubtitle"].ToString() : "";
                 }
             }
         }
@@ -79,22 +78,28 @@ namespace StudyIsleWeb.Admin.Classes
 
             using (SqlConnection con = new SqlConnection(cs))
             {
+                // Updated SQL Query to include PageTitle and PageSubtitle
                 string query = @"UPDATE Classes
                                  SET BoardId=@BoardId,
                                      ClassName=@ClassName,
                                      Slug=@Slug,
                                      DisplayOrder=@DisplayOrder,
-                                     IsActive=@IsActive
+                                     IsActive=@IsActive,
+                                     PageTitle=@PageTitle,
+                                     PageSubtitle=@PageSubtitle
                                  WHERE ClassId=@Id";
 
                 SqlCommand cmd = new SqlCommand(query, con);
-
                 cmd.Parameters.AddWithValue("@BoardId", ddlBoard.SelectedValue);
                 cmd.Parameters.AddWithValue("@ClassName", txtClassName.Text.Trim());
                 cmd.Parameters.AddWithValue("@Slug", slug);
                 cmd.Parameters.AddWithValue("@DisplayOrder", txtDisplayOrder.Text);
                 cmd.Parameters.AddWithValue("@IsActive", chkIsActive.Checked);
                 cmd.Parameters.AddWithValue("@Id", classId);
+
+                // Add new parameters with null checks
+                cmd.Parameters.AddWithValue("@PageTitle", (object)txtPageTitle.Text.Trim() ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@PageSubtitle", (object)txtPageSubtitle.Text.Trim() ?? DBNull.Value);
 
                 con.Open();
                 cmd.ExecuteNonQuery();

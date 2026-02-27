@@ -8,8 +8,7 @@ namespace StudyIsleWeb.Admin.Classes
 {
     public partial class AddClass : System.Web.UI.Page
     {
-        private readonly string cs =
-            ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
+        private readonly string cs = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,7 +23,6 @@ namespace StudyIsleWeb.Admin.Classes
             using (SqlConnection con = new SqlConnection(cs))
             {
                 string query = "SELECT BoardId, BoardName FROM Boards WHERE IsActive=1";
-
                 SqlDataAdapter da = new SqlDataAdapter(query, con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -33,8 +31,7 @@ namespace StudyIsleWeb.Admin.Classes
                 ddlBoard.DataTextField = "BoardName";
                 ddlBoard.DataValueField = "BoardId";
                 ddlBoard.DataBind();
-
-                ddlBoard.Items.Insert(0, "-- Select Board --");
+                ddlBoard.Items.Insert(0, new System.Web.UI.WebControls.ListItem("-- Select Board --", "0"));
             }
         }
 
@@ -55,8 +52,7 @@ namespace StudyIsleWeb.Admin.Classes
             string slug = GenerateSlug(txtSlug.Text.Trim());
             int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
 
-            int displayOrder = 0;
-            int.TryParse(txtDisplayOrder.Text, out displayOrder);
+            int.TryParse(txtDisplayOrder.Text, out int displayOrder);
 
             if (string.IsNullOrWhiteSpace(className))
             {
@@ -72,18 +68,22 @@ namespace StudyIsleWeb.Admin.Classes
 
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string query = @"INSERT INTO Classes
-                                (BoardId, ClassName, Slug, DisplayOrder, IsActive, CreatedAt)
-                                 VALUES
-                                (@BoardId, @ClassName, @Slug, @DisplayOrder, @IsActive, GETDATE())";
+                // Updated query with PageTitle and PageSubtitle
+                string query = @"INSERT INTO Classes 
+                                (BoardId, ClassName, Slug, DisplayOrder, IsActive, PageTitle, PageSubtitle, CreatedAt) 
+                                VALUES 
+                                (@BoardId, @ClassName, @Slug, @DisplayOrder, @IsActive, @PageTitle, @PageSubtitle, GETDATE())";
 
                 SqlCommand cmd = new SqlCommand(query, con);
-
                 cmd.Parameters.AddWithValue("@BoardId", boardId);
                 cmd.Parameters.AddWithValue("@ClassName", className);
                 cmd.Parameters.AddWithValue("@Slug", slug);
                 cmd.Parameters.AddWithValue("@DisplayOrder", displayOrder);
                 cmd.Parameters.AddWithValue("@IsActive", chkIsActive.Checked);
+
+                // New Parameters
+                cmd.Parameters.AddWithValue("@PageTitle", (object)txtPageTitle.Text.Trim() ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@PageSubtitle", (object)txtPageSubtitle.Text.Trim() ?? DBNull.Value);
 
                 con.Open();
                 cmd.ExecuteNonQuery();
@@ -96,17 +96,13 @@ namespace StudyIsleWeb.Admin.Classes
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string query = @"SELECT COUNT(*)
-                                 FROM Classes
-                                 WHERE Slug=@Slug AND BoardId=@BoardId";
-
+                string query = "SELECT COUNT(*) FROM Classes WHERE Slug=@Slug AND BoardId=@BoardId";
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@Slug", slug);
                 cmd.Parameters.AddWithValue("@BoardId", boardId);
 
                 con.Open();
                 int count = (int)cmd.ExecuteScalar();
-
                 return count > 0;
             }
         }
