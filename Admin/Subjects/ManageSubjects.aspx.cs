@@ -8,15 +8,13 @@ namespace StudyIsleWeb.Admin.Subjects
 {
     public partial class ManageSubjects : System.Web.UI.Page
     {
-        private readonly string cs =
-            ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
+        private readonly string cs = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 LoadBoards();
-                LoadClasses(0);
                 LoadSubjects();
             }
         }
@@ -25,47 +23,14 @@ namespace StudyIsleWeb.Admin.Subjects
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                SqlDataAdapter da = new SqlDataAdapter(
-                    "SELECT BoardId, BoardName FROM Boards WHERE IsActive=1", con);
-
+                SqlDataAdapter da = new SqlDataAdapter("SELECT BoardId, BoardName FROM Boards WHERE IsActive=1 ORDER BY BoardName ASC", con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
-
                 ddlBoardFilter.DataSource = dt;
                 ddlBoardFilter.DataTextField = "BoardName";
                 ddlBoardFilter.DataValueField = "BoardId";
                 ddlBoardFilter.DataBind();
-
-                ddlBoardFilter.Items.Insert(0,
-                    new ListItem("-- All Boards --", "0"));
-            }
-        }
-
-        private void LoadClasses(int boardId)
-        {
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                string query = "SELECT ClassId, ClassName FROM Classes";
-
-                if (boardId > 0)
-                    query += " WHERE BoardId=@BoardId";
-
-                SqlCommand cmd = new SqlCommand(query, con);
-
-                if (boardId > 0)
-                    cmd.Parameters.AddWithValue("@BoardId", boardId);
-
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                ddlClassFilter.DataSource = dt;
-                ddlClassFilter.DataTextField = "ClassName";
-                ddlClassFilter.DataValueField = "ClassId";
-                ddlClassFilter.DataBind();
-
-                ddlClassFilter.Items.Insert(0,
-                    new ListItem("-- All Classes --", "0"));
+                ddlBoardFilter.Items.Insert(0, new ListItem("-- All Boards --", "0"));
             }
         }
 
@@ -73,53 +38,41 @@ namespace StudyIsleWeb.Admin.Subjects
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string query = @"SELECT s.SubjectId,
-                                        b.BoardName,
-                                        ISNULL(c.ClassName, 'No Class') AS ClassName,
-                                        s.SubjectName,
-                                        s.Slug,
-                                        s.IsActive
+                // Joins with Boards and Classes to get full context
+                string query = @"SELECT s.*, b.BoardName, c.ClassName 
                                  FROM Subjects s
                                  INNER JOIN Boards b ON s.BoardId = b.BoardId
-                                 LEFT JOIN Classes c ON s.ClassId = c.ClassId
-                                 WHERE 1=1";
+                                 LEFT JOIN Classes c ON s.ClassId = c.ClassId";
 
                 if (ddlBoardFilter.SelectedValue != "0")
-                    query += " AND s.BoardId=@BoardId";
+                {
+                    query += " WHERE s.BoardId = @BoardId";
+                }
 
-                if (ddlClassFilter.SelectedValue != "0")
-                    query += " AND s.ClassId=@ClassId";
-
-                query += " ORDER BY s.SubjectName";
+                query += " ORDER BY b.BoardName, c.DisplayOrder, s.SubjectName";
 
                 SqlCommand cmd = new SqlCommand(query, con);
-
                 if (ddlBoardFilter.SelectedValue != "0")
-                    cmd.Parameters.AddWithValue("@BoardId",
-                        ddlBoardFilter.SelectedValue);
-
-                if (ddlClassFilter.SelectedValue != "0")
-                    cmd.Parameters.AddWithValue("@ClassId",
-                        ddlClassFilter.SelectedValue);
+                {
+                    cmd.Parameters.AddWithValue("@BoardId", ddlBoardFilter.SelectedValue);
+                }
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
-
                 gvSubjects.DataSource = dt;
                 gvSubjects.DataBind();
             }
         }
 
-        protected void ddlBoardFilter_SelectedIndexChanged(object sender, EventArgs e)
+        protected void Filter_Changed(object sender, EventArgs e)
         {
-            int boardId = Convert.ToInt32(ddlBoardFilter.SelectedValue);
-            LoadClasses(boardId);
             LoadSubjects();
         }
 
-        protected void ddlClassFilter_SelectedIndexChanged(object sender, EventArgs e)
+        protected void btnClear_Click(object sender, EventArgs e)
         {
+            ddlBoardFilter.SelectedIndex = 0;
             LoadSubjects();
         }
 
@@ -127,23 +80,40 @@ namespace StudyIsleWeb.Admin.Subjects
         {
             if (e.CommandName == "ToggleActive")
             {
-                int id = Convert.ToInt32(e.CommandArgument);
-
+                int sid = Convert.ToInt32(e.CommandArgument);
                 using (SqlConnection con = new SqlConnection(cs))
                 {
-                    SqlCommand cmd = new SqlCommand(
-                        @"UPDATE Subjects
-                          SET IsActive =
-                          CASE WHEN IsActive=1 THEN 0 ELSE 1 END
-                          WHERE SubjectId=@Id", con);
-
-                    cmd.Parameters.AddWithValue("@Id", id);
-
+                    string query = "UPDATE Subjects SET IsActive = CASE WHEN IsActive = 1 THEN 0 ELSE 1 END WHERE SubjectId = @id";
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@id", sid);
                     con.Open();
                     cmd.ExecuteNonQuery();
                 }
-
                 LoadSubjects();
+            }
+        }
+
+        protected void gvSubjects_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            int sid = Convert.ToInt32(gvSubjects.DataKeys[e.RowIndex].Value);
+            try
+            {
+                using (SqlConnection con = new SqlConnection(cs))
+                {
+                    // Note: In production, consider checking for child records (Chapters/Content) before deleting
+                    SqlCommand cmd = new SqlCommand("DELETE FROM Subjects WHERE SubjectId = @id", con);
+                    cmd.Parameters.AddWithValue("@id", sid);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                lblMessage.Text = "Subject deleted successfully.";
+                lblMessage.CssClass = "text-success d-block mb-3";
+                LoadSubjects();
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = "Error: Cannot delete subject. It might have associated data.";
+                lblMessage.CssClass = "text-danger d-block mb-3";
             }
         }
     }

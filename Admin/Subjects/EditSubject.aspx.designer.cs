@@ -24,6 +24,15 @@ namespace StudyIsleWeb.Admin.Subjects
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
+        /// hfOldImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfOldImage;
+
+        /// <summary>
         /// ddlBoard control.
         /// </summary>
         /// <remarks>
@@ -58,6 +67,42 @@ namespace StudyIsleWeb.Admin.Subjects
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSlug;
+
+        /// <summary>
+        /// imgPreview control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgPreview;
+
+        /// <summary>
+        /// fuIcon control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuIcon;
+
+        /// <summary>
+        /// txtPageTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPageTitle;
+
+        /// <summary>
+        /// txtPageSubtitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPageSubtitle;
 
         /// <summary>
         /// txtDescription control.
