@@ -78,7 +78,7 @@
                                     <h6 class="fw-bold text-uppercase mb-3">School Boards</h6>
                                     <ul class="list-unstyled">
                                         <li><a class="dropdown-item" href="BoardResourceTypes.aspx?board=cbse">CBSE</a></li>
-                                        <li><a class="dropdown-item" href="BoardResourceTypes.aspx?board=icse">ICSE / ISC</a></li>
+                                        <li><a class="dropdown-item" href="BoardResourceTypes.aspx?board=icse">ICSE</a></li>
                                         <li><a class="dropdown-item" href="BoardResourceTypes.aspx?board=state">State Boards</a></li>
                                         <li><a class="dropdown-item" href="BoardResourceTypes.aspx?board=ncert">NCERT</a></li>
                                     </ul>

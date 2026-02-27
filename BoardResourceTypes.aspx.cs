@@ -70,8 +70,8 @@ namespace StudyIsleWeb
         protected string GetNavigationUrl(object slug, object hasClass)
         {
             string board = Request.QueryString["board"] ?? "cbse";
-            bool needsClass = Convert.ToBoolean(hasClass);
-            return needsClass ? $"SelectClass.aspx?board={board}&res={slug}" : $"ViewContent.aspx?board={board}&res={slug}";
+            //bool needsClass = Convert.ToBoolean(hasClass);
+            return needsClass ? $"BoardResource.aspx?board={board}&res={slug}" : $"ViewContent.aspx?board={board}&res={slug}";
         }
     }
 }
