@@ -87,6 +87,15 @@ namespace StudyIsleWeb.Admin.ResourceTypes
         protected global::System.Web.UI.WebControls.CheckBox chkIsActive;
 
         /// <summary>
+        /// cblBoards control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList cblBoards;
+
+        /// <summary>
         /// chkHasClass control.
         /// </summary>
         /// <remarks>
@@ -121,15 +130,6 @@ namespace StudyIsleWeb.Admin.ResourceTypes
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkHasYear;
-
-        /// <summary>
-        /// chkHasSubCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkHasSubCategory;
 
         /// <summary>
         /// btnSave control.

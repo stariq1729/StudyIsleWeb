@@ -22,6 +22,13 @@
             </div>
         </div>
 
+                <div class="col-md-3">
+            <div class="dashboard-card shadow-sm">
+                <h6>Total Resources</h6>
+                <h3><asp:Literal ID="litResources" runat="server"></asp:Literal></h3>
+            </div>
+        </div>
+
         <div class="col-md-3">
             <div class="dashboard-card shadow-sm">
                 <h6>Total Subjects</h6>
@@ -29,12 +36,7 @@
             </div>
         </div>
 
-        <div class="col-md-3">
-            <div class="dashboard-card shadow-sm">
-                <h6>Total Resources</h6>
-                <h3><asp:Literal ID="litResources" runat="server"></asp:Literal></h3>
-            </div>
-        </div>
+
 
     </div>
 </asp:Content>

@@ -1,19 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Web.UI.WebControls;
 
 namespace StudyIsleWeb.Admin.ResourceTypes
 {
     public partial class EditResourceType : System.Web.UI.Page
     {
         string cs = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
-        int resourceTypeId;
+
+        // Using a property to safely manage the ResourceID from QueryString
+        private int ResourceID
+        {
+            get { return Convert.ToInt32(Request.QueryString["id"] ?? "0"); }
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!int.TryParse(Request.QueryString["id"], out resourceTypeId))
+            if (ResourceID == 0)
             {
                 Response.Redirect("ManageResourceTypes.aspx");
                 return;
@@ -21,7 +29,22 @@ namespace StudyIsleWeb.Admin.ResourceTypes
 
             if (!IsPostBack)
             {
-                LoadResourceType();
+                BindBoards(); // 1. Load the list of boards
+                LoadResourceType(); // 2. Load the resource details
+                MarkExistingMappings(); // 3. Pre-check the boards already saved
+            }
+        }
+
+        private void BindBoards()
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                string query = "SELECT BoardId, BoardName FROM Boards ORDER BY BoardName ASC";
+                SqlDataAdapter da = new SqlDataAdapter(query, con);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                cblBoards.DataSource = dt;
+                cblBoards.DataBind();
             }
         }
 
@@ -31,14 +54,13 @@ namespace StudyIsleWeb.Admin.ResourceTypes
             {
                 string query = "SELECT * FROM ResourceTypes WHERE ResourceTypeId = @Id";
                 SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@Id", resourceTypeId);
-
+                cmd.Parameters.AddWithValue("@Id", ResourceID);
                 con.Open();
                 SqlDataReader dr = cmd.ExecuteReader();
                 if (dr.Read())
                 {
                     txtName.Text = dr["TypeName"].ToString();
-                    txtDescription.Text = dr["Description"].ToString(); // Load description
+                    txtDescription.Text = dr["Description"].ToString();
                     txtSlug.Text = dr["Slug"].ToString();
                     txtDisplayOrder.Text = dr["DisplayOrder"].ToString();
                     chkIsPremium.Checked = Convert.ToBoolean(dr["IsPremium"]);
@@ -49,10 +71,28 @@ namespace StudyIsleWeb.Admin.ResourceTypes
                     chkHasYear.Checked = Convert.ToBoolean(dr["HasYear"]);
                     chkHasSubCategory.Checked = Convert.ToBoolean(dr["HasSubCategory"]);
 
-                    // Handle Image Preview
                     string imgName = dr["IconImage"].ToString();
                     hfCurrentImg.Value = imgName;
                     imgCurrent.ImageUrl = "~/Uploads/ResourceIcons/" + (string.IsNullOrEmpty(imgName) ? "default-icon.png" : imgName);
+                }
+            }
+        }
+
+        private void MarkExistingMappings()
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                // This fetches which boards are currently assigned to this resource
+                string query = "SELECT BoardId FROM BoardResourceMapping WHERE ResourceTypeId = @RID";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@RID", ResourceID);
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    string boardId = dr["BoardId"].ToString();
+                    ListItem item = cblBoards.Items.FindByValue(boardId);
+                    if (item != null) item.Selected = true;
                 }
             }
         }
@@ -64,39 +104,34 @@ namespace StudyIsleWeb.Admin.ResourceTypes
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            string iconFileName = hfCurrentImg.Value; // Keep existing by default
+            string iconFileName = hfCurrentImg.Value;
 
             if (fuIcon.HasFile)
             {
                 string extension = Path.GetExtension(fuIcon.FileName).ToLower();
-                string[] allowed = { ".png", ".jpg", ".jpeg", ".svg", ".webp" };
-
-                if (Array.Exists(allowed, ext => ext == extension))
-                {
-                    iconFileName = "resource_" + DateTime.Now.Ticks + extension;
-                    string folderPath = Server.MapPath("~/Uploads/ResourceIcons/");
-                    fuIcon.SaveAs(Path.Combine(folderPath, iconFileName));
-
-                    // Optional: Delete the old file from server if it wasn't the default icon
-                    // if(hfCurrentImg.Value != "default-icon.png") { File.Delete(...) }
-                }
+                iconFileName = "resource_" + DateTime.Now.Ticks + extension;
+                fuIcon.SaveAs(Server.MapPath("~/Uploads/ResourceIcons/") + iconFileName);
             }
 
-            try
+            using (SqlConnection con = new SqlConnection(cs))
             {
-                using (SqlConnection con = new SqlConnection(cs))
-                {
-                    // Inside btnUpdate_Click
-                    string query = @"UPDATE ResourceTypes SET 
-                TypeName=@TypeName, Slug=@Slug, Description=@Description, IconImage=@IconImage, 
-                IsPremium=@IsPremium, IsActive=@IsActive, DisplayOrder=@DisplayOrder,
-                HasClass=@HasClass, HasSubject=@HasSubject, HasChapter=@HasChapter, 
-                HasYear=@HasYear, HasSubCategory=@HasSubCategory
-                WHERE ResourceTypeId=@Id";
+                con.Open();
+                SqlTransaction trans = con.BeginTransaction();
 
-                    SqlCommand cmd = new SqlCommand(query, con);
+                try
+                {
+                    // 1. Update Resource Details
+                    string query = @"UPDATE ResourceTypes SET 
+                        TypeName=@TypeName, Slug=@Slug, Description=@Description, IconImage=@IconImage, 
+                        IsPremium=@IsPremium, IsActive=@IsActive, DisplayOrder=@DisplayOrder,
+                        HasClass=@HasClass, HasSubject=@HasSubject, HasChapter=@HasChapter, 
+                        HasYear=@HasYear, HasSubCategory=@HasSubCategory
+                        WHERE ResourceTypeId=@Id";
+
+                    SqlCommand cmd = new SqlCommand(query, con, trans);
                     cmd.Parameters.AddWithValue("@TypeName", txtName.Text.Trim());
-                    cmd.Parameters.AddWithValue("@Slug", GenerateSlug(txtSlug.Text));
+                    cmd.Parameters.AddWithValue("@Slug", txtSlug.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Description", txtDescription.Text.Trim());
                     cmd.Parameters.AddWithValue("@IconImage", iconFileName);
                     cmd.Parameters.AddWithValue("@IsPremium", chkIsPremium.Checked);
                     cmd.Parameters.AddWithValue("@IsActive", chkIsActive.Checked);
@@ -106,17 +141,36 @@ namespace StudyIsleWeb.Admin.ResourceTypes
                     cmd.Parameters.AddWithValue("@HasChapter", chkHasChapter.Checked);
                     cmd.Parameters.AddWithValue("@HasYear", chkHasYear.Checked);
                     cmd.Parameters.AddWithValue("@HasSubCategory", chkHasSubCategory.Checked);
-                    cmd.Parameters.AddWithValue("@Id", resourceTypeId);
-                    cmd.Parameters.AddWithValue("@Description", txtDescription.Text.Trim()); // Update parameter
-
-                    con.Open();
+                    cmd.Parameters.AddWithValue("@Id", ResourceID);
                     cmd.ExecuteNonQuery();
+
+                    // 2. Delete old board mappings
+                    string delQuery = "DELETE FROM BoardResourceMapping WHERE ResourceTypeId = @RID";
+                    SqlCommand delCmd = new SqlCommand(delQuery, con, trans);
+                    delCmd.Parameters.AddWithValue("@RID", ResourceID);
+                    delCmd.ExecuteNonQuery();
+
+                    // 3. Insert new board mappings from CheckBoxList
+                    foreach (ListItem item in cblBoards.Items)
+                    {
+                        if (item.Selected)
+                        {
+                            string insQuery = "INSERT INTO BoardResourceMapping (BoardId, ResourceTypeId) VALUES (@BID, @RID)";
+                            SqlCommand insCmd = new SqlCommand(insQuery, con, trans);
+                            insCmd.Parameters.AddWithValue("@BID", item.Value);
+                            insCmd.Parameters.AddWithValue("@RID", ResourceID);
+                            insCmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    trans.Commit();
+                    Response.Redirect("ManageResourceTypes.aspx");
                 }
-                Response.Redirect("ManageResourceTypes.aspx");
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = "Update failed: " + ex.Message;
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+                    lblMessage.Text = "Update failed: " + ex.Message;
+                }
             }
         }
 

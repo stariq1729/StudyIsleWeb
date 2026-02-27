@@ -33,15 +33,6 @@ namespace StudyIsleWeb.Admin
         protected global::System.Web.UI.WebControls.Literal litClasses;
 
         /// <summary>
-        /// litSubjects control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litSubjects;
-
-        /// <summary>
         /// litResources control.
         /// </summary>
         /// <remarks>
@@ -49,5 +40,14 @@ namespace StudyIsleWeb.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal litResources;
+
+        /// <summary>
+        /// litSubjects control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litSubjects;
     }
 }
