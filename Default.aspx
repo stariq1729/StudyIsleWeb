@@ -37,22 +37,22 @@
                     <div class="class-card p-4 mt-4">
 
                         <p class="small text-muted mb-3 fw-semibold">
-                            SELECT YOUR CLASS TO START
+                           TOP COURSES
                         </p>
 
                         <div class="class-buttons mb-4">
 
-                            <a href="/Courses.aspx?class=6" class="btn class-btn m-1">Class 6</a>
-                            <a href="/Courses.aspx?class=7" class="btn class-btn m-1">Class 7</a>
-                            <a href="/Courses.aspx?class=8" class="btn class-btn m-1">Class 8</a>
-                            <a href="/Courses.aspx?class=9" class="btn class-btn m-1">Class 9</a>
+                            <a href="/Courses.aspx?class=6" class="btn class-btn m-1">CBSE</a>
+                            <a href="/Courses.aspx?class=7" class="btn class-btn m-1">ICSE</a>
+                            <a href="/Courses.aspx?class=8" class="btn class-btn m-1">JEE</a>
+                            <a href="/Courses.aspx?class=9" class="btn class-btn m-1">NEET</a>
 
                             <!-- Active Class -->
-                            <a href="/Courses.aspx?class=10" class="btn class-btn active m-1">Class 10</a>
+                            <%--<a href="/Courses.aspx?class=10" class="btn class-btn active m-1">Class 10</a>
 
                             <a href="/Courses.aspx?class=11" class="btn class-btn m-1">Class 11</a>
                             <a href="/Courses.aspx?class=12" class="btn class-btn m-1">Class 12</a>
-                            <a href="/Courses.aspx?class=jee-neet" class="btn class-btn m-1">JEE/NEET</a>
+                            <a href="/Courses.aspx?class=jee-neet" class="btn class-btn m-1">JEE/NEET</a>--%>
 
                         </div>
 
@@ -120,8 +120,238 @@
         <span>• 50k+ Questions Solved Daily</span>
         <span>• AIR 1, 4, 7 & 12 in JEE 2024</span>
         <span>• Best Live Learning App Award 2023</span>
+         <span>• 50k+ Questions Solved Daily</span>
+ <span>• AIR 1, 4, 7 & 12 in JEE 2024</span>
+ <span>• Best Live Learning App Award 2023</span>
+ <span>• 50k+ Questions Solved Daily</span>
+ <span>• AIR 1, 4, 7 & 12 in JEE 2024</span>
+ <span>• Best Live Learning App Award 2023</span>
     </div>
 </div>
+
+
+        <%--============Career Guidance section start from here========--%>
+    <!-- =========================
+   <!-- ======================================
+   CAREER GUIDANCE SECTION
+====================================== -->
+<section class="career-section">
+    <div class="container">
+        <div class="career-wrapper">
+            <div class="row align-items-center">
+
+                <!-- LEFT CONTENT -->
+                <div class="col-lg-6 career-left">
+
+                    <span class="career-badge">★ Personalized Guidance</span>
+
+                    <h2 class="career-heading">
+                        Not sure where to start?
+                        <span>Speak 1-on-1.</span>
+                    </h2>
+
+                    <p class="career-description">
+                        Every child is unique. Our expert academic counselors provide
+                        personalized roadmaps for your specific goals—completely free.
+                    </p>
+
+                    <div class="career-features">
+                        <div class="feature-item">
+                            <i class="bi bi-calendar-check"></i>
+                            Pick your preferred time
+                        </div>
+                        <div class="feature-item">
+                            <i class="bi bi-camera-video"></i>
+                            Video consultation
+                        </div>
+                        <div class="feature-item">
+                            <i class="bi bi-file-earmark-text"></i>
+                            Detailed Academic Report
+                        </div>
+                        <div class="feature-item">
+                            <i class="bi bi-shield-check"></i>
+                            100% Personal Attention
+                        </div>
+                    </div>
+
+                    <div class="career-cta-area">
+                        <a href="https://studyisle.edumilestones.com/" class="career-cta">
+                            Schedule 1:1 Call →
+                        </a>
+                        <div class="online-status">
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <small>14 counselors online now</small>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT CARD -->
+                <div class="col-lg-6 career-right">
+
+                    <div class="counsellor-card-wrapper">
+
+                        <div class="counsellor-card">
+
+                            <!-- Yellow corner ribbon (clipped inside card) -->
+                            <div class="slots-ribbon"></div>
+                            <div class="slots-ribbon-text">LIMITED<br>SLOTS</div>
+
+                            <!-- Profile -->
+                            <div class="counsellor-top">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Dr. Shweta Iyer" />
+                                <h5>Dr. Shweta Iyer</h5>
+                                <p>Senior Academic Counselor</p>
+                            </div>
+
+                            <!-- Info rows -->
+                            <div class="counsellor-info">
+                                <div class="info-row">
+                                    <span>Experience</span>
+                                    <strong>12+ Years</strong>
+                                </div>
+                                <div class="info-row">
+                                    <span>Specialization</span>
+                                    <strong>JEE &amp; NEET Expert</strong>
+                                </div>
+                            </div>
+
+                            <!-- Next slot -->
+                            <div class="next-slot">
+                                Next Available Slot
+                                <strong>Today, 4:30 PM</strong>
+                            </div>
+
+                        </div>
+                        <!-- END .counsellor-card -->
+
+                        <!-- Success badge: outside card, inside wrapper -->
+                        <div class="success-badge">
+                            <span class="badge-label">✦ Success Story</span>
+                            <p>"Shweta helped my son choose the right branch!"</p>
+                        </div>
+
+                    </div>
+                    <!-- END .counsellor-card-wrapper -->
+
+                </div>
+                <!-- END RIGHT CARD -->
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+       <%-- == Books section start from here==--%>
+
+   <section class="ncert-section">
+    <div class="container">
+
+        <!-- Header Row -->
+        <div class="row align-items-center mb-5">
+            <div class="col-md-8">
+                <h1 class="ncert-title">Free NCERT & Revision Hub</h1>
+                <p class="ncert-subtitle">
+                    Access thousands of chapter-wise solutions, revision notes, and past year papers curated by experts.
+                </p>
+            </div>
+
+            <div class="col-md-4 text-md-end text-start mt-3 mt-md-0">
+                <a href="#" class="view-all-btn">
+                    View All Resources →
+                </a>
+            </div>
+        </div>
+
+        <!-- Subject Row -->
+        <div class="row g-2 justify-content-center text-center">
+
+            <div class="col-lg-2 col-md-4 col-6">
+                <a href="Mathematics.aspx" class="subject-card">
+                    <div class="icon-box math">Σ</div>
+                    <h6>Mathematics</h6>
+                    <span>SOLUTIONS • NOTES</span>
+                </a>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-6">
+                <a href="Physics.aspx" class="subject-card">
+                    <div class="icon-box physics">⚙</div>
+                    <h6>Physics</h6>
+                    <span>SOLUTIONS • NOTES</span>
+                </a>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-6">
+                <a href="Chemistry.aspx" class="subject-card">
+                    <div class="icon-box chemistry">🧪</div>
+                    <h6>Chemistry</h6>
+                    <span>SOLUTIONS • NOTES</span>
+                </a>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-6">
+                <a href="Biology.aspx" class="subject-card">
+                    <div class="icon-box biology">🧬</div>
+                    <h6>Biology</h6>
+                    <span>SOLUTIONS • NOTES</span>
+                </a>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-6">
+                <a href="English.aspx" class="subject-card">
+                    <div class="icon-box english">A</div>
+                    <h6>English</h6>
+                    <span>SOLUTIONS • NOTES</span>
+                </a>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-6">
+                <a href="SST.aspx" class="subject-card">
+                    <div class="icon-box sst">🌍</div>
+                    <h6>SST</h6>
+                    <span>SOLUTIONS • NOTES</span>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Bottom Feature Row -->
+        <div class="row mt-5 g-4">
+
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <h6>RD Sharma Solutions</h6>
+                    <p>Concept-wise solutions for all grades.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <h6>Revision Notes</h6>
+                    <p>Summarized notes for last-minute prep.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <h6>Previous Year Papers</h6>
+                    <p>10-Year board exam paper vault.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+
+
+
 
         <%--another section from here--%>
 
@@ -188,7 +418,7 @@
 
   <%--  =======Course section start from here======--%>
     
-<section class="course-section">
+<%--<section class="course-section">
     <div class="container">
 
         <!-- Header -->
@@ -351,225 +581,10 @@
         </div>
 
     </div>
-</section>
+</section>--%>
    <%-- ==course section end==--%>
 
-   <%-- == Books section start from here==--%>
 
-   <section class="ncert-section">
-    <div class="container">
-
-        <!-- Header Row -->
-        <div class="row align-items-center mb-5">
-            <div class="col-md-8">
-                <h1 class="ncert-title">Free NCERT & Revision Hub</h1>
-                <p class="ncert-subtitle">
-                    Access thousands of chapter-wise solutions, revision notes, and past year papers curated by experts.
-                </p>
-            </div>
-
-            <div class="col-md-4 text-md-end text-start mt-3 mt-md-0">
-                <a href="#" class="view-all-btn">
-                    View All Resources →
-                </a>
-            </div>
-        </div>
-
-        <!-- Subject Row -->
-        <div class="row g-2 justify-content-center text-center">
-
-            <div class="col-lg-2 col-md-4 col-6">
-                <a href="Mathematics.aspx" class="subject-card">
-                    <div class="icon-box math">Σ</div>
-                    <h6>Mathematics</h6>
-                    <span>SOLUTIONS • NOTES</span>
-                </a>
-            </div>
-
-            <div class="col-lg-2 col-md-4 col-6">
-                <a href="Physics.aspx" class="subject-card">
-                    <div class="icon-box physics">⚙</div>
-                    <h6>Physics</h6>
-                    <span>SOLUTIONS • NOTES</span>
-                </a>
-            </div>
-
-            <div class="col-lg-2 col-md-4 col-6">
-                <a href="Chemistry.aspx" class="subject-card">
-                    <div class="icon-box chemistry">🧪</div>
-                    <h6>Chemistry</h6>
-                    <span>SOLUTIONS • NOTES</span>
-                </a>
-            </div>
-
-            <div class="col-lg-2 col-md-4 col-6">
-                <a href="Biology.aspx" class="subject-card">
-                    <div class="icon-box biology">🧬</div>
-                    <h6>Biology</h6>
-                    <span>SOLUTIONS • NOTES</span>
-                </a>
-            </div>
-
-            <div class="col-lg-2 col-md-4 col-6">
-                <a href="English.aspx" class="subject-card">
-                    <div class="icon-box english">A</div>
-                    <h6>English</h6>
-                    <span>SOLUTIONS • NOTES</span>
-                </a>
-            </div>
-
-            <div class="col-lg-2 col-md-4 col-6">
-                <a href="SST.aspx" class="subject-card">
-                    <div class="icon-box sst">🌍</div>
-                    <h6>SST</h6>
-                    <span>SOLUTIONS • NOTES</span>
-                </a>
-            </div>
-
-        </div>
-
-        <!-- Bottom Feature Row -->
-        <div class="row mt-5 g-4">
-
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <h6>RD Sharma Solutions</h6>
-                    <p>Concept-wise solutions for all grades.</p>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <h6>Revision Notes</h6>
-                    <p>Summarized notes for last-minute prep.</p>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <h6>Previous Year Papers</h6>
-                    <p>10-Year board exam paper vault.</p>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-</section>
-
-    <%--============Career Guidance section start from here========--%>
-    <!-- =========================
-   <!-- ======================================
-   CAREER GUIDANCE SECTION
-====================================== -->
-<section class="career-section">
-    <div class="container">
-        <div class="career-wrapper">
-            <div class="row align-items-center">
-
-                <!-- LEFT CONTENT -->
-                <div class="col-lg-6 career-left">
-
-                    <span class="career-badge">★ Personalized Guidance</span>
-
-                    <h2 class="career-heading">
-                        Not sure where to start?
-                        <span>Speak 1-on-1.</span>
-                    </h2>
-
-                    <p class="career-description">
-                        Every child is unique. Our expert academic counselors provide
-                        personalized roadmaps for your specific goals—completely free.
-                    </p>
-
-                    <div class="career-features">
-                        <div class="feature-item">
-                            <i class="bi bi-calendar-check"></i>
-                            Pick your preferred time
-                        </div>
-                        <div class="feature-item">
-                            <i class="bi bi-camera-video"></i>
-                            Video consultation
-                        </div>
-                        <div class="feature-item">
-                            <i class="bi bi-file-earmark-text"></i>
-                            Detailed Academic Report
-                        </div>
-                        <div class="feature-item">
-                            <i class="bi bi-shield-check"></i>
-                            100% Personal Attention
-                        </div>
-                    </div>
-
-                    <div class="career-cta-area">
-                        <a href="https://studyisle.edumilestones.com/" class="career-cta">
-                            Schedule 1:1 Call →
-                        </a>
-                        <div class="online-status">
-                            <span class="dot"></span>
-                            <span class="dot"></span>
-                            <span class="dot"></span>
-                            <small>14 counselors online now</small>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- RIGHT CARD -->
-                <div class="col-lg-6 career-right">
-
-                    <div class="counsellor-card-wrapper">
-
-                        <div class="counsellor-card">
-
-                            <!-- Yellow corner ribbon (clipped inside card) -->
-                            <div class="slots-ribbon"></div>
-                            <div class="slots-ribbon-text">LIMITED<br>SLOTS</div>
-
-                            <!-- Profile -->
-                            <div class="counsellor-top">
-                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Dr. Shweta Iyer" />
-                                <h5>Dr. Shweta Iyer</h5>
-                                <p>Senior Academic Counselor</p>
-                            </div>
-
-                            <!-- Info rows -->
-                            <div class="counsellor-info">
-                                <div class="info-row">
-                                    <span>Experience</span>
-                                    <strong>12+ Years</strong>
-                                </div>
-                                <div class="info-row">
-                                    <span>Specialization</span>
-                                    <strong>JEE &amp; NEET Expert</strong>
-                                </div>
-                            </div>
-
-                            <!-- Next slot -->
-                            <div class="next-slot">
-                                Next Available Slot
-                                <strong>Today, 4:30 PM</strong>
-                            </div>
-
-                        </div>
-                        <!-- END .counsellor-card -->
-
-                        <!-- Success badge: outside card, inside wrapper -->
-                        <div class="success-badge">
-                            <span class="badge-label">✦ Success Story</span>
-                            <p>"Shweta helped my son choose the right branch!"</p>
-                        </div>
-
-                    </div>
-                    <!-- END .counsellor-card-wrapper -->
-
-                </div>
-                <!-- END RIGHT CARD -->
-
-            </div>
-        </div>
-    </div>
-</section>
 
    <%-- ===========TESTIMONIALS SECTION START FROM HERE===========--%>
 

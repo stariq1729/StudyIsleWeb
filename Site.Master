@@ -57,22 +57,14 @@
                 <li class="nav-item dropdown position-static">
                     <a id="navStudyHub" runat="server" class="nav-link nav-custom dropdown-toggle"
                        href="#" role="button" data-bs-toggle="dropdown">
-                        StudyHub
+                        Courses
                     </a>
 
                     <div class="dropdown-menu mega-dropdown border-0 shadow-lg p-3">
                         <div class="container">
                             <div class="row">
 
-                                <div class="col-md-4">
-                                    <h6 class="fw-bold text-uppercase mb-3">Competitive Exams</h6>
-                                    <ul class="list-unstyled">
-                                        <li><a class="dropdown-item" href="BoardResourceTypes.aspx?board=jee">JEE Main & Advanced</a></li>
-                                        <li><a class="dropdown-item" href="BoardResourceTypes.aspx?board=neet">NEET UG</a></li>
-                                        <li><a class="dropdown-item" href="BoardResourceTypes.aspx?board=cuet">CUET</a></li>
-                                        <li><a class="dropdown-item" href="BoardResourceTypes.aspx?board=nda">NDA / Defence</a></li>
-                                    </ul>
-                                </div>
+                                
 
                                 <div class="col-md-4">
                                     <h6 class="fw-bold text-uppercase mb-3">School Boards</h6>
@@ -83,6 +75,16 @@
                                         <li><a class="dropdown-item" href="BoardResourceTypes.aspx?board=ncert">NCERT</a></li>
                                     </ul>
                                 </div>
+
+                                <div class="col-md-4">
+    <h6 class="fw-bold text-uppercase mb-3">Competitive Exams</h6>
+    <ul class="list-unstyled">
+        <li><a class="dropdown-item" href="BoardResourceTypes.aspx?board=jee">JEE Main & Advanced</a></li>
+        <li><a class="dropdown-item" href="BoardResourceTypes.aspx?board=neet">NEET UG</a></li>
+        <li><a class="dropdown-item" href="BoardResourceTypes.aspx?board=cuet">CUET</a></li>
+        <li><a class="dropdown-item" href="BoardResourceTypes.aspx?board=nda">NDA / Defence</a></li>
+    </ul>
+</div>
 
                                 <div class="col-md-4">
                                     <div class="p-4 rounded bg-light h-100">
