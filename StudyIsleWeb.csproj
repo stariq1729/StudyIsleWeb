@@ -138,6 +138,7 @@
     <Content Include="NcertBook.aspx" />
     <Content Include="Student\StudentIndex.aspx" />
     <Content Include="Student\Student_Logout.aspx" />
+    <Content Include="SubjectDetails.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -376,6 +377,13 @@
     </Compile>
     <Compile Include="Student\Student_Logout.aspx.designer.cs">
       <DependentUpon>Student_Logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SubjectDetails.aspx.cs">
+      <DependentUpon>SubjectDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubjectDetails.aspx.designer.cs">
+      <DependentUpon>SubjectDetails.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
