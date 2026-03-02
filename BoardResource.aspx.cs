@@ -15,10 +15,9 @@ namespace StudyIsleWeb
         {
             if (!IsPostBack)
             {
-                // 1. Capture all context from the URL
                 string boardSlug = Request.QueryString["board"];
                 string classSlug = Request.QueryString["class"];
-                string resSlug = Request.QueryString["res"]; // Captures "cbse", "solutions", or "pyq"
+                string resSlug = Request.QueryString["res"] ?? "cbse"; // Default to cbse if null
 
                 if (string.IsNullOrEmpty(boardSlug))
                 {
@@ -26,12 +25,13 @@ namespace StudyIsleWeb
                     return;
                 }
 
-                // Default context if parameters are missing
-                if (string.IsNullOrEmpty(resSlug)) resSlug = "cbse";
+                // If no class selected, we don't hardcode "class-12" yet, 
+                // we'll handle it after binding the available classes.
+                BindClasses(boardSlug, resSlug);
+
+                // Re-check classSlug after BindClasses logic
                 if (string.IsNullOrEmpty(classSlug)) classSlug = "class-12";
 
-                // 2. Pass the 'resSlug' to every method to ensure context-specific data
-                BindClasses(boardSlug, resSlug);
                 BindPageContent(boardSlug, classSlug);
                 BindSubjectsAndResources(boardSlug, classSlug, resSlug);
             }
@@ -41,22 +41,18 @@ namespace StudyIsleWeb
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                // This query ensures Class Tabs ONLY appear if they have resources for the clicked card
-                // Perfect for PYQs where only Class 10 & 12 should show.
+                // Only show classes that HAVE resources for this board and resource type
                 string query = @"SELECT DISTINCT c.ClassName, c.Slug, c.DisplayOrder 
                                  FROM Classes c 
-                                 JOIN Boards b ON c.BoardId = b.BoardId 
-                                 JOIN Resources r ON r.ClassId = c.ClassId
-                                 JOIN ResourceTypes rt ON r.ResourceTypeId = rt.ResourceTypeId
-                                 WHERE b.Slug = @bSlug 
-                                 AND rt.Slug = @resSlug 
-                                 AND c.IsActive = 1 
+                                 INNER JOIN Boards b ON c.BoardId = b.BoardId 
+                                 INNER JOIN Resources r ON r.ClassId = c.ClassId
+                                 INNER JOIN ResourceTypes rt ON r.ResourceTypeId = rt.ResourceTypeId
+                                 WHERE b.Slug = @bSlug AND rt.Slug = @resSlug AND c.IsActive = 1 
                                  ORDER BY c.DisplayOrder ASC";
 
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@bSlug", boardSlug);
                 cmd.Parameters.AddWithValue("@resSlug", resSlug);
-
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -70,21 +66,18 @@ namespace StudyIsleWeb
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string query = @"SELECT c.PageTitle, c.PageSubtitle 
-                                 FROM Classes c 
+                string query = @"SELECT c.PageTitle, c.PageSubtitle FROM Classes c 
                                  JOIN Boards b ON c.BoardId = b.BoardId 
                                  WHERE b.Slug = @bSlug AND c.Slug = @cSlug";
-
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@bSlug", boardSlug);
                 cmd.Parameters.AddWithValue("@cSlug", classSlug);
-
                 con.Open();
                 SqlDataReader dr = cmd.ExecuteReader();
                 if (dr.Read())
                 {
-                    litPageTitle.Text = dr["PageTitle"] != DBNull.Value ? dr["PageTitle"].ToString() : "Board Resources";
-                    litPageSubtitle.Text = dr["PageSubtitle"] != DBNull.Value ? dr["PageSubtitle"].ToString() : "Full digital access.";
+                    litPageTitle.Text = dr["PageTitle"].ToString();
+                    litPageSubtitle.Text = dr["PageSubtitle"].ToString();
                 }
                 con.Close();
             }
@@ -94,17 +87,18 @@ namespace StudyIsleWeb
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                // We filter the Subject groups so only Subjects belonging to the clicked ResourceType appear
-                string query = @"SELECT DISTINCT s.SubjectId, s.SubjectName 
-                                 FROM Subjects s
-                                 INNER JOIN Boards b ON s.BoardId = b.BoardId
-                                 INNER JOIN Classes c ON s.ClassId = c.ClassId
-                                 INNER JOIN Resources r ON r.SubjectId = s.SubjectId
-                                 INNER JOIN ResourceTypes rt ON r.ResourceTypeId = rt.ResourceTypeId
-                                 WHERE b.Slug = @bSlug 
-                                 AND c.Slug = @cSlug 
-                                 AND rt.Slug = @resSlug 
-                                 AND s.IsActive = 1";
+                // ADDED 's.IconImage' to the SELECT list below
+                string query = @"SELECT DISTINCT s.SubjectId, s.SubjectName, s.IconImage 
+                         FROM Subjects s
+                         INNER JOIN Classes c ON s.ClassId = c.ClassId
+                         INNER JOIN Boards b ON s.BoardId = b.BoardId
+                         INNER JOIN Resources r ON r.SubjectId = s.SubjectId
+                         INNER JOIN ResourceTypes rt ON r.ResourceTypeId = rt.ResourceTypeId
+                         WHERE b.Slug = @bSlug 
+                         AND c.Slug = @cSlug 
+                         AND rt.Slug = @resSlug 
+                         AND s.IsActive = 1 
+                         AND r.IsActive = 1";
 
                 SqlDataAdapter da = new SqlDataAdapter(query, con);
                 da.SelectCommand.Parameters.AddWithValue("@bSlug", boardSlug);
@@ -119,38 +113,38 @@ namespace StudyIsleWeb
             }
         }
 
-        protected void rptSubjectGroups_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                int subjectId = Convert.ToInt32(DataBinder.Eval(e.Item.DataItem, "SubjectId"));
-                string resSlug = Request.QueryString["res"] ?? "cbse"; // Re-capture context for inner repeater
+        //protected void rptSubjectGroups_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        //{
+        //    if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+        //    {
+        //        int subjectId = Convert.ToInt32(DataBinder.Eval(e.Item.DataItem, "SubjectId"));
+        //        string resSlug = Request.QueryString["res"] ?? "cbse";
+        //        string classSlug = Request.QueryString["class"] ?? "class-12";
 
-                Repeater rptResources = (Repeater)e.Item.FindControl("rptResources");
+        //        Repeater rptResources = (Repeater)e.Item.FindControl("rptResources");
 
-                using (SqlConnection con = new SqlConnection(cs))
-                {
-                    // This query ensures that the cards INSIDE the group also match the clicked ResourceType
-                    string query = @"SELECT r.ResourceId, r.Title, s.SubjectName, s.IconImage 
-                                     FROM Resources r 
-                                     INNER JOIN Subjects s ON r.SubjectId = s.SubjectId 
-                                     INNER JOIN ResourceTypes rt ON r.ResourceTypeId = rt.ResourceTypeId
-                                     WHERE r.SubjectId = @sId 
-                                     AND rt.Slug = @resSlug 
-                                     AND r.IsActive = 1";
+        //        using (SqlConnection con = new SqlConnection(cs))
+        //        {
+        //            // Filter individual resource cards by the current context
+        //            string query = @"SELECT r.ResourceId, r.Title, s.SubjectName, s.IconImage 
+        //                             FROM Resources r 
+        //                             INNER JOIN Subjects s ON r.SubjectId = s.SubjectId
+        //                             INNER JOIN ResourceTypes rt ON r.ResourceTypeId = rt.ResourceTypeId
+        //                             INNER JOIN Classes c ON r.ClassId = c.ClassId
+        //                             WHERE r.SubjectId = @sId AND rt.Slug = @resSlug AND c.Slug = @cSlug";
 
-                    SqlCommand cmd = new SqlCommand(query, con);
-                    cmd.Parameters.AddWithValue("@sId", subjectId);
-                    cmd.Parameters.AddWithValue("@resSlug", resSlug);
+        //            SqlCommand cmd = new SqlCommand(query, con);
+        //            cmd.Parameters.AddWithValue("@sId", subjectId);
+        //            cmd.Parameters.AddWithValue("@resSlug", resSlug);
+        //            cmd.Parameters.AddWithValue("@cSlug", classSlug);
+        //            SqlDataAdapter da = new SqlDataAdapter(cmd);
+        //            DataTable dt = new DataTable();
+        //            da.Fill(dt);
 
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-
-                    rptResources.DataSource = dt;
-                    rptResources.DataBind();
-                }
-            }
-        }
+        //            rptResources.DataSource = dt;
+        //            rptResources.DataBind();
+        //        }
+        //    }
+        //}
     }
 }
