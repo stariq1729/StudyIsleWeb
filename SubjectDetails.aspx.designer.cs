@@ -42,13 +42,22 @@ namespace StudyIsleWeb
         protected global::System.Web.UI.WebControls.Literal litPageTitle;
 
         /// <summary>
-        /// litPageSubtitle control.
+        /// phYearPath control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litPageSubtitle;
+        protected global::System.Web.UI.WebControls.PlaceHolder phYearPath;
+
+        /// <summary>
+        /// rptYears control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptYears;
 
         /// <summary>
         /// phChapterPath control.
@@ -60,12 +69,21 @@ namespace StudyIsleWeb
         protected global::System.Web.UI.WebControls.PlaceHolder phChapterPath;
 
         /// <summary>
-        /// phYearPath control.
+        /// litChapterCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder phYearPath;
+        protected global::System.Web.UI.WebControls.Literal litChapterCount;
+
+        /// <summary>
+        /// rptChapters control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptChapters;
     }
 }

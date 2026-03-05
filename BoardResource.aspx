@@ -23,37 +23,32 @@
             <p><asp:Literal ID="litPageSubtitle" runat="server"></asp:Literal></p>
         </div>
 
-        <div class="class-tabs">
-            <asp:Repeater ID="rptClasses" runat="server">
-                <ItemTemplate>
-                    <a href='<%# "BoardResource.aspx?board=" + Request.QueryString["board"] + "&res=" + Request.QueryString["res"] + "&class=" + Eval("Slug") %>' 
-                       class='<%# Eval("Slug").ToString() == Request.QueryString["class"] || (string.IsNullOrEmpty(Request.QueryString["class"]) && Eval("Slug").ToString() == "class-12") ? "class-btn active" : "class-btn" %>'>
-                        <%# Eval("ClassName") %>
-                    </a>
-                </ItemTemplate>
-            </asp:Repeater>
-        </div>
+<div class="class-tabs">
+    <asp:Repeater ID="rptClasses" runat="server">
+        <ItemTemplate>
+            <a href='<%# "BoardResource.aspx?board=" + Request.QueryString["board"] + "&res=" + (Request.QueryString["res"] ?? "books") + "&class=" + Eval("Slug") %>' 
+               class='<%# Eval("Slug").ToString() == Request.QueryString["class"] || (string.IsNullOrEmpty(Request.QueryString["class"]) && Eval("Slug").ToString() == "class-12") ? "class-btn active" : "class-btn" %>'>
+                <%# Eval("ClassName") %>
+            </a>
+        </ItemTemplate>
+    </asp:Repeater>
+</div>
 
 <asp:Repeater ID="rptSubjectGroups" runat="server">
-    <HeaderTemplate>
-        <div class="row g-4">
-    </HeaderTemplate>
+    <HeaderTemplate><div class="row g-4"></HeaderTemplate>
     <ItemTemplate>
         <div class="col-lg-3 col-md-4 col-6">
-            <a href='<%# "SubjectDetails.aspx?sid=" + Eval("SubjectId") + "&res=" + Request.QueryString["res"] %>' class="text-decoration-none">
+            <a href='<%# "SubjectDetails.aspx?sid=" + Eval("SubjectId") + "&res=" + (Request.QueryString["res"] ?? "books") %>' class="text-decoration-none">
                 <div class="resource-card text-center d-flex flex-column align-items-center">
                     <img src='<%# "/Uploads/SubjectIcons/" + (Eval("IconImage") == DBNull.Value || string.IsNullOrEmpty(Eval("IconImage").ToString()) ? "default.png" : Eval("IconImage")) %>' 
                          class="resource-img mb-2" alt="Icon" />
-                    
                     <span class="res-title d-block"><%# Eval("SubjectName") %></span>
                     <small class="text-muted">Explore Material</small>
                 </div>
             </a>
         </div>
     </ItemTemplate>
-    <FooterTemplate>
-        </div>
-    </FooterTemplate>
+    <FooterTemplate></div></FooterTemplate>
 </asp:Repeater>
     </div>
 </asp:Content>

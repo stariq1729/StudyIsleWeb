@@ -2,8 +2,6 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace StudyIsleWeb
 {
@@ -15,46 +13,26 @@ namespace StudyIsleWeb
         {
             if (!IsPostBack)
             {
-                // 1. Capture the context from the URL
                 string subjectIdStr = Request.QueryString["sid"];
-                string resSlug = Request.QueryString["res"]; // Captures 'books' or 'pyq'
+                string resSlug = Request.QueryString["res"];
 
-                // 2. Security Check: Validate mandatory parameters
-                if (string.IsNullOrEmpty(subjectIdStr) || string.IsNullOrEmpty(resSlug))
+                if (int.TryParse(subjectIdStr, out int subjectId) && !string.IsNullOrEmpty(resSlug))
                 {
-                    // If sid or res is missing, redirect the user back to safety.
-                    Response.Redirect("Default.aspx");
-                    return;
-                }
+                    BindHeaderAndContext(subjectId, resSlug);
 
-                // Convert subject ID to integer
-                if (!int.TryParse(subjectIdStr, out int subjectId))
-                {
-                    Response.Redirect("Default.aspx");
-                    return;
+                    // Dynamic Data Routing
+                    if (CheckIfResTypeUsesYears(resSlug))
+                    {
+                        phYearPath.Visible = true;
+                        BindYears(resSlug);
+                    }
+                    else if (CheckIfSubjectHasChapters(subjectId))
+                    {
+                        phChapterPath.Visible = true;
+                        BindChapters(subjectId);
+                    }
                 }
-
-                // 3. Set up the dynamic headers and context
-                BindHeaderAndContext(subjectId, resSlug);
-
-                // 4. THE CORE LOGIC: Decide which path to show
-                if (resSlug.ToLower() == "books")
-                {
-                    // Show the chapter placeholder
-                    phChapterPath.Visible = true;
-                }
-                else if (resSlug.ToLower() == "pyq")
-                {
-                    // Show the year placeholder
-                    phYearPath.Visible = true;
-                }
-                else
-                {
-                    // Handle other resource types (e.g., Sample Papers) or an unhandled case.
-                    // For now, we'll just redirect to Default, but in a production app,
-                    // we might have a specific fallback logic.
-                    Response.Redirect("Default.aspx");
-                }
+                else { Response.Redirect("Default.aspx"); }
             }
         }
 
@@ -62,43 +40,85 @@ namespace StudyIsleWeb
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                // We fetch everything in one join query for efficiency.
-                string query = @"SELECT s.SubjectName, c.ClassName, c.Slug AS ClassSlug, b.Slug AS BoardSlug
+                string query = @"SELECT s.SubjectName, s.IconImage, c.ClassName, c.Slug AS ClassSlug, b.Slug AS BoardSlug
                                  FROM Subjects s
-                                 INNER JOIN Classes c ON s.ClassId = c.ClassId
-                                 INNER JOIN Boards b ON s.BoardId = b.BoardId
+                                 LEFT JOIN Classes c ON s.ClassId = c.ClassId
+                                 LEFT JOIN Boards b ON s.BoardId = b.BoardId
                                  WHERE s.SubjectId = @sId";
-
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@sId", subjectId);
-
                 con.Open();
                 SqlDataReader dr = cmd.ExecuteReader();
                 if (dr.Read())
                 {
-                    string subjectName = dr["SubjectName"].ToString();
-                    string className = dr["ClassName"].ToString();
-                    string boardSlug = dr["BoardSlug"].ToString();
-                    string classSlug = dr["ClassSlug"].ToString();
+                    ViewState["SubName"] = dr["SubjectName"].ToString();
+                    ViewState["SubIcon"] = dr["IconImage"] == DBNull.Value || string.IsNullOrEmpty(dr["IconImage"].ToString()) ? "default.png" : dr["IconImage"].ToString();
 
-                    // Create the proper page titles based on context
-                    if (resSlug.ToLower() == "books")
-                    {
-                        litPageTitle.Text = $"{subjectName} <span>Books</span>";
-                        litPageSubtitle.Text = "Select a chapter to begin reading the NCERT curriculum.";
-                    }
-                    else if (resSlug.ToLower() == "pyq")
-                    {
-                        litPageTitle.Text = $"{subjectName} <span>Previous Year Questions</span>";
-                        litPageSubtitle.Text = "Download official question papers and verified solutions.";
-                    }
+                    litSubjectBreadcrumb.Text = dr["SubjectName"].ToString();
+                    litPageTitle.Text = dr["SubjectName"].ToString() + " <span class='text-primary'>" + resSlug.ToUpper() + "</span>";
 
-                    // Setup the dynamic link and text for breadcrumbs
-                    hlBoardClassContext.NavigateUrl = $"BoardResource.aspx?board={boardSlug}&class={classSlug}";
-                    hlBoardClassContext.Text = className;
-                    litSubjectBreadcrumb.Text = subjectName;
+                    hlBoardClassContext.Text = dr["ClassName"].ToString();
+                    hlBoardClassContext.NavigateUrl = $"BoardResource.aspx?board={dr["BoardSlug"]}&class={dr["ClassSlug"]}&res={resSlug}";
                 }
-                con.Close();
+            }
+        }
+
+        private void BindYears(string resSlug)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                //
+                string query = @"SELECT y.YearId, y.YearName FROM Years y 
+                                 JOIN ResourceTypes rt ON y.ResourceTypeId = rt.ResourceTypeId 
+                                 WHERE rt.Slug = @res AND y.IsActive = 1 ORDER BY y.DisplayOrder DESC";
+                SqlDataAdapter da = new SqlDataAdapter(query, con);
+                da.SelectCommand.Parameters.AddWithValue("@res", resSlug);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                rptYears.DataSource = dt;
+                rptYears.DataBind();
+            }
+        }
+
+        private void BindChapters(int subjectId)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                //
+                string query = "SELECT ChapterName, Slug, DisplayOrder FROM Chapters WHERE SubjectId = @sId AND IsActive = 1 ORDER BY DisplayOrder ASC";
+                SqlDataAdapter da = new SqlDataAdapter(query, con);
+                da.SelectCommand.Parameters.AddWithValue("@sId", subjectId);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                rptChapters.DataSource = dt;
+                rptChapters.DataBind();
+                litChapterCount.Text = dt.Rows.Count.ToString();
+            }
+        }
+
+        private bool CheckIfResTypeUsesYears(string resSlug)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                //
+                string query = "SELECT COUNT(*) FROM Years y JOIN ResourceTypes rt ON y.ResourceTypeId = rt.ResourceTypeId WHERE rt.Slug = @res";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@res", resSlug);
+                con.Open();
+                return (int)cmd.ExecuteScalar() > 0;
+            }
+        }
+
+        private bool CheckIfSubjectHasChapters(int subjectId)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                //
+                string query = "SELECT COUNT(*) FROM Chapters WHERE SubjectId = @sid";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@sid", subjectId);
+                con.Open();
+                return (int)cmd.ExecuteScalar() > 0;
             }
         }
     }
