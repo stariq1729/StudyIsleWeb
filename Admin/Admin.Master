@@ -13,11 +13,12 @@
     <%-- adding css file for admin dashboard--%>
     <link href="/Content/Admin/dashboard.css" rel="stylesheet" />
     <link href="/Content/Admin/boards.css" rel="stylesheet" />
+    <link href="/Content/Admin/resource-types.css" rel="stylesheet" />
 <link href="/Content/Admin/board-form.css" rel="stylesheet" />
     <link href="/Content/Admin/classes.css" rel="stylesheet" />
 <link href="/Content/Admin/subjects.css" rel="stylesheet" />
     <link href="/Content/Admin/chapters.css" rel="stylesheet" />
-  <link href="/Content/Admin/resource-types.css" rel="stylesheet" />
+  
     
 
     <link href="/Content/Admin/resources.css" rel="stylesheet" />
@@ -71,10 +72,11 @@
             <h4 class="text-center py-3">StudyIsle Admin</h4>
             <a href="/Admin/Dashboard.aspx">Dashboard</a>
             <a href="/Admin/Boards/ManageBoards.aspx">Boards</a>
+            <a href="/Admin/ResourceTypes/ManageResourceTypes.aspx">Resource Types</a>
             <a href="/Admin/Classes/ManageClasses.aspx">Classes</a>
             <a href="/Admin/Subjects/ManageSubjects.aspx">Subjects</a>
             <a href="/Admin/Chapters/ManageChapters.aspx">Chapters</a>
-            <a href="/Admin/ResourceTypes/ManageResourceTypes.aspx">Resource Types</a>
+            
             <a href="/Admin/Resources/ManageResources.aspx">Resources</a>
             <asp:LinkButton ID="btnLogout" runat="server" OnClick="btnLogout_Click" CssClass="d-block px-3 py-2 text-danger">
                 Logout
