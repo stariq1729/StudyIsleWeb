@@ -26,6 +26,7 @@ namespace StudyIsleWeb.Admin
                 litClasses.Text = GetCount(con, "Classes").ToString();
                 litSubjects.Text = GetCount(con, "Subjects").ToString();
                 litResources.Text = GetCount(con, "Resources").ToString();
+                LitUsers.Text = GetCount(con, "Users").ToString();
             }
         }
 

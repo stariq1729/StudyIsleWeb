@@ -35,6 +35,12 @@
                 <h3><asp:Literal ID="litSubjects" runat="server"></asp:Literal></h3>
             </div>
         </div>
+        <div class="col-md-3">
+    <div class="dashboard-card shadow-sm">
+        <h6>Total USers</h6>
+        <h3><asp:Literal ID="LitUsers" runat="server"></asp:Literal></h3>
+    </div>
+</div>
 
 
 
