@@ -97,6 +97,7 @@
     <Content Include="Admin\ResourceTypes\EditResourceType.aspx" />
     <Content Include="Admin\ResourceTypes\ManageResourceTypes.aspx" />
     <Content Include="Admin\SubCat\AddSubCategory.aspx" />
+    <Content Include="Admin\SubCat\ManageSubCat.aspx" />
     <Content Include="Admin\Subjects\AddSubject.aspx" />
     <Content Include="Admin\Subjects\EditSubject.aspx" />
     <Content Include="Admin\Subjects\ManageSubjects.aspx" />
@@ -261,6 +262,13 @@
     </Compile>
     <Compile Include="Admin\SubCat\AddSubCategory.aspx.designer.cs">
       <DependentUpon>AddSubCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SubCat\ManageSubCat.aspx.cs">
+      <DependentUpon>ManageSubCat.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SubCat\ManageSubCat.aspx.designer.cs">
+      <DependentUpon>ManageSubCat.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Subjects\AddSubject.aspx.cs">
       <DependentUpon>AddSubject.aspx</DependentUpon>

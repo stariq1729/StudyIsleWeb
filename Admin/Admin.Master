@@ -73,6 +73,7 @@
             <a href="/Admin/Dashboard.aspx">Dashboard</a>
             <a href="/Admin/Boards/ManageBoards.aspx">Boards</a>
             <a href="/Admin/ResourceTypes/ManageResourceTypes.aspx">Resource Types</a>
+            <a href="/Admin/SubCat/ManageSubCat.aspx">Subcat</a>
             <a href="/Admin/Classes/ManageClasses.aspx">Classes</a>
             <a href="/Admin/Subjects/ManageSubjects.aspx">Subjects</a>
             <a href="/Admin/Chapters/ManageChapters.aspx">Chapters</a>

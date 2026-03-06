@@ -113,38 +113,6 @@ namespace StudyIsleWeb
             }
         }
 
-        //protected void rptSubjectGroups_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        //{
-        //    if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-        //    {
-        //        int subjectId = Convert.ToInt32(DataBinder.Eval(e.Item.DataItem, "SubjectId"));
-        //        string resSlug = Request.QueryString["res"] ?? "cbse";
-        //        string classSlug = Request.QueryString["class"] ?? "class-12";
-
-        //        Repeater rptResources = (Repeater)e.Item.FindControl("rptResources");
-
-        //        using (SqlConnection con = new SqlConnection(cs))
-        //        {
-        //            // Filter individual resource cards by the current context
-        //            string query = @"SELECT r.ResourceId, r.Title, s.SubjectName, s.IconImage 
-        //                             FROM Resources r 
-        //                             INNER JOIN Subjects s ON r.SubjectId = s.SubjectId
-        //                             INNER JOIN ResourceTypes rt ON r.ResourceTypeId = rt.ResourceTypeId
-        //                             INNER JOIN Classes c ON r.ClassId = c.ClassId
-        //                             WHERE r.SubjectId = @sId AND rt.Slug = @resSlug AND c.Slug = @cSlug";
-
-        //            SqlCommand cmd = new SqlCommand(query, con);
-        //            cmd.Parameters.AddWithValue("@sId", subjectId);
-        //            cmd.Parameters.AddWithValue("@resSlug", resSlug);
-        //            cmd.Parameters.AddWithValue("@cSlug", classSlug);
-        //            SqlDataAdapter da = new SqlDataAdapter(cmd);
-        //            DataTable dt = new DataTable();
-        //            da.Fill(dt);
-
-        //            rptResources.DataSource = dt;
-        //            rptResources.DataBind();
-        //        }
-        //    }
-        //}
+        
     }
 }
