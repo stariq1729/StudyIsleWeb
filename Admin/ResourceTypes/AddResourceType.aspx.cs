@@ -68,9 +68,14 @@ namespace StudyIsleWeb.Admin.ResourceTypes
                 {
                     // 1. Insert Resource Type
                     string resQuery = @"INSERT INTO ResourceTypes 
-                        (TypeName, Slug, Description, IconImage, IsPremium, IsActive, DisplayOrder, HasClass, HasSubject, HasChapter, HasYear) 
-                        VALUES (@TypeName, @Slug, @Description, @IconImage, @IsPremium, @IsActive, @DisplayOrder, @HasClass, @HasSubject, @HasChapter, @HasYear);
-                        SELECT SCOPE_IDENTITY();";
+(TypeName, Slug, Description, IconImage, IsPremium, IsActive, DisplayOrder, 
+HasClass, HasSubject, HasChapter, HasSubCategory, HasYear, HasSets) 
+
+VALUES 
+(@TypeName, @Slug, @Description, @IconImage, @IsPremium, @IsActive, @DisplayOrder, 
+@HasClass, @HasSubject, @HasChapter, @HasSubCategory, @HasYear, @HasSets);
+
+SELECT SCOPE_IDENTITY();";
 
                     SqlCommand cmd = new SqlCommand(resQuery, con, trans);
                     cmd.Parameters.AddWithValue("@TypeName", txtName.Text.Trim());
@@ -84,6 +89,8 @@ namespace StudyIsleWeb.Admin.ResourceTypes
                     cmd.Parameters.AddWithValue("@HasSubject", chkHasSubject.Checked);
                     cmd.Parameters.AddWithValue("@HasChapter", chkHasChapter.Checked);
                     cmd.Parameters.AddWithValue("@HasYear", chkHasYear.Checked);
+                    cmd.Parameters.AddWithValue("@HasSubCategory", chkHasSubCategory.Checked);
+                    cmd.Parameters.AddWithValue("@HasSets", chkHasSets.Checked);
 
                     // Get the ID of the resource we just created
                     int newResourceId = Convert.ToInt32(cmd.ExecuteScalar());

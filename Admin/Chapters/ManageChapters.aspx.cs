@@ -9,7 +9,7 @@ namespace StudyIsleWeb.Admin.Chapters
     public partial class ManageChapters : System.Web.UI.Page
     {
         private readonly string cs =
-            ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
+        ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -18,6 +18,7 @@ namespace StudyIsleWeb.Admin.Chapters
                 LoadBoards();
                 LoadClasses(0);
                 LoadSubjects(0, 0);
+                LoadSets();
                 LoadChapters();
             }
         }
@@ -27,7 +28,7 @@ namespace StudyIsleWeb.Admin.Chapters
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlDataAdapter da = new SqlDataAdapter(
-                    "SELECT BoardId, BoardName FROM Boards WHERE IsActive=1", con);
+                "SELECT BoardId, BoardName FROM Boards WHERE IsActive=1", con);
 
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -38,7 +39,7 @@ namespace StudyIsleWeb.Admin.Chapters
                 ddlBoardFilter.DataBind();
 
                 ddlBoardFilter.Items.Insert(0,
-                    new ListItem("-- All Boards --", "0"));
+                new ListItem("-- All Boards --", "0"));
             }
         }
 
@@ -66,7 +67,7 @@ namespace StudyIsleWeb.Admin.Chapters
                 ddlClassFilter.DataBind();
 
                 ddlClassFilter.Items.Insert(0,
-                    new ListItem("-- All Classes --", "0"));
+                new ListItem("-- All Classes --", "0"));
             }
         }
 
@@ -100,7 +101,27 @@ namespace StudyIsleWeb.Admin.Chapters
                 ddlSubjectFilter.DataBind();
 
                 ddlSubjectFilter.Items.Insert(0,
-                    new ListItem("-- All Subjects --", "0"));
+                new ListItem("-- All Subjects --", "0"));
+            }
+        }
+
+        private void LoadSets()
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlDataAdapter da = new SqlDataAdapter(
+                "SELECT SetId, SetName FROM Sets WHERE IsActive=1", con);
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                ddlSetFilter.DataSource = dt;
+                ddlSetFilter.DataTextField = "SetName";
+                ddlSetFilter.DataValueField = "SetId";
+                ddlSetFilter.DataBind();
+
+                ddlSetFilter.Items.Insert(0,
+                new ListItem("-- All Sets --", "0"));
             }
         }
 
@@ -109,18 +130,24 @@ namespace StudyIsleWeb.Admin.Chapters
             using (SqlConnection con = new SqlConnection(cs))
             {
                 string query = @"
-                    SELECT ch.ChapterId,
-                           b.BoardName,
-                           ISNULL(c.ClassName, 'No Class') AS ClassName,
-                           s.SubjectName,
-                           ch.ChapterName,
-                           ch.DisplayOrder,
-                           ch.IsActive
-                    FROM Chapters ch
-                    INNER JOIN Subjects s ON ch.SubjectId = s.SubjectId
-                    INNER JOIN Boards b ON s.BoardId = b.BoardId
-                    LEFT JOIN Classes c ON s.ClassId = c.ClassId
-                    WHERE 1=1";
+
+SELECT ch.ChapterId,
+b.BoardName,
+ISNULL(c.ClassName,'No Class') AS ClassName,
+s.SubjectName,
+ch.ChapterName,
+ISNULL(st.SetName,'No Set') AS SetName,
+ch.DisplayOrder,
+ch.IsActive
+
+FROM Chapters ch
+
+INNER JOIN Subjects s ON ch.SubjectId=s.SubjectId
+INNER JOIN Boards b ON s.BoardId=b.BoardId
+LEFT JOIN Classes c ON s.ClassId=c.ClassId
+LEFT JOIN Sets st ON ch.ChapterId=st.ChapterId
+
+WHERE 1=1";
 
                 if (ddlBoardFilter.SelectedValue != "0")
                     query += " AND b.BoardId=@BoardId";
@@ -130,6 +157,9 @@ namespace StudyIsleWeb.Admin.Chapters
 
                 if (ddlSubjectFilter.SelectedValue != "0")
                     query += " AND s.SubjectId=@SubjectId";
+
+                if (ddlSetFilter.SelectedValue != "0")
+                    query += " AND st.SetId=@SetId";
 
                 query += " ORDER BY ch.DisplayOrder";
 
@@ -143,6 +173,9 @@ namespace StudyIsleWeb.Admin.Chapters
 
                 if (ddlSubjectFilter.SelectedValue != "0")
                     cmd.Parameters.AddWithValue("@SubjectId", ddlSubjectFilter.SelectedValue);
+
+                if (ddlSetFilter.SelectedValue != "0")
+                    cmd.Parameters.AddWithValue("@SetId", ddlSetFilter.SelectedValue);
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -174,6 +207,11 @@ namespace StudyIsleWeb.Admin.Chapters
             LoadChapters();
         }
 
+        protected void ddlSetFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadChapters();
+        }
+
         protected void gvChapters_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "ToggleActive")
@@ -183,10 +221,11 @@ namespace StudyIsleWeb.Admin.Chapters
                 using (SqlConnection con = new SqlConnection(cs))
                 {
                     SqlCommand cmd = new SqlCommand(
-                        @"UPDATE Chapters
-                          SET IsActive =
-                          CASE WHEN IsActive=1 THEN 0 ELSE 1 END
-                          WHERE ChapterId=@Id", con);
+
+@"UPDATE Chapters
+SET IsActive =
+CASE WHEN IsActive=1 THEN 0 ELSE 1 END
+WHERE ChapterId=@Id", con);
 
                     cmd.Parameters.AddWithValue("@Id", id);
 

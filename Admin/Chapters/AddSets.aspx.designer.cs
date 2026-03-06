@@ -7,57 +7,93 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StudyIsleWeb.Admin.ResourceTypes
+namespace StudyIsleWeb.Admin.Chapters
 {
 
 
-    public partial class AddResourceType
+    public partial class AddSets
     {
 
         /// <summary>
-        /// lblMessage control.
+        /// lblMsg control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
+        protected global::System.Web.UI.WebControls.Label lblMsg;
 
         /// <summary>
-        /// txtName control.
+        /// ddlBoard control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtName;
+        protected global::System.Web.UI.WebControls.DropDownList ddlBoard;
 
         /// <summary>
-        /// txtDescription control.
+        /// ddlResourceType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDescription;
+        protected global::System.Web.UI.WebControls.DropDownList ddlResourceType;
 
         /// <summary>
-        /// txtSlug control.
+        /// ddlClass control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSlug;
+        protected global::System.Web.UI.WebControls.DropDownList ddlClass;
 
         /// <summary>
-        /// fuIcon control.
+        /// ddlSubject control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fuIcon;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSubject;
+
+        /// <summary>
+        /// ddlSubCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSubCategory;
+
+        /// <summary>
+        /// ddlChapter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlChapter;
+
+        /// <summary>
+        /// ddlYear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlYear;
+
+        /// <summary>
+        /// txtSetName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSetName;
 
         /// <summary>
         /// txtDisplayOrder control.
@@ -69,85 +105,13 @@ namespace StudyIsleWeb.Admin.ResourceTypes
         protected global::System.Web.UI.WebControls.TextBox txtDisplayOrder;
 
         /// <summary>
-        /// chkIsPremium control.
+        /// chkActive control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkIsPremium;
-
-        /// <summary>
-        /// chkIsActive control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkIsActive;
-
-        /// <summary>
-        /// cblBoards control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList cblBoards;
-
-        /// <summary>
-        /// chkHasClass control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkHasClass;
-
-        /// <summary>
-        /// chkHasSubject control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkHasSubject;
-
-        /// <summary>
-        /// chkHasChapter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkHasChapter;
-
-        /// <summary>
-        /// chkHasSubCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkHasSubCategory;
-
-        /// <summary>
-        /// chkHasYear control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkHasYear;
-
-        /// <summary>
-        /// chkHasSets control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkHasSets;
+        protected global::System.Web.UI.WebControls.CheckBox chkActive;
 
         /// <summary>
         /// btnSave control.
