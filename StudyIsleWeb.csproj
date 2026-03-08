@@ -109,6 +109,7 @@
     <Content Include="assets\css\CourseSection.css" />
     <Content Include="assets\css\Enquiry.css" />
     <Content Include="assets\css\hero.css" />
+    <Content Include="assets\css\IC_Section.css" />
     <Content Include="assets\css\interactive.css" />
     <Content Include="assets\css\ncert.css" />
     <Content Include="assets\css\NoteSection.css" />
