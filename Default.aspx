@@ -943,6 +943,160 @@
 </section>
 
 
+   <%-- =================International Curriculum section (ICSection)=================--%>
+
+    <!-- ==================================
+   INTERNATIONAL CURRICULUM SECTION
+================================== -->
+
+<section class="ic-section">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <!-- LEFT CONTENT -->
+            <div class="col-lg-6 ic-left">
+
+                <span class="ic-badge">
+                    <i class="bi bi-globe"></i> GLOBAL EXCELLENCE
+                </span>
+
+                <h2 class="ic-title">
+                    Master the <span>International</span>
+                    Curriculum with Ease.
+                </h2>
+
+                <p class="ic-desc">
+                    From IB Diploma to IGCSE and AP, we provide world-class tutoring
+                    and mentorship designed for global standards. Our experts help
+                    you navigate complex assessments and excel in your academic journey.
+                </p>
+
+                <!-- Feature -->
+                <div class="ic-feature">
+
+                    <div class="ic-icon">
+                        <i class="bi bi-book"></i>
+                    </div>
+
+                    <div>
+                        <h6>IB & IGCSE Specialists</h6>
+                        <p>
+                            Tutors with deep expertise in International Baccalaureate
+                            and Cambridge curricula.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="ic-feature">
+
+                    <div class="ic-icon">
+                        <i class="bi bi-stars"></i>
+                    </div>
+
+                    <div>
+                        <h6>IA, EE & TOK Support</h6>
+                        <p>
+                            Specialized guidance for Internal Assessments,
+                            Extended Essays and Theory of Knowledge.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="ic-feature">
+
+                    <div class="ic-icon">
+                        <i class="bi bi-people"></i>
+                    </div>
+
+                    <div>
+                        <h6>Global University Prep</h6>
+                        <p>
+                            Beyond academics, we help you build a profile for
+                            top universities worldwide.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="ic-highlight">
+                    <i class="bi bi-check-circle"></i>
+                    Personalized 1-on-1 Learning Roadmaps
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT FORM -->
+            <div class="col-lg-6">
+
+                <div class="ic-form-card">
+
+                    <h4>Get a Free Consultation</h4>
+
+                    <p class="form-sub">
+                        Fill in your details and we'll reach out to you directly.
+                    </p>
+
+                    <form>
+
+                        <div class="row g-3">
+
+                            <div class="col-md-6">
+                                <input type="text" class="form-control"
+                                    placeholder="Full Name">
+                            </div>
+
+                            <div class="col-md-6">
+                                <input type="email" class="form-control"
+                                    placeholder="Email Address">
+                            </div>
+
+                            <div class="col-12">
+                                <input type="text" class="form-control"
+                                    placeholder="Phone Number">
+                            </div>
+
+                            <div class="col-12">
+                                <select class="form-select">
+                                    <option>IB Diploma / MYP</option>
+                                    <option>IGCSE</option>
+                                    <option>AP</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12">
+                                <textarea class="form-control"
+                                    rows="3"
+                                    placeholder="Tell us about your academic goals..."></textarea>
+                            </div>
+
+                        </div>
+
+                        <button type="submit" class="ic-submit-btn">
+                            Submit Inquiry <i class="bi bi-send"></i>
+                        </button>
+
+                        <small class="ic-note">
+                            We will contact you directly within 24 hours
+                        </small>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
 
 <!-- ================= ENQUIRY SECTION START ================= -->
 <section class="enquiry-section">
