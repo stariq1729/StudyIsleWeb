@@ -67,11 +67,38 @@ namespace StudyIsleWeb
             }
         }
 
-        protected string GetNavigationUrl(object slug, object hasClass)
+        protected string GetNavigationUrl(object resSlug, object hasClass)
         {
-            string board = Request.QueryString["board"] ?? "cbse";
-            bool needsClass = Convert.ToBoolean(hasClass);
-            return needsClass ? $"BoardResource.aspx?board={board}&res={slug}" : $"ViewContent.aspx?board={board}&res={slug}";
+            string boardSlug = Request.QueryString["board"] ?? "cbse";
+
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                // Logic: Check if this specific Board + Resource Type has any SubCategories
+                string query = @"SELECT COUNT(*) FROM SubCategories s
+                                 INNER JOIN Boards b ON s.BoardId = b.BoardId
+                                 INNER JOIN ResourceTypes rt ON s.ResourceTypeId = rt.ResourceTypeId
+                                 WHERE b.Slug = @bSlug AND rt.Slug = @rSlug AND s.IsActive = 1";
+
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@bSlug", boardSlug);
+                cmd.Parameters.AddWithValue("@rSlug", resSlug.ToString());
+
+                con.Open();
+                int subCatCount = (int)cmd.ExecuteScalar();
+
+                // ROUTING DECISION
+                if (subCatCount > 0)
+                {
+                    // Redirect to SubCategory selection first
+                    return $"SubCatDetails.aspx?board={boardSlug}&res={resSlug}";
+                }
+                else
+                {
+                    // Skip directly to Class/Subject selection
+                    bool needsClass = Convert.ToBoolean(hasClass);
+                    return needsClass ? $"BoardResource.aspx?board={boardSlug}&res={resSlug}" : $"ViewContent.aspx?board={boardSlug}&res={resSlug}";
+                }
+            }
         }
     }
 }
