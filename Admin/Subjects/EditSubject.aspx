@@ -1,89 +1,88 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="EditSubject.aspx.cs" Inherits="StudyIsleWeb.Admin.Subjects.EditSubject" %>
+﻿<%@ Page Title="Edit Subject" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="EditSubject.aspx.cs" Inherits="StudyIsleWeb.Admin.Subjects.EditSubject" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-        .form-card { background: #fff; padding: 2rem; border-radius: 12px; border: 1px solid #eef0f2; }
-        .form-title { font-weight: 700; color: #334155; margin-bottom: 1.5rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; }
-        .section-header { font-size: 0.8rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 10px; }
-        .current-icon-preview { width: 80px; height: 80px; object-fit: contain; border: 1px solid #dee2e6; padding: 5px; border-radius: 8px; background: #f8f9fa; }
+        .edit-card { background: #fff; padding: 2.5rem; border-radius: 15px; border: 1px solid #e2e8f0; }
+        .current-icon { width: 60px; height: 60px; object-fit: contain; padding: 5px; border: 1px solid #e2e8f0; border-radius: 8px; background: #f8fafc; }
+        .section-header { font-size: 0.75rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 1.5px; margin: 30px 0 15px; display: flex; align-items: center; }
+        .section-header::after { content: ""; flex: 1; height: 1px; background: #cbd5e1; margin-left: 15px; }
     </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container py-4">
         <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="form-card shadow-sm">
-                    <h4 class="form-title">Edit Subject</h4>
+            <div class="col-lg-9">
+                <div class="edit-card shadow-sm">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="fw-bold text-dark mb-0">Edit Subject</h4>
+                        <asp:Label ID="lblSubjectID" runat="server" CssClass="badge bg-dark px-3 py-2"></asp:Label>
+                    </div>
 
-                    <asp:Label ID="lblMessage" runat="server" CssClass="text-danger d-block mb-3"></asp:Label>
-                    <asp:HiddenField ID="hfOldImage" runat="server" />
+                    <asp:Label ID="lblMessage" runat="server" CssClass="d-block mb-3"></asp:Label>
+                    <asp:HiddenField ID="hfSubjectID" runat="server" />
 
-                    <div class="row">
-                        <div class="section-header">Subject Mapping</div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold">Select Board</label>
-                            <asp:DropDownList ID="ddlBoard" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlBoard_SelectedIndexChanged"></asp:DropDownList>
+                    <div class="row g-4">
+                        <div class="section-header">Hierarchy & Identification</div>
+                        
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">Board</label>
+                            <asp:DropDownList ID="ddlBoard" runat="server" CssClass="form-select shadow-none" 
+                                AutoPostBack="true" OnSelectedIndexChanged="ddlBoard_SelectedIndexChanged">
+                            </asp:DropDownList>
                         </div>
 
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold">Select Class (Optional)</label>
-                            <asp:DropDownList ID="ddlClass" runat="server" CssClass="form-select"></asp:DropDownList>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">Class (Optional)</label>
+                            <asp:DropDownList ID="ddlClass" runat="server" CssClass="form-select shadow-none">
+                            </asp:DropDownList>
                         </div>
 
-                        <div class="section-header">Basic Details</div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold">Subject Name</label>
-                            <asp:TextBox ID="txtSubjectName" runat="server" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtSubjectName_TextChanged"></asp:TextBox>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">Subject Name</label>
+                            <asp:TextBox ID="txtSubjectName" runat="server" CssClass="form-control shadow-none" 
+                                AutoPostBack="true" OnTextChanged="txtSubjectName_TextChanged"></asp:TextBox>
                         </div>
 
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold">Slug</label>
-                            <asp:TextBox ID="txtSlug" runat="server" CssClass="form-control"></asp:TextBox>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">URL Slug</label>
+                            <asp:TextBox ID="txtSlug" runat="server" CssClass="form-control bg-light shadow-none"></asp:TextBox>
                         </div>
 
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label fw-bold d-block">Subject Icon</label>
-                            <div class="d-flex align-items-start border p-3 rounded bg-light">
-                                <div class="me-3 text-center">
-                                    <asp:Image ID="imgPreview" runat="server" CssClass="current-icon-preview" />
-                                    <div class="small text-muted mt-1">Current Icon</div>
-                                </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold small">Subject Icon</label>
+                            <div class="d-flex align-items-center gap-3 p-3 border rounded bg-light">
+                                <asp:Image ID="imgCurrentIcon" runat="server" CssClass="current-icon" />
                                 <div class="flex-grow-1">
-                                    <label class="small text-secondary mb-1">Replace Icon (Optional)</label>
-                                    <asp:FileUpload ID="fuIcon" runat="server" CssClass="form-control" />
-                                    <small class="text-muted d-block mt-1">Leave empty to keep the current icon.</small>
+                                    <asp:FileUpload ID="fuIcon" runat="server" CssClass="form-control form-control-sm" />
+                                    <small class="text-muted">Leave empty to keep the current icon.</small>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="section-header">Page Content (SEO)</div>
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label fw-bold">Page Header Title</label>
-                            <asp:TextBox ID="txtPageTitle" runat="server" CssClass="form-control"></asp:TextBox>
+                        <div class="section-header">SEO & Visibility</div>
+
+                        <div class="col-12">
+                            <label class="form-label fw-bold small">Page Title (H1)</label>
+                            <asp:TextBox ID="txtPageTitle" runat="server" CssClass="form-control shadow-none"></asp:TextBox>
                         </div>
 
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label fw-bold">Page Subtitle</label>
-                            <asp:TextBox ID="txtPageSubtitle" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="2"></asp:TextBox>
+                        <div class="col-12">
+                            <label class="form-label fw-bold small">Description</label>
+                            <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control shadow-none" TextMode="MultiLine" Rows="3"></asp:TextBox>
                         </div>
 
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label fw-bold">General Description</label>
-                            <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3"></asp:TextBox>
-                        </div>
-
-                        <div class="col-12 mb-4">
-                            <div class="form-check form-switch">
+                        <div class="col-12">
+                            <div class="form-check form-switch p-2 bg-light rounded border">
                                 <asp:CheckBox ID="chkIsActive" runat="server" CssClass="form-check-input" />
-                                <label class="form-check-label fw-bold">Is Active</label>
+                                <label class="form-check-label ms-2 fw-bold">Active Status</label>
                             </div>
                         </div>
                     </div>
 
-                    <div class="pt-3 border-top">
-                        <asp:Button ID="btnUpdate" runat="server" Text="Update Subject" CssClass="btn btn-success px-4 shadow-sm" OnClick="btnUpdate_Click" />
-                        <a href="ManageSubjects.aspx" class="btn btn-light ms-2 border">Cancel</a>
+                    <div class="pt-4 mt-4 border-top d-flex gap-2">
+                        <asp:Button ID="btnUpdate" runat="server" Text="Update Subject" CssClass="btn btn-primary px-5 fw-bold" OnClick="btnUpdate_Click" />
+                        <a href="ManageSubjects.aspx" class="btn btn-outline-secondary px-4">Cancel</a>
                     </div>
                 </div>
             </div>

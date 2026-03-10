@@ -15,6 +15,15 @@ namespace StudyIsleWeb.Admin.Subjects
     {
 
         /// <summary>
+        /// lblSubjectID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSubjectID;
+
+        /// <summary>
         /// lblMessage control.
         /// </summary>
         /// <remarks>
@@ -24,13 +33,13 @@ namespace StudyIsleWeb.Admin.Subjects
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// hfOldImage control.
+        /// hfSubjectID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hfOldImage;
+        protected global::System.Web.UI.WebControls.HiddenField hfSubjectID;
 
         /// <summary>
         /// ddlBoard control.
@@ -69,13 +78,13 @@ namespace StudyIsleWeb.Admin.Subjects
         protected global::System.Web.UI.WebControls.TextBox txtSlug;
 
         /// <summary>
-        /// imgPreview control.
+        /// imgCurrentIcon control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgPreview;
+        protected global::System.Web.UI.WebControls.Image imgCurrentIcon;
 
         /// <summary>
         /// fuIcon control.
@@ -94,15 +103,6 @@ namespace StudyIsleWeb.Admin.Subjects
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPageTitle;
-
-        /// <summary>
-        /// txtPageSubtitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPageSubtitle;
 
         /// <summary>
         /// txtDescription control.

@@ -17,7 +17,8 @@ namespace StudyIsleWeb.Admin.Subjects
             if (!IsPostBack)
             {
                 LoadBoards();
-                LoadClasses(0);
+                // Initialize ddlClass as empty/General by default
+                ddlClass.Items.Insert(0, new ListItem("-- Select Board First --", "0"));
             }
         }
 
@@ -25,7 +26,8 @@ namespace StudyIsleWeb.Admin.Subjects
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                SqlDataAdapter da = new SqlDataAdapter("SELECT BoardId, BoardName FROM Boards WHERE IsActive=1 ORDER BY BoardName ASC", con);
+                string query = "SELECT BoardId, BoardName FROM Boards WHERE IsActive=1 ORDER BY BoardName ASC";
+                SqlDataAdapter da = new SqlDataAdapter(query, con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
 
@@ -33,7 +35,7 @@ namespace StudyIsleWeb.Admin.Subjects
                 ddlBoard.DataTextField = "BoardName";
                 ddlBoard.DataValueField = "BoardId";
                 ddlBoard.DataBind();
-                ddlBoard.Items.Insert(0, new ListItem("-- Select Board --", "0"));
+                ddlBoard.Items.Insert(0, new ListItem("-- Select Target Board --", "0"));
             }
         }
 
@@ -41,7 +43,7 @@ namespace StudyIsleWeb.Admin.Subjects
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string query = "SELECT ClassId, ClassName FROM Classes WHERE BoardId=@BoardId ORDER BY DisplayOrder ASC";
+                string query = "SELECT ClassId, ClassName FROM Classes WHERE BoardId=@BoardId AND IsActive=1 ORDER BY DisplayOrder ASC";
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@BoardId", boardId);
 
@@ -53,16 +55,21 @@ namespace StudyIsleWeb.Admin.Subjects
                 ddlClass.DataTextField = "ClassName";
                 ddlClass.DataValueField = "ClassId";
                 ddlClass.DataBind();
-                ddlClass.Items.Insert(0, new ListItem("-- No Class (General) --", "0"));
+                ddlClass.Items.Insert(0, new ListItem("-- General (No Class) --", "0"));
             }
         }
 
         protected void ddlBoard_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlBoard.SelectedIndex > 0)
+            if (ddlBoard.SelectedValue != "0")
+            {
                 LoadClasses(Convert.ToInt32(ddlBoard.SelectedValue));
+            }
             else
-                LoadClasses(0);
+            {
+                ddlClass.Items.Clear();
+                ddlClass.Items.Insert(0, new ListItem("-- Select Board First --", "0"));
+            }
         }
 
         protected void txtSubjectName_TextChanged(object sender, EventArgs e)
@@ -74,7 +81,7 @@ namespace StudyIsleWeb.Admin.Subjects
         {
             if (ddlBoard.SelectedValue == "0")
             {
-                lblMessage.Text = "Please select a Board.";
+                ShowError("Critical: You must select a Board.");
                 return;
             }
 
@@ -85,70 +92,51 @@ namespace StudyIsleWeb.Admin.Subjects
 
             if (string.IsNullOrWhiteSpace(subjectName))
             {
-                lblMessage.Text = "Subject Name is required.";
+                ShowError("Subject Name is required.");
                 return;
             }
 
-            if (IsSlugExists(slug, boardId, classId))
-            {
-                lblMessage.Text = "Slug already exists for this board/class combination.";
-                return;
-            }
-
-            // Image Upload Logic (using your ResourceType style)
-            string iconFileName = "Default-icon.png";
+            // Image Upload logic
+            string iconFileName = "default-sub.png";
             if (fuIcon.HasFile)
             {
-                string extension = Path.GetExtension(fuIcon.FileName).ToLower();
-                iconFileName = "subject_" + DateTime.Now.Ticks + extension;
-                string folderPath = Server.MapPath("~/Uploads/SubjectIcons/");
-
-                if (!Directory.Exists(folderPath))
-                    Directory.CreateDirectory(folderPath);
-
-                fuIcon.SaveAs(Path.Combine(folderPath, iconFileName));
+                string ext = Path.GetExtension(fuIcon.FileName).ToLower();
+                iconFileName = "sub_" + DateTime.Now.Ticks + ext;
+                string folder = Server.MapPath("~/Uploads/SubjectIcons/");
+                if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
+                fuIcon.SaveAs(Path.Combine(folder, iconFileName));
             }
 
-            using (SqlConnection con = new SqlConnection(cs))
+            try
             {
-                string query = @"INSERT INTO Subjects
-                                (BoardId, ClassId, SubjectName, Slug, IconImage, 
-                                 PageTitle, PageSubtitle, Description, IsActive, CreatedAt)
-                                 VALUES
-                                (@BoardId, @ClassId, @SubjectName, @Slug, @IconImage, 
-                                 @PageTitle, @PageSubtitle, @Description, @IsActive, GETDATE())";
+                using (SqlConnection con = new SqlConnection(cs))
+                {
+                    string sql = @"INSERT INTO Subjects 
+                                 (BoardId, ClassId, SubjectName, Slug, IconImage, PageTitle, PageSubtitle, Description, IsActive, CreatedAt) 
+                                 VALUES (@BID, @CID, @Name, @Slug, @Icon, @PTitle, @PSub, @Desc, @Active, GETDATE())";
 
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@BoardId", boardId);
-                cmd.Parameters.AddWithValue("@ClassId", classId == 0 ? (object)DBNull.Value : classId);
-                cmd.Parameters.AddWithValue("@SubjectName", subjectName);
-                cmd.Parameters.AddWithValue("@Slug", slug);
-                cmd.Parameters.AddWithValue("@IconImage", iconFileName);
-                cmd.Parameters.AddWithValue("@PageTitle", txtPageTitle.Text.Trim());
-                cmd.Parameters.AddWithValue("@PageSubtitle", txtPageSubtitle.Text.Trim());
-                cmd.Parameters.AddWithValue("@Description", txtDescription.Text.Trim());
-                cmd.Parameters.AddWithValue("@IsActive", chkIsActive.Checked);
+                    SqlCommand cmd = new SqlCommand(sql, con);
+                    cmd.Parameters.AddWithValue("@BID", boardId);
 
-                con.Open();
-                cmd.ExecuteNonQuery();
+                    // Allow ClassId to be NULL for Competitive/General subjects
+                    cmd.Parameters.AddWithValue("@CID", (classId == 0) ? (object)DBNull.Value : classId);
+
+                    cmd.Parameters.AddWithValue("@Name", subjectName);
+                    cmd.Parameters.AddWithValue("@Slug", slug);
+                    cmd.Parameters.AddWithValue("@Icon", iconFileName);
+                    cmd.Parameters.AddWithValue("@PTitle", txtPageTitle.Text.Trim());
+                    cmd.Parameters.AddWithValue("@PSub", txtPageSubtitle.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Desc", txtDescription.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Active", chkIsActive.Checked);
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    Response.Redirect("ManageSubjects.aspx");
+                }
             }
-
-            Response.Redirect("ManageSubjects.aspx");
-        }
-
-        private bool IsSlugExists(string slug, int boardId, int classId)
-        {
-            using (SqlConnection con = new SqlConnection(cs))
+            catch (Exception ex)
             {
-                string query = @"SELECT COUNT(*) FROM Subjects WHERE Slug=@Slug AND BoardId=@BoardId 
-                                 AND (ClassId=@ClassId OR (ClassId IS NULL AND @ClassId=0))";
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@Slug", slug);
-                cmd.Parameters.AddWithValue("@BoardId", boardId);
-                cmd.Parameters.AddWithValue("@ClassId", classId);
-
-                con.Open();
-                return (int)cmd.ExecuteScalar() > 0;
+                ShowError("Database Error: " + ex.Message);
             }
         }
 
@@ -159,6 +147,12 @@ namespace StudyIsleWeb.Admin.Subjects
             slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
             slug = Regex.Replace(slug, @"\s+", " ").Trim();
             return slug.Replace(" ", "-");
+        }
+
+        private void ShowError(string msg)
+        {
+            lblMessage.Text = msg;
+            lblMessage.CssClass = "alert alert-danger d-block";
         }
     }
 }

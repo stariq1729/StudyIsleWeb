@@ -14,16 +14,16 @@ namespace StudyIsleWeb.Admin.Subjects
         {
             if (!IsPostBack)
             {
-                LoadBoards();
-                LoadSubjects();
+                BindBoards();
+                BindGrid();
             }
         }
 
-        private void LoadBoards()
+        private void BindBoards()
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                SqlDataAdapter da = new SqlDataAdapter("SELECT BoardId, BoardName FROM Boards WHERE IsActive=1 ORDER BY BoardName ASC", con);
+                SqlDataAdapter da = new SqlDataAdapter("SELECT BoardId, BoardName FROM Boards ORDER BY BoardName", con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
                 ddlBoardFilter.DataSource = dt;
@@ -34,19 +34,20 @@ namespace StudyIsleWeb.Admin.Subjects
             }
         }
 
-        private void LoadSubjects()
+        private void BindGrid()
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                // Joins with Boards and Classes to get full context
-                string query = @"SELECT s.*, b.BoardName, c.ClassName 
-                                 FROM Subjects s
-                                 INNER JOIN Boards b ON s.BoardId = b.BoardId
-                                 LEFT JOIN Classes c ON s.ClassId = c.ClassId";
+                // LEFT JOIN is crucial here: it ensures subjects show up even if ClassId is NULL
+                string query = @"SELECT s.*, b.BoardName, ISNULL(c.ClassName, '') as ClassName 
+                                FROM Subjects s 
+                                INNER JOIN Boards b ON s.BoardId = b.BoardId 
+                                LEFT JOIN Classes c ON s.ClassId = c.ClassId 
+                                WHERE 1=1";
 
                 if (ddlBoardFilter.SelectedValue != "0")
                 {
-                    query += " WHERE s.BoardId = @BoardId";
+                    query += " AND s.BoardId = @BoardId";
                 }
 
                 query += " ORDER BY b.BoardName, c.DisplayOrder, s.SubjectName";
@@ -57,9 +58,9 @@ namespace StudyIsleWeb.Admin.Subjects
                     cmd.Parameters.AddWithValue("@BoardId", ddlBoardFilter.SelectedValue);
                 }
 
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
-                da.Fill(dt);
+                sda.Fill(dt);
                 gvSubjects.DataSource = dt;
                 gvSubjects.DataBind();
             }
@@ -67,54 +68,43 @@ namespace StudyIsleWeb.Admin.Subjects
 
         protected void Filter_Changed(object sender, EventArgs e)
         {
-            LoadSubjects();
+            BindGrid();
         }
 
         protected void btnClear_Click(object sender, EventArgs e)
         {
             ddlBoardFilter.SelectedIndex = 0;
-            LoadSubjects();
+            BindGrid();
         }
 
         protected void gvSubjects_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "ToggleActive")
             {
-                int sid = Convert.ToInt32(e.CommandArgument);
+                int subjectId = Convert.ToInt32(e.CommandArgument);
                 using (SqlConnection con = new SqlConnection(cs))
                 {
-                    string query = "UPDATE Subjects SET IsActive = CASE WHEN IsActive = 1 THEN 0 ELSE 1 END WHERE SubjectId = @id";
-                    SqlCommand cmd = new SqlCommand(query, con);
-                    cmd.Parameters.AddWithValue("@id", sid);
+                    SqlCommand cmd = new SqlCommand("UPDATE Subjects SET IsActive = CASE WHEN IsActive=1 THEN 0 ELSE 1 END WHERE SubjectId=@ID", con);
+                    cmd.Parameters.AddWithValue("@ID", subjectId);
                     con.Open();
                     cmd.ExecuteNonQuery();
                 }
-                LoadSubjects();
+                BindGrid();
             }
         }
 
         protected void gvSubjects_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            int sid = Convert.ToInt32(gvSubjects.DataKeys[e.RowIndex].Value);
-            try
+            int subjectId = (int)gvSubjects.DataKeys[e.RowIndex].Value;
+            using (SqlConnection con = new SqlConnection(cs))
             {
-                using (SqlConnection con = new SqlConnection(cs))
-                {
-                    // Note: In production, consider checking for child records (Chapters/Content) before deleting
-                    SqlCommand cmd = new SqlCommand("DELETE FROM Subjects WHERE SubjectId = @id", con);
-                    cmd.Parameters.AddWithValue("@id", sid);
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                }
-                lblMessage.Text = "Subject deleted successfully.";
-                lblMessage.CssClass = "text-success d-block mb-3";
-                LoadSubjects();
+                // Note: Consider Cascading Deletes in DB or handle linked chapters here
+                SqlCommand cmd = new SqlCommand("DELETE FROM Subjects WHERE SubjectId=@ID", con);
+                cmd.Parameters.AddWithValue("@ID", subjectId);
+                con.Open();
+                cmd.ExecuteNonQuery();
             }
-            catch (Exception ex)
-            {
-                lblMessage.Text = "Error: Cannot delete subject. It might have associated data.";
-                lblMessage.CssClass = "text-danger d-block mb-3";
-            }
+            BindGrid();
         }
     }
 }
