@@ -33,13 +33,22 @@ namespace StudyIsleWeb.Admin.Chapters
         protected global::System.Web.UI.WebControls.DropDownList ddlBoard;
 
         /// <summary>
-        /// ddlClass control.
+        /// litLevelLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlClass;
+        protected global::System.Web.UI.WebControls.Literal litLevelLabel;
+
+        /// <summary>
+        /// ddlLevel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlLevel;
 
         /// <summary>
         /// ddlSubject control.
@@ -51,6 +60,24 @@ namespace StudyIsleWeb.Admin.Chapters
         protected global::System.Web.UI.WebControls.DropDownList ddlSubject;
 
         /// <summary>
+        /// phSets control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phSets;
+
+        /// <summary>
+        /// ddlSet control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSet;
+
+        /// <summary>
         /// txtChapterName control.
         /// </summary>
         /// <remarks>
@@ -60,15 +87,6 @@ namespace StudyIsleWeb.Admin.Chapters
         protected global::System.Web.UI.WebControls.TextBox txtChapterName;
 
         /// <summary>
-        /// txtSlug control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSlug;
-
-        /// <summary>
         /// txtDisplayOrder control.
         /// </summary>
         /// <remarks>
@@ -76,6 +94,15 @@ namespace StudyIsleWeb.Admin.Chapters
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDisplayOrder;
+
+        /// <summary>
+        /// txtSlug control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSlug;
 
         /// <summary>
         /// chkIsActive control.

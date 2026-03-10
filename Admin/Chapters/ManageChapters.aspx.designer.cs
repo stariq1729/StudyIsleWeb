@@ -33,6 +33,15 @@ namespace StudyIsleWeb.Admin.Chapters
         protected global::System.Web.UI.WebControls.DropDownList ddlClassFilter;
 
         /// <summary>
+        /// ddlYearFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlYearFilter;
+
+        /// <summary>
         /// ddlSubjectFilter control.
         /// </summary>
         /// <remarks>

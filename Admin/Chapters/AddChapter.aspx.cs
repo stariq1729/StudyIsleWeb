@@ -3,19 +3,21 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
+using System.Web.UI.WebControls;
 
 namespace StudyIsleWeb.Admin.Chapters
 {
     public partial class AddChapter : System.Web.UI.Page
     {
-        private readonly string cs =
-            ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
+        private readonly string cs = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 LoadBoards();
+                ResetDropDown(ddlLevel, "-- Select Board First --");
+                ResetDropDown(ddlSubject, "-- Select Level First --");
             }
         }
 
@@ -23,18 +25,46 @@ namespace StudyIsleWeb.Admin.Chapters
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                SqlDataAdapter da = new SqlDataAdapter(
-                    "SELECT BoardId, BoardName FROM Boards WHERE IsActive=1", con);
-
+                SqlDataAdapter da = new SqlDataAdapter("SELECT BoardId, BoardName, IsCompetitive FROM Boards WHERE IsActive=1", con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
-
                 ddlBoard.DataSource = dt;
                 ddlBoard.DataTextField = "BoardName";
                 ddlBoard.DataValueField = "BoardId";
                 ddlBoard.DataBind();
+                ddlBoard.Items.Insert(0, new ListItem("-- Select Board --", "0"));
+            }
+        }
 
-                ddlBoard.Items.Insert(0, "-- Select Board --");
+        protected void ddlBoard_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
+            if (boardId == 0) return;
+
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                // Use ISNULL in the SQL query to default to 0 (False) if the value is NULL
+                SqlCommand cmd = new SqlCommand("SELECT ISNULL(IsCompetitive, 0) FROM Boards WHERE BoardId=@ID", con);
+                cmd.Parameters.AddWithValue("@ID", boardId);
+                con.Open();
+
+                object result = cmd.ExecuteScalar();
+
+                // Safely convert to boolean
+                bool isComp = (result != null && result != DBNull.Value) ? Convert.ToBoolean(result) : false;
+
+                if (isComp)
+                {
+                    litLevelLabel.Text = "Select Year";
+                    LoadYears(boardId);
+                }
+                else
+                {
+                    litLevelLabel.Text = "Select Class";
+                    LoadClasses(boardId);
+                }
+                ResetDropDown(ddlSubject, "-- Select Level First --");
+                phSets.Visible = false;
             }
         }
 
@@ -42,137 +72,122 @@ namespace StudyIsleWeb.Admin.Chapters
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                SqlCommand cmd = new SqlCommand(
-                    "SELECT ClassId, ClassName FROM Classes WHERE BoardId=@BoardId", con);
-
-                cmd.Parameters.AddWithValue("@BoardId", boardId);
-
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                SqlDataAdapter da = new SqlDataAdapter("SELECT ClassId, ClassName FROM Classes WHERE BoardId=" + boardId, con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
-
-                ddlClass.DataSource = dt;
-                ddlClass.DataTextField = "ClassName";
-                ddlClass.DataValueField = "ClassId";
-                ddlClass.DataBind();
-
-                ddlClass.Items.Insert(0,
-                    new System.Web.UI.WebControls.ListItem("-- No Class --", "0"));
+                ddlLevel.DataSource = dt;
+                ddlLevel.DataTextField = "ClassName";
+                ddlLevel.DataValueField = "ClassId";
+                ddlLevel.DataBind();
+                ddlLevel.Items.Insert(0, new ListItem("-- Select Class --", "0"));
             }
         }
 
-        private void LoadSubjects(int boardId, int classId)
+        private void LoadYears(int boardId)
+        {
+            // Assuming you have a Years table for competitive exams
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlDataAdapter da = new SqlDataAdapter("SELECT YearId, YearName FROM ExamYears ORDER BY YearName DESC", con);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                ddlLevel.DataSource = dt;
+                ddlLevel.DataTextField = "YearName";
+                ddlLevel.DataValueField = "YearId";
+                ddlLevel.DataBind();
+                ddlLevel.Items.Insert(0, new ListItem("-- Select Year --", "0"));
+            }
+        }
+
+        protected void ddlLevel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadSubjects();
+        }
+
+        private void LoadSubjects()
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string query = @"SELECT SubjectId, SubjectName
-                                 FROM Subjects
-                                 WHERE BoardId=@BoardId";
-
-                if (classId > 0)
-                    query += " AND ClassId=@ClassId";
+                // This logic connects Chapters to Subjects based on the Board/Class hierarchy
+                string query = "SELECT SubjectId, SubjectName FROM Subjects WHERE BoardId=@BID";
+                if (litLevelLabel.Text.Contains("Class"))
+                    query += " AND ClassId=@LID";
 
                 SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@BoardId", boardId);
-
-                if (classId > 0)
-                    cmd.Parameters.AddWithValue("@ClassId", classId);
+                cmd.Parameters.AddWithValue("@BID", ddlBoard.SelectedValue);
+                cmd.Parameters.AddWithValue("@LID", ddlLevel.SelectedValue);
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
-
                 ddlSubject.DataSource = dt;
                 ddlSubject.DataTextField = "SubjectName";
                 ddlSubject.DataValueField = "SubjectId";
                 ddlSubject.DataBind();
-
-                ddlSubject.Items.Insert(0,
-                    new System.Web.UI.WebControls.ListItem("-- Select Subject --", "0"));
+                ddlSubject.Items.Insert(0, new ListItem("-- Select Subject --", "0"));
             }
         }
 
-        protected void ddlBoard_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ddlSubject_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
-            LoadClasses(boardId);
-            ddlSubject.Items.Clear();
+            // If it's a competitive board, load Sets after Subject is chosen
+            if (litLevelLabel.Text.Contains("Year"))
+            {
+                phSets.Visible = true;
+                LoadSets(Convert.ToInt32(ddlSubject.SelectedValue));
+            }
         }
 
-        protected void ddlClass_SelectedIndexChanged(object sender, EventArgs e)
+        private void LoadSets(int subjectId)
         {
-            int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
-            int classId = ddlClass.SelectedValue == "0"
-                ? 0 : Convert.ToInt32(ddlClass.SelectedValue);
-
-            LoadSubjects(boardId, classId);
-        }
-
-        protected void txtChapterName_TextChanged(object sender, EventArgs e)
-        {
-            txtSlug.Text = GenerateSlug(txtChapterName.Text.Trim());
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlDataAdapter da = new SqlDataAdapter("SELECT SetId, SetName FROM Sets WHERE SubjectId=" + subjectId, con);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                ddlSet.DataSource = dt;
+                ddlSet.DataTextField = "SetName";
+                ddlSet.DataValueField = "SetId";
+                ddlSet.DataBind();
+                ddlSet.Items.Insert(0, new ListItem("-- No Specific Set --", "0"));
+            }
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (ddlSubject.SelectedIndex == 0)
+            try
             {
-                lblMessage.Text = "Please select a Subject.";
-                return;
+                using (SqlConnection con = new SqlConnection(cs))
+                {
+                    string sql = @"INSERT INTO Chapters (SubjectId, SetId, YearId, ChapterName, Slug, DisplayOrder, IsActive, CreatedAt) 
+                                 VALUES (@SID, @SetID, @YID, @Name, @Slug, @Order, @Active, GETDATE())";
+
+                    SqlCommand cmd = new SqlCommand(sql, con);
+                    cmd.Parameters.AddWithValue("@SID", ddlSubject.SelectedValue);
+                    cmd.Parameters.AddWithValue("@SetID", phSets.Visible && ddlSet.SelectedValue != "0" ? (object)ddlSet.SelectedValue : DBNull.Value);
+                    cmd.Parameters.AddWithValue("@YID", litLevelLabel.Text.Contains("Year") ? (object)ddlLevel.SelectedValue : DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Name", txtChapterName.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Slug", txtSlug.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Order", txtDisplayOrder.Text);
+                    cmd.Parameters.AddWithValue("@Active", chkIsActive.Checked);
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    Response.Redirect("ManageChapters.aspx");
+                }
             }
-
-            int subjectId = Convert.ToInt32(ddlSubject.SelectedValue);
-            string chapterName = txtChapterName.Text.Trim();
-            string slug = GenerateSlug(txtSlug.Text.Trim());
-
-            if (IsSlugExists(slug, subjectId))
-            {
-                lblMessage.Text = "Slug already exists for this subject.";
-                return;
-            }
-
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                SqlCommand cmd = new SqlCommand(
-                    @"INSERT INTO Chapters
-                      (SubjectId, ChapterName, Slug, DisplayOrder, IsActive, CreatedAt)
-                      VALUES
-                      (@SubjectId, @ChapterName, @Slug, @DisplayOrder, @IsActive, GETDATE())", con);
-
-                cmd.Parameters.AddWithValue("@SubjectId", subjectId);
-                cmd.Parameters.AddWithValue("@ChapterName", chapterName);
-                cmd.Parameters.AddWithValue("@Slug", slug);
-                cmd.Parameters.AddWithValue("@DisplayOrder", txtDisplayOrder.Text);
-                cmd.Parameters.AddWithValue("@IsActive", chkIsActive.Checked);
-
-                con.Open();
-                cmd.ExecuteNonQuery();
-            }
-
-            Response.Redirect("ManageChapters.aspx");
+            catch (Exception ex) { lblMessage.Text = "Error: " + ex.Message; }
         }
 
-        private bool IsSlugExists(string slug, int subjectId)
+        private void ResetDropDown(DropDownList ddl, string text)
         {
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                SqlCommand cmd = new SqlCommand(
-                    "SELECT COUNT(*) FROM Chapters WHERE Slug=@Slug AND SubjectId=@SubjectId", con);
-
-                cmd.Parameters.AddWithValue("@Slug", slug);
-                cmd.Parameters.AddWithValue("@SubjectId", subjectId);
-
-                con.Open();
-                return (int)cmd.ExecuteScalar() > 0;
-            }
+            ddl.Items.Clear();
+            ddl.Items.Insert(0, new ListItem(text, "0"));
         }
 
-        private string GenerateSlug(string input)
+        protected void txtChapterName_TextChanged(object sender, EventArgs e)
         {
-            string slug = input.ToLower();
-            slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
-            slug = Regex.Replace(slug, @"\s+", " ").Trim();
-            return slug.Replace(" ", "-");
+            txtSlug.Text = Regex.Replace(txtChapterName.Text.ToLower(), @"[^a-z0-9]", "-").Replace("--", "-").Trim('-');
         }
     }
 }
