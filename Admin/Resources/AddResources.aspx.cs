@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Web.UI.WebControls;
 
 namespace StudyIsleWeb.Admin.Resources
 {
@@ -14,484 +15,157 @@ namespace StudyIsleWeb.Admin.Resources
         {
             if (!IsPostBack)
             {
-                LoadBoards();
-                LoadResourceTypes();
+                BindPrimaryDropdowns();
             }
         }
 
-        /* -------------------------
-           BOARDS
-        --------------------------*/
-
-        private void LoadBoards()
+        private void BindPrimaryDropdowns()
         {
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                SqlDataAdapter da = new SqlDataAdapter(
-                    "SELECT BoardId,BoardName FROM Boards WHERE IsActive=1 ORDER BY BoardName", con);
+            BindDDL("SELECT BoardId, BoardName FROM Boards WHERE IsActive=1", ddlBoard, "BoardName", "BoardId");
+            BindDDL("SELECT ResourceTypeId, TypeName FROM ResourceTypes WHERE IsActive=1", ddlResourceType, "TypeName", "ResourceTypeId");
+            BindDDL("SELECT YearId, YearName FROM Years ORDER BY YearName DESC", ddlYear, "YearName", "YearId");
 
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                ddlBoard.DataSource = dt;
-                ddlBoard.DataTextField = "BoardName";
-                ddlBoard.DataValueField = "BoardId";
-                ddlBoard.DataBind();
-
-                ddlBoard.Items.Insert(0, "-- Select Board --");
-            }
-        }
-
-        /* -------------------------
-           RESOURCE TYPES
-        --------------------------*/
-
-        private void LoadResourceTypes()
-        {
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                SqlDataAdapter da = new SqlDataAdapter(
-                    "SELECT ResourceTypeId,TypeName FROM ResourceTypes WHERE IsActive=1 ORDER BY DisplayOrder", con);
-
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                ddlResourceType.DataSource = dt;
-                ddlResourceType.DataTextField = "TypeName";
-                ddlResourceType.DataValueField = "ResourceTypeId";
-                ddlResourceType.DataBind();
-
-                ddlResourceType.Items.Insert(0, "-- Select Type --");
-            }
-        }
-
-        /* -------------------------
-           CLASSES
-        --------------------------*/
-
-        private void LoadClasses(int boardId)
-        {
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                SqlCommand cmd = new SqlCommand(
-                    "SELECT ClassId,ClassName FROM Classes WHERE BoardId=@BoardId ORDER BY DisplayOrder", con);
-
-                cmd.Parameters.AddWithValue("@BoardId", boardId);
-
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                ddlClass.DataSource = dt;
-                ddlClass.DataTextField = "ClassName";
-                ddlClass.DataValueField = "ClassId";
-                ddlClass.DataBind();
-
-                ddlClass.Items.Insert(0, "-- Select Class --");
-
-                ddlClass.Enabled = dt.Rows.Count > 0;
-            }
-        }
-
-        /* -------------------------
-           SUBJECTS
-        --------------------------*/
-
-        private void LoadSubjects(int boardId, int? classId)
-        {
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                string query = @"SELECT SubjectId,SubjectName
-                                 FROM Subjects
-                                 WHERE BoardId=@BoardId
-                                 AND (@ClassId IS NULL OR ClassId=@ClassId OR ClassId IS NULL)
-                                 AND IsActive=1
-                                 ORDER BY SubjectName";
-
-                SqlCommand cmd = new SqlCommand(query, con);
-
-                cmd.Parameters.AddWithValue("@BoardId", boardId);
-                cmd.Parameters.AddWithValue("@ClassId",
-                    classId.HasValue ? (object)classId.Value : DBNull.Value);
-
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                ddlSubject.DataSource = dt;
-                ddlSubject.DataTextField = "SubjectName";
-                ddlSubject.DataValueField = "SubjectId";
-                ddlSubject.DataBind();
-
-                ddlSubject.Items.Insert(0, "-- Select Subject --");
-            }
-        }
-
-        /* -------------------------
-           CHAPTERS
-        --------------------------*/
-
-        private void LoadChapters(int subjectId)
-        {
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                SqlCommand cmd = new SqlCommand(
-                    @"SELECT ChapterId,ChapterName
-                      FROM Chapters
-                      WHERE SubjectId=@SubjectId
-                      AND IsActive=1
-                      ORDER BY DisplayOrder", con);
-
-                cmd.Parameters.AddWithValue("@SubjectId", subjectId);
-
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                ddlChapter.DataSource = dt;
-                ddlChapter.DataTextField = "ChapterName";
-                ddlChapter.DataValueField = "ChapterId";
-                ddlChapter.DataBind();
-
-                ddlChapter.Items.Insert(0, "-- Select Chapter --");
-            }
-        }
-
-        /* -------------------------
-           YEARS
-        --------------------------*/
-
-        private void LoadYears(int typeId)
-        {
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                SqlCommand cmd = new SqlCommand(
-                    "SELECT YearId,YearName FROM Years WHERE ResourceTypeId=@Id ORDER BY YearName DESC", con);
-
-                cmd.Parameters.AddWithValue("@Id", typeId);
-
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                ddlYear.DataSource = dt;
-                ddlYear.DataTextField = "YearName";
-                ddlYear.DataValueField = "YearId";
-                ddlYear.DataBind();
-
-                ddlYear.Items.Insert(0, "-- Select Year --");
-            }
-        }
-
-        /* -------------------------
-           SUBCATEGORIES
-        --------------------------*/
-
-        private void LoadSubCategories(int typeId)
-        {
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                SqlCommand cmd = new SqlCommand(
-                    "SELECT SubCategoryId,SubCategoryName FROM SubCategories WHERE ResourceTypeId=@Id ORDER BY SubCategoryName", con);
-
-                cmd.Parameters.AddWithValue("@Id", typeId);
-
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                ddlSubCategory.DataSource = dt;
-                ddlSubCategory.DataTextField = "SubCategoryName";
-                ddlSubCategory.DataValueField = "SubCategoryId";
-                ddlSubCategory.DataBind();
-
-                ddlSubCategory.Items.Insert(0, "-- Select SubCategory --");
-            }
+            // Set placeholders for others
+            ResetDDL(ddlClass, "-- Select Board First --");
+            ResetDDL(ddlSubject, "-- Select Context --");
+            ResetDDL(ddlChapter, "-- Select Subject --");
+            ResetDDL(ddlSet, "-- Optional --");
+            ResetDDL(ddlSubCategory, "-- Optional --");
         }
 
         protected void ddlBoard_SelectedIndexChanged(object sender, EventArgs e)
         {
             int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
-
-            LoadClasses(boardId);
-
-            if (ddlClass.Items.Count <= 1)
+            if (boardId > 0)
             {
-                ddlClass.Enabled = false;
-                LoadSubjects(boardId, null);
+                BindDDL($"SELECT ClassId, ClassName FROM Classes WHERE BoardId={boardId}", ddlClass, "ClassName", "ClassId");
+                BindDDL($"SELECT SubjectId, SubjectName FROM Subjects WHERE BoardId={boardId}", ddlSubject, "SubjectName", "SubjectId");
             }
-
-            ddlChapter.Items.Clear();
         }
 
         protected void ddlClass_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
-
             int classId = Convert.ToInt32(ddlClass.SelectedValue);
-
-            LoadSubjects(boardId, classId == 0 ? (int?)null : classId);
-
-            ddlChapter.Items.Clear();
+            if (classId > 0)
+            {
+                BindDDL($"SELECT SubjectId, SubjectName FROM Subjects WHERE ClassId={classId}", ddlSubject, "SubjectName", "SubjectId");
+            }
         }
 
         protected void ddlSubject_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlSubject.SelectedIndex == 0)
-                return;
-
             int subjectId = Convert.ToInt32(ddlSubject.SelectedValue);
-
-            LoadChapters(subjectId);
-
-            LoadSets(subjectId, null, null);
+            if (subjectId > 0)
+            {
+                BindDDL($"SELECT ChapterId, ChapterName FROM Chapters WHERE SubjectId={subjectId}", ddlChapter, "ChapterName", "ChapterId");
+            }
+            RefreshSets();
         }
 
-        /* ----------- ADDED METHOD ----------- */
-
-        protected void ddlChapter_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ddlChapter.SelectedIndex == 0)
-                return;
-
-            int subjectId = ddlSubject.SelectedIndex == 0 ? 0 : Convert.ToInt32(ddlSubject.SelectedValue);
-            int chapterId = Convert.ToInt32(ddlChapter.SelectedValue);
-
-            LoadSets(subjectId == 0 ? (int?)null : subjectId, chapterId, null);
-        }
-
-        /* ----------- ADDED METHOD ----------- */
-
-        protected void ddlYear_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ddlYear.SelectedIndex == 0)
-                return;
-
-            int yearId = Convert.ToInt32(ddlYear.SelectedValue);
-
-            LoadSets(null, null, yearId);
-        }
+        protected void ddlChapter_SelectedIndexChanged(object sender, EventArgs e) => RefreshSets();
+        protected void ddlYear_SelectedIndexChanged(object sender, EventArgs e) => RefreshSets();
 
         protected void ddlResourceType_SelectedIndexChanged(object sender, EventArgs e)
         {
             int typeId = Convert.ToInt32(ddlResourceType.SelectedValue);
-
-            using (SqlConnection con = new SqlConnection(cs))
+            if (typeId > 0)
             {
-                // Added HasSet to the SELECT statement
-                SqlCommand cmd = new SqlCommand(
-                    @"SELECT HasClass, HasSubject, HasChapter, HasYear, HasSubCategory, HasSet
-              FROM ResourceTypes
-              WHERE ResourceTypeId=@Id", con);
-
-                cmd.Parameters.AddWithValue("@Id", typeId);
-
-                con.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-
-                if (dr.Read())
-                {
-                    pnlClass.Visible = Convert.ToBoolean(dr["HasClass"]);
-                    pnlSubject.Visible = Convert.ToBoolean(dr["HasSubject"]);
-                    pnlChapter.Visible = Convert.ToBoolean(dr["HasChapter"]);
-                    pnlYear.Visible = Convert.ToBoolean(dr["HasYear"]);
-                    pnlSubCategory.Visible = Convert.ToBoolean(dr["HasSubCategory"]);
-
-                    // This will now work perfectly since the column is in the SELECT list
-                    pnlSet.Visible = Convert.ToBoolean(dr["HasSet"]);
-                }
+                BindDDL($"SELECT SubCategoryId, SubCategoryName FROM SubCategories WHERE ResourceTypeId={typeId}", ddlSubCategory, "SubCategoryName", "SubCategoryId");
             }
-
-            LoadYears(typeId);
-            LoadSubCategories(typeId);
-        }
-        protected void btnAddSubCategory_Click(object sender, EventArgs e)
-        {
-            string name = txtNewSubCategory.Text.Trim();
-
-            if (string.IsNullOrEmpty(name))
-            {
-                lblMessage.Text = "Enter subcategory name.";
-                return;
-            }
-
-            if (!int.TryParse(ddlResourceType.SelectedValue, out int typeId) || typeId == 0)
-            {
-                lblMessage.Text = "Select resource type first.";
-                return;
-            }
-
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                string query = @"IF NOT EXISTS
-                        (SELECT 1 FROM SubCategories 
-                         WHERE SubCategoryName=@Name 
-                         AND ResourceTypeId=@TypeId)
-
-                         INSERT INTO SubCategories
-                         (SubCategoryName, ResourceTypeId)
-                         VALUES(@Name, @TypeId)";
-
-                SqlCommand cmd = new SqlCommand(query, con);
-
-                cmd.Parameters.AddWithValue("@Name", name);
-                cmd.Parameters.AddWithValue("@TypeId", typeId);
-
-                con.Open();
-                cmd.ExecuteNonQuery();
-            }
-
-            txtNewSubCategory.Text = "";
-
-            LoadSubCategories(typeId);
         }
 
-        protected void btnAddYear_Click(object sender, EventArgs e)
+        private void RefreshSets()
         {
-            string yearName = txtNewYear.Text.Trim();
+            string sql = "SELECT SetId, SetName FROM Sets WHERE IsActive=1";
+            if (ddlSubject.SelectedIndex > 0) sql += $" AND (SubjectId={ddlSubject.SelectedValue} OR SubjectId IS NULL)";
+            if (ddlChapter.SelectedIndex > 0) sql += $" AND (ChapterId={ddlChapter.SelectedValue} OR ChapterId IS NULL)";
+            if (ddlYear.SelectedIndex > 0) sql += $" AND (YearId={ddlYear.SelectedValue} OR YearId IS NULL)";
 
-            if (string.IsNullOrEmpty(yearName))
-            {
-                lblMessage.Text = "Enter year.";
-                return;
-            }
-
-            if (!int.TryParse(ddlResourceType.SelectedValue, out int typeId) || typeId == 0)
-            {
-                lblMessage.Text = "Select resource type first.";
-                return;
-            }
-
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                string query = @"IF NOT EXISTS
-                        (SELECT 1 FROM Years
-                         WHERE YearName=@YearName
-                         AND ResourceTypeId=@TypeId)
-
-                         INSERT INTO Years
-                         (YearName, ResourceTypeId)
-                         VALUES(@YearName, @TypeId)";
-
-                SqlCommand cmd = new SqlCommand(query, con);
-
-                cmd.Parameters.AddWithValue("@YearName", yearName);
-                cmd.Parameters.AddWithValue("@TypeId", typeId);
-
-                con.Open();
-                cmd.ExecuteNonQuery();
-            }
-
-            txtNewYear.Text = "";
-
-            LoadYears(typeId);
-        }
-
-        // SETS
-        private void LoadSets(int? subjectId, int? chapterId, int? yearId)
-        {
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                string query = @"SELECT SetId, SetName
-                         FROM Sets
-                         WHERE IsActive = 1
-                         AND (@SubjectId IS NULL OR SubjectId=@SubjectId)
-                         AND (@ChapterId IS NULL OR ChapterId=@ChapterId)
-                         AND (@YearId IS NULL OR YearId=@YearId)
-                         ORDER BY DisplayOrder";
-
-                SqlCommand cmd = new SqlCommand(query, con);
-
-                cmd.Parameters.AddWithValue("@SubjectId",
-                    subjectId.HasValue ? (object)subjectId.Value : DBNull.Value);
-
-                cmd.Parameters.AddWithValue("@ChapterId",
-                    chapterId.HasValue ? (object)chapterId.Value : DBNull.Value);
-
-                cmd.Parameters.AddWithValue("@YearId",
-                    yearId.HasValue ? (object)yearId.Value : DBNull.Value);
-
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                ddlSet.DataSource = dt;
-                ddlSet.DataTextField = "SetName";
-                ddlSet.DataValueField = "SetId";
-                ddlSet.DataBind();
-
-                ddlSet.Items.Insert(0, "-- Select Set --");
-            }
+            BindDDL(sql, ddlSet, "SetName", "SetId");
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (!fuFile.HasFile)
+            if (ddlBoard.SelectedIndex <= 0 || ddlResourceType.SelectedIndex <= 0 || string.IsNullOrEmpty(txtTitle.Text) || !fuFile.HasFile)
             {
-                lblMessage.Text = "File required.";
+                ShowMessage("Please fill Board, Type, Title, and select a file.", "text-danger");
                 return;
             }
 
-            string folder = Server.MapPath("~/Uploads/");
+            try
+            {
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(fuFile.FileName);
+                string path = "/Uploads/Resources/" + fileName;
+                fuFile.SaveAs(Server.MapPath("~" + path));
 
-            if (!Directory.Exists(folder))
-                Directory.CreateDirectory(folder);
+                using (SqlConnection con = new SqlConnection(cs))
+                {
+                    // Full explicit INSERT with all columns shown in your SELECT * screenshot
+                    string query = @"INSERT INTO Resources 
+                        (BoardId, ResourceTypeId, ClassId, SubjectId, ChapterId, YearId, SubCategoryId, SetId, Title, FilePath, ContentType, IsPremium, IsActive, CreatedAt, DownloadCount)
+                        VALUES (@BID, @RTID, @CID, @SID, @CHID, @YID, @SCID, @SetID, @Title, @Path, @CType, @Prem, 1, GETDATE(), 0)";
 
-            string fileName = Guid.NewGuid() + Path.GetExtension(fuFile.FileName);
+                    SqlCommand cmd = new SqlCommand(query, con);
 
-            fuFile.SaveAs(folder + fileName);
+                    // Core Params
+                    cmd.Parameters.Add("@BID", SqlDbType.Int).Value = ddlBoard.SelectedValue;
+                    cmd.Parameters.Add("@RTID", SqlDbType.Int).Value = ddlResourceType.SelectedValue;
 
-            string filePath = "/Uploads/" + fileName;
+                    // Optional Params with proper DBNull handling
+                    cmd.Parameters.Add("@CID", SqlDbType.Int).Value = GetValue(ddlClass);
+                    cmd.Parameters.Add("@SID", SqlDbType.Int).Value = GetValue(ddlSubject);
+                    cmd.Parameters.Add("@CHID", SqlDbType.Int).Value = GetValue(ddlChapter);
+                    cmd.Parameters.Add("@YID", SqlDbType.Int).Value = GetValue(ddlYear);
+                    cmd.Parameters.Add("@SCID", SqlDbType.Int).Value = GetValue(ddlSubCategory);
+                    cmd.Parameters.Add("@SetID", SqlDbType.Int).Value = GetValue(ddlSet);
 
+                    // Details
+                    cmd.Parameters.Add("@Title", SqlDbType.NVarChar).Value = txtTitle.Text.Trim();
+                    cmd.Parameters.Add("@Path", SqlDbType.NVarChar).Value = path;
+                    cmd.Parameters.Add("@CType", SqlDbType.NVarChar).Value = fuFile.PostedFile.ContentType;
+                    cmd.Parameters.Add("@Prem", SqlDbType.Bit).Value = chkIsPremium.Checked;
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    Response.Redirect("ManageResources.aspx");
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowMessage("Critical Error: " + ex.Message, "text-danger");
+            }
+        }
+
+        private object GetValue(DropDownList ddl)
+        {
+            return (ddl.SelectedIndex <= 0 || ddl.SelectedValue == "0") ? DBNull.Value : (object)ddl.SelectedValue;
+        }
+
+        private void BindDDL(string sql, DropDownList ddl, string text, string value)
+        {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                SqlCommand cmd = new SqlCommand(
-
-@"INSERT INTO Resources
-(BoardId,ResourceTypeId,ClassId,SubjectId,ChapterId,YearId,SubCategoryId,SetId,
-Title,Description,FilePath,ContentType,IsPremium,IsActive,DownloadCount,CreatedAt)
-
-VALUES
-(@BoardId,@TypeId,@ClassId,@SubjectId,@ChapterId,@YearId,@SubCategoryId, @SetId,
-@Title,@Description,@FilePath,@ContentType,@IsPremium,1,0,GETDATE())", con);
-
-                cmd.Parameters.AddWithValue("@BoardId", ddlBoard.SelectedValue);
-                cmd.Parameters.AddWithValue("@TypeId", ddlResourceType.SelectedValue);
-
-                cmd.Parameters.AddWithValue("@ClassId",
-                    ddlClass.SelectedIndex == 0 ? (object)DBNull.Value : ddlClass.SelectedValue);
-
-                cmd.Parameters.AddWithValue("@SubjectId",
-                    ddlSubject.SelectedIndex == 0 ? (object)DBNull.Value : ddlSubject.SelectedValue);
-
-                cmd.Parameters.AddWithValue("@ChapterId",
-                    ddlChapter.SelectedIndex == 0 ? (object)DBNull.Value : ddlChapter.SelectedValue);
-
-                cmd.Parameters.AddWithValue("@YearId",
-                    ddlYear.SelectedIndex == 0 ? (object)DBNull.Value : ddlYear.SelectedValue);
-
-                cmd.Parameters.AddWithValue("@SubCategoryId",
-                    ddlSubCategory.SelectedIndex == 0 ? (object)DBNull.Value : ddlSubCategory.SelectedValue);
-                cmd.Parameters.AddWithValue("@SetId",
-                     ddlSet.SelectedIndex <= 0 ? (object)DBNull.Value : ddlSet.SelectedValue);
-
-                cmd.Parameters.AddWithValue("@Title", txtTitle.Text.Trim());
-                cmd.Parameters.AddWithValue("@Description", txtDescription.Text.Trim());
-                cmd.Parameters.AddWithValue("@FilePath", filePath);
-                cmd.Parameters.AddWithValue("@ContentType", fuFile.PostedFile.ContentType);
-                cmd.Parameters.AddWithValue("@IsPremium", chkIsPremium.Checked);
-
-                con.Open();
-                cmd.ExecuteNonQuery();
+                SqlDataAdapter da = new SqlDataAdapter(sql, con);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                ddl.DataSource = dt;
+                ddl.DataTextField = text;
+                ddl.DataValueField = value;
+                ddl.DataBind();
+                ddl.Items.Insert(0, new ListItem("-- Optional --", "0"));
             }
+        }
 
-            Response.Redirect("ManageResources.aspx");
+        private void ResetDDL(DropDownList ddl, string text)
+        {
+            ddl.Items.Clear();
+            ddl.Items.Insert(0, new ListItem(text, "0"));
+        }
+
+        private void ShowMessage(string msg, string css)
+        {
+            lblMessage.Text = msg;
+            lblMessage.CssClass = "fw-bold " + css;
         }
     }
 }
