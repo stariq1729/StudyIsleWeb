@@ -10,7 +10,7 @@ namespace StudyIsleWeb.Admin.ResourceTypes
 {
     public partial class AddResourceType : System.Web.UI.Page
     {
-        string cs = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
+        private readonly string cs = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,8 +24,8 @@ namespace StudyIsleWeb.Admin.ResourceTypes
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                // Pulls all active boards dynamically
-                string query = "SELECT BoardId, BoardName FROM Boards ORDER BY BoardName ASC";
+                // We show whether it's Competitive or Standard in the list for admin clarity
+                string query = "SELECT BoardId, BoardName + (CASE WHEN IsCompetitive = 1 THEN ' (Competitive)' ELSE ' (Standard)' END) as BoardName FROM Boards ORDER BY IsCompetitive, BoardName ASC";
                 SqlDataAdapter da = new SqlDataAdapter(query, con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -44,58 +44,54 @@ namespace StudyIsleWeb.Admin.ResourceTypes
         {
             if (string.IsNullOrWhiteSpace(txtName.Text))
             {
-                lblMessage.Text = "Type Name is required.";
+                lblMessage.Text = "Resource Type Name is required.";
                 return;
             }
 
-            string iconFileName = "Default-icon.png";
+            // Handle Icon Upload
+            string iconFileName = "default-resource.png";
             if (fuIcon.HasFile)
             {
-                string extension = Path.GetExtension(fuIcon.FileName).ToLower();
-                iconFileName = "resource_" + DateTime.Now.Ticks + extension;
-                string folderPath = Server.MapPath("~/Uploads/ResourceIcons/Icon");
-                if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
-                fuIcon.SaveAs(Path.Combine(folderPath, iconFileName));
+                string ext = Path.GetExtension(fuIcon.FileName).ToLower();
+                iconFileName = "res_" + Guid.NewGuid().ToString().Substring(0, 8) + ext;
+                string path = Server.MapPath("~/Uploads/Icons/");
+                if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+                fuIcon.SaveAs(path + iconFileName);
             }
 
             using (SqlConnection con = new SqlConnection(cs))
             {
                 con.Open();
-                // Use Transaction to ensure both Resource and Mapping are saved correctly
                 SqlTransaction trans = con.BeginTransaction();
 
                 try
                 {
-                    // 1. Insert Resource Type
+                    // 1. Insert the Resource Type with Flow Toggles
                     string resQuery = @"INSERT INTO ResourceTypes 
-(TypeName, Slug, Description, IconImage, IsPremium, IsActive, DisplayOrder, 
-HasClass, HasSubject, HasChapter, HasSubCategory, HasYear, HasSets) 
-
-VALUES 
-(@TypeName, @Slug, @Description, @IconImage, @IsPremium, @IsActive, @DisplayOrder, 
-@HasClass, @HasSubject, @HasChapter, @HasSubCategory, @HasYear, @HasSets);
-
-SELECT SCOPE_IDENTITY();";
+                        (TypeName, Slug, IconImage, IsPremium, IsActive, DisplayOrder, 
+                         HasClass, HasSubject, HasChapter, HasSubCategory, HasYear, HasSets, CreatedAt) 
+                        VALUES 
+                        (@TypeName, @Slug, @IconImage, @IsPremium, @IsActive, @DisplayOrder, 
+                         @HasClass, @HasSubject, @HasChapter, @HasSubCategory, @HasYear, @HasSets, GETDATE());
+                        SELECT SCOPE_IDENTITY();";
 
                     SqlCommand cmd = new SqlCommand(resQuery, con, trans);
                     cmd.Parameters.AddWithValue("@TypeName", txtName.Text.Trim());
                     cmd.Parameters.AddWithValue("@Slug", txtSlug.Text.Trim());
-                    cmd.Parameters.AddWithValue("@Description", txtDescription.Text.Trim());
                     cmd.Parameters.AddWithValue("@IconImage", iconFileName);
                     cmd.Parameters.AddWithValue("@IsPremium", chkIsPremium.Checked);
                     cmd.Parameters.AddWithValue("@IsActive", chkIsActive.Checked);
-                    cmd.Parameters.AddWithValue("@DisplayOrder", int.Parse(txtDisplayOrder.Text));
+                    cmd.Parameters.AddWithValue("@DisplayOrder", string.IsNullOrEmpty(txtDisplayOrder.Text) ? 0 : int.Parse(txtDisplayOrder.Text));
                     cmd.Parameters.AddWithValue("@HasClass", chkHasClass.Checked);
                     cmd.Parameters.AddWithValue("@HasSubject", chkHasSubject.Checked);
                     cmd.Parameters.AddWithValue("@HasChapter", chkHasChapter.Checked);
-                    cmd.Parameters.AddWithValue("@HasYear", chkHasYear.Checked);
                     cmd.Parameters.AddWithValue("@HasSubCategory", chkHasSubCategory.Checked);
+                    cmd.Parameters.AddWithValue("@HasYear", chkHasYear.Checked);
                     cmd.Parameters.AddWithValue("@HasSets", chkHasSets.Checked);
 
-                    // Get the ID of the resource we just created
-                    int newResourceId = Convert.ToInt32(cmd.ExecuteScalar());
+                    int newResourceTypeId = Convert.ToInt32(cmd.ExecuteScalar());
 
-                    // 2. Loop through CheckBoxList and save Mappings
+                    // 2. Map this Resource Type to selected Boards
                     foreach (ListItem item in cblBoards.Items)
                     {
                         if (item.Selected)
@@ -103,7 +99,7 @@ SELECT SCOPE_IDENTITY();";
                             string mapQuery = "INSERT INTO BoardResourceMapping (BoardId, ResourceTypeId) VALUES (@BID, @RID)";
                             SqlCommand cmdMap = new SqlCommand(mapQuery, con, trans);
                             cmdMap.Parameters.AddWithValue("@BID", item.Value);
-                            cmdMap.Parameters.AddWithValue("@RID", newResourceId);
+                            cmdMap.Parameters.AddWithValue("@RID", newResourceTypeId);
                             cmdMap.ExecuteNonQuery();
                         }
                     }
@@ -114,7 +110,7 @@ SELECT SCOPE_IDENTITY();";
                 catch (Exception ex)
                 {
                     trans.Rollback();
-                    lblMessage.Text = "Error: " + ex.Message;
+                    lblMessage.Text = "Error saving resource type: " + ex.Message;
                 }
             }
         }
