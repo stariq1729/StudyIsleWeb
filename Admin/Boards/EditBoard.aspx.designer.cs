@@ -15,6 +15,24 @@ namespace StudyIsleWeb.Admin.Boards
     {
 
         /// <summary>
+        /// lblIdDisplay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIdDisplay;
+
+        /// <summary>
+        /// hfBoardId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfBoardId;
+
+        /// <summary>
         /// lblMessage control.
         /// </summary>
         /// <remarks>
@@ -42,22 +60,13 @@ namespace StudyIsleWeb.Admin.Boards
         protected global::System.Web.UI.WebControls.TextBox txtSlug;
 
         /// <summary>
-        /// txtHeroTitle control.
+        /// chkIsCompetitive control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtHeroTitle;
-
-        /// <summary>
-        /// txtHeroSubtitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtHeroSubtitle;
+        protected global::System.Web.UI.WebControls.CheckBox chkIsCompetitive;
 
         /// <summary>
         /// chkHasClassLayer control.
@@ -76,6 +85,24 @@ namespace StudyIsleWeb.Admin.Boards
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkIsActive;
+
+        /// <summary>
+        /// txtHeroTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtHeroTitle;
+
+        /// <summary>
+        /// txtHeroSubtitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtHeroSubtitle;
 
         /// <summary>
         /// btnUpdate control.

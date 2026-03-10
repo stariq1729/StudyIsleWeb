@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
+using System.Web.UI;
 
 namespace StudyIsleWeb.Admin.Boards
 {
@@ -11,6 +12,7 @@ namespace StudyIsleWeb.Admin.Boards
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Initialization if needed
         }
 
         protected void txtBoardName_TextChanged(object sender, EventArgs e)
@@ -21,13 +23,14 @@ namespace StudyIsleWeb.Admin.Boards
         protected void btnSave_Click(object sender, EventArgs e)
         {
             string boardName = txtBoardName.Text.Trim();
-            string slug = GenerateSlug(txtSlug.Text.Trim());
+            string slug = txtSlug.Text.Trim();
             string heroTitle = txtHeroTitle.Text.Trim();
             string heroSubtitle = txtHeroSubtitle.Text.Trim();
+            bool isCompetitive = chkIsCompetitive.Checked;
             bool hasClassLayer = chkHasClassLayer.Checked;
             bool isActive = chkIsActive.Checked;
 
-            // Basic Validation
+            // 1. Validation
             if (string.IsNullOrWhiteSpace(boardName))
             {
                 lblMessage.Text = "Board Name is required.";
@@ -36,44 +39,46 @@ namespace StudyIsleWeb.Admin.Boards
 
             if (string.IsNullOrWhiteSpace(slug))
             {
-                lblMessage.Text = "Slug is required.";
-                return;
+                slug = GenerateSlug(boardName);
             }
 
             if (IsSlugExists(slug))
             {
-                lblMessage.Text = "Slug already exists. Please use a different slug.";
+                lblMessage.Text = "This slug is already in use. Please modify the Board Name or Slug.";
                 return;
             }
 
+            // 2. Database Operation
             try
             {
                 using (SqlConnection con = new SqlConnection(cs))
                 {
-                    // Updated Query with HeroTitle and HeroSubtitle
                     string query = @"INSERT INTO Boards 
-                                    (BoardName, Slug, HeroTitle, HeroSubtitle, HasClassLayer, IsActive, CreatedAt) 
+                                    (BoardName, Slug, HeroTitle, HeroSubtitle, IsCompetitive, HasClassLayer, IsActive, CreatedAt) 
                                     VALUES 
-                                    (@BoardName, @Slug, @HeroTitle, @HeroSubtitle, @HasClassLayer, @IsActive, GETDATE())";
+                                    (@BoardName, @Slug, @HeroTitle, @HeroSubtitle, @IsCompetitive, @HasClassLayer, @IsActive, GETDATE())";
 
-                    SqlCommand cmd = new SqlCommand(query, con);
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@BoardName", boardName);
+                        cmd.Parameters.AddWithValue("@Slug", slug);
+                        cmd.Parameters.AddWithValue("@HeroTitle", (object)heroTitle ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@HeroSubtitle", (object)heroSubtitle ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@IsCompetitive", isCompetitive);
+                        cmd.Parameters.AddWithValue("@HasClassLayer", hasClassLayer);
+                        cmd.Parameters.AddWithValue("@IsActive", isActive);
 
-                    cmd.Parameters.AddWithValue("@BoardName", boardName);
-                    cmd.Parameters.AddWithValue("@Slug", slug);
-                    cmd.Parameters.AddWithValue("@HeroTitle", (object)heroTitle ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@HeroSubtitle", (object)heroSubtitle ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@HasClassLayer", hasClassLayer);
-                    cmd.Parameters.AddWithValue("@IsActive", isActive);
-
-                    con.Open();
-                    cmd.ExecuteNonQuery();
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                    }
                 }
 
+                // Success - Move to Manage Page
                 Response.Redirect("ManageBoards.aspx");
             }
             catch (Exception ex)
             {
-                lblMessage.Text = "Error: " + ex.Message;
+                lblMessage.Text = "Database Error: " + ex.Message;
             }
         }
 
@@ -84,7 +89,6 @@ namespace StudyIsleWeb.Admin.Boards
                 string query = "SELECT COUNT(*) FROM Boards WHERE Slug=@Slug";
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@Slug", slug);
-
                 con.Open();
                 int count = (int)cmd.ExecuteScalar();
                 return count > 0;
@@ -95,9 +99,9 @@ namespace StudyIsleWeb.Admin.Boards
         {
             if (string.IsNullOrEmpty(input)) return "";
             string slug = input.ToLower();
-            slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
-            slug = Regex.Replace(slug, @"\s+", " ").Trim();
-            slug = slug.Replace(" ", "-");
+            slug = Regex.Replace(slug, @"[^a-z0-9\s-]", ""); // Remove invalid chars
+            slug = Regex.Replace(slug, @"\s+", " ").Trim(); // Convert multiple spaces to one
+            slug = slug.Replace(" ", "-"); // Replace spaces with hyphens
             return slug;
         }
     }

@@ -1,91 +1,69 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="ManageBoards.aspx.cs" Inherits="StudyIsleWeb.Admin.Boards.ManageBoards" %>
+﻿<%@ Page Title="Manage Boards" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="ManageBoards.aspx.cs" Inherits="StudyIsleWeb.Admin.Boards.ManageBoards" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div class="admin-header d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h4 class="page-title">Manage Boards</h4>
-            <p class="page-subtitle text-muted">Create and manage education boards and their SEO content</p>
-        </div>
-        <a href="AddBoards.aspx" class="btn btn-primary">+ Add New Board</a>
-    </div>
-
-    <div class="card mb-4 shadow-sm">
-        <div class="card-body">
-            <div class="row align-items-end">
-                <div class="col-md-4">
-                    <label class="form-label font-weight-bold">Search Board</label>
-                    <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control" placeholder="Type board name..." AutoPostBack="true" OnTextChanged="txtSearch_TextChanged"></asp:TextBox>
+    <div class="container mt-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <h4 class="mb-0 text-primary">Manage Boards</h4>
+                <a href="AddBoards.aspx" class="btn btn-success btn-sm">+ Add New Board</a>
+            </div>
+            
+            <div class="card-body">
+                <div class="row mb-3 align-items-end">
+                    <div class="col-md-4">
+                        <label class="form-label font-weight-bold">Filter by Type:</label>
+                        <asp:DropDownList ID="ddlFilterType" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlFilterType_SelectedIndexChanged">
+                            <asp:ListItem Text="All Boards" Value="All"></asp:ListItem>
+                            <asp:ListItem Text="Standard (CBSE/ICSE)" Value="Standard"></asp:ListItem>
+                            <asp:ListItem Text="Competitive (JEE/NEET)" Value="Competitive"></asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                    <div class="col-md-4">
+                        <asp:Label ID="lblStatus" runat="server" CssClass="text-success"></asp:Label>
+                    </div>
                 </div>
-                <div class="col-md-2">
-                    <asp:Button ID="btnSearch" runat="server" Text="Filter" CssClass="btn btn-secondary w-100" OnClick="btnSearch_Click" />
+
+                <div class="table-responsive">
+                    <asp:GridView ID="gvBoards" runat="server" AutoGenerateColumns="False" DataKeyNames="BoardId" 
+                        CssClass="table table-hover table-bordered" OnRowDeleting="gvBoards_RowDeleting">
+                        <Columns>
+                            <asp:BoundField DataField="BoardId" HeaderText="ID" ReadOnly="True" />
+                            <asp:BoundField DataField="BoardName" HeaderText="Board Name" />
+                            <asp:BoundField DataField="Slug" HeaderText="Slug" />
+                            
+                            <asp:TemplateField HeaderText="Type">
+    <ItemTemplate>
+        <%# (Eval("IsCompetitive") != DBNull.Value && Convert.ToBoolean(Eval("IsCompetitive"))) ? 
+            "<span class='badge bg-warning text-dark'>Competitive</span>" : 
+            "<span class='badge bg-info text-white'>Standard</span>" %>
+    </ItemTemplate>
+</asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="Active">
+                                <ItemTemplate>
+                                    <asp:CheckBox ID="chkActive" runat="server" Checked='<%# Eval("IsActive") %>' Enabled="false" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="Actions">
+                                <ItemTemplate>
+                                    <a href='EditBoard.aspx?id=<%# Eval("BoardId") %>' class="btn btn-sm btn-outline-primary">Edit</a>
+                                    <asp:LinkButton ID="btnDelete" runat="server" CommandName="Delete" 
+                                        OnClientClick="return confirm('Are you sure you want to delete this board?');" 
+                                        CssClass="btn btn-sm btn-outline-danger">Delete</asp:LinkButton>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        <EmptyDataTemplate>
+                            <div class="text-center p-4">No boards found matching your criteria.</div>
+                        </EmptyDataTemplate>
+                    </asp:GridView>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="card admin-card shadow-sm">
-        <asp:GridView ID="gvBoards" runat="server"
-            AutoGenerateColumns="False"
-            CssClass="table table-hover admin-table mb-0"
-            OnRowCommand="gvBoards_RowCommand"
-            DataKeyNames="BoardId" 
-            GridLines="None">
-
-            <Columns>
-                <asp:BoundField DataField="BoardId" HeaderText="ID" />
-                <asp:BoundField DataField="BoardName" HeaderText="Board Name" />
-                
-                <%-- Added Hero Title for quick preview --%>
-                <asp:TemplateField HeaderText="Hero Title">
-                    <ItemTemplate>
-                        <span class="text-truncate d-inline-block" style="max-width: 150px;" title='<%# Eval("HeroTitle") %>'>
-                            <%# Eval("HeroTitle") %>
-                        </span>
-                    </ItemTemplate>
-                </asp:TemplateField>
-
-                <asp:BoundField DataField="Slug" HeaderText="Slug" />
-
-                <%-- Fixed Badge Visibility: Using Bootstrap contextual classes --%>
-                <asp:TemplateField HeaderText="Has Class">
-                    <ItemTemplate>
-                        <span class='<%# Convert.ToBoolean(Eval("HasClassLayer")) ? "badge bg-info text-dark" : "badge bg-light text-muted border" %>'>
-                            <%# Convert.ToBoolean(Eval("HasClassLayer")) ? "Yes" : "No" %>
-                        </span>
-                    </ItemTemplate>
-                </asp:TemplateField>
-
-                <asp:TemplateField HeaderText="Created">
-                    <ItemTemplate>
-                        <%# Convert.ToDateTime(Eval("CreatedAt")).ToString("dd MMM yyyy") %>
-                    </ItemTemplate>
-                </asp:TemplateField>
-
-                <asp:TemplateField HeaderText="Status">
-                    <ItemTemplate>
-                        <asp:LinkButton ID="btnToggle" runat="server"
-                            CommandName="ToggleActive"
-                            CommandArgument='<%# Eval("BoardId") %>'
-                            CssClass='<%# Convert.ToBoolean(Eval("IsActive")) ? "badge bg-success text-white" : "badge bg-danger text-white" %>'
-                            style="text-decoration:none;">
-                            <%# Convert.ToBoolean(Eval("IsActive")) ? "Active" : "Inactive" %>
-                        </asp:LinkButton>
-                    </ItemTemplate>
-                </asp:TemplateField>
-
-                <asp:TemplateField HeaderText="Action">
-                    <ItemTemplate>
-                        <a href='EditBoard.aspx?id=<%# Eval("BoardId") %>' class="btn btn-sm btn-outline-warning">
-                            <i class="fas fa-edit"></i> Edit Content
-                        </a>
-                    </ItemTemplate>
-                </asp:TemplateField>
-            </Columns>
-            <EmptyDataTemplate>
-                <div class="p-4 text-center text-muted">No boards found matching your search.</div>
-            </EmptyDataTemplate>
-        </asp:GridView>
-    </div>
 </asp:Content>

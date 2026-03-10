@@ -14,78 +14,61 @@ namespace StudyIsleWeb.Admin.Boards
         {
             if (!IsPostBack)
             {
-                LoadBoards();
+                BindBoards();
             }
         }
 
-        // Logic for Search Filter
-        protected void btnSearch_Click(object sender, EventArgs e)
-        {
-            LoadBoards(txtSearch.Text.Trim());
-        }
-
-        protected void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-            LoadBoards(txtSearch.Text.Trim());
-        }
-
-        private void LoadBoards(string searchTerm = "")
+        private void BindBoards(string filter = "All")
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                // Added HeroTitle and HeroSubtitle to the SELECT statement
-                string query = @"SELECT BoardId, BoardName, Slug, HeroTitle, HeroSubtitle, 
-                                 HasClassLayer, IsActive, CreatedAt 
-                                 FROM Boards";
+                string query = "SELECT * FROM Boards";
 
-                if (!string.IsNullOrEmpty(searchTerm))
-                {
-                    query += " WHERE BoardName LIKE @Search OR HeroTitle LIKE @Search";
-                }
+                // Adding logic for the DropDown Filter
+                if (filter == "Standard")
+                    query += " WHERE IsCompetitive = 0";
+                else if (filter == "Competitive")
+                    query += " WHERE IsCompetitive = 1";
 
                 query += " ORDER BY CreatedAt DESC";
 
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                SqlDataAdapter sda = new SqlDataAdapter(query, con);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+
+                gvBoards.DataSource = dt;
+                gvBoards.DataBind();
+            }
+        }
+
+        protected void ddlFilterType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindBoards(ddlFilterType.SelectedValue);
+        }
+
+        protected void gvBoards_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            int boardId = Convert.ToInt32(gvBoards.DataKeys[e.RowIndex].Value);
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(cs))
                 {
-                    if (!string.IsNullOrEmpty(searchTerm))
-                    {
-                        cmd.Parameters.AddWithValue("@Search", "%" + searchTerm + "%");
-                    }
+                    string query = "DELETE FROM Boards WHERE BoardId = @BoardId";
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@BoardId", boardId);
 
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-
-                    gvBoards.DataSource = dt;
-                    gvBoards.DataBind();
+                    con.Open();
+                    cmd.ExecuteNonQuery();
                 }
+                lblStatus.Text = "Board deleted successfully.";
+                BindBoards(ddlFilterType.SelectedValue);
             }
-        }
-
-        protected void gvBoards_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            if (e.CommandName == "ToggleActive")
+            catch (Exception ex)
             {
-                int boardId = Convert.ToInt32(e.CommandArgument);
-                ToggleBoardStatus(boardId);
+                lblStatus.ForeColor = System.Drawing.Color.Red;
+                lblStatus.Text = "Error: Cannot delete board. It may have linked data.";
             }
-        }
-
-        private void ToggleBoardStatus(int boardId)
-        {
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                string query = @"UPDATE Boards 
-                                 SET IsActive = CASE WHEN IsActive = 1 THEN 0 ELSE 1 END 
-                                 WHERE BoardId = @BoardId";
-
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@BoardId", boardId);
-
-                con.Open();
-                cmd.ExecuteNonQuery();
-            }
-            LoadBoards(txtSearch.Text.Trim());
         }
     }
 }
