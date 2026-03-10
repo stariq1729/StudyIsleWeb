@@ -14,42 +14,43 @@ namespace StudyIsleWeb.Admin.Classes
         {
             if (!IsPostBack)
             {
-                LoadBoards();
-                LoadClasses();
+                BindBoards();
+                BindGrid();
             }
         }
 
-        private void LoadBoards()
+        private void BindBoards()
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string query = "SELECT BoardId, BoardName FROM Boards WHERE IsActive=1";
+                string query = "SELECT BoardId, BoardName FROM Boards ORDER BY BoardName ASC";
                 SqlDataAdapter da = new SqlDataAdapter(query, con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
-
                 ddlBoardFilter.DataSource = dt;
                 ddlBoardFilter.DataTextField = "BoardName";
                 ddlBoardFilter.DataValueField = "BoardId";
                 ddlBoardFilter.DataBind();
-                ddlBoardFilter.Items.Insert(0, new ListItem("-- All Boards --", "0"));
+                ddlBoardFilter.Items.Insert(0, new ListItem("-- Filter by All Boards --", "0"));
             }
         }
 
-        private void LoadClasses()
+        private void BindGrid()
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string query = @"SELECT c.ClassId, b.BoardName, c.ClassName, c.Slug, 
-                                c.DisplayOrder, c.IsActive, c.CreatedAt, c.PageTitle
-                         FROM Classes c
-                         INNER JOIN Boards b ON c.BoardId = b.BoardId";
+                // We INNER JOIN with Boards to display the Board Name in the list
+                string query = @"SELECT c.*, b.BoardName 
+                                FROM Classes c 
+                                INNER JOIN Boards b ON c.BoardId = b.BoardId 
+                                WHERE 1=1";
 
                 if (ddlBoardFilter.SelectedValue != "0")
                 {
-                    query += " WHERE c.BoardId = @BoardId";
+                    query += " AND c.BoardId = @BoardId";
                 }
-                query += " ORDER BY c.DisplayOrder ASC";
+
+                query += " ORDER BY b.BoardName, c.DisplayOrder ASC";
 
                 SqlCommand cmd = new SqlCommand(query, con);
                 if (ddlBoardFilter.SelectedValue != "0")
@@ -57,9 +58,9 @@ namespace StudyIsleWeb.Admin.Classes
                     cmd.Parameters.AddWithValue("@BoardId", ddlBoardFilter.SelectedValue);
                 }
 
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
-                da.Fill(dt);
+                sda.Fill(dt);
                 gvClasses.DataSource = dt;
                 gvClasses.DataBind();
             }
@@ -67,26 +68,20 @@ namespace StudyIsleWeb.Admin.Classes
 
         protected void ddlBoardFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadClasses();
+            BindGrid();
         }
 
-        protected void gvClasses_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void gvClasses_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            if (e.CommandName == "ToggleActive")
+            int classId = (int)gvClasses.DataKeys[e.RowIndex].Value;
+            using (SqlConnection con = new SqlConnection(cs))
             {
-                int classId = Convert.ToInt32(e.CommandArgument);
-                using (SqlConnection con = new SqlConnection(cs))
-                {
-                    string query = @"UPDATE Classes 
-                                     SET IsActive = CASE WHEN IsActive = 1 THEN 0 ELSE 1 END 
-                                     WHERE ClassId = @ClassId";
-                    SqlCommand cmd = new SqlCommand(query, con);
-                    cmd.Parameters.AddWithValue("@ClassId", classId);
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                }
-                LoadClasses();
+                SqlCommand cmd = new SqlCommand("DELETE FROM Classes WHERE ClassId=@Id", con);
+                cmd.Parameters.AddWithValue("@Id", classId);
+                con.Open();
+                cmd.ExecuteNonQuery();
             }
+            BindGrid();
         }
     }
 }

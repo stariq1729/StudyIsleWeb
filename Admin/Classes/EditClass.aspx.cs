@@ -3,26 +3,31 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
+using System.Web.UI.WebControls;
 
 namespace StudyIsleWeb.Admin.Classes
 {
     public partial class EditClass : System.Web.UI.Page
     {
         private readonly string cs = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
-        private int classId;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!int.TryParse(Request.QueryString["id"], out classId))
-            {
-                Response.Redirect("ManageClasses.aspx");
-                return;
-            }
-
             if (!IsPostBack)
             {
-                LoadBoards();
-                LoadClass();
+                if (Request.QueryString["id"] != null)
+                {
+                    int id = Convert.ToInt32(Request.QueryString["id"]);
+                    hfClassID.Value = id.ToString();
+                    lblClassID.Text = "ID: " + id;
+
+                    LoadBoards();
+                    LoadClassDetails(id);
+                }
+                else
+                {
+                    Response.Redirect("ManageClasses.aspx");
+                }
             }
         }
 
@@ -40,29 +45,27 @@ namespace StudyIsleWeb.Admin.Classes
             }
         }
 
-        private void LoadClass()
+        private void LoadClassDetails(int id)
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                // Updated to fetch new columns
-                string query = "SELECT * FROM Classes WHERE ClassId=@Id";
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@Id", classId);
-
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Classes WHERE ClassId = @Id", con);
+                cmd.Parameters.AddWithValue("@Id", id);
                 con.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-
-                if (dr.Read())
+                using (SqlDataReader rdr = cmd.ExecuteReader())
                 {
-                    ddlBoard.SelectedValue = dr["BoardId"].ToString();
-                    txtClassName.Text = dr["ClassName"].ToString();
-                    txtSlug.Text = dr["Slug"].ToString();
-                    txtDisplayOrder.Text = dr["DisplayOrder"].ToString();
-                    chkIsActive.Checked = Convert.ToBoolean(dr["IsActive"]);
+                    if (rdr.Read())
+                    {
+                        txtClassName.Text = rdr["ClassName"].ToString();
+                        txtSlug.Text = rdr["Slug"].ToString();
+                        txtDisplayOrder.Text = rdr["DisplayOrder"].ToString();
+                        ddlBoard.SelectedValue = rdr["BoardId"].ToString();
+                        chkIsActive.Checked = Convert.ToBoolean(rdr["IsActive"]);
 
-                    // Populate new fields
-                    txtPageTitle.Text = dr["PageTitle"] != DBNull.Value ? dr["PageTitle"].ToString() : "";
-                    txtPageSubtitle.Text = dr["PageSubtitle"] != DBNull.Value ? dr["PageSubtitle"].ToString() : "";
+                        // Handle potential NULLs for SEO fields
+                        txtPageTitle.Text = rdr["PageTitle"] != DBNull.Value ? rdr["PageTitle"].ToString() : "";
+                        txtPageSubtitle.Text = rdr["PageSubtitle"] != DBNull.Value ? rdr["PageSubtitle"].ToString() : "";
+                    }
                 }
             }
         }
@@ -74,42 +77,50 @@ namespace StudyIsleWeb.Admin.Classes
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
+            int id = Convert.ToInt32(hfClassID.Value);
             string slug = GenerateSlug(txtSlug.Text.Trim());
 
             using (SqlConnection con = new SqlConnection(cs))
             {
-                // Updated SQL Query to include PageTitle and PageSubtitle
-                string query = @"UPDATE Classes
-                                 SET BoardId=@BoardId,
-                                     ClassName=@ClassName,
-                                     Slug=@Slug,
-                                     DisplayOrder=@DisplayOrder,
-                                     IsActive=@IsActive,
-                                     PageTitle=@PageTitle,
-                                     PageSubtitle=@PageSubtitle
-                                 WHERE ClassId=@Id";
+                string query = @"UPDATE Classes SET 
+                                BoardId = @BoardId, 
+                                ClassName = @Name, 
+                                Slug = @Slug, 
+                                DisplayOrder = @Order, 
+                                IsActive = @IsActive, 
+                                PageTitle = @PTitle, 
+                                PageSubtitle = @PSubtitle 
+                                WHERE ClassId = @Id";
 
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@BoardId", ddlBoard.SelectedValue);
-                cmd.Parameters.AddWithValue("@ClassName", txtClassName.Text.Trim());
+                cmd.Parameters.AddWithValue("@Name", txtClassName.Text.Trim());
                 cmd.Parameters.AddWithValue("@Slug", slug);
-                cmd.Parameters.AddWithValue("@DisplayOrder", txtDisplayOrder.Text);
+                cmd.Parameters.AddWithValue("@Order", int.Parse(txtDisplayOrder.Text));
                 cmd.Parameters.AddWithValue("@IsActive", chkIsActive.Checked);
-                cmd.Parameters.AddWithValue("@Id", classId);
+                cmd.Parameters.AddWithValue("@Id", id);
 
-                // Add new parameters with null checks
-                cmd.Parameters.AddWithValue("@PageTitle", (object)txtPageTitle.Text.Trim() ?? DBNull.Value);
-                cmd.Parameters.AddWithValue("@PageSubtitle", (object)txtPageSubtitle.Text.Trim() ?? DBNull.Value);
+                // Safe handling for optional fields
+                cmd.Parameters.AddWithValue("@PTitle", string.IsNullOrWhiteSpace(txtPageTitle.Text) ? (object)DBNull.Value : txtPageTitle.Text.Trim());
+                cmd.Parameters.AddWithValue("@PSubtitle", string.IsNullOrWhiteSpace(txtPageSubtitle.Text) ? (object)DBNull.Value : txtPageSubtitle.Text.Trim());
 
                 con.Open();
-                cmd.ExecuteNonQuery();
+                int rows = cmd.ExecuteNonQuery();
+                if (rows > 0)
+                {
+                    Response.Redirect("ManageClasses.aspx");
+                }
+                else
+                {
+                    lblMessage.Text = "Update failed. Please try again.";
+                    lblMessage.CssClass = "alert alert-danger d-block";
+                }
             }
-
-            Response.Redirect("ManageClasses.aspx");
         }
 
         private string GenerateSlug(string input)
         {
+            if (string.IsNullOrEmpty(input)) return "";
             string slug = input.ToLower();
             slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
             slug = Regex.Replace(slug, @"\s+", " ").Trim();
