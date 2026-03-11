@@ -15,31 +15,13 @@ namespace StudyIsleWeb
     {
 
         /// <summary>
-        /// hlBoardClassContext control.
+        /// litSubjectName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink hlBoardClassContext;
-
-        /// <summary>
-        /// litSubjectBreadcrumb control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litSubjectBreadcrumb;
-
-        /// <summary>
-        /// litPageTitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litPageTitle;
+        protected global::System.Web.UI.WebControls.Literal litSubjectName;
 
         /// <summary>
         /// phYearPath control.
@@ -67,15 +49,6 @@ namespace StudyIsleWeb
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder phChapterPath;
-
-        /// <summary>
-        /// litChapterCount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litChapterCount;
 
         /// <summary>
         /// rptChapters control.

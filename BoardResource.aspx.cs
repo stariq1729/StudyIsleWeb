@@ -85,26 +85,32 @@ namespace StudyIsleWeb
 
         private void BindSubjectsAndResources(string boardSlug, string classSlug, string resSlug)
         {
+            string subcatSlug = Request.QueryString["subcat"]; // Capture the new parameter
+
             using (SqlConnection con = new SqlConnection(cs))
             {
-                // ADDED 's.IconImage' to the SELECT list below
+                // We use LEFT JOIN or a flexible WHERE clause to handle the subcat
                 string query = @"SELECT DISTINCT s.SubjectId, s.SubjectName, s.IconImage 
                          FROM Subjects s
                          INNER JOIN Classes c ON s.ClassId = c.ClassId
                          INNER JOIN Boards b ON s.BoardId = b.BoardId
                          INNER JOIN Resources r ON r.SubjectId = s.SubjectId
                          INNER JOIN ResourceTypes rt ON r.ResourceTypeId = rt.ResourceTypeId
+                         LEFT JOIN SubCategories sc ON r.SubCategoryId = sc.SubCategoryId
                          WHERE b.Slug = @bSlug 
                          AND c.Slug = @cSlug 
                          AND rt.Slug = @resSlug 
-                         AND s.IsActive = 1 
-                         AND r.IsActive = 1";
+                         AND (@subcatSlug IS NULL OR sc.Slug = @subcatSlug)
+                         AND s.IsActive = 1 AND r.IsActive = 1";
 
-                SqlDataAdapter da = new SqlDataAdapter(query, con);
-                da.SelectCommand.Parameters.AddWithValue("@bSlug", boardSlug);
-                da.SelectCommand.Parameters.AddWithValue("@cSlug", classSlug);
-                da.SelectCommand.Parameters.AddWithValue("@resSlug", resSlug);
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@bSlug", boardSlug);
+                cmd.Parameters.AddWithValue("@cSlug", classSlug);
+                cmd.Parameters.AddWithValue("@resSlug", resSlug);
+                // If subcat is missing from URL, we pass DBNull to ignore that filter
+                cmd.Parameters.AddWithValue("@subcatSlug", (object)subcatSlug ?? DBNull.Value);
 
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
 
@@ -113,6 +119,6 @@ namespace StudyIsleWeb
             }
         }
 
-        
+
     }
 }
