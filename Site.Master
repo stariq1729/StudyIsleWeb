@@ -81,7 +81,7 @@
     <h6 class="fw-bold text-uppercase mb-3">Competitive Exams</h6>
     <ul class="list-unstyled">
         <%-- Use board=slug to match our C# logic --%>
-        <li><a class="dropdown-item" href="CompSubCategory.aspx?board=jee">JEE Main & Advanced</a></li>
+        <li><a class="dropdown-item" href="BoardResourceTypes.aspx?board=jee">JEE Main & Advanced</a></li>
         <li><a class="dropdown-item" href="CompSubCategory.aspx?board=neet">NEET UG</a></li>
         <li><a class="dropdown-item" href="CompSubCategory.aspx?board=cuet">CUET</a></li>
         <li><a class="dropdown-item" href="CompSubCategory.aspx?board=nda">NDA / Defence</a></li>
