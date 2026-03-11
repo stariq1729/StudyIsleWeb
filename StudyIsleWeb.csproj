@@ -143,6 +143,7 @@
     <Content Include="Student\Student_Logout.aspx" />
     <Content Include="SubCatDetails.aspx" />
     <Content Include="SubjectDetails.aspx" />
+    <Content Include="ViewResources.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -423,6 +424,13 @@
     </Compile>
     <Compile Include="SubjectDetails.aspx.designer.cs">
       <DependentUpon>SubjectDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewResources.aspx.cs">
+      <DependentUpon>ViewResources.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewResources.aspx.designer.cs">
+      <DependentUpon>ViewResources.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
