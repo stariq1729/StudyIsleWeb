@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SubCatDetails.aspx.cs" Inherits="StudyIsleWeb.SubCatDetails" %>
+﻿<%@ Page Title="Sub Categories" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SubCatDetails.aspx.cs" Inherits="StudyIsleWeb.SubCatDetails" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         :root { --si-indigo: #4f46e5; --si-slate: #1e293b; }
@@ -36,7 +37,8 @@
             <asp:Repeater ID="rptSubCats" runat="server">
                 <ItemTemplate>
                     <div class="col-md-4 col-sm-6">
-                        <a href='<%# "BoardResource.aspx?board=" + Request.QueryString["board"] + "&res=" + Request.QueryString["res"] + "&subcat=" + Eval("Slug") %>' class="text-decoration-none">
+                        <%-- Dynamic URL Logic based on Board Type --%>
+                        <a href='<%# GetDynamicUrl(Eval("Slug"), Eval("IsCompetitive")) %>' class="text-decoration-none">
                             <div class="subcat-card">
                                 <img src='<%# "/Uploads/SubCatIcons/" + (Eval("IconImage") == DBNull.Value ? "default-cat.png" : Eval("IconImage")) %>' class="subcat-icon" alt="Icon" />
                                 <div class="subcat-name"><%# Eval("SubCategoryName") %></div>

@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web;
 
 namespace StudyIsleWeb
 {
@@ -31,8 +32,6 @@ namespace StudyIsleWeb
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                // We pull the Resource Type name to make the header dynamic 
-                // e.g., "CBSE - Question Papers"
                 string query = @"SELECT B.BoardName, RT.TypeName 
                                  FROM Boards B, ResourceTypes RT 
                                  WHERE B.Slug = @bSlug AND RT.Slug = @rSlug";
@@ -42,11 +41,13 @@ namespace StudyIsleWeb
                 cmd.Parameters.AddWithValue("@rSlug", rSlug);
 
                 con.Open();
-                SqlDataReader dr = cmd.ExecuteReader();
-                if (dr.Read())
+                using (SqlDataReader dr = cmd.ExecuteReader())
                 {
-                    litTitle.Text = dr["TypeName"].ToString();
-                    litSubtitle.Text = $"Select a category for {dr["BoardName"]}";
+                    if (dr.Read())
+                    {
+                        litTitle.Text = dr["TypeName"].ToString();
+                        litSubtitle.Text = $"Select a category for {dr["BoardName"]}";
+                    }
                 }
             }
         }
@@ -55,7 +56,8 @@ namespace StudyIsleWeb
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string query = @"SELECT S.SubCategoryName, S.Slug, S.IconImage, S.Description 
+                // Added B.IsCompetitive to the select list
+                string query = @"SELECT S.SubCategoryName, S.Slug, S.IconImage, S.Description, B.IsCompetitive
                                  FROM SubCategories S
                                  INNER JOIN Boards B ON S.BoardId = B.BoardId
                                  INNER JOIN ResourceTypes RT ON S.ResourceTypeId = RT.ResourceTypeId
@@ -72,6 +74,25 @@ namespace StudyIsleWeb
 
                 rptSubCats.DataSource = dt;
                 rptSubCats.DataBind();
+            }
+        }
+
+        // Logic to determine path: CBSE vs Competitive
+        protected string GetDynamicUrl(object subCatSlug, object isCompetitive)
+        {
+            string board = Request.QueryString["board"];
+            string res = Request.QueryString["res"];
+            bool competitive = isCompetitive != DBNull.Value && Convert.ToBoolean(isCompetitive);
+
+            if (competitive)
+            {
+                // Send JEE/NEET users to the NEW specialized page
+                return $"CompetitiveDetails.aspx?board={board}&res={res}&subcat={subCatSlug}";
+            }
+            else
+            {
+                // Send CBSE/ICSE users to the STANDARD selection page
+                return $"BoardResource.aspx?board={board}&res={res}&subcat={subCatSlug}";
             }
         }
     }
