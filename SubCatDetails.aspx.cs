@@ -87,7 +87,7 @@ namespace StudyIsleWeb
             if (competitive)
             {
                 // Send JEE/NEET users to the NEW specialized page
-                return $"CompetitiveDetails.aspx?board={board}&res={res}&subcat={subCatSlug}";
+                return $"CompSubSelect.aspx?board={board}&res={res}&subcat={subCatSlug}";
             }
             else
             {

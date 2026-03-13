@@ -6,6 +6,7 @@
         .form-title { font-weight: 700; color: #334155; margin-bottom: 1.5rem; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; }
         .section-header { font-size: 0.8rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin: 20px 0 10px; }
         .upload-info { font-size: 0.75rem; color: #64748b; margin-top: 5px; }
+        .border-highlight { border-left: 4px solid #6366f1 !important; }
     </style>
 </asp:Content>
 
@@ -19,27 +20,34 @@
                     <asp:Label ID="lblMessage" runat="server" CssClass="d-block mb-3"></asp:Label>
 
                     <div class="row">
-                        <div class="section-header">Subject Mapping (Hierarchy)</div>
+                        <div class="section-header text-primary">Step 1: Hierarchy Mapping</div>
                         
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold small text-secondary">1. Select Board</label>
-                            <asp:DropDownList ID="ddlBoard" runat="server" CssClass="form-select shadow-none"
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold small text-secondary">Select Board</label>
+                            <asp:DropDownList ID="ddlBoard" runat="server" CssClass="form-select shadow-none border-highlight"
                                 AutoPostBack="true" OnSelectedIndexChanged="ddlBoard_SelectedIndexChanged">
                             </asp:DropDownList>
                         </div>
 
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold small text-secondary">2. Select Class (Optional)</label>
-                            <asp:DropDownList ID="ddlClass" runat="server" CssClass="form-select shadow-none">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold small text-secondary">Select Sub-Category</label>
+                            <asp:DropDownList ID="ddlSubCategory" runat="server" CssClass="form-select shadow-none" AutoPostBack="true">
                             </asp:DropDownList>
-                            <small class="text-muted">Skip for Competitive/General subjects.</small>
+                            <small class="text-muted">Links subject to Syllabus/PYQs etc.</small>
                         </div>
 
-                        <div class="section-header">Basic Subject Details</div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold small text-secondary">Select Class (Optional)</label>
+                            <asp:DropDownList ID="ddlClass" runat="server" CssClass="form-select shadow-none">
+                            </asp:DropDownList>
+                            <small class="text-muted">Leave empty for Competitive Exams.</small>
+                        </div>
+
+                        <div class="section-header">Step 2: Subject Details</div>
 
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-bold small text-secondary">Subject Name</label>
-                            <asp:TextBox ID="txtSubjectName" runat="server" CssClass="form-control shadow-none" placeholder="e.g. Mathematics"
+                            <asp:TextBox ID="txtSubjectName" runat="server" CssClass="form-control shadow-none" placeholder="e.g. Physics"
                                 AutoPostBack="true" OnTextChanged="txtSubjectName_TextChanged"></asp:TextBox>
                         </div>
 
@@ -54,11 +62,11 @@
                             <div class="upload-info"><i class="fas fa-info-circle me-1"></i> Use transparent PNG or SVG for best UI results.</div>
                         </div>
 
-                        <div class="section-header">SEO & Landing Page Content</div>
+                        <div class="section-header">Step 3: SEO & Landing Page Content</div>
 
                         <div class="col-md-12 mb-3">
                             <label class="form-label fw-bold small text-secondary">SEO Page Title (H1)</label>
-                            <asp:TextBox ID="txtPageTitle" runat="server" CssClass="form-control shadow-none" placeholder="e.g. Free Study Material for Class 10 Maths"></asp:TextBox>
+                            <asp:TextBox ID="txtPageTitle" runat="server" CssClass="form-control shadow-none" placeholder="e.g. JEE Main Physics Study Material"></asp:TextBox>
                         </div>
 
                         <div class="col-md-12 mb-3">

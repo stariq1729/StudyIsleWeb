@@ -17,7 +17,7 @@ namespace StudyIsleWeb.Admin.Subjects
             if (!IsPostBack)
             {
                 LoadBoards();
-                // Initialize ddlClass as empty/General by default
+                ddlSubCategory.Items.Insert(0, new ListItem("-- Select Board First --", "0"));
                 ddlClass.Items.Insert(0, new ListItem("-- Select Board First --", "0"));
             }
         }
@@ -39,36 +39,51 @@ namespace StudyIsleWeb.Admin.Subjects
             }
         }
 
-        private void LoadClasses(int boardId)
-        {
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                string query = "SELECT ClassId, ClassName FROM Classes WHERE BoardId=@BoardId AND IsActive=1 ORDER BY DisplayOrder ASC";
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@BoardId", boardId);
-
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                ddlClass.DataSource = dt;
-                ddlClass.DataTextField = "ClassName";
-                ddlClass.DataValueField = "ClassId";
-                ddlClass.DataBind();
-                ddlClass.Items.Insert(0, new ListItem("-- General (No Class) --", "0"));
-            }
-        }
-
         protected void ddlBoard_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlBoard.SelectedValue != "0")
+            int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
+            if (boardId > 0)
             {
-                LoadClasses(Convert.ToInt32(ddlBoard.SelectedValue));
+                LoadHierarchyData(boardId);
             }
             else
             {
+                ddlSubCategory.Items.Clear();
                 ddlClass.Items.Clear();
+                ddlSubCategory.Items.Insert(0, new ListItem("-- Select Board First --", "0"));
                 ddlClass.Items.Insert(0, new ListItem("-- Select Board First --", "0"));
+            }
+        }
+
+        private void LoadHierarchyData(int boardId)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                // Load relevant Sub-Categories
+                string subCatQuery = "SELECT SubCategoryId, SubCategoryName FROM SubCategories WHERE IsActive=1";
+                SqlDataAdapter daSub = new SqlDataAdapter(subCatQuery, con);
+                DataTable dtSub = new DataTable();
+                daSub.Fill(dtSub);
+
+                ddlSubCategory.DataSource = dtSub;
+                ddlSubCategory.DataTextField = "SubCategoryName";
+                ddlSubCategory.DataValueField = "SubCategoryId";
+                ddlSubCategory.DataBind();
+                ddlSubCategory.Items.Insert(0, new ListItem("-- Select Sub-Category --", "0"));
+
+                // Load Classes for the selected board
+                string classQuery = "SELECT ClassId, ClassName FROM Classes WHERE BoardId=@BoardId AND IsActive=1 ORDER BY DisplayOrder ASC";
+                SqlCommand cmdClass = new SqlCommand(classQuery, con);
+                cmdClass.Parameters.AddWithValue("@BoardId", boardId);
+                SqlDataAdapter daClass = new SqlDataAdapter(cmdClass);
+                DataTable dtClass = new DataTable();
+                daClass.Fill(dtClass);
+
+                ddlClass.DataSource = dtClass;
+                ddlClass.DataTextField = "ClassName";
+                ddlClass.DataValueField = "ClassId";
+                ddlClass.DataBind();
+                ddlClass.Items.Insert(0, new ListItem("-- General / No Class --", "0"));
             }
         }
 
@@ -79,24 +94,12 @@ namespace StudyIsleWeb.Admin.Subjects
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (ddlBoard.SelectedValue == "0")
+            if (ddlBoard.SelectedValue == "0" || ddlSubCategory.SelectedValue == "0" || string.IsNullOrWhiteSpace(txtSubjectName.Text))
             {
-                ShowError("Critical: You must select a Board.");
+                ShowError("Board, Sub-Category, and Subject Name are mandatory.");
                 return;
             }
 
-            string subjectName = txtSubjectName.Text.Trim();
-            string slug = txtSlug.Text.Trim();
-            int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
-            int classId = Convert.ToInt32(ddlClass.SelectedValue);
-
-            if (string.IsNullOrWhiteSpace(subjectName))
-            {
-                ShowError("Subject Name is required.");
-                return;
-            }
-
-            // Image Upload logic
             string iconFileName = "default-sub.png";
             if (fuIcon.HasFile)
             {
@@ -111,18 +114,17 @@ namespace StudyIsleWeb.Admin.Subjects
             {
                 using (SqlConnection con = new SqlConnection(cs))
                 {
+                    // Added SubCategoryId to the INSERT statement
                     string sql = @"INSERT INTO Subjects 
-                                 (BoardId, ClassId, SubjectName, Slug, IconImage, PageTitle, PageSubtitle, Description, IsActive, CreatedAt) 
-                                 VALUES (@BID, @CID, @Name, @Slug, @Icon, @PTitle, @PSub, @Desc, @Active, GETDATE())";
+                                 (BoardId, SubCategoryId, ClassId, SubjectName, Slug, IconImage, PageTitle, PageSubtitle, Description, IsActive, CreatedAt) 
+                                 VALUES (@BID, @SCID, @CID, @Name, @Slug, @Icon, @PTitle, @PSub, @Desc, @Active, GETDATE())";
 
                     SqlCommand cmd = new SqlCommand(sql, con);
-                    cmd.Parameters.AddWithValue("@BID", boardId);
-
-                    // Allow ClassId to be NULL for Competitive/General subjects
-                    cmd.Parameters.AddWithValue("@CID", (classId == 0) ? (object)DBNull.Value : classId);
-
-                    cmd.Parameters.AddWithValue("@Name", subjectName);
-                    cmd.Parameters.AddWithValue("@Slug", slug);
+                    cmd.Parameters.AddWithValue("@BID", ddlBoard.SelectedValue);
+                    cmd.Parameters.AddWithValue("@SCID", ddlSubCategory.SelectedValue);
+                    cmd.Parameters.AddWithValue("@CID", (ddlClass.SelectedValue == "0") ? (object)DBNull.Value : ddlClass.SelectedValue);
+                    cmd.Parameters.AddWithValue("@Name", txtSubjectName.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Slug", txtSlug.Text.Trim());
                     cmd.Parameters.AddWithValue("@Icon", iconFileName);
                     cmd.Parameters.AddWithValue("@PTitle", txtPageTitle.Text.Trim());
                     cmd.Parameters.AddWithValue("@PSub", txtPageSubtitle.Text.Trim());
@@ -136,7 +138,7 @@ namespace StudyIsleWeb.Admin.Subjects
             }
             catch (Exception ex)
             {
-                ShowError("Database Error: " + ex.Message);
+                ShowError("Error: " + ex.Message);
             }
         }
 

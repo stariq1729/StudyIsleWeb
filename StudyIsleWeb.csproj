@@ -123,6 +123,7 @@
     <Content Include="BoardResourceTypes.aspx" />
     <Content Include="Books.aspx" />
     <Content Include="CompSubCategory.aspx" />
+    <Content Include="CompSubSelect.aspx" />
     <Content Include="Content\Admin\add-resource.css" />
     <Content Include="Content\Admin\board-form.css" />
     <Content Include="Content\Admin\Boards.css" />
@@ -337,6 +338,13 @@
     </Compile>
     <Compile Include="CompSubCategory.aspx.designer.cs">
       <DependentUpon>CompSubCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CompSubSelect.aspx.cs">
+      <DependentUpon>CompSubSelect.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CompSubSelect.aspx.designer.cs">
+      <DependentUpon>CompSubSelect.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
