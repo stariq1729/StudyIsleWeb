@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Competitive Exams" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CompSubCategory.aspx.cs" Inherits="StudyIsleWeb.CompSubCategory" %>
-
+<%--this page is not in used for now because we changed the flow for jee now it's redirecting to resource types page only changes occured--%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         /* matching your reference UI */
