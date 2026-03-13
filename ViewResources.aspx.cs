@@ -26,6 +26,9 @@ namespace StudyIsleWeb
             string setid = Request.QueryString["setid"];
             string cid = Request.QueryString["cid"];
 
+            //this id get add later for jee type boards
+            // =============== string scid = Request.QueryString["scid"];================
+
             using (SqlConnection con = new SqlConnection(cs))
             {
                 // Notice the 'r.' prefix added to Title, Description, and CreatedAt
@@ -41,6 +44,39 @@ namespace StudyIsleWeb
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
+
+               //========= this section is Added for filterring later for both boards =============
+
+
+                //// 2. Updated Path filtering logic
+                //if (!string.IsNullOrEmpty(cid))
+                //{
+                //    // Chapter Specific Flow (Standard/Notes)
+                //    sql += " AND r.ChapterId = @cid";
+                //    cmd.Parameters.AddWithValue("@cid", cid);
+                //}
+                //else if (!string.IsNullOrEmpty(setid))
+                //{
+                //    // Set/Paper Specific Flow (PYQ/Assignments)
+                //    sql += " AND r.SetId = @setid";
+                //    cmd.Parameters.AddWithValue("@setid", setid);
+                //}
+                //else if (!string.IsNullOrEmpty(scid))
+                //{
+                //    // General SubCategory Flow (Syllabus or "Skip" scenarios)
+                //    // This catches everything under a SubCat if more specific filters aren't used
+                //    sql += " AND r.SubCategoryId = @scid";
+                //    cmd.Parameters.AddWithValue("@scid", scid);
+                //}
+                //else if (!string.IsNullOrEmpty(sid))
+                //{
+                //    // Subject level fallback
+                //    sql += " AND r.SubjectId = @sid AND rt.Slug = @res";
+                //    cmd.Parameters.AddWithValue("@sid", sid);
+                //    cmd.Parameters.AddWithValue("@res", res);
+                //}
+
+
 
                 // Path filtering logic
                 if (!string.IsNullOrEmpty(cid))
