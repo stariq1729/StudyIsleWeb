@@ -20,8 +20,11 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-2">
                     <li class="breadcrumb-item"><a href="Default.aspx">Home</a></li>
-                    <li class="breadcrumb-item"><asp:Literal ID="litBoardName" runat="server" /></li>
-                    <li class="breadcrumb-item active"><asp:Literal ID="LitResourcTypes" runat="server" /></li>
+                    <li class="breadcrumb-item acyive"><asp:Literal ID="litBoardName" runat="server" /></li>
+
+                    <%--this breadcrum is added but right now is not working it out later--%>
+
+                    <li class="breadcrumb-item "><asp:Literal ID="LitResourcTypes" runat="server" /></li>
                 </ol>
             </nav>
             <h2 class="fw-bold"><asp:Literal ID="litSubCatName" runat="server" /> - Subjects</h2>
