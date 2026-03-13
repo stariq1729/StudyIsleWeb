@@ -1,8 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Books.aspx.cs" Inherits="StudyIsleWeb.Books" %>
-<%--<%@ Page Title="Books" Language="C#" MasterPageFile="~/Site.Master"
-    AutoEventWireup="true" CodeBehind="Books.aspx.cs"
-    Inherits="StudyIsleWeb.Books" %>--%>
 
+<%--this page is also not in used, it is previous pages
+--%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="assets/Public/books.css" rel="stylesheet" />
 </asp:Content>
