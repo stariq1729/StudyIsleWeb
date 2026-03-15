@@ -55,7 +55,7 @@
 
                             <div class="col-12 pt-3">
                                 <asp:Button ID="btnSave" runat="server" Text="Save Sub-Category" CssClass="btn btn-primary px-5 py-2 fw-bold" OnClick="btnSave_Click" />
-                                <a href="ManageSubCategories.aspx" class="btn btn-light px-4 py-2 border ms-2">Back to List</a>
+                                <a href="ManageSubCat.aspx" class="btn btn-light px-4 py-2 border ms-2">Back to List</a>
                             </div>
                         </div>
                     </div>

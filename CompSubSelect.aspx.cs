@@ -5,6 +5,8 @@ using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI.WebControls;
 
+//this page needed a target flow
+
 namespace StudyIsleWeb
 {
     public partial class CompSubSelect : System.Web.UI.Page
