@@ -1,5 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="BoardResource.aspx.cs" Inherits="StudyIsleWeb.BoardResource" %>
 
+
+<%--this page loads the class and subject--%>
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         :root { --si-purple: #4f46e5; --si-text-dark: #1e293b; --si-border: #e2e8f0; }
