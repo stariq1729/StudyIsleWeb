@@ -1,5 +1,10 @@
 ﻿<%@ Page Title="Subject Details" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SubjectDetails.aspx.cs" Inherits="StudyIsleWeb.SubjectDetails" %>
 
+
+<%--this page comes after selection of class and subject shows chaper set or year wise material--%>
+
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         .path-card { background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 25px; transition: 0.3s; text-align: center; height: 100%; display: block; text-decoration: none; color: inherit; }
