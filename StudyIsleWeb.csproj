@@ -84,6 +84,7 @@
     <Content Include="Admin\Boards\ManageBoards.aspx" />
     <Content Include="Admin\Chapters\AddChapter.aspx" />
     <Content Include="Admin\Chapters\AddSets.aspx" />
+    <Content Include="Admin\Chapters\AddYear.aspx" />
     <Content Include="Admin\Chapters\ManageChapters.aspx" />
     <Content Include="Admin\Classes\AddClass.aspx" />
     <Content Include="Admin\Classes\EditClass.aspx" />
@@ -190,6 +191,13 @@
     </Compile>
     <Compile Include="Admin\Chapters\AddSets.aspx.designer.cs">
       <DependentUpon>AddSets.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Chapters\AddYear.aspx.cs">
+      <DependentUpon>AddYear.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Chapters\AddYear.aspx.designer.cs">
+      <DependentUpon>AddYear.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Chapters\ManageChapters.aspx.cs">
       <DependentUpon>ManageChapters.aspx</DependentUpon>
