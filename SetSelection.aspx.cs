@@ -65,6 +65,7 @@ namespace StudyIsleWeb
 
                 SqlDataAdapter da = new SqlDataAdapter(sql, con);
                 da.SelectCommand.Parameters.AddWithValue("@sid", sid);
+
                 da.SelectCommand.Parameters.AddWithValue("@res", res);
                 da.SelectCommand.Parameters.AddWithValue("@yid", yid);
 
