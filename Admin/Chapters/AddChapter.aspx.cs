@@ -88,7 +88,7 @@ namespace StudyIsleWeb.Admin.Chapters
             // Assuming you have a Years table for competitive exams
             using (SqlConnection con = new SqlConnection(cs))
             {
-                SqlDataAdapter da = new SqlDataAdapter("SELECT YearId, YearName FROM ExamYears ORDER BY YearName DESC", con);
+                SqlDataAdapter da = new SqlDataAdapter("SELECT YearId, YearName FROM Years ORDER BY YearName DESC", con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
                 ddlLevel.DataSource = dt;

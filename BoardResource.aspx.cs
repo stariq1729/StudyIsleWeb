@@ -16,49 +16,56 @@ namespace StudyIsleWeb
             if (!IsPostBack)
             {
                 string boardSlug = Request.QueryString["board"];
+                string resSlug = Request.QueryString["res"]; // e.g., 'ncert-solutions'
                 string classSlug = Request.QueryString["class"];
-                string resSlug = Request.QueryString["res"] ?? "cbse"; // Default to cbse if null
 
-                if (string.IsNullOrEmpty(boardSlug))
+                if (string.IsNullOrEmpty(boardSlug) || string.IsNullOrEmpty(resSlug))
                 {
                     Response.Redirect("Default.aspx");
                     return;
                 }
 
-                // If no class selected, we don't hardcode "class-12" yet, 
-                // we'll handle it after binding the available classes.
-                BindClasses(boardSlug, resSlug);
+                // 1. Load available classes for this Board and Resource Type
+                DataTable dtClasses = BindClasses(boardSlug, resSlug);
 
-                // Re-check classSlug after BindClasses logic
-                if (string.IsNullOrEmpty(classSlug)) classSlug = "class-12";
+                // 2. Determine which class to show (QueryString or first available)
+                if (string.IsNullOrEmpty(classSlug) && dtClasses.Rows.Count > 0)
+                {
+                    classSlug = dtClasses.Rows[0]["Slug"].ToString();
+                }
 
-                BindPageContent(boardSlug, classSlug);
-                BindSubjectsAndResources(boardSlug, classSlug, resSlug);
+                // 3. Update Hero Section & Subjects if a class exists
+                if (!string.IsNullOrEmpty(classSlug))
+                {
+                    BindPageContent(boardSlug, classSlug);
+                    BindSubjects(boardSlug, classSlug, resSlug);
+                }
             }
         }
 
-        private void BindClasses(string boardSlug, string resSlug)
+        private DataTable BindClasses(string boardSlug, string resSlug)
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                // Only show classes that HAVE resources for this board and resource type
-                string query = @"SELECT DISTINCT c.ClassName, c.Slug, c.DisplayOrder 
+                // Removed INNER JOIN Resources so classes show up even if empty
+                string query = @"SELECT c.ClassName, c.Slug 
                                  FROM Classes c 
-                                 INNER JOIN Boards b ON c.BoardId = b.BoardId 
-                                 INNER JOIN Resources r ON r.ClassId = c.ClassId
-                                 INNER JOIN ResourceTypes rt ON r.ResourceTypeId = rt.ResourceTypeId
+                                 INNER JOIN Boards b ON c.BoardId = b.BoardId
+                                 INNER JOIN ResourceTypes rt ON c.ResourceTypeId = rt.ResourceTypeId
                                  WHERE b.Slug = @bSlug AND rt.Slug = @resSlug AND c.IsActive = 1 
                                  ORDER BY c.DisplayOrder ASC";
 
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@bSlug", boardSlug);
                 cmd.Parameters.AddWithValue("@resSlug", resSlug);
+
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
 
                 rptClasses.DataSource = dt;
                 rptClasses.DataBind();
+                return dt;
             }
         }
 
@@ -66,48 +73,49 @@ namespace StudyIsleWeb
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string query = @"SELECT c.PageTitle, c.PageSubtitle FROM Classes c 
+                // Pulling Hero Title and Subtitle directly from Class table
+                string query = @"SELECT PageTitle, PageSubtitle FROM Classes c 
                                  JOIN Boards b ON c.BoardId = b.BoardId 
                                  WHERE b.Slug = @bSlug AND c.Slug = @cSlug";
+
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@bSlug", boardSlug);
                 cmd.Parameters.AddWithValue("@cSlug", classSlug);
+
                 con.Open();
                 SqlDataReader dr = cmd.ExecuteReader();
                 if (dr.Read())
                 {
-                    litPageTitle.Text = dr["PageTitle"].ToString();
-                    litPageSubtitle.Text = dr["PageSubtitle"].ToString();
+                    litPageTitle.Text = dr["PageTitle"] != DBNull.Value ? dr["PageTitle"].ToString() : "";
+                    litPageSubtitle.Text = dr["PageSubtitle"] != DBNull.Value ? dr["PageSubtitle"].ToString() : "";
                 }
                 con.Close();
             }
         }
 
-        private void BindSubjectsAndResources(string boardSlug, string classSlug, string resSlug)
+        private void BindSubjects(string boardSlug, string classSlug, string resSlug)
         {
-            string subcatSlug = Request.QueryString["subcat"]; // Capture the new parameter
+            string subcatSlug = Request.QueryString["subcat"];
 
             using (SqlConnection con = new SqlConnection(cs))
             {
-                // We use LEFT JOIN or a flexible WHERE clause to handle the subcat
-                string query = @"SELECT DISTINCT s.SubjectId, s.SubjectName, s.IconImage 
-                         FROM Subjects s
-                         INNER JOIN Classes c ON s.ClassId = c.ClassId
-                         INNER JOIN Boards b ON s.BoardId = b.BoardId
-                         INNER JOIN Resources r ON r.SubjectId = s.SubjectId
-                         INNER JOIN ResourceTypes rt ON r.ResourceTypeId = rt.ResourceTypeId
-                         LEFT JOIN SubCategories sc ON r.SubCategoryId = sc.SubCategoryId
-                         WHERE b.Slug = @bSlug 
-                         AND c.Slug = @cSlug 
-                         AND rt.Slug = @resSlug 
-                         AND (@subcatSlug IS NULL OR sc.Slug = @subcatSlug)
-                         AND s.IsActive = 1 AND r.IsActive = 1";
+                // Show subjects linked to this Board, Class, and ResourceType
+                string query = @"SELECT s.SubjectId, s.SubjectName, s.IconImage 
+                                 FROM Subjects s
+                                 INNER JOIN Classes c ON s.ClassId = c.ClassId
+                                 INNER JOIN Boards b ON s.BoardId = b.BoardId
+                                 INNER JOIN ResourceTypes rt ON s.ResourceTypeId = rt.ResourceTypeId
+                                 LEFT JOIN SubCategories sc ON s.SubCategoryId = sc.SubCategoryId
+                                 WHERE b.Slug = @bSlug 
+                                 AND c.Slug = @cSlug 
+                                 AND rt.Slug = @resSlug 
+                                 AND (@subcatSlug IS NULL OR sc.Slug = @subcatSlug)
+                                 AND s.IsActive = 1";
 
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@bSlug", boardSlug);
                 cmd.Parameters.AddWithValue("@cSlug", classSlug);
                 cmd.Parameters.AddWithValue("@resSlug", resSlug);
-                // If subcat is missing from URL, we pass DBNull to ignore that filter
                 cmd.Parameters.AddWithValue("@subcatSlug", (object)subcatSlug ?? DBNull.Value);
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -118,7 +126,5 @@ namespace StudyIsleWeb
                 rptSubjectGroups.DataBind();
             }
         }
-
-
     }
 }

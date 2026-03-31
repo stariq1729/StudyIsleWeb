@@ -15,6 +15,15 @@ namespace StudyIsleWeb.Admin.Classes
     {
 
         /// <summary>
+        /// sm1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager sm1;
+
+        /// <summary>
         /// lblMessage control.
         /// </summary>
         /// <remarks>
@@ -24,6 +33,15 @@ namespace StudyIsleWeb.Admin.Classes
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
+        /// upHierarchy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upHierarchy;
+
+        /// <summary>
         /// ddlBoard control.
         /// </summary>
         /// <remarks>
@@ -31,6 +49,42 @@ namespace StudyIsleWeb.Admin.Classes
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlBoard;
+
+        /// <summary>
+        /// phResourceType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phResourceType;
+
+        /// <summary>
+        /// ddlResourceType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlResourceType;
+
+        /// <summary>
+        /// phSubCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phSubCategory;
+
+        /// <summary>
+        /// ddlSubCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSubCategory;
 
         /// <summary>
         /// txtClassName control.
@@ -51,15 +105,6 @@ namespace StudyIsleWeb.Admin.Classes
         protected global::System.Web.UI.WebControls.TextBox txtSlug;
 
         /// <summary>
-        /// txtDisplayOrder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDisplayOrder;
-
-        /// <summary>
         /// txtPageTitle control.
         /// </summary>
         /// <remarks>
@@ -69,22 +114,13 @@ namespace StudyIsleWeb.Admin.Classes
         protected global::System.Web.UI.WebControls.TextBox txtPageTitle;
 
         /// <summary>
-        /// txtPageSubtitle control.
+        /// txtDisplayOrder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPageSubtitle;
-
-        /// <summary>
-        /// chkIsActive control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkIsActive;
+        protected global::System.Web.UI.WebControls.TextBox txtDisplayOrder;
 
         /// <summary>
         /// btnSave control.
