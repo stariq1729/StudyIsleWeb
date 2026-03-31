@@ -15,6 +15,15 @@ namespace StudyIsleWeb.Admin.Subjects
     {
 
         /// <summary>
+        /// ScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+
+        /// <summary>
         /// lblMessage control.
         /// </summary>
         /// <remarks>
@@ -22,6 +31,15 @@ namespace StudyIsleWeb.Admin.Subjects
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMessage;
+
+        /// <summary>
+        /// upHierarchy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upHierarchy;
 
         /// <summary>
         /// ddlBoard control.
@@ -33,6 +51,33 @@ namespace StudyIsleWeb.Admin.Subjects
         protected global::System.Web.UI.WebControls.DropDownList ddlBoard;
 
         /// <summary>
+        /// phResourceType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phResourceType;
+
+        /// <summary>
+        /// ddlResourceType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlResourceType;
+
+        /// <summary>
+        /// phSubCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phSubCategory;
+
+        /// <summary>
         /// ddlSubCategory control.
         /// </summary>
         /// <remarks>
@@ -40,6 +85,15 @@ namespace StudyIsleWeb.Admin.Subjects
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSubCategory;
+
+        /// <summary>
+        /// phClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phClass;
 
         /// <summary>
         /// ddlClass control.
@@ -87,15 +141,6 @@ namespace StudyIsleWeb.Admin.Subjects
         protected global::System.Web.UI.WebControls.TextBox txtPageTitle;
 
         /// <summary>
-        /// txtPageSubtitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPageSubtitle;
-
-        /// <summary>
         /// txtDescription control.
         /// </summary>
         /// <remarks>
@@ -103,15 +148,6 @@ namespace StudyIsleWeb.Admin.Subjects
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDescription;
-
-        /// <summary>
-        /// chkIsActive control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkIsActive;
 
         /// <summary>
         /// btnSave control.

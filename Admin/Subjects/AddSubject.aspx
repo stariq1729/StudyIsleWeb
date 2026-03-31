@@ -11,85 +11,83 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <div class="container py-4">
         <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="form-card shadow-sm">
-                    <h4 class="form-title">Add New Subject</h4>
-
+            <div class="col-lg-9">
+                <div class="form-card shadow-sm bg-white p-4 rounded-3">
+                    <h4 class="form-title mb-4">Post New Subject</h4>
                     <asp:Label ID="lblMessage" runat="server" CssClass="d-block mb-3"></asp:Label>
 
-                    <div class="row">
-                        <div class="section-header text-primary">Step 1: Hierarchy Mapping</div>
-                        
-                        <div class="col-md-4 mb-3">
-                            <label class="form-label fw-bold small text-secondary">Select Board</label>
-                            <asp:DropDownList ID="ddlBoard" runat="server" CssClass="form-select shadow-none border-highlight"
-                                AutoPostBack="true" OnSelectedIndexChanged="ddlBoard_SelectedIndexChanged">
-                            </asp:DropDownList>
-                        </div>
+                    <asp:UpdatePanel ID="upHierarchy" runat="server">
+                        <ContentTemplate>
+                            <div class="row g-3">
+                                <div class="section-header text-primary">Step 1: Placement Hierarchy</div>
+                                
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold small">1. Target Board</label>
+                                    <asp:DropDownList ID="ddlBoard" runat="server" CssClass="form-select shadow-none border-highlight"
+                                        AutoPostBack="true" OnSelectedIndexChanged="ddlBoard_SelectedIndexChanged">
+                                    </asp:DropDownList>
+                                </div>
 
-                        <div class="col-md-4 mb-3">
-                            <label class="form-label fw-bold small text-secondary">Select Sub-Category</label>
-                            <asp:DropDownList ID="ddlSubCategory" runat="server" CssClass="form-select shadow-none" AutoPostBack="true">
-                            </asp:DropDownList>
-                            <small class="text-muted">Links subject to Syllabus/PYQs etc.</small>
-                        </div>
+                                <asp:PlaceHolder ID="phResourceType" runat="server" Visible="false">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold small">2. Resource Type (Flow)</label>
+                                        <asp:DropDownList ID="ddlResourceType" runat="server" CssClass="form-select shadow-none"
+                                            AutoPostBack="true" OnSelectedIndexChanged="ddlResourceType_SelectedIndexChanged">
+                                        </asp:DropDownList>
+                                    </div>
+                                </asp:PlaceHolder>
 
-                        <div class="col-md-4 mb-3">
-                            <label class="form-label fw-bold small text-secondary">Select Class (Optional)</label>
-                            <asp:DropDownList ID="ddlClass" runat="server" CssClass="form-select shadow-none">
-                            </asp:DropDownList>
-                            <small class="text-muted">Leave empty for Competitive Exams.</small>
-                        </div>
+                                <asp:PlaceHolder ID="phSubCategory" runat="server" Visible="false">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold small">3. Sub-Category (Optional)</label>
+                                        <asp:DropDownList ID="ddlSubCategory" runat="server" CssClass="form-select shadow-none"></asp:DropDownList>
+                                    </div>
+                                </asp:PlaceHolder>
 
-                        <div class="section-header">Step 2: Subject Details</div>
+                                <asp:PlaceHolder ID="phClass" runat="server" Visible="false">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold small">4. Target Class (Optional)</label>
+                                        <asp:DropDownList ID="ddlClass" runat="server" CssClass="form-select shadow-none"></asp:DropDownList>
+                                    </div>
+                                </asp:PlaceHolder>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
 
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold small text-secondary">Subject Name</label>
-                            <asp:TextBox ID="txtSubjectName" runat="server" CssClass="form-control shadow-none" placeholder="e.g. Physics"
+                    <hr class="my-4" />
+
+                    <div class="row g-3">
+                        <div class="section-header">Step 2: Subject Identity</div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">Subject Name</label>
+                            <asp:TextBox ID="txtSubjectName" runat="server" CssClass="form-control" placeholder="e.g. Organic Chemistry"
                                 AutoPostBack="true" OnTextChanged="txtSubjectName_TextChanged"></asp:TextBox>
                         </div>
-
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold small text-secondary">URL Slug</label>
-                            <asp:TextBox ID="txtSlug" runat="server" CssClass="form-control shadow-none bg-light" placeholder="auto-generated-slug"></asp:TextBox>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small">URL Slug</label>
+                            <asp:TextBox ID="txtSlug" runat="server" CssClass="form-control bg-light" ReadOnly="true"></asp:TextBox>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold small">Subject Icon</label>
+                            <asp:FileUpload ID="fuIcon" runat="server" CssClass="form-control" />
                         </div>
 
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label fw-bold small text-secondary">Subject Icon (Image)</label>
-                            <asp:FileUpload ID="fuIcon" runat="server" CssClass="form-control shadow-none" />
-                            <div class="upload-info"><i class="fas fa-info-circle me-1"></i> Use transparent PNG or SVG for best UI results.</div>
+                        <div class="section-header">Step 3: SEO Content</div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold small">SEO Title (H1)</label>
+                            <asp:TextBox ID="txtPageTitle" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label fw-bold small">Description</label>
+                            <asp:TextBox ID="txtDescription" runat="server" TextMode="MultiLine" Rows="3" CssClass="form-control"></asp:TextBox>
                         </div>
 
-                        <div class="section-header">Step 3: SEO & Landing Page Content</div>
-
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label fw-bold small text-secondary">SEO Page Title (H1)</label>
-                            <asp:TextBox ID="txtPageTitle" runat="server" CssClass="form-control shadow-none" placeholder="e.g. JEE Main Physics Study Material"></asp:TextBox>
+                        <div class="col-12 mt-4">
+                            <asp:Button ID="btnSave" runat="server" Text="Publish Subject" CssClass="btn btn-primary px-5 fw-bold" OnClick="btnSave_Click" />
                         </div>
-
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label fw-bold small text-secondary">Short Subtitle</label>
-                            <asp:TextBox ID="txtPageSubtitle" runat="server" CssClass="form-control shadow-none" TextMode="MultiLine" Rows="2"></asp:TextBox>
-                        </div>
-
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label fw-bold small text-secondary">Full Description</label>
-                            <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control shadow-none" TextMode="MultiLine" Rows="3"></asp:TextBox>
-                        </div>
-
-                        <div class="col-12 mb-4">
-                            <div class="form-check form-switch p-2 bg-light rounded border">
-                                <asp:CheckBox ID="chkIsActive" runat="server" CssClass="form-check-input" Checked="true" />
-                                <label class="form-check-label ms-2 fw-bold text-dark">Enable this Subject</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="pt-3 border-top">
-                        <asp:Button ID="btnSave" runat="server" Text="Save Subject" CssClass="btn btn-primary px-5 py-2 fw-bold shadow-sm" OnClick="btnSave_Click" />
-                        <a href="ManageSubjects.aspx" class="btn btn-light ms-2 border px-4 py-2">Cancel</a>
                     </div>
                 </div>
             </div>
