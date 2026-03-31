@@ -1,83 +1,69 @@
 ﻿<%@ Page Title="Add Chapter" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="AddChapter.aspx.cs" Inherits="StudyIsleWeb.Admin.Chapters.AddChapter" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <style>
-        .form-card { background: #fff; padding: 2rem; border-radius: 12px; border: 1px solid #eef0f2; }
-        .section-header { font-size: 0.75rem; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; border-bottom: 1px solid #f1f5f9; padding-bottom: 5px; }
-    </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container py-4">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="form-card shadow-sm">
-                    <h4 class="fw-bold mb-4">Add New Chapter</h4>
-                    <asp:Label ID="lblMessage" runat="server" CssClass="d-block mb-3"></asp:Label>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Add New Chapter</h1>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-book-open me-1"></i> Chapter Details
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Select Board</label>
+                        <asp:DropDownList ID="ddlBoard" runat="server" CssClass="form-select" 
+                            AutoPostBack="true" OnSelectedIndexChanged="ddlBoard_SelectedIndexChanged" CausesValidation="false">
+                        </asp:DropDownList>
+                    </div>
 
-                    <div class="row g-3">
-                        <div class="col-12"><div class="section-header">Step 1: Board & Context</div></div>
-                        
-                        <div class="col-md-4">
-                            <label class="form-label fw-bold small">Select Board</label>
-                            <asp:DropDownList ID="ddlBoard" runat="server" CssClass="form-select shadow-none" 
-                                AutoPostBack="true" OnSelectedIndexChanged="ddlBoard_SelectedIndexChanged">
+                    <asp:PlaceHolder ID="phClass" runat="server" Visible="false">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Select Class</label>
+                            <asp:DropDownList ID="ddlLevel" runat="server" CssClass="form-select" 
+                                AutoPostBack="true" OnSelectedIndexChanged="ddlLevel_SelectedIndexChanged" CausesValidation="false">
                             </asp:DropDownList>
                         </div>
+                    </asp:PlaceHolder>
 
-                        <div class="col-md-4">
-                            <label class="form-label fw-bold small">
-                                <asp:Literal ID="litLevelLabel" runat="server" Text="Select Class"></asp:Literal>
-                            </label>
-                            <asp:DropDownList ID="ddlLevel" runat="server" CssClass="form-select shadow-none" 
-                                AutoPostBack="true" OnSelectedIndexChanged="ddlLevel_SelectedIndexChanged">
+                    <asp:PlaceHolder ID="phSubject" runat="server" Visible="false">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Select Subject</label>
+                            <asp:DropDownList ID="ddlSubject" runat="server" CssClass="form-select">
                             </asp:DropDownList>
                         </div>
+                    </asp:PlaceHolder>
 
-                        <div class="col-md-4">
-                            <label class="form-label fw-bold small">Select Subject</label>
-                            <asp:DropDownList ID="ddlSubject" runat="server" CssClass="form-select shadow-none" 
-                                AutoPostBack="true" OnSelectedIndexChanged="ddlSubject_SelectedIndexChanged">
-                            </asp:DropDownList>
-                        </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Chapter Name</label>
+                        <asp:TextBox ID="txtChapterName" runat="server" CssClass="form-control" 
+                            placeholder="Enter chapter name" AutoPostBack="true" 
+                            OnTextChanged="txtChapterName_TextChanged"></asp:TextBox>
+                    </div>
 
-                        <asp:PlaceHolder ID="phSets" runat="server" Visible="false">
-                            <div class="col-md-4">
-                                <label class="form-label fw-bold small text-primary">Select Set (Optional)</label>
-                                <asp:DropDownList ID="ddlSet" runat="server" CssClass="form-select border-primary shadow-none">
-                                </asp:DropDownList>
-                            </div>
-                        </asp:PlaceHolder>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">URL Slug</label>
+                        <asp:TextBox ID="txtSlug" runat="server" CssClass="form-control" ReadOnly="true" BackColor="#eeeeee"></asp:TextBox>
+                    </div>
 
-                        <div class="col-12 mt-4"><div class="section-header">Step 2: Chapter Details</div></div>
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold">Display Order</label>
+                        <asp:TextBox ID="txtDisplayOrder" runat="server" CssClass="form-control" Text="0" TextMode="Number"></asp:TextBox>
+                    </div>
 
-                        <div class="col-md-8">
-                            <label class="form-label fw-bold small">Chapter Name</label>
-                            <asp:TextBox ID="txtChapterName" runat="server" CssClass="form-control shadow-none" 
-                                AutoPostBack="true" OnTextChanged="txtChapterName_TextChanged"></asp:TextBox>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label class="form-label fw-bold small">Display Order</label>
-                            <asp:TextBox ID="txtDisplayOrder" runat="server" CssClass="form-control shadow-none" TextMode="Number" Text="1"></asp:TextBox>
-                        </div>
-
-                        <div class="col-md-12">
-                            <label class="form-label fw-bold small">URL Slug</label>
-                            <asp:TextBox ID="txtSlug" runat="server" CssClass="form-control bg-light shadow-none"></asp:TextBox>
-                        </div>
-
-                        <div class="col-12 mt-3">
-                            <div class="form-check form-switch p-2 bg-light rounded border">
-                                <asp:CheckBox ID="chkIsActive" runat="server" CssClass="form-check-input" Checked="true" />
-                                <label class="form-check-label ms-2 fw-bold">Active & Published</label>
-                            </div>
+                    <div class="col-md-3 d-flex align-items-end">
+                        <div class="form-check mb-2">
+                            <asp:CheckBox ID="chkIsActive" runat="server" CssClass="form-check-input" Checked="true" />
+                            <label class="form-check-label">Is Active</label>
                         </div>
                     </div>
 
-                    <div class="pt-4 mt-4 border-top">
-                        <asp:Button ID="btnSave" runat="server" Text="Save Chapter" CssClass="btn btn-primary px-5 fw-bold" OnClick="btnSave_Click" />
-                        <a href="ManageChapters.aspx" class="btn btn-light border ms-2">Cancel</a>
+                    <div class="col-12 mt-4">
+                        <asp:Button ID="btnSave" runat="server" Text="Save Chapter" CssClass="btn btn-primary px-5" OnClick="btnSave_Click" />
+                        <br /><br />
+                        <asp:Label ID="lblMessage" runat="server" CssClass="fw-bold"></asp:Label>
                     </div>
                 </div>
             </div>

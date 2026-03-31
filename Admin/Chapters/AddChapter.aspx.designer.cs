@@ -15,15 +15,6 @@ namespace StudyIsleWeb.Admin.Chapters
     {
 
         /// <summary>
-        /// lblMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
-
-        /// <summary>
         /// ddlBoard control.
         /// </summary>
         /// <remarks>
@@ -33,13 +24,13 @@ namespace StudyIsleWeb.Admin.Chapters
         protected global::System.Web.UI.WebControls.DropDownList ddlBoard;
 
         /// <summary>
-        /// litLevelLabel control.
+        /// phClass control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litLevelLabel;
+        protected global::System.Web.UI.WebControls.PlaceHolder phClass;
 
         /// <summary>
         /// ddlLevel control.
@@ -51,6 +42,15 @@ namespace StudyIsleWeb.Admin.Chapters
         protected global::System.Web.UI.WebControls.DropDownList ddlLevel;
 
         /// <summary>
+        /// phSubject control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phSubject;
+
+        /// <summary>
         /// ddlSubject control.
         /// </summary>
         /// <remarks>
@@ -58,24 +58,6 @@ namespace StudyIsleWeb.Admin.Chapters
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSubject;
-
-        /// <summary>
-        /// phSets control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder phSets;
-
-        /// <summary>
-        /// ddlSet control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSet;
 
         /// <summary>
         /// txtChapterName control.
@@ -87,15 +69,6 @@ namespace StudyIsleWeb.Admin.Chapters
         protected global::System.Web.UI.WebControls.TextBox txtChapterName;
 
         /// <summary>
-        /// txtDisplayOrder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDisplayOrder;
-
-        /// <summary>
         /// txtSlug control.
         /// </summary>
         /// <remarks>
@@ -103,6 +76,15 @@ namespace StudyIsleWeb.Admin.Chapters
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSlug;
+
+        /// <summary>
+        /// txtDisplayOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDisplayOrder;
 
         /// <summary>
         /// chkIsActive control.
@@ -121,5 +103,14 @@ namespace StudyIsleWeb.Admin.Chapters
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSave;
+
+        /// <summary>
+        /// lblMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessage;
     }
 }
