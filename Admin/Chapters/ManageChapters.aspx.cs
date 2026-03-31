@@ -14,55 +14,73 @@ namespace StudyIsleWeb.Admin.Chapters
         {
             if (!IsPostBack)
             {
-                LoadInitialFilters();
+                BindDDL("SELECT BoardId, BoardName FROM Boards WHERE IsActive=1", ddlBoard, "BoardName", "BoardId", "All Boards");
+                BindDDL("SELECT ResourceTypeId, TypeName FROM ResourceTypes", ddlResourceType, "TypeName", "ResourceTypeId", "All Types");
+                BindDDL("SELECT YearId, YearName FROM Years", ddlYear, "YearName", "YearId", "All Years");
                 BindGrid();
             }
         }
 
-        private void LoadInitialFilters()
+        protected void ddlBoard_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BindDDL("SELECT BoardId, BoardName FROM Boards", ddlBoardFilter, "BoardName", "BoardId", "All Boards");
-            BindDDL("SELECT ClassId, ClassName FROM Classes", ddlClassFilter, "ClassName", "ClassId", "All Classes");
-            BindDDL("SELECT YearId, YearName FROM Years", ddlYearFilter, "YearName", "YearId", "All Years");
-            ddlSubjectFilter.Items.Insert(0, new ListItem("All Subjects", "0"));
-            ddlSetFilter.Items.Insert(0, new ListItem("All Sets", "0"));
-        }
+            int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
+            if (boardId > 0)
+            {
+                bool isComp = CheckIfCompetitive(boardId);
+                phCompFilters.Visible = isComp;
+                phSchoolFilters.Visible = !isComp;
 
-        protected void FilterChanged(object sender, EventArgs e)
-        {
-            // If board changes, we could optionally reload subjects, but BindGrid handles the logic
+                if (isComp)
+                    BindDDL("SELECT SubCategoryId, SubCategoryName FROM SubCategories WHERE BoardId=" + boardId, ddlSubCategory, "SubCategoryName", "SubCategoryId", "All SubCategories");
+                else
+                    BindDDL("SELECT ClassId, ClassName FROM Classes WHERE BoardId=" + boardId, ddlClass, "ClassName", "ClassId", "All Classes");
+
+                // Load Sets for this board
+                BindDDL("SELECT SetId, SetName FROM Sets WHERE BoardId=" + boardId, ddlSet, "SetName", "SetId", "All Sets");
+            }
             BindGrid();
         }
+
+        protected void ddlClass_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindDDL("SELECT SubjectId, SubjectName FROM Subjects WHERE ClassId=" + ddlClass.SelectedValue, ddlSubject, "SubjectName", "SubjectId", "All Subjects");
+            BindGrid();
+        }
+
+        protected void FilterChanged(object sender, EventArgs e) { BindGrid(); }
 
         private void BindGrid()
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                // The key logic: COALESCE handles showing ClassName or YearName in the same column
+                // COALESCE logic to show Subject Name (Path A) or SubCategory (Path B) as the Context
                 string sql = @"
                     SELECT C.ChapterId, C.ChapterName, C.DisplayOrder, C.IsActive, 
-                           B.BoardName, S.SubjectName, 
-                           ISNULL(SetTable.SetName, 'No Set') as SetName,
-                           COALESCE(Cl.ClassName, Y.YearName, 'N/A') as LevelName
+                           B.BoardName, Y.YearName, ISNULL(S.SetName, 'N/A') as SetName,
+                           COALESCE(Sub.SubjectName, SC.SubCategoryName, 'General') as ContextName
                     FROM Chapters C
-                    INNER JOIN Subjects S ON C.SubjectId = S.SubjectId
-                    INNER JOIN Boards B ON S.BoardId = B.BoardId
-                    LEFT JOIN Classes Cl ON S.ClassId = Cl.ClassId
+                    INNER JOIN Boards B ON C.BoardId = B.BoardId
                     LEFT JOIN Years Y ON C.YearId = Y.YearId
-                    LEFT JOIN Sets SetTable ON C.SetId = SetTable.SetId
-                    WHERE (@BID = 0 OR B.BoardId = @BID)
-                      AND (@CID = 0 OR S.ClassId = @CID)
+                    LEFT JOIN Sets S ON C.SetId = S.SetId
+                    LEFT JOIN Subjects Sub ON C.SubjectId = Sub.SubjectId
+                    LEFT JOIN SubCategories SC ON C.SubCategoryId = SC.SubCategoryId
+                    WHERE (@BID = 0 OR C.BoardId = @BID)
+                      AND (@RTID = 0 OR C.ResourceTypeId = @RTID)
+                      AND (@CID = 0 OR Sub.ClassId = @CID)
+                      AND (@SID = 0 OR C.SubjectId = @SID)
+                      AND (@SCID = 0 OR C.SubCategoryId = @SCID)
                       AND (@YID = 0 OR C.YearId = @YID)
-                      AND (@SID = 0 OR S.SubjectId = @SID)
                       AND (@SetID = 0 OR C.SetId = @SetID)
-                    ORDER BY B.BoardName, LevelName, C.DisplayOrder";
+                    ORDER BY C.ChapterId DESC";
 
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.AddWithValue("@BID", ddlBoardFilter.SelectedValue);
-                cmd.Parameters.AddWithValue("@CID", ddlClassFilter.SelectedValue);
-                cmd.Parameters.AddWithValue("@YID", ddlYearFilter.SelectedValue);
-                cmd.Parameters.AddWithValue("@SID", ddlSubjectFilter.SelectedValue);
-                cmd.Parameters.AddWithValue("@SetID", ddlSetFilter.SelectedValue);
+                cmd.Parameters.AddWithValue("@BID", ddlBoard.SelectedValue);
+                cmd.Parameters.AddWithValue("@RTID", ddlResourceType.SelectedValue);
+                cmd.Parameters.AddWithValue("@CID", phSchoolFilters.Visible ? ddlClass.SelectedValue : "0");
+                cmd.Parameters.AddWithValue("@SID", phSchoolFilters.Visible ? ddlSubject.SelectedValue : "0");
+                cmd.Parameters.AddWithValue("@SCID", phCompFilters.Visible ? ddlSubCategory.SelectedValue : "0");
+                cmd.Parameters.AddWithValue("@YID", ddlYear.SelectedValue);
+                cmd.Parameters.AddWithValue("@SetID", ddlSet.SelectedValue);
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -79,10 +97,9 @@ namespace StudyIsleWeb.Admin.Chapters
                 int id = Convert.ToInt32(e.CommandArgument);
                 using (SqlConnection con = new SqlConnection(cs))
                 {
-                    SqlCommand cmd = new SqlCommand("UPDATE Chapters SET IsActive = CASE WHEN IsActive=1 THEN 0 ELSE 1 END WHERE ChapterId=@ID", con);
+                    SqlCommand cmd = new SqlCommand("UPDATE Chapters SET IsActive = ~IsActive WHERE ChapterId=@ID", con);
                     cmd.Parameters.AddWithValue("@ID", id);
-                    con.Open();
-                    cmd.ExecuteNonQuery();
+                    con.Open(); cmd.ExecuteNonQuery();
                 }
                 BindGrid();
             }
@@ -95,11 +112,18 @@ namespace StudyIsleWeb.Admin.Chapters
                 SqlDataAdapter da = new SqlDataAdapter(sql, con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
-                ddl.DataSource = dt;
-                ddl.DataTextField = text;
-                ddl.DataValueField = value;
-                ddl.DataBind();
+                ddl.DataSource = dt; ddl.DataTextField = text; ddl.DataValueField = value; ddl.DataBind();
                 ddl.Items.Insert(0, new ListItem(defaultText, "0"));
+            }
+        }
+
+        private bool CheckIfCompetitive(int boardId)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT ISNULL(IsCompetitive, 0) FROM Boards WHERE BoardId=@ID", con);
+                cmd.Parameters.AddWithValue("@ID", boardId);
+                con.Open(); return Convert.ToBoolean(cmd.ExecuteScalar());
             }
         }
     }

@@ -15,49 +15,85 @@ namespace StudyIsleWeb.Admin.Chapters
     {
 
         /// <summary>
-        /// ddlBoardFilter control.
+        /// ddlBoard control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlBoardFilter;
+        protected global::System.Web.UI.WebControls.DropDownList ddlBoard;
 
         /// <summary>
-        /// ddlClassFilter control.
+        /// ddlResourceType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlClassFilter;
+        protected global::System.Web.UI.WebControls.DropDownList ddlResourceType;
 
         /// <summary>
-        /// ddlYearFilter control.
+        /// phSchoolFilters control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlYearFilter;
+        protected global::System.Web.UI.WebControls.PlaceHolder phSchoolFilters;
 
         /// <summary>
-        /// ddlSubjectFilter control.
+        /// ddlClass control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSubjectFilter;
+        protected global::System.Web.UI.WebControls.DropDownList ddlClass;
 
         /// <summary>
-        /// ddlSetFilter control.
+        /// ddlSubject control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSetFilter;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSubject;
+
+        /// <summary>
+        /// phCompFilters control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phCompFilters;
+
+        /// <summary>
+        /// ddlSubCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSubCategory;
+
+        /// <summary>
+        /// ddlYear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlYear;
+
+        /// <summary>
+        /// ddlSet control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSet;
 
         /// <summary>
         /// gvChapters control.
