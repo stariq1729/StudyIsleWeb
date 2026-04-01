@@ -15,24 +15,6 @@ namespace StudyIsleWeb
     {
 
         /// <summary>
-        /// litBoardName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litBoardName;
-
-        /// <summary>
-        /// LitResourcTypes control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LitResourcTypes;
-
-        /// <summary>
         /// litSubCatName control.
         /// </summary>
         /// <remarks>
@@ -42,21 +24,30 @@ namespace StudyIsleWeb
         protected global::System.Web.UI.WebControls.Literal litSubCatName;
 
         /// <summary>
-        /// lblNoData control.
+        /// litViewType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNoData;
+        protected global::System.Web.UI.WebControls.Literal litViewType;
 
         /// <summary>
-        /// rptSubjects control.
+        /// litBoardName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptSubjects;
+        protected global::System.Web.UI.WebControls.Literal litBoardName;
+
+        /// <summary>
+        /// rptData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptData;
     }
 }
