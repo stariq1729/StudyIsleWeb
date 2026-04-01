@@ -18,24 +18,17 @@
             display: flex; align-items: center; justify-content: center; margin-right: 20px;
         }
         .chapter-name { color: #1e293b; font-weight: 600; font-size: 1.1rem; }
-        .view-btn { color: #cbd5e1; font-size: 1.2rem; }
+        .view-btn { color: #6366f1; opacity: 0.5; }
     </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="resource-header">
         <div class="container">
-            <div class="d-flex align-items-center justify-content-between">
-                <div>
-                    <h5 class="text-uppercase mb-1" style="letter-spacing: 1px; opacity: 0.8;">
-                        <asp:Literal ID="litSubjectName" runat="server" />
-                    </h5>
-                    <h2 class="fw-bold mb-0"><asp:Literal ID="litResourceTitle" runat="server" /></h2>
-                </div>
-                <div class="badge bg-primary px-3 py-2">
-                    <asp:Literal ID="litCount" runat="server" /> Chapters
-                </div>
-            </div>
+            <h5 class="text-uppercase mb-1" style="letter-spacing: 1px; opacity: 0.8;">
+                <asp:Literal ID="litSubjectName" runat="server" />
+            </h5>
+            <h2 class="fw-bold mb-0">Select Chapter</h2>
         </div>
     </div>
 
@@ -43,7 +36,8 @@
         <div class="chapter-list">
             <asp:Repeater ID="rptChapters" runat="server">
                 <ItemTemplate>
-                    <a href='<%# GetFinalUrl(Eval("Slug")) %>' class="chapter-item">
+                    <%-- The link is determined by the SetCount helper --%>
+                    <a href='<%# GetFinalUrl(Eval("Slug"), Eval("HasSets")) %>' class="chapter-item">
                         <div class="chapter-info">
                             <div class="chapter-number"><%# Container.ItemIndex + 1 %></div>
                             <div>
@@ -51,9 +45,7 @@
                                 <div class="small text-muted">CHAPTER <%# Container.ItemIndex + 1 %></div>
                             </div>
                         </div>
-                        <div class="view-btn">
-                            <i class="fas fa-chevron-right"></i>
-                        </div>
+                        <div class="view-btn"><i class="fas fa-arrow-right"></i></div>
                     </a>
                 </ItemTemplate>
             </asp:Repeater>

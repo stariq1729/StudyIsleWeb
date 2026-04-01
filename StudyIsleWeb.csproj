@@ -142,6 +142,7 @@
     <Content Include="Login.aspx" />
     <Content Include="NCERT.aspx" />
     <Content Include="NcertBook.aspx" />
+    <Content Include="Sets.aspx" />
     <Content Include="SetSelection.aspx" />
     <Content Include="Student\StudentIndex.aspx" />
     <Content Include="Student\Student_Logout.aspx" />
@@ -408,6 +409,13 @@
       <DependentUpon>NcertBook.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sets.aspx.cs">
+      <DependentUpon>Sets.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sets.aspx.designer.cs">
+      <DependentUpon>Sets.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SetSelection.aspx.cs">
       <DependentUpon>SetSelection.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

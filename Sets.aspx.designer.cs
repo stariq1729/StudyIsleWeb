@@ -11,25 +11,34 @@ namespace StudyIsleWeb
 {
 
 
-    public partial class Chapters
+    public partial class Sets
     {
 
         /// <summary>
-        /// litSubjectName control.
+        /// litBreadcrumb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litSubjectName;
+        protected global::System.Web.UI.WebControls.Literal litBreadcrumb;
 
         /// <summary>
-        /// rptChapters control.
+        /// litHeaderTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptChapters;
+        protected global::System.Web.UI.WebControls.Literal litHeaderTitle;
+
+        /// <summary>
+        /// rptSets control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptSets;
     }
 }
