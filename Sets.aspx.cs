@@ -36,12 +36,8 @@ namespace StudyIsleWeb
             {
                 con.Open();
 
-                // Set Header Titles
-                litBreadcrumb.Text = string.IsNullOrEmpty(ySlug) ? "Chapters" : "Years";
-                litHeaderTitle.Text = string.IsNullOrEmpty(ySlug) ? "Select Paper Set" : $"{ySlug} Papers";
-
-                // FIX: Aliasing 'SetName' as 'Slug' because the 'Sets' table lacks a 'Slug' column
-                string sql = "SELECT SetName, SetName as Slug FROM Sets WHERE IsActive = 1 ";
+                // We now select the actual 'Slug' column you just created
+                string sql = "SELECT SetName, Slug FROM Sets WHERE IsActive = 1 ";
 
                 if (!string.IsNullOrEmpty(cSlug))
                 {
@@ -49,7 +45,6 @@ namespace StudyIsleWeb
                 }
                 else if (!string.IsNullOrEmpty(ySlug))
                 {
-                    // Using YearName from the Years table for the filter
                     sql += " AND YearId = (SELECT YearId FROM Years WHERE YearName = @year)";
                 }
 
@@ -71,7 +66,7 @@ namespace StudyIsleWeb
                 }
                 else
                 {
-                    // Redirect to Resource Viewer if no sets exist
+                    // If no specific sets exist, push directly to ViewResource.aspx
                     string redirectUrl = $"ViewResource.aspx?board={bSlug}&res={rSlug}&subcat={scSlug}";
                     if (!string.IsNullOrEmpty(ySlug)) redirectUrl += $"&year={ySlug}";
                     if (!string.IsNullOrEmpty(cSlug)) redirectUrl += $"&chapter={cSlug}";

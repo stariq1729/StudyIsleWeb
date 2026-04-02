@@ -13,84 +13,78 @@ namespace StudyIsleWeb
         {
             if (!IsPostBack)
             {
-                BindSpecificResources();
+                BindAllResources();
             }
         }
 
-        private void BindSpecificResources()
+        private void BindAllResources()
         {
-            // 1. Capture parameters exactly as they appear in your URL screenshot
-            string boardSlug = Request.QueryString["board"];   // e.g., "jee"
-            string resSlug = Request.QueryString["res"];       // e.g., "jee-advance..."
-            string subcatSlug = Request.QueryString["subcat"]; // e.g., "pyq-dummy"
-            string setSlug = Request.QueryString["set"];       // e.g., "2027+pyq..."
-            string yearName = Request.QueryString["year"];     // e.g., "2027"
-
-            // Note: If you still use cid/sid for CBSE flow, keep them
-            string cid = Request.QueryString["cid"];
+            // Capture all slugs from the URL
+            string b = Request.QueryString["board"];
+            string sc = Request.QueryString["subcat"]; // Usually 'notes', 'videos', etc.
+            string s = Request.QueryString["subject"];
+            string c = Request.QueryString["chapter"];
+            string y = Request.QueryString["year"];
+            string set = Request.QueryString["set"];
+            string resType = Request.QueryString["res"]; // The explicit resource type slug
 
             using (SqlConnection con = new SqlConnection(cs))
             {
-                // 2. Build Query with JOINs to filter by Text Slugs instead of Numeric IDs
-                string sql = @"SELECT r.Title, r.Description, r.FilePath, r.ContentType, r.CreatedAt 
+                // BASE QUERY: Start with Board and ResourceType join
+                string sql = @"SELECT r.Title, r.Description, r.FilePath, r.ContentType 
                                FROM Resources r 
+                               INNER JOIN Boards b ON r.BoardId = b.BoardId
                                INNER JOIN ResourceTypes rt ON r.ResourceTypeId = rt.ResourceTypeId
-                               LEFT JOIN Boards b ON r.BoardId = b.BoardId
-                               LEFT JOIN SubCategories sc ON r.SubCategoryId = sc.SubCategoryId
-                               LEFT JOIN Sets s ON r.SetId = s.SetId
-                               LEFT JOIN Years y ON r.YearId = y.YearId
-                               WHERE r.IsActive = 1";
+                               WHERE r.IsActive = 1 AND b.Slug = @bParam";
 
                 SqlCommand cmd = new SqlCommand();
-                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@bParam", b);
 
-                // --- PRIORITY LADDER (Using Slugs/Names) ---
-
-                // PRIORITY 1: Chapter ID (Numeric fallback for CBSE flow)
-                if (!string.IsNullOrEmpty(cid))
+                // --- THE FIX FOR SUBJECT VISIBILITY ---
+                // If a Subject is selected, we filter by Subject but STOP forcing the SubCategoryId.
+                // This allows resources that are ONLY linked to a Subject to appear.
+                if (!string.IsNullOrEmpty(s))
                 {
-                    sql += " AND r.ChapterId = @cid";
-                    cmd.Parameters.AddWithValue("@cid", cid);
+                    sql += " AND r.SubjectId = (SELECT SubjectId FROM Subjects WHERE Slug = @sParam)";
+                    cmd.Parameters.AddWithValue("@sParam", s);
                 }
-                // PRIORITY 2: Competitive Set (Using the 'set' slug from URL)
-                else if (!string.IsNullOrEmpty(setSlug))
+                // If NO subject is selected, we still filter by SubCategory (Class-wise view)
+                else if (!string.IsNullOrEmpty(sc))
                 {
-                    // Match by Set Name or Slug depending on your table column name
-                    sql += " AND s.SetName = @setSlug";
-                    cmd.Parameters.AddWithValue("@setSlug", setSlug.Replace("+", " ")); // Handle URL encoding
-
-                    if (!string.IsNullOrEmpty(yearName))
-                    {
-                        sql += " AND y.YearName = @yearName";
-                        cmd.Parameters.AddWithValue("@yearName", yearName);
-                    }
-                }
-                // PRIORITY 3: SubCategory/Class (Using 'subcat' slug from URL)
-                else if (!string.IsNullOrEmpty(subcatSlug))
-                {
-                    sql += " AND sc.SubCategoryName = @subcatSlug";
-                    cmd.Parameters.AddWithValue("@subcatSlug", subcatSlug);
-                }
-                // PRIORITY 4: Board Level (Using 'board' slug from URL)
-                else if (!string.IsNullOrEmpty(boardSlug))
-                {
-                    sql += " AND b.BoardName = @boardSlug";
-                    cmd.Parameters.AddWithValue("@boardSlug", boardSlug);
-                }
-                else
-                {
-                    // Security: If no specific filters, show nothing
-                    sql += " AND 1=0";
+                    sql += " AND r.SubCategoryId = (SELECT SubCategoryId FROM SubCategories WHERE Slug = @scParam)";
+                    cmd.Parameters.AddWithValue("@scParam", sc);
                 }
 
-                // ALWAYS filter by the Resource Type (e.g., 'book-pdf' or 'video')
-                if (!string.IsNullOrEmpty(resSlug))
+                // --- CHAPTER WISE RESOURCE ---
+                if (!string.IsNullOrEmpty(c))
                 {
-                    sql += " AND rt.Slug = @res";
-                    cmd.Parameters.AddWithValue("@res", resSlug);
+                    sql += " AND r.ChapterId = (SELECT ChapterId FROM Chapters WHERE Slug = @cParam)";
+                    cmd.Parameters.AddWithValue("@cParam", c);
+                }
+
+                // --- YEAR WISE RESOURCE (Competitive) ---
+                if (!string.IsNullOrEmpty(y))
+                {
+                    sql += " AND r.YearId = (SELECT YearId FROM Years WHERE YearName = @yParam)";
+                    cmd.Parameters.AddWithValue("@yParam", y);
+                }
+
+                // --- SET WISE RESOURCE (Competitive) ---
+                if (!string.IsNullOrEmpty(set))
+                {
+                    sql += " AND r.SetId = (SELECT SetId FROM Sets WHERE Slug = @setParam)";
+                    cmd.Parameters.AddWithValue("@setParam", set);
+                }
+
+                // --- RESOURCE TYPE FILTER (Tabs) ---
+                if (!string.IsNullOrEmpty(resType))
+                {
+                    sql += " AND rt.Slug = @resTypeParam";
+                    cmd.Parameters.AddWithValue("@resTypeParam", resType);
                 }
 
                 cmd.CommandText = sql;
+                cmd.Connection = con;
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
 
@@ -98,37 +92,22 @@ namespace StudyIsleWeb
                 {
                     con.Open();
                     da.Fill(dt);
-
-                    if (dt.Rows.Count > 0)
-                    {
-                        rptResources.DataSource = dt;
-                        rptResources.DataBind();
-                        phNoData.Visible = false;
-                    }
-                    else
-                    {
-                        rptResources.DataSource = null;
-                        rptResources.DataBind();
-                        phNoData.Visible = true;
-                    }
+                    rptResources.DataSource = dt;
+                    rptResources.DataBind();
+                    phEmpty.Visible = (dt.Rows.Count == 0); // Show "No Resources" only if count is 0
                 }
-                catch (Exception ex)
-                {
-                    // Debugging helper (Optional: remove in production)
-                    // Response.Write("Error: " + ex.Message);
-                    phNoData.Visible = true;
-                }
+                catch { /* Handle error */ }
             }
         }
 
-        // --- Helper Methods for UI Icons ---
-        protected string GetStatusClass(string type)
+        // Helper methods for UI styling
+        protected string GetTheme(string type)
         {
             string t = type.ToLower();
             if (t.Contains("pdf")) return "bg-pdf";
-            if (t.Contains("image") || t.Contains("png") || t.Contains("jpg")) return "bg-image";
-            if (t.Contains("video")) return "bg-video";
-            return "bg-default";
+            if (t.Contains("image")) return "bg-img";
+            if (t.Contains("video")) return "bg-vid";
+            return "bg-gen";
         }
 
         protected string GetIcon(string type)
