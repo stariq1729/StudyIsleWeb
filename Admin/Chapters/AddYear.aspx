@@ -28,12 +28,12 @@
                         </div>
 
                         <div class="section-header">Step 2: Resource Type & Path</div>
-                        <div class="col-md-12">
+                        <div class="col-md-12 mb-2">
                             <label class="form-label fw-bold small">Resource Type</label>
                             <asp:DropDownList ID="ddlResourceType" runat="server" CssClass="form-select shadow-none"></asp:DropDownList>
                         </div>
 
-                        <%-- Dynamic Path A: School --%>
+                        <%-- Path A: School (CBSE/ICSE) --%>
                         <asp:PlaceHolder ID="phSchoolPath" runat="server" Visible="false">
                             <div class="col-md-6">
                                 <label class="form-label fw-bold small">Class</label>
@@ -45,11 +45,15 @@
                             </div>
                         </asp:PlaceHolder>
 
-                        <%-- Dynamic Path B: Competitive --%>
+                        <%-- Path B: Competitive (JEE/NEET) - Updated with Subject Layer --%>
                         <asp:PlaceHolder ID="phCompPath" runat="server" Visible="false">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <label class="form-label fw-bold small">Sub-Category (Competitive Level)</label>
-                                <asp:DropDownList ID="ddlSubCategory" runat="server" CssClass="form-select shadow-none"></asp:DropDownList>
+                                <asp:DropDownList ID="ddlSubCategory" runat="server" CssClass="form-select shadow-none" AutoPostBack="true" OnSelectedIndexChanged="ddlSubCategory_SelectedIndexChanged"></asp:DropDownList>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold small">Subject (Competitive)</label>
+                                <asp:DropDownList ID="ddlCompSubject" runat="server" CssClass="form-select shadow-none"></asp:DropDownList>
                             </div>
                         </asp:PlaceHolder>
                     </div>
@@ -71,14 +75,9 @@
                         </asp:Repeater>
                     </div>
                     <hr />
-                    <small class="text-muted">Years are managed globally from 2015-2028. Use the left panel to map them to subjects.</small>
+                    <small class="text-muted">Years are managed globally. Use the left panel to map them to subjects or levels.</small>
                 </div>
             </div>
         </div>
     </div>
 </asp:Content>
-<%--<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="AddYear.aspx.cs" Inherits="StudyIsleWeb.Admin.Chapters.AddYear" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-</asp:Content>--%>

@@ -24,7 +24,6 @@ namespace StudyIsleWeb.Admin.Chapters
             BindDropDown("SELECT BoardId, BoardName FROM Boards WHERE IsActive=1", ddlBoard, "BoardName", "BoardId");
             BindDropDown("SELECT ResourceTypeId, TypeName FROM ResourceTypes", ddlResourceType, "TypeName", "ResourceTypeId");
 
-            // For the side-bar list
             DataTable dt = GetData("SELECT YearName FROM Years ORDER BY YearName DESC");
             rptMasterYears.DataSource = dt;
             rptMasterYears.DataBind();
@@ -33,7 +32,7 @@ namespace StudyIsleWeb.Admin.Chapters
         protected void ddlBoard_SelectedIndexChanged(object sender, EventArgs e)
         {
             int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
-            if (boardId == 0) return;
+            if (boardId == 0) { phCompPath.Visible = phSchoolPath.Visible = false; return; }
 
             bool isComp = CheckIfCompetitive(boardId);
             phCompPath.Visible = isComp;
@@ -42,10 +41,21 @@ namespace StudyIsleWeb.Admin.Chapters
             if (isComp)
             {
                 BindDropDown("SELECT SubCategoryId, SubCategoryName FROM SubCategories WHERE BoardId=" + boardId, ddlSubCategory, "SubCategoryName", "SubCategoryId");
+                ddlCompSubject.Items.Clear(); // Clear subjects until a subcategory is picked
             }
             else
             {
                 BindDropDown("SELECT ClassId, ClassName FROM Classes WHERE BoardId=" + boardId, ddlClass, "ClassName", "ClassId");
+            }
+        }
+
+        // New event to load subjects for Competitive Flow
+        protected void ddlSubCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlSubCategory.SelectedValue != "0")
+            {
+                // In competitive flow, subjects are often linked via SubCategoryId
+                BindDropDown("SELECT SubjectId, SubjectName FROM Subjects WHERE SubCategoryId=" + ddlSubCategory.SelectedValue, ddlCompSubject, "SubjectName", "SubjectId");
             }
         }
 
@@ -62,26 +72,40 @@ namespace StudyIsleWeb.Admin.Chapters
                 {
                     string sql = @"INSERT INTO YearMappings (YearId, BoardId, ResourceTypeId, ClassId, SubjectId, SubCategoryId) 
                                    VALUES (@YID, @BID, @RTID, @CID, @SID, @SCID)";
+
                     SqlCommand cmd = new SqlCommand(sql, con);
                     cmd.Parameters.AddWithValue("@YID", ddlYear.SelectedValue);
                     cmd.Parameters.AddWithValue("@BID", ddlBoard.SelectedValue);
                     cmd.Parameters.AddWithValue("@RTID", ddlResourceType.SelectedValue);
 
-                    // Logic to handle NULLs for Path A vs Path B
+                    // Path A: School Logic
                     cmd.Parameters.AddWithValue("@CID", phSchoolPath.Visible ? (object)ddlClass.SelectedValue : DBNull.Value);
-                    cmd.Parameters.AddWithValue("@SID", phSchoolPath.Visible ? (object)ddlSubject.SelectedValue : DBNull.Value);
+
+                    // Unified Subject Logic: Pick from Path A or Path B
+                    object finalSubjectId = DBNull.Value;
+                    if (phSchoolPath.Visible && ddlSubject.SelectedValue != "0")
+                        finalSubjectId = ddlSubject.SelectedValue;
+                    else if (phCompPath.Visible && ddlCompSubject.SelectedValue != "0")
+                        finalSubjectId = ddlCompSubject.SelectedValue;
+
+                    cmd.Parameters.AddWithValue("@SID", finalSubjectId);
+
+                    // Path B: Competitive Logic
                     cmd.Parameters.AddWithValue("@SCID", phCompPath.Visible ? (object)ddlSubCategory.SelectedValue : DBNull.Value);
 
                     con.Open();
                     cmd.ExecuteNonQuery();
-                    lblMsg.Text = "Year linked successfully!";
+                    lblMsg.Text = "Year linked successfully with Subject mapping!";
                     lblMsg.CssClass = "alert alert-success d-block";
                 }
             }
-            catch (Exception ex) { lblMsg.Text = "Error: " + ex.Message; lblMsg.CssClass = "alert alert-danger d-block"; }
+            catch (Exception ex)
+            {
+                lblMsg.Text = "Error: " + ex.Message;
+                lblMsg.CssClass = "alert alert-danger d-block";
+            }
         }
 
-        // Helper Methods
         private bool CheckIfCompetitive(int boardId)
         {
             using (SqlConnection con = new SqlConnection(cs))
@@ -97,7 +121,8 @@ namespace StudyIsleWeb.Admin.Chapters
         {
             DataTable dt = GetData(sql);
             ddl.DataSource = dt;
-            ddl.DataTextField = text; ddl.DataValueField = value;
+            ddl.DataTextField = text;
+            ddl.DataValueField = value;
             ddl.DataBind();
             ddl.Items.Insert(0, new ListItem("-- Select --", "0"));
         }
@@ -107,7 +132,9 @@ namespace StudyIsleWeb.Admin.Chapters
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlDataAdapter da = new SqlDataAdapter(sql, con);
-                DataTable dt = new DataTable(); da.Fill(dt); return dt;
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                return dt;
             }
         }
     }
