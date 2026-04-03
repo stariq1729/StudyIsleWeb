@@ -108,7 +108,7 @@ namespace StudyIsleWeb.Admin.SubCat
                 {
                     con.Open();
                     cmd.ExecuteNonQuery();
-                    Response.Redirect("ManageSubCategories.aspx");
+                    Response.Redirect("ManageSubCat.aspx");
                 }
                 catch (Exception ex)
                 {

@@ -15,6 +15,15 @@ namespace StudyIsleWeb
     {
 
         /// <summary>
+        /// litBoardName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litBoardName;
+
+        /// <summary>
         /// litSubCatName control.
         /// </summary>
         /// <remarks>
@@ -33,15 +42,6 @@ namespace StudyIsleWeb
         protected global::System.Web.UI.WebControls.Literal litViewType;
 
         /// <summary>
-        /// litBoardName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litBoardName;
-
-        /// <summary>
         /// rptData control.
         /// </summary>
         /// <remarks>
@@ -49,5 +49,14 @@ namespace StudyIsleWeb
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptData;
+
+        /// <summary>
+        /// pnlNoData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlNoData;
     }
 }
