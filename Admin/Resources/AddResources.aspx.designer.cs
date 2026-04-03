@@ -42,6 +42,15 @@ namespace StudyIsleWeb.Admin.Resources
         protected global::System.Web.UI.WebControls.DropDownList ddlResourceType;
 
         /// <summary>
+        /// ddlSubCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSubCategory;
+
+        /// <summary>
         /// ddlClass control.
         /// </summary>
         /// <remarks>
@@ -60,15 +69,6 @@ namespace StudyIsleWeb.Admin.Resources
         protected global::System.Web.UI.WebControls.DropDownList ddlSubject;
 
         /// <summary>
-        /// ddlChapter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlChapter;
-
-        /// <summary>
         /// ddlYear control.
         /// </summary>
         /// <remarks>
@@ -78,6 +78,15 @@ namespace StudyIsleWeb.Admin.Resources
         protected global::System.Web.UI.WebControls.DropDownList ddlYear;
 
         /// <summary>
+        /// ddlChapter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlChapter;
+
+        /// <summary>
         /// ddlSet control.
         /// </summary>
         /// <remarks>
@@ -85,15 +94,6 @@ namespace StudyIsleWeb.Admin.Resources
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSet;
-
-        /// <summary>
-        /// ddlSubCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSubCategory;
 
         /// <summary>
         /// txtTitle control.

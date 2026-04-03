@@ -51,13 +51,13 @@ namespace StudyIsleWeb.Admin.Resources
         protected global::System.Web.UI.WebControls.DropDownList ddlResourceType;
 
         /// <summary>
-        /// pnlClass control.
+        /// ddlSubCategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlClass;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSubCategory;
 
         /// <summary>
         /// ddlClass control.
@@ -69,15 +69,6 @@ namespace StudyIsleWeb.Admin.Resources
         protected global::System.Web.UI.WebControls.DropDownList ddlClass;
 
         /// <summary>
-        /// pnlSubject control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlSubject;
-
-        /// <summary>
         /// ddlSubject control.
         /// </summary>
         /// <remarks>
@@ -85,33 +76,6 @@ namespace StudyIsleWeb.Admin.Resources
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSubject;
-
-        /// <summary>
-        /// pnlChapter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlChapter;
-
-        /// <summary>
-        /// ddlChapter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlChapter;
-
-        /// <summary>
-        /// pnlYear control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlYear;
 
         /// <summary>
         /// ddlYear control.
@@ -123,22 +87,22 @@ namespace StudyIsleWeb.Admin.Resources
         protected global::System.Web.UI.WebControls.DropDownList ddlYear;
 
         /// <summary>
-        /// pnlSubCategory control.
+        /// ddlChapter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlSubCategory;
+        protected global::System.Web.UI.WebControls.DropDownList ddlChapter;
 
         /// <summary>
-        /// ddlSubCategory control.
+        /// ddlSet control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSubCategory;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSet;
 
         /// <summary>
         /// txtTitle control.
@@ -148,15 +112,6 @@ namespace StudyIsleWeb.Admin.Resources
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTitle;
-
-        /// <summary>
-        /// txtDescription control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDescription;
 
         /// <summary>
         /// fuFile control.
