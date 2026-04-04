@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Select Subject" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CompSubSelect.aspx.cs" Inherits="StudyIsleWeb.CompSubSelect" %>
+﻿<%@ Page Title="Select Subject/Year" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CompSubSelect.aspx.cs" Inherits="StudyIsleWeb.CompSubSelect" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
@@ -16,10 +16,16 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="page-header">
         <div class="container">
+            <nav aria-label="breadcrumb" class="mb-2">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><asp:Literal ID="litBoardName" runat="server" /></li>
+                    <li class="breadcrumb-item active"><asp:Literal ID="litSubCatName" runat="server" /></li>
+                </ol>
+            </nav>
             <h2 class="fw-bold">
-                <asp:Literal ID="litSubCatName" runat="server" /> - <asp:Literal ID="litViewType" runat="server" />
+                <asp:Literal ID="litViewType" runat="server" />
             </h2>
-            <p class="text-muted">Browse available resources for <asp:Literal ID="litBoardName" runat="server" />.</p>
+            <p class="text-muted small">Select an option to continue browsing resources.</p>
         </div>
     </div>
 
@@ -38,6 +44,10 @@
                     </div>
                 </ItemTemplate>
             </asp:Repeater>
+            
+            <asp:Panel ID="pnlNoData" runat="server" Visible="false" CssClass="col-12 text-center py-5">
+                <h5 class="text-muted">No resources found in this category.</h5>
+            </asp:Panel>
         </div>
     </div>
 </asp:Content>

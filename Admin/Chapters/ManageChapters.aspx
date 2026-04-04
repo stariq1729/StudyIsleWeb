@@ -12,102 +12,111 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container-fluid py-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex justify-content-between align-items-end mb-4">
             <div>
-                <h4 class="fw-bold mb-0">Chapter & Resource Manager</h4>
-                <p class="text-muted small">Path-based filtering for School and Competitive flows</p>
+                <h3 class="fw-bold text-dark mb-1">Content Repository</h3>
+                <p class="text-muted mb-0">Manage the educational hierarchy for StudyIsle</p>
             </div>
-            <div>
-                <a href="AddYear.aspx" class="btn btn-outline-dark btn-sm me-1">Manage Years</a>
-                <a href="AddSets.aspx" class="btn btn-outline-success btn-sm me-1">Add Set</a>
-                <a href="AddChapter.aspx" class="btn btn-primary btn-sm">Add Chapter</a>
+            <div class="d-flex gap-2">
+                <a href="AddYear.aspx" class="btn btn-outline-secondary btn-sm"><i class="bi bi-calendar-plus me-1"></i>Manage Years</a>
+                <a href="AddSets.aspx" class="btn btn-success btn-sm"><i class="bi bi-collection-play me-1"></i>New Set</a>
+                <a href="AddChapter.aspx" class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i>New Chapter</a>
             </div>
         </div>
 
-        <div class="card admin-card p-3 mb-4 shadow-sm bg-white border-0">
-            <div class="row g-2">
-                <div class="col-md-2">
-                    <label class="small fw-bold text-secondary">Board</label>
-                    <asp:DropDownList ID="ddlBoard" runat="server" CssClass="form-select form-select-sm" AutoPostBack="true" OnSelectedIndexChanged="ddlBoard_SelectedIndexChanged"></asp:DropDownList>
-                </div>
-                <div class="col-md-2">
-                    <label class="small fw-bold text-secondary">Resource Type</label>
-                    <asp:DropDownList ID="ddlResourceType" runat="server" CssClass="form-select form-select-sm" AutoPostBack="true" OnSelectedIndexChanged="FilterChanged"></asp:DropDownList>
-                </div>
-
-                <asp:PlaceHolder ID="phSchoolFilters" runat="server" Visible="false">
-                    <div class="col-md-2">
-                        <label class="small fw-bold text-secondary">Class</label>
-                        <asp:DropDownList ID="ddlClass" runat="server" CssClass="form-select form-select-sm" AutoPostBack="true" OnSelectedIndexChanged="ddlClass_SelectedIndexChanged"></asp:DropDownList>
+        <div class="card border-0 shadow-sm rounded-4 mb-4">
+            <div class="card-body p-4">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-uppercase text-muted">Primary Board</label>
+                        <asp:DropDownList ID="ddlBoard" runat="server" CssClass="form-select border-light-subtle" AutoPostBack="true" OnSelectedIndexChanged="ddlBoard_SelectedIndexChanged"></asp:DropDownList>
                     </div>
-                    <div class="col-md-2">
-                        <label class="small fw-bold text-secondary">Subject</label>
-                        <asp:DropDownList ID="ddlSubject" runat="server" CssClass="form-select form-select-sm" AutoPostBack="true" OnSelectedIndexChanged="FilterChanged"></asp:DropDownList>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-bold text-uppercase text-muted">Material Type</label>
+                        <asp:DropDownList ID="ddlResourceType" runat="server" CssClass="form-select border-light-subtle" AutoPostBack="true" OnSelectedIndexChanged="FilterChanged"></asp:DropDownList>
                     </div>
-                </asp:PlaceHolder>
-
-                <asp:PlaceHolder ID="phCompFilters" runat="server" Visible="false">
-                    <div class="col-md-4">
-                        <label class="small fw-bold text-secondary">SubCategory</label>
-                        <asp:DropDownList ID="ddlSubCategory" runat="server" CssClass="form-select form-select-sm" AutoPostBack="true" OnSelectedIndexChanged="FilterChanged"></asp:DropDownList>
-                    </div>
-                </asp:PlaceHolder>
-
-                <div class="col-md-2">
-                    <label class="small fw-bold text-secondary">Year</label>
-                    <asp:DropDownList ID="ddlYear" runat="server" CssClass="form-select form-select-sm" AutoPostBack="true" OnSelectedIndexChanged="FilterChanged"></asp:DropDownList>
-                </div>
-                <div class="col-md-2">
-                    <label class="small fw-bold text-secondary">Set</label>
-                    <asp:DropDownList ID="ddlSet" runat="server" CssClass="form-select form-select-sm" AutoPostBack="true" OnSelectedIndexChanged="FilterChanged"></asp:DropDownList>
-                </div>
-            </div>
-        </div>
-
-        <div class="card admin-card shadow-sm border-0 bg-white">
-            <asp:GridView ID="gvChapters" runat="server" AutoGenerateColumns="False" CssClass="table table-hover align-middle mb-0" 
-                DataKeyNames="ChapterId" OnRowCommand="gvChapters_RowCommand" GridLines="None">
-                <Columns>
-                    <asp:BoundField DataField="ChapterId" HeaderText="ID" ItemStyle-Width="50px" />
                     
-                    <asp:TemplateField HeaderText="Hierarchy">
-                        <ItemTemplate>
-                            <span class="badge bg-light text-dark border"><%# Eval("BoardName") %></span>
-                            <span class="text-muted mx-1">/</span>
-                            <span class="small text-primary fw-bold"><%# Eval("ContextName") %></span>
-                        </ItemTemplate>
-                    </asp:TemplateField>
+                    <asp:PlaceHolder ID="phSchool" runat="server" Visible="false">
+                        <div class="col-md-2">
+                            <label class="form-label small fw-bold text-uppercase text-muted">Grade/Class</label>
+                            <asp:DropDownList ID="ddlClass" runat="server" CssClass="form-select border-light-subtle" AutoPostBack="true" OnSelectedIndexChanged="ddlClass_SelectedIndexChanged"></asp:DropDownList>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label small fw-bold text-uppercase text-muted">Subject</label>
+                            <asp:DropDownList ID="ddlSubject" runat="server" CssClass="form-select border-light-subtle" AutoPostBack="true" OnSelectedIndexChanged="FilterChanged"></asp:DropDownList>
+                        </div>
+                    </asp:PlaceHolder>
 
-                    <asp:TemplateField HeaderText="Resource Detail">
-                        <ItemTemplate>
-                            <div class="fw-bold"><%# Eval("ChapterName") %></div>
-                            <div class="small text-muted">
-                                📅 <%# Eval("YearName") %> | 📦 <%# Eval("SetName") %>
-                            </div>
-                        </ItemTemplate>
-                    </asp:TemplateField>
+                    <asp:PlaceHolder ID="phCompetitive" runat="server" Visible="false">
+                        <div class="col-md-4">
+                            <label class="form-label small fw-bold text-uppercase text-muted">Sub-Category</label>
+                            <asp:DropDownList ID="ddlSubCategory" runat="server" CssClass="form-select border-light-subtle" AutoPostBack="true" OnSelectedIndexChanged="FilterChanged"></asp:DropDownList>
+                        </div>
+                    </asp:PlaceHolder>
 
-                    <asp:BoundField DataField="DisplayOrder" HeaderText="Order" ItemStyle-HorizontalAlign="Center" />
+                    <div class="col-md-2">
+                        <label class="form-label small fw-bold text-uppercase text-muted">Academic Year</label>
+                        <asp:DropDownList ID="ddlYear" runat="server" CssClass="form-select border-light-subtle" AutoPostBack="true" OnSelectedIndexChanged="FilterChanged"></asp:DropDownList>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                    <asp:TemplateField HeaderText="Status">
-                        <ItemTemplate>
-                            <asp:LinkButton ID="btnToggle" runat="server" CommandName="ToggleActive" CommandArgument='<%# Eval("ChapterId") %>'
-                                CssClass='<%# Convert.ToBoolean(Eval("IsActive")) ? "badge-active text-decoration-none" : "badge-inactive text-decoration-none" %>'>
-                                <%# Convert.ToBoolean(Eval("IsActive")) ? "Active" : "Inactive" %>
-                            </asp:LinkButton>
-                        </ItemTemplate>
-                    </asp:TemplateField>
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="table-responsive">
+                <asp:GridView ID="gvChapters" runat="server" AutoGenerateColumns="False" CssClass="table table-hover align-middle mb-0" 
+                    DataKeyNames="ChapterId" OnRowCommand="gvChapters_RowCommand" GridLines="None">
+                    <Columns>
+                        <asp:TemplateField HeaderText="Resource Map">
+                            <ItemTemplate>
+                                <div class="ps-3">
+                                    <span class="badge rounded-pill bg-light text-dark border mb-1"><%# Eval("BoardName") %></span>
+                                    <div class="small text-primary fw-semibold"><%# Eval("HierarchyPath") %></div>
+                                </div>
+                            </ItemTemplate>
+                        </asp:TemplateField>
 
-                    <asp:TemplateField HeaderText="Action">
-                        <ItemTemplate>
-                            <a href='EditChapter.aspx?id=<%# Eval("ChapterId") %>' class="btn btn-sm btn-light text-warning border"><i class="bi bi-pencil-square"></i></a>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                </Columns>
-                <EmptyDataTemplate>
-                    <div class="py-5 text-center text-muted">No data found matching these filters.</div>
-                </EmptyDataTemplate>
-            </asp:GridView>
+                        <asp:TemplateField HeaderText="Content Detail">
+                            <ItemTemplate>
+                                <div class="fw-bold text-dark"><%# Eval("ChapterName") %></div>
+                                <div class="d-flex gap-3 small text-muted">
+                                    <span><i class="bi bi-tag me-1"></i><%# Eval("SetName") %></span>
+                                    <span><i class="bi bi-calendar3 me-1"></i><%# Eval("YearDisplay") %></span>
+                                </div>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Status" ItemStyle-Width="120px">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lnkStatus" runat="server" CommandName="ToggleActive" CommandArgument='<%# Eval("ChapterId") %>'
+                                    CssClass='<%# Convert.ToBoolean(Eval("IsActive")) ? "badge bg-success-subtle text-success text-decoration-none p-2 w-100" : "badge bg-danger-subtle text-danger text-decoration-none p-2 w-100" %>'>
+                                    <i class='<%# Convert.ToBoolean(Eval("IsActive")) ? "bi bi-check-circle-fill me-1" : "bi bi-x-circle-fill me-1" %>'></i>
+                                    <%# Convert.ToBoolean(Eval("IsActive")) ? "Active" : "Disabled" %>
+                                </asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
+                        <asp:TemplateField HeaderText="Control" ItemStyle-Width="150px">
+                            <ItemTemplate>
+                                <div class="d-flex gap-2">
+                                    <a href='EditChapter.aspx?id=<%# Eval("ChapterId") %>' class="btn btn-sm btn-light border"><i class="bi bi-pencil"></i></a>
+                                    <asp:LinkButton ID="btnDel" runat="server" CommandName="DeleteMe" CommandArgument='<%# Eval("ChapterId") %>' 
+                                        OnClientClick="return confirm('Permanently delete this resource?');" CssClass="btn btn-sm btn-outline-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </asp:LinkButton>
+                                </div>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                    <EmptyDataTemplate>
+                        <div class="p-5 text-center">
+                            <img src="https://cdn-icons-png.flaticon.com/512/7486/7486744.png" width="80" class="mb-3 opacity-25" />
+                            <h5 class="text-muted">No Resources Found</h5>
+                            <p class="small text-secondary">Try adjusting your filters or adding a new chapter.</p>
+                        </div>
+                    </EmptyDataTemplate>
+                </asp:GridView>
+            </div>
         </div>
     </div>
 </asp:Content>

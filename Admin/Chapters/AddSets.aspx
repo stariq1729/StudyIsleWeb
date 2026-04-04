@@ -28,29 +28,33 @@
 
                         <div class="section-header">Step 2: Path-Specific Details</div>
                         
-                        <%-- Path A: School --%>
+                        <%-- Path A: School (CBSE/ICSE) --%>
                         <asp:PlaceHolder ID="phSchool" runat="server" Visible="false">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label class="form-label fw-bold small">Class</label>
                                 <asp:DropDownList ID="ddlClass" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlClass_SelectedIndexChanged"></asp:DropDownList>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label class="form-label fw-bold small">Subject</label>
                                 <asp:DropDownList ID="ddlSubject" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlSubject_SelectedIndexChanged"></asp:DropDownList>
                             </div>
                         </asp:PlaceHolder>
 
-                        <%-- Path B: Competitive --%>
+                        <%-- Path B: Competitive (JEE/NEET) - Added Subject Layer --%>
                         <asp:PlaceHolder ID="phComp" runat="server" Visible="false">
-                            <div class="col-md-8">
-                                <label class="form-label fw-bold small">SubCategory</label>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold small">SubCategory (Level)</label>
                                 <asp:DropDownList ID="ddlSubCategory" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlSubCategory_SelectedIndexChanged"></asp:DropDownList>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold small">Subject (Competitive)</label>
+                                <asp:DropDownList ID="ddlCompSubject" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlCompSubject_SelectedIndexChanged"></asp:DropDownList>
                             </div>
                         </asp:PlaceHolder>
 
                         <div class="section-header">Step 3: Final Binding</div>
                         <div class="col-md-4">
-                            <label class="form-label fw-bold small">Year (Filtered by Selection)</label>
+                            <label class="form-label fw-bold small">Year (Mapped to Subject)</label>
                             <asp:DropDownList ID="ddlYear" runat="server" CssClass="form-select"></asp:DropDownList>
                         </div>
                         <div class="col-md-8">
