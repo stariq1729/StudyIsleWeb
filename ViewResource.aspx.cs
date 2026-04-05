@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web;
 
 namespace StudyIsleWeb
 {
@@ -13,110 +14,129 @@ namespace StudyIsleWeb
         {
             if (!IsPostBack)
             {
+                // Safety: Redirect if Board is missing entirely
+                if (string.IsNullOrEmpty(Request.QueryString["board"]))
+                {
+                    Response.Redirect("Default.aspx");
+                    return;
+                }
                 BindAllResources();
             }
         }
 
         private void BindAllResources()
         {
-            // Capture all slugs from the URL
+            // 1. Capture all URL parameters
             string b = Request.QueryString["board"];
-            string sc = Request.QueryString["subcat"]; // Usually 'notes', 'videos', etc.
+            string sc = Request.QueryString["subcat"];
             string s = Request.QueryString["subject"];
             string c = Request.QueryString["chapter"];
             string y = Request.QueryString["year"];
             string set = Request.QueryString["set"];
-            string resType = Request.QueryString["res"]; // The explicit resource type slug
+            string rt = Request.QueryString["res"]; // Resource Type (Tabs)
 
             using (SqlConnection con = new SqlConnection(cs))
             {
-                // BASE QUERY: Start with Board and ResourceType join
-                string sql = @"SELECT r.Title, r.Description, r.FilePath, r.ContentType 
-                               FROM Resources r 
-                               INNER JOIN Boards b ON r.BoardId = b.BoardId
-                               INNER JOIN ResourceTypes rt ON r.ResourceTypeId = rt.ResourceTypeId
-                               WHERE r.IsActive = 1 AND b.Slug = @bParam";
+                // BASE QUERY: Start with Joins for Slugs
+                string sql = @"
+                    SELECT r.Title, r.Description, r.FilePath, r.ContentType 
+                    FROM Resources r 
+                    INNER JOIN Boards b ON r.BoardId = b.BoardId
+                    LEFT JOIN SubCategories subc ON r.SubCategoryId = subc.SubCategoryId
+                    LEFT JOIN Subjects subj ON r.SubjectId = subj.SubjectId
+                    LEFT JOIN Chapters chap ON r.ChapterId = chap.ChapterId
+                    LEFT JOIN Years yr ON r.YearId = yr.YearId
+                    LEFT JOIN Sets st ON r.SetId = st.SetId
+                    LEFT JOIN ResourceTypes rtype ON r.ResourceTypeId = rtype.ResourceTypeId
+                    WHERE r.IsActive = 1 AND b.Slug = @b";
 
                 SqlCommand cmd = new SqlCommand();
-                cmd.Parameters.AddWithValue("@bParam", b);
+                cmd.Connection = con;
 
-                // --- THE FIX FOR SUBJECT VISIBILITY ---
-                // If a Subject is selected, we filter by Subject but STOP forcing the SubCategoryId.
-                // This allows resources that are ONLY linked to a Subject to appear.
+                // Fix for the "@b not supplied" error: ensure it's never a C# null
+                cmd.Parameters.AddWithValue("@b", b ?? (object)DBNull.Value);
+
+                // --- GLOBAL FILTERS ---
+                if (!string.IsNullOrEmpty(sc))
+                {
+                    sql += " AND subc.Slug = @sc";
+                    cmd.Parameters.AddWithValue("@sc", sc);
+                }
+                if (!string.IsNullOrEmpty(rt))
+                {
+                    sql += " AND rtype.Slug = @rt";
+                    cmd.Parameters.AddWithValue("@rt", rt);
+                }
+
+                // --- DYNAMIC PATH SILOS (The Fix) ---
+                // Rule: If the URL has it, match the Slug. If it DOESN'T, force the DB column to be NULL.
+
+                // Subject Filter
                 if (!string.IsNullOrEmpty(s))
                 {
-                    sql += " AND r.SubjectId = (SELECT SubjectId FROM Subjects WHERE Slug = @sParam)";
-                    cmd.Parameters.AddWithValue("@sParam", s);
+                    sql += " AND subj.Slug = @s";
+                    cmd.Parameters.AddWithValue("@s", s);
                 }
-                // If NO subject is selected, we still filter by SubCategory (Class-wise view)
-                else if (!string.IsNullOrEmpty(sc))
+                else
                 {
-                    sql += " AND r.SubCategoryId = (SELECT SubCategoryId FROM SubCategories WHERE Slug = @scParam)";
-                    cmd.Parameters.AddWithValue("@scParam", sc);
+                    sql += " AND r.SubjectId IS NULL";
                 }
 
-                // --- CHAPTER WISE RESOURCE ---
+                // Chapter Filter
                 if (!string.IsNullOrEmpty(c))
                 {
-                    sql += " AND r.ChapterId = (SELECT ChapterId FROM Chapters WHERE Slug = @cParam)";
-                    cmd.Parameters.AddWithValue("@cParam", c);
+                    sql += " AND chap.Slug = @c";
+                    cmd.Parameters.AddWithValue("@c", c);
+                }
+                else
+                {
+                    sql += " AND r.ChapterId IS NULL";
                 }
 
-                // --- YEAR WISE RESOURCE (Competitive) ---
+                // Year Filter
                 if (!string.IsNullOrEmpty(y))
                 {
-                    sql += " AND r.YearId = (SELECT YearId FROM Years WHERE YearName = @yParam)";
-                    cmd.Parameters.AddWithValue("@yParam", y);
+                    sql += " AND (yr.YearName = @y OR yr.Slug = @y)";
+                    cmd.Parameters.AddWithValue("@y", y);
+                }
+                else
+                {
+                    sql += " AND r.YearId IS NULL";
                 }
 
-                // --- SET WISE RESOURCE (Competitive) ---
+                // Set Filter
                 if (!string.IsNullOrEmpty(set))
                 {
-                    sql += " AND r.SetId = (SELECT SetId FROM Sets WHERE Slug = @setParam)";
-                    cmd.Parameters.AddWithValue("@setParam", set);
+                    sql += " AND st.Slug = @set";
+                    cmd.Parameters.AddWithValue("@set", set);
                 }
-
-                // --- RESOURCE TYPE FILTER (Tabs) ---
-                if (!string.IsNullOrEmpty(resType))
+                else
                 {
-                    sql += " AND rt.Slug = @resTypeParam";
-                    cmd.Parameters.AddWithValue("@resTypeParam", resType);
+                    sql += " AND r.SetId IS NULL";
                 }
 
                 cmd.CommandText = sql;
-                cmd.Connection = con;
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
 
                 try
                 {
                     con.Open();
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
                     da.Fill(dt);
+
                     rptResources.DataSource = dt;
                     rptResources.DataBind();
-                    phEmpty.Visible = (dt.Rows.Count == 0); // Show "No Resources" only if count is 0
+
+                    if (phEmpty != null) phEmpty.Visible = (dt.Rows.Count == 0);
                 }
-                catch { /* Handle error */ }
+                catch (SqlException)
+                {
+                    // Log error
+                }
             }
         }
 
-        // Helper methods for UI styling
-        protected string GetTheme(string type)
-        {
-            string t = type.ToLower();
-            if (t.Contains("pdf")) return "bg-pdf";
-            if (t.Contains("image")) return "bg-img";
-            if (t.Contains("video")) return "bg-vid";
-            return "bg-gen";
-        }
-
-        protected string GetIcon(string type)
-        {
-            string t = type.ToLower();
-            if (t.Contains("pdf")) return "fas fa-file-pdf";
-            if (t.Contains("image")) return "fas fa-file-image";
-            if (t.Contains("video")) return "fas fa-play-circle";
-            return "fas fa-file-alt";
-        }
+        protected string GetTheme(string type) => (type ?? "").ToLower().Contains("pdf") ? "bg-pdf" : "bg-gen";
+        protected string GetIcon(string type) => (type ?? "").ToLower().Contains("pdf") ? "fas fa-file-pdf" : "fas fa-file-alt";
     }
 }
