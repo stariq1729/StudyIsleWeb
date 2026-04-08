@@ -38,7 +38,8 @@
                 <ItemTemplate>
                     <div class="col-md-4 col-sm-6">
                         <%-- Dynamic URL Logic based on Board Type --%>
-                        <a href='<%# GetDynamicUrl(Eval("Slug"), Eval("IsCompetitive")) %>' class="text-decoration-none">
+                        <a href='<%# GetDynamicUrl(Eval("SubCategoryId"), Eval("IsCompetitive")) %>' class="text-decoration-none">
+                            
                             <div class="subcat-card">
                                 <img src='<%# "/Uploads/SubCatIcons/" + (Eval("IconImage") == DBNull.Value ? "default-cat.png" : Eval("IconImage")) %>' class="subcat-icon" alt="Icon" />
                                 <div class="subcat-name"><%# Eval("SubCategoryName") %></div>

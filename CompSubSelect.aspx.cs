@@ -11,7 +11,6 @@ namespace StudyIsleWeb
     {
         private readonly string cs = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
 
-        // Mode: "Subject" or "Year"
         protected string ViewMode
         {
             get { return ViewState["ViewMode"]?.ToString() ?? "Subject"; }
@@ -22,54 +21,59 @@ namespace StudyIsleWeb
         {
             if (!IsPostBack)
             {
-                string board = Request.QueryString["board"];
-                string subcat = Request.QueryString["subcat"];
-                string subject = Request.QueryString["subject"]; // Current selection if redirected back
+                string bid = Request.QueryString["bid"];
+                string scid = Request.QueryString["scid"];
+                string sid = Request.QueryString["sid"]; // optional
 
-                if (string.IsNullOrEmpty(board) || string.IsNullOrEmpty(subcat))
+                if (string.IsNullOrEmpty(bid) || string.IsNullOrEmpty(scid))
                 {
                     Response.Redirect("Default.aspx");
                     return;
                 }
 
-                HandleWaterfallLogic(board, subcat, subject);
+                HandleWaterfallLogic(Convert.ToInt32(bid), Convert.ToInt32(scid), sid);
             }
         }
 
-        private void HandleWaterfallLogic(string bSlug, string scSlug, string sSlug)
+        private void HandleWaterfallLogic(int boardId, int subCatId, string sIdStr)
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
                 con.Open();
 
-                // 1. Fetch Basic Metadata for Header
-                int boardId = 0, subCatId = 0;
-                string metaSql = @"SELECT B.BoardId, B.BoardName, SC.SubCategoryId, SC.SubCategoryName 
+                // 🔹 1. Metadata
+                string metaSql = @"SELECT B.BoardName, SC.SubCategoryName 
                                    FROM Boards B 
-                                   CROSS JOIN SubCategories SC 
-                                   WHERE B.Slug=@b AND SC.Slug=@sc";
+                                   INNER JOIN SubCategories SC ON SC.SubCategoryId = @scid
+                                   WHERE B.BoardId = @bid";
 
                 SqlCommand cmdMeta = new SqlCommand(metaSql, con);
-                cmdMeta.Parameters.AddWithValue("@b", bSlug);
-                cmdMeta.Parameters.AddWithValue("@sc", scSlug);
+                cmdMeta.Parameters.AddWithValue("@bid", boardId);
+                cmdMeta.Parameters.AddWithValue("@scid", subCatId);
 
                 using (SqlDataReader dr = cmdMeta.ExecuteReader())
                 {
                     if (dr.Read())
                     {
-                        boardId = (int)dr["BoardId"];
-                        subCatId = (int)dr["SubCategoryId"];
                         litBoardName.Text = dr["BoardName"].ToString();
                         litSubCatName.Text = dr["SubCategoryName"].ToString();
                     }
-                    else { Response.Redirect("Default.aspx"); return; }
+                    else
+                    {
+                        Response.Redirect("Default.aspx");
+                        return;
+                    }
                 }
 
-                // 2. WATERFALL STAGE 1: Check if we need to show Subjects list
-                if (string.IsNullOrEmpty(sSlug))
+                int subjectId = string.IsNullOrEmpty(sIdStr) ? 0 : Convert.ToInt32(sIdStr);
+
+                // 🔹 2. SUBJECT STAGE
+                if (subjectId == 0)
                 {
-                    DataTable dtSubjects = GetDataTable(con, @"SELECT SubjectId, SubjectName as DisplayName, Slug, IconImage, Description 
-                                                            FROM Subjects WHERE BoardId=@bid AND SubCategoryId=@scid AND IsActive=1", boardId, subCatId);
+                    DataTable dtSubjects = GetDataTable(con, @"SELECT SubjectId, SubjectName as DisplayName, SubjectId as Id, IconImage, Description 
+                                                              FROM Subjects 
+                                                              WHERE BoardId=@bid AND SubCategoryId=@scid AND IsActive=1",
+                                                              boardId, subCatId);
 
                     if (dtSubjects.Rows.Count > 0)
                     {
@@ -80,25 +84,30 @@ namespace StudyIsleWeb
                     }
                     else
                     {
-                        // Skip directly to Year check if no subjects exist for this Board/SubCat
-                        CheckForNextLogicalLevel(con, boardId, subCatId, 0, bSlug, scSlug, "");
+                        CheckForNextLogicalLevel(con, boardId, subCatId, 0);
                     }
                 }
                 else
                 {
-                    // 3. WATERFALL STAGE 2: Subject is already in URL, check for Years mapped to it
-                    int subjectId = GetIdFromSlug(con, "Subjects", "SubjectId", sSlug);
-                    CheckForNextLogicalLevel(con, boardId, subCatId, subjectId, bSlug, scSlug, sSlug);
+                    CheckForNextLogicalLevel(con, boardId, subCatId, subjectId);
                 }
             }
         }
 
-        private void CheckForNextLogicalLevel(SqlConnection con, int bid, int scid, int sid, string bSlug, string scSlug, string sSlug)
+        private void CheckForNextLogicalLevel(SqlConnection con, int bid, int scid, int sid)
         {
-            // A. Check for YearMappings specifically for this selection
-            string yearSql = @"SELECT Y.YearName as DisplayName, Y.YearName as Slug, NULL as IconImage, 'Resources for ' + Y.YearName as Description 
-                               FROM YearMappings YM INNER JOIN Years Y ON YM.YearId = Y.YearId 
-                               WHERE YM.BoardId=@bid AND YM.SubCategoryId=@scid AND (YM.SubjectId=@sid OR YM.SubjectId IS NULL) AND YM.IsActive=1";
+            // 🔹 YEAR CHECK
+            string yearSql = @"SELECT 
+                                Y.YearName as DisplayName, 
+                                Y.YearId as Id, 
+                                NULL as IconImage, 
+                                'Resources for ' + Y.YearName as Description 
+                               FROM YearMappings YM 
+                               INNER JOIN Years Y ON YM.YearId = Y.YearId 
+                               WHERE YM.BoardId=@bid 
+                               AND YM.SubCategoryId=@scid 
+                               AND (YM.SubjectId=@sid OR YM.SubjectId IS NULL) 
+                               AND YM.IsActive=1";
 
             DataTable dtYears = GetDataTable(con, yearSql, bid, scid, sid);
 
@@ -111,28 +120,27 @@ namespace StudyIsleWeb
             }
             else
             {
-                // B. If no Years, check for Chapters
+                // 🔹 CHAPTER CHECK
                 string chapSql = "SELECT COUNT(*) FROM Chapters WHERE BoardId=@bid AND (SubjectId=@sid OR @sid=0)";
                 SqlCommand cmdChap = new SqlCommand(chapSql, con);
                 cmdChap.Parameters.AddWithValue("@bid", bid);
                 cmdChap.Parameters.AddWithValue("@sid", sid);
+
                 int chapCount = (int)cmdChap.ExecuteScalar();
 
-                string res = Request.QueryString["res"];
+                string rid = Request.QueryString["rid"];
 
                 if (chapCount > 0)
                 {
-                    Response.Redirect($"Chapters.aspx?board={bSlug}&subcat={scSlug}&subject={sSlug}&res={res}");
+                    Response.Redirect($"Chapters.aspx?bid={bid}&rid={rid}&scid={scid}&sid={sid}");
                 }
                 else
                 {
-                    // C. Fallback: Direct to final resource view if no more choices are needed
-                    Response.Redirect($"ViewResources.aspx?board={bSlug}&subcat={scSlug}&subject={sSlug}&res={res}");
+                    Response.Redirect($"ViewResource.aspx?bid={bid}&rid={rid}&scid={scid}&sid={sid}");
                 }
             }
         }
 
-        // This method name MUST match the call in CompSubSelect.aspx (Screenshot 495 Line 39)
         protected string GetIcon(object icon)
         {
             if (ViewMode == "Year") return "/Uploads/Icons/calendar-icon.png";
@@ -143,19 +151,21 @@ namespace StudyIsleWeb
             return "/Uploads/SubjectIcons/" + iconName;
         }
 
-        protected string GetNavigationUrl(object slug)
+        protected string GetNavigationUrl(object id)
         {
-            string b = Request.QueryString["board"];
-            string r = Request.QueryString["res"];
-            string sc = Request.QueryString["subcat"];
-            string s = Request.QueryString["subject"];
+            string bid = Request.QueryString["bid"];
+            string rid = Request.QueryString["rid"];
+            string scid = Request.QueryString["scid"];
+            string sid = Request.QueryString["sid"];
 
             if (ViewMode == "Subject")
-                // Loop back to this page to check for Years after Subject is picked
-                return $"CompSubSelect.aspx?board={b}&res={r}&subcat={sc}&subject={slug}";
+            {
+                return $"CompSubSelect.aspx?bid={bid}&rid={rid}&scid={scid}&sid={id}";
+            }
             else
-                // Navigate to Sets selection if Year is picked
-                return $"Sets.aspx?board={b}&res={r}&subcat={sc}&subject={s}&year={slug}";
+            {
+                return $"Sets.aspx?bid={bid}&rid={rid}&scid={scid}&sid={sid}&yid={id}";
+            }
         }
 
         private DataTable GetDataTable(SqlConnection con, string sql, int bid, int scid, int sid = 0)
@@ -164,18 +174,12 @@ namespace StudyIsleWeb
             cmd.Parameters.AddWithValue("@bid", bid);
             cmd.Parameters.AddWithValue("@scid", scid);
             cmd.Parameters.AddWithValue("@sid", sid);
+
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
-            return dt;
-        }
 
-        private int GetIdFromSlug(SqlConnection con, string table, string idCol, string slug)
-        {
-            SqlCommand cmd = new SqlCommand($"SELECT {idCol} FROM {table} WHERE Slug=@s", con);
-            cmd.Parameters.AddWithValue("@s", slug);
-            object res = cmd.ExecuteScalar();
-            return res != null ? (int)res : 0;
+            return dt;
         }
     }
 }

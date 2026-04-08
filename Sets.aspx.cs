@@ -14,46 +14,56 @@ namespace StudyIsleWeb
         {
             if (!IsPostBack)
             {
-                string board = Request.QueryString["board"];
-                string res = Request.QueryString["res"];
-                string subcat = Request.QueryString["subcat"];
-                string year = Request.QueryString["year"];
-                string chapter = Request.QueryString["chapter"];
+                string bid = Request.QueryString["bid"];
+                string rid = Request.QueryString["rid"];
+                string scid = Request.QueryString["scid"];
+                string yid = Request.QueryString["yid"];
+                string cid = Request.QueryString["cid"];
 
-                if (string.IsNullOrEmpty(board) || string.IsNullOrEmpty(subcat))
+                if (string.IsNullOrEmpty(bid) || string.IsNullOrEmpty(scid))
                 {
                     Response.Redirect("Default.aspx");
                     return;
                 }
 
-                LoadSets(board, res, subcat, year, chapter);
+                LoadSets(
+                    Convert.ToInt32(bid),
+                    rid,
+                    Convert.ToInt32(scid),
+                    yid,
+                    cid
+                );
             }
         }
 
-        private void LoadSets(string bSlug, string rSlug, string scSlug, string ySlug, string cSlug)
+        private void LoadSets(int boardId, string rId, int subCatId, string yIdStr, string cIdStr)
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
                 con.Open();
 
-                // We now select the actual 'Slug' column you just created
-                string sql = "SELECT SetName, Slug FROM Sets WHERE IsActive = 1 ";
+                string sql = "SELECT SetName, SetId FROM Sets WHERE IsActive = 1";
 
-                if (!string.IsNullOrEmpty(cSlug))
+                if (!string.IsNullOrEmpty(cIdStr))
                 {
-                    sql += " AND ChapterId = (SELECT ChapterId FROM Chapters WHERE Slug = @chapter)";
+                    sql += " AND ChapterId = @cid";
                 }
-                else if (!string.IsNullOrEmpty(ySlug))
+                else if (!string.IsNullOrEmpty(yIdStr))
                 {
-                    sql += " AND YearId = (SELECT YearId FROM Years WHERE YearName = @year)";
+                    sql += " AND YearId = @yid";
                 }
 
-                sql += " AND SubCategoryId = (SELECT SubCategoryId FROM SubCategories WHERE Slug = @subcat)";
+                sql += " AND SubCategoryId = @scid";
 
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.AddWithValue("@subcat", scSlug);
-                if (!string.IsNullOrEmpty(cSlug)) cmd.Parameters.AddWithValue("@chapter", cSlug);
-                if (!string.IsNullOrEmpty(ySlug)) cmd.Parameters.AddWithValue("@year", ySlug);
+
+                cmd.Parameters.AddWithValue("@scid", subCatId);
+
+                if (!string.IsNullOrEmpty(cIdStr))
+                    cmd.Parameters.AddWithValue("@cid", Convert.ToInt32(cIdStr));
+
+                if (!string.IsNullOrEmpty(yIdStr))
+                    cmd.Parameters.AddWithValue("@yid", Convert.ToInt32(yIdStr));
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -66,28 +76,34 @@ namespace StudyIsleWeb
                 }
                 else
                 {
-                    // If no specific sets exist, push directly to ViewResource.aspx
-                    string redirectUrl = $"ViewResource.aspx?board={bSlug}&res={rSlug}&subcat={scSlug}";
-                    if (!string.IsNullOrEmpty(ySlug)) redirectUrl += $"&year={ySlug}";
-                    if (!string.IsNullOrEmpty(cSlug)) redirectUrl += $"&chapter={cSlug}";
+                    string redirectUrl = $"ViewResource.aspx?bid={boardId}&rid={rId}&scid={subCatId}";
+
+                    if (!string.IsNullOrEmpty(yIdStr))
+                        redirectUrl += $"&yid={yIdStr}";
+
+                    if (!string.IsNullOrEmpty(cIdStr))
+                        redirectUrl += $"&cid={cIdStr}";
 
                     Response.Redirect(redirectUrl);
                 }
             }
         }
 
-        protected string GetResourceUrl(object setSlug)
+        protected string GetResourceUrl(object setId)
         {
-            string b = Request.QueryString["board"];
-            string r = Request.QueryString["res"];
-            string sc = Request.QueryString["subcat"];
-            string y = Request.QueryString["year"];
-            string c = Request.QueryString["chapter"];
+            string bid = Request.QueryString["bid"];
+            string rid = Request.QueryString["rid"];
+            string scid = Request.QueryString["scid"];
+            string yid = Request.QueryString["yid"];
+            string cid = Request.QueryString["cid"];
 
-            // The 'set' parameter will now carry the SetName text
-            string url = $"ViewResource.aspx?board={b}&res={r}&subcat={sc}&set={HttpUtility.UrlEncode(setSlug.ToString())}";
-            if (!string.IsNullOrEmpty(y)) url += $"&year={y}";
-            if (!string.IsNullOrEmpty(c)) url += $"&chapter={c}";
+            string url = $"ViewResource.aspx?bid={bid}&rid={rid}&scid={scid}&setid={setId}";
+
+            if (!string.IsNullOrEmpty(yid))
+                url += $"&yid={yid}";
+
+            if (!string.IsNullOrEmpty(cid))
+                url += $"&cid={cid}";
 
             return url;
         }

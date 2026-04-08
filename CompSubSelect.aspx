@@ -34,7 +34,7 @@
             <asp:Repeater ID="rptData" runat="server">
                 <ItemTemplate>
                     <div class="col-lg-3 col-md-4 col-sm-6">
-                        <a href='<%# GetNavigationUrl(Eval("Slug")) %>' class="text-decoration-none">
+                        <a href='<%# GetNavigationUrl(Eval("Id")) %>' class="text-decoration-none">
                             <div class="subject-card">
                                 <img src='<%# GetIcon(Eval("IconImage")) %>' class="sub-icon" alt="Icon" />
                                 <div class="sub-name"><%# Eval("DisplayName") %></div>

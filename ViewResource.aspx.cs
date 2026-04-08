@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web;
 
 namespace StudyIsleWeb
 {
@@ -13,94 +14,100 @@ namespace StudyIsleWeb
         {
             if (!IsPostBack)
             {
-                BindAllResources();
+                BindResources();
             }
         }
 
-        private void BindAllResources()
+        private void BindResources()
         {
-            // Capture all slugs from the URL
-            string b = Request.QueryString["board"];
-            string sc = Request.QueryString["subcat"]; // Usually 'notes', 'videos', etc.
-            string s = Request.QueryString["subject"];
-            string c = Request.QueryString["chapter"];
-            string y = Request.QueryString["year"];
-            string set = Request.QueryString["set"];
-            string resType = Request.QueryString["res"]; // The explicit resource type slug
+            string bid = Request.QueryString["bid"];
+            string rid = Request.QueryString["rid"];
+            string scid = Request.QueryString["scid"];
+            string sid = Request.QueryString["sid"];
+            string cid = Request.QueryString["cid"];
+            string yid = Request.QueryString["yid"];
+            string setid = Request.QueryString["setid"];
+
+            if (string.IsNullOrEmpty(bid))
+            {
+                Response.Redirect("Default.aspx");
+                return;
+            }
 
             using (SqlConnection con = new SqlConnection(cs))
             {
-                // BASE QUERY: Start with Board and ResourceType join
-                string sql = @"SELECT r.Title, r.Description, r.FilePath, r.ContentType 
-                               FROM Resources r 
-                               INNER JOIN Boards b ON r.BoardId = b.BoardId
-                               INNER JOIN ResourceTypes rt ON r.ResourceTypeId = rt.ResourceTypeId
-                               WHERE r.IsActive = 1 AND b.Slug = @bParam";
+                string sql = @"
+        SELECT r.Title, r.Description, r.FilePath, r.ContentType
+        FROM Resources r
+        WHERE r.IsActive = 1
+        AND r.BoardId = @bid";
 
                 SqlCommand cmd = new SqlCommand();
-                cmd.Parameters.AddWithValue("@bParam", b);
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@bid", Convert.ToInt32(bid));
 
-                // --- THE FIX FOR SUBJECT VISIBILITY ---
-                // If a Subject is selected, we filter by Subject but STOP forcing the SubCategoryId.
-                // This allows resources that are ONLY linked to a Subject to appear.
-                if (!string.IsNullOrEmpty(s))
+                // =====================================================
+                // 🔥 CONTEXT BASED FILTERING (REAL FIX)
+                // =====================================================
+
+                // ✅ 1. SET
+                if (!string.IsNullOrEmpty(setid))
                 {
-                    sql += " AND r.SubjectId = (SELECT SubjectId FROM Subjects WHERE Slug = @sParam)";
-                    cmd.Parameters.AddWithValue("@sParam", s);
-                }
-                // If NO subject is selected, we still filter by SubCategory (Class-wise view)
-                else if (!string.IsNullOrEmpty(sc))
-                {
-                    sql += " AND r.SubCategoryId = (SELECT SubCategoryId FROM SubCategories WHERE Slug = @scParam)";
-                    cmd.Parameters.AddWithValue("@scParam", sc);
+                    sql += " AND r.SetId = @setid";
+                    cmd.Parameters.AddWithValue("@setid", Convert.ToInt32(setid));
                 }
 
-                // --- CHAPTER WISE RESOURCE ---
-                if (!string.IsNullOrEmpty(c))
+                // ✅ 2. YEAR (DO NOT FORCE SUBCAT OR SUBJECT)
+                else if (!string.IsNullOrEmpty(yid))
                 {
-                    sql += " AND r.ChapterId = (SELECT ChapterId FROM Chapters WHERE Slug = @cParam)";
-                    cmd.Parameters.AddWithValue("@cParam", c);
+                    sql += " AND r.YearId = @yid";
+                    cmd.Parameters.AddWithValue("@yid", Convert.ToInt32(yid));
                 }
 
-                // --- YEAR WISE RESOURCE (Competitive) ---
-                if (!string.IsNullOrEmpty(y))
+                // ✅ 3. CHAPTER
+                else if (!string.IsNullOrEmpty(cid))
                 {
-                    sql += " AND r.YearId = (SELECT YearId FROM Years WHERE YearName = @yParam)";
-                    cmd.Parameters.AddWithValue("@yParam", y);
+                    sql += " AND r.ChapterId = @cid";
+                    cmd.Parameters.AddWithValue("@cid", Convert.ToInt32(cid));
                 }
 
-                // --- SET WISE RESOURCE (Competitive) ---
-                if (!string.IsNullOrEmpty(set))
+                // ✅ 4. SUBJECT
+                else if (!string.IsNullOrEmpty(sid))
                 {
-                    sql += " AND r.SetId = (SELECT SetId FROM Sets WHERE Slug = @setParam)";
-                    cmd.Parameters.AddWithValue("@setParam", set);
+                    sql += " AND r.SubjectId = @sid";
+                    cmd.Parameters.AddWithValue("@sid", Convert.ToInt32(sid));
                 }
 
-                // --- RESOURCE TYPE FILTER (Tabs) ---
-                if (!string.IsNullOrEmpty(resType))
+                // ✅ 5. SUBCATEGORY (ONLY IF NOTHING ELSE)
+                else if (!string.IsNullOrEmpty(scid))
                 {
-                    sql += " AND rt.Slug = @resTypeParam";
-                    cmd.Parameters.AddWithValue("@resTypeParam", resType);
+                    sql += " AND r.SubCategoryId = @scid";
+                    cmd.Parameters.AddWithValue("@scid", Convert.ToInt32(scid));
+                }
+
+                // ✅ Resource Type
+                if (!string.IsNullOrEmpty(rid))
+                {
+                    sql += " AND r.ResourceTypeId = @rid";
+                    cmd.Parameters.AddWithValue("@rid", Convert.ToInt32(rid));
                 }
 
                 cmd.CommandText = sql;
-                cmd.Connection = con;
+
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
 
-                try
-                {
-                    con.Open();
-                    da.Fill(dt);
-                    rptResources.DataSource = dt;
-                    rptResources.DataBind();
-                    phEmpty.Visible = (dt.Rows.Count == 0); // Show "No Resources" only if count is 0
-                }
-                catch { /* Handle error */ }
+                con.Open();
+                da.Fill(dt);
+
+                rptResources.DataSource = dt;
+                rptResources.DataBind();
+
+                phEmpty.Visible = (dt.Rows.Count == 0);
             }
         }
 
-        // Helper methods for UI styling
+        // UI helpers (unchanged)
         protected string GetTheme(string type)
         {
             string t = type.ToLower();

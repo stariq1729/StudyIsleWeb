@@ -56,8 +56,12 @@ namespace StudyIsleWeb
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                // Added B.IsCompetitive to the select list
-                string query = @"SELECT S.SubCategoryName, S.Slug, S.IconImage, S.Description, B.IsCompetitive
+                string query = @"SELECT 
+                                    S.SubCategoryId,
+                                    S.SubCategoryName, 
+                                    S.IconImage, 
+                                    S.Description, 
+                                    B.IsCompetitive
                                  FROM SubCategories S
                                  INNER JOIN Boards B ON S.BoardId = B.BoardId
                                  INNER JOIN ResourceTypes RT ON S.ResourceTypeId = RT.ResourceTypeId
@@ -77,22 +81,46 @@ namespace StudyIsleWeb
             }
         }
 
-        // Logic to determine path: CBSE vs Competitive
-        protected string GetDynamicUrl(object subCatSlug, object isCompetitive)
+        // 🔥 ID-based navigation
+        protected string GetDynamicUrl(object subCatId, object isCompetitive)
         {
-            string board = Request.QueryString["board"];
-            string res = Request.QueryString["res"];
+            string boardSlug = Request.QueryString["board"];
+            string resSlug = Request.QueryString["res"];
+
             bool competitive = isCompetitive != DBNull.Value && Convert.ToBoolean(isCompetitive);
+
+            int bid = 0, rid = 0;
+
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                string query = @"SELECT B.BoardId, RT.ResourceTypeId
+                                 FROM Boards B, ResourceTypes RT
+                                 WHERE B.Slug = @b AND RT.Slug = @r";
+
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@b", boardSlug);
+                cmd.Parameters.AddWithValue("@r", resSlug);
+
+                con.Open();
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    if (dr.Read())
+                    {
+                        bid = Convert.ToInt32(dr["BoardId"]);
+                        rid = Convert.ToInt32(dr["ResourceTypeId"]);
+                    }
+                }
+            }
+
+            int scid = Convert.ToInt32(subCatId);
 
             if (competitive)
             {
-                // Send JEE/NEET users to the NEW specialized page
-                return $"CompSubSelect.aspx?board={board}&res={res}&subcat={subCatSlug}";
+                return $"CompSubSelect.aspx?bid={bid}&rid={rid}&scid={scid}";
             }
             else
             {
-                // Send CBSE/ICSE users to the STANDARD selection page
-                return $"BoardResource.aspx?board={board}&res={res}&subcat={subCatSlug}";
+                return $"BoardResource.aspx?bid={bid}&rid={rid}&scid={scid}";
             }
         }
     }

@@ -36,7 +36,7 @@
             <asp:Repeater ID="rptSets" runat="server">
                 <ItemTemplate>
                     <div class="col-md-6 col-lg-6">
-                        <a href='<%# GetResourceUrl(Eval("Slug")) %>' class="set-card">
+                        <a href='<%# GetResourceUrl(Eval("SetId")) %>' class="set-card">
                             <div class="set-info">
                                 <div class="set-icon"><i class="far fa-file-pdf"></i></div>
                                 <div class="set-name"><%# Eval("SetName") %></div>
