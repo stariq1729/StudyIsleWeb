@@ -114,6 +114,24 @@ namespace StudyIsleWeb.Admin.Chapters
         protected global::System.Web.UI.WebControls.CheckBox chkIsActive;
 
         /// <summary>
+        /// chkIsQuizEnabled control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkIsQuizEnabled;
+
+        /// <summary>
+        /// chkIsFlashcardEnabled control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkIsFlashcardEnabled;
+
+        /// <summary>
         /// btnSave control.
         /// </summary>
         /// <remarks>

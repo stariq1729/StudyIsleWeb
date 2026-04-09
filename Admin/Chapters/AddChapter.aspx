@@ -75,6 +75,22 @@
                             <label class="form-check-label">Is Active</label>
                         </div>
                     </div>
+                    <%--// adding a toggle for quiz and flashcards--%>
+                    <div class="col-md-6">
+    <label class="form-label fw-bold text-success">Content Type</label>
+    
+    <div class="form-check">
+        <asp:CheckBox ID="chkIsQuizEnabled" runat="server" CssClass="form-check-input" />
+        <label class="form-check-label">Enable Quiz</label>
+    </div>
+
+    <div class="form-check">
+        <asp:CheckBox ID="chkIsFlashcardEnabled" runat="server" CssClass="form-check-input" />
+        <label class="form-check-label">Enable Flashcards</label>
+    </div>
+
+    <small class="text-muted">Select only one. Leave both unchecked for normal resources.</small>
+</div>
 
                     <div class="col-12 mt-4 border-top pt-3">
                         <asp:Button ID="btnSave" runat="server" Text="Create Chapter" CssClass="btn btn-success px-5" OnClick="btnSave_Click" />

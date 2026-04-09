@@ -60,6 +60,14 @@ namespace StudyIsleWeb.Admin.Chapters
         {
             try
             {
+                // ✅ VALIDATION: Prevent both checkbox selected
+                if (chkIsQuizEnabled.Checked && chkIsFlashcardEnabled.Checked)
+                {
+                    lblMessage.Text = "⚠️ Only one option allowed: Quiz OR Flashcards.";
+                    lblMessage.ForeColor = System.Drawing.Color.Red;
+                    return;
+                }
+
                 if (ddlBoard.SelectedValue == "0" || string.IsNullOrWhiteSpace(txtChapterName.Text))
                 {
                     lblMessage.Text = "⚠️ Board and Chapter Name are required.";
@@ -69,18 +77,20 @@ namespace StudyIsleWeb.Admin.Chapters
 
                 using (SqlConnection con = new SqlConnection(cs))
                 {
-                    // Updated SQL to include your new nullable columns
-                    string sql = @"INSERT INTO Chapters (BoardId, ResourceTypeId, SubCategoryId, SubjectId, ChapterName, Slug, DisplayOrder, IsActive, CreatedAt) 
-                                   VALUES (@BID, @RTID, @SCID, @SID, @Name, @Slug, @Order, @Active, GETDATE())";
+                    string sql = @"INSERT INTO Chapters 
+                    (BoardId, ResourceTypeId, SubCategoryId, SubjectId, ChapterName, Slug, DisplayOrder, IsActive, IsQuizEnabled, IsFlashcardEnabled, CreatedAt) 
+                    VALUES 
+                    (@BID, @RTID, @SCID, @SID, @Name, @Slug, @Order, @Active, @IsQuiz, @IsFlash, GETDATE())";
 
                     SqlCommand cmd = new SqlCommand(sql, con);
+
                     cmd.Parameters.AddWithValue("@BID", ddlBoard.SelectedValue);
                     cmd.Parameters.AddWithValue("@RTID", ddlResourceType.SelectedValue != "0" ? (object)ddlResourceType.SelectedValue : DBNull.Value);
 
-                    // Handle SubCategory/Class logic
-                    cmd.Parameters.AddWithValue("@SCID", phSubCategory.Visible && ddlSubCategory.SelectedValue != "0" ? (object)ddlSubCategory.SelectedValue : DBNull.Value);
+                    cmd.Parameters.AddWithValue("@SCID", phSubCategory.Visible && ddlSubCategory.SelectedValue != "0"
+                        ? (object)ddlSubCategory.SelectedValue
+                        : DBNull.Value);
 
-                    // The Fix: Explicitly send DBNull if Subject is not selected
                     if (ddlSubject.SelectedIndex > 0)
                         cmd.Parameters.AddWithValue("@SID", ddlSubject.SelectedValue);
                     else
@@ -91,8 +101,13 @@ namespace StudyIsleWeb.Admin.Chapters
                     cmd.Parameters.AddWithValue("@Order", string.IsNullOrEmpty(txtDisplayOrder.Text) ? 0 : int.Parse(txtDisplayOrder.Text));
                     cmd.Parameters.AddWithValue("@Active", chkIsActive.Checked);
 
+                    // ✅ NEW PARAMETERS
+                    cmd.Parameters.AddWithValue("@IsQuiz", chkIsQuizEnabled.Checked);
+                    cmd.Parameters.AddWithValue("@IsFlash", chkIsFlashcardEnabled.Checked);
+
                     con.Open();
                     cmd.ExecuteNonQuery();
+
                     lblMessage.Text = "✅ Chapter added successfully!";
                     lblMessage.ForeColor = System.Drawing.Color.Green;
                 }
@@ -111,7 +126,8 @@ namespace StudyIsleWeb.Admin.Chapters
             {
                 SqlCommand cmd = new SqlCommand("SELECT ISNULL(IsCompetitive, 0) FROM Boards WHERE BoardId=@ID", con);
                 cmd.Parameters.AddWithValue("@ID", boardId);
-                con.Open(); return Convert.ToBoolean(cmd.ExecuteScalar());
+                con.Open();
+                return Convert.ToBoolean(cmd.ExecuteScalar());
             }
         }
 
@@ -122,14 +138,19 @@ namespace StudyIsleWeb.Admin.Chapters
                 SqlDataAdapter da = new SqlDataAdapter(sql, con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
-                ddl.DataSource = dt; ddl.DataTextField = text; ddl.DataValueField = value; ddl.DataBind();
+                ddl.DataSource = dt;
+                ddl.DataTextField = text;
+                ddl.DataValueField = value;
+                ddl.DataBind();
                 ddl.Items.Insert(0, new ListItem(defaultText, "0"));
             }
         }
 
         protected void txtChapterName_TextChanged(object sender, EventArgs e)
         {
-            txtSlug.Text = Regex.Replace(txtChapterName.Text.ToLower(), @"[^a-z0-9]", "-").Replace("--", "-").Trim('-');
+            txtSlug.Text = Regex.Replace(txtChapterName.Text.ToLower(), @"[^a-z0-9]", "-")
+                                .Replace("--", "-")
+                                .Trim('-');
         }
     }
 }
