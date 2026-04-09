@@ -90,6 +90,7 @@
     <Content Include="Admin\Classes\EditClass.aspx" />
     <Content Include="Admin\Classes\ManageClasses.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
+    <Content Include="Admin\Quiz\AddQuestion.aspx" />
     <Content Include="Admin\Quiz\AddQuiz.aspx" />
     <Content Include="Admin\Quiz\ManageQuiz.aspx" />
     <Content Include="Admin\Resources\AddResources.aspx" />
@@ -238,6 +239,13 @@
     </Compile>
     <Compile Include="Admin\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Quiz\AddQuestion.aspx.cs">
+      <DependentUpon>AddQuestion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Quiz\AddQuestion.aspx.designer.cs">
+      <DependentUpon>AddQuestion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Quiz\AddQuiz.aspx.cs">
       <DependentUpon>AddQuiz.aspx</DependentUpon>
