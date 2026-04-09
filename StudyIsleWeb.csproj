@@ -90,6 +90,8 @@
     <Content Include="Admin\Classes\EditClass.aspx" />
     <Content Include="Admin\Classes\ManageClasses.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
+    <Content Include="Admin\Quiz\AddQuiz.aspx" />
+    <Content Include="Admin\Quiz\ManageQuiz.aspx" />
     <Content Include="Admin\Resources\AddResources.aspx" />
     <Content Include="Admin\Resources\EditResource.aspx" />
     <Content Include="Admin\Resources\ManageResources.aspx" />
@@ -236,6 +238,20 @@
     </Compile>
     <Compile Include="Admin\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Quiz\AddQuiz.aspx.cs">
+      <DependentUpon>AddQuiz.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Quiz\AddQuiz.aspx.designer.cs">
+      <DependentUpon>AddQuiz.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Quiz\ManageQuiz.aspx.cs">
+      <DependentUpon>ManageQuiz.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Quiz\ManageQuiz.aspx.designer.cs">
+      <DependentUpon>ManageQuiz.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Resources\AddResources.aspx.cs">
       <DependentUpon>AddResources.aspx</DependentUpon>
