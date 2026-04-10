@@ -14,13 +14,20 @@ namespace StudyIsleWeb.Quiz
             {
                 if (Request.QueryString["quizId"] != null)
                 {
-                    int quizId = Convert.ToInt32(Request.QueryString["quizId"]);
-                    hfQuizId.Value = quizId.ToString();
-                    LoadQuizDetails(quizId);
+                    int quizId;
+                    if (int.TryParse(Request.QueryString["quizId"], out quizId))
+                    {
+                        hfQuizId.Value = quizId.ToString();
+                        LoadQuizDetails(quizId);
+                    }
+                    else
+                    {
+                        Response.Redirect("~/Quiz/QuizList.aspx");
+                    }
                 }
                 else
                 {
-                    Response.Redirect("~/Default.aspx");
+                    Response.Redirect("~/Quiz/QuizList.aspx");
                 }
             }
         }
@@ -84,9 +91,10 @@ namespace StudyIsleWeb.Quiz
         {
             int quizId = Convert.ToInt32(hfQuizId.Value);
 
-            // Store user preference
+            // Store quiz details in session
             Session["QuizId"] = quizId;
             Session["NegativeMarkingEnabled"] = chkNegativeMarking.Checked;
+            Session["NegativeMarks"] = lblNegativeMarks.Text;
 
             Response.Redirect($"~/Quiz/QuizAttempt.aspx?quizId={quizId}");
         }
