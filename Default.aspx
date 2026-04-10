@@ -42,10 +42,10 @@
 
                         <div class="class-buttons mb-4">
 
-                            <a href="/Courses.aspx?class=6" class="btn class-btn m-1">CBSE</a>
-                            <a href="/Courses.aspx?class=7" class="btn class-btn m-1">ICSE</a>
-                            <a href="/Courses.aspx?class=8" class="btn class-btn m-1">JEE</a>
-                            <a href="/Courses.aspx?class=9" class="btn class-btn m-1">NEET</a>
+                            <a href="BoardResourceTypes.aspx?board=cbse" class="btn class-btn m-1">CBSE</a>
+                            <a href="BoardResourceTypes.aspx?board=icse" class="btn class-btn m-1">ICSE</a>
+                            <a href="BoardResourceTypes.aspx?board=jee" class="btn class-btn m-1">JEE</a>
+                            <a href="BoardResourceTypes.aspx?board=neet" class="btn class-btn m-1">NEET</a>
 
                             <!-- Active Class -->
                             <%--<a href="/Courses.aspx?class=10" class="btn class-btn active m-1">Class 10</a>

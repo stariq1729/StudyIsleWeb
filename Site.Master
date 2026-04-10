@@ -40,7 +40,7 @@
 <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
     <div class="container">
 
-        <a class="navbar-brand fw-bold text-primary fs-4" href="Default.aspx">
+        <a href="Default.aspx" class="navbar-brand fw-bold text-primary fs-4" >
             StudyIsle
         </a>
 
@@ -52,7 +52,7 @@
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
 
                 <li class="nav-item">
-                    <a id="navHome" runat="server" class="nav-link nav-custom" href="Default.aspx">Home</a>
+                    <a id="navHome" runat="server" class="nav-link nav-custom" href="~/Default.aspx">Home</a>
                 </li>
 
                 <li class="nav-item dropdown position-static">
@@ -107,26 +107,26 @@
                 </li>
 
                 <li class="nav-item">
-                    <a id="navLive" runat="server" class="nav-link nav-custom" href="LiveClasses.aspx">Live Classes</a>
+                    <a id="navLive" runat="server" class="nav-link nav-custom" href="~/LiveClasses.aspx">Live Classes</a>
                 </li>
 
                 <li class="nav-item">
-                    <a id="navTest" runat="server" class="nav-link nav-custom" href="TestSeries.aspx">Test Series</a>
+                    <a id="navTest" runat="server" class="nav-link nav-custom" href="~/TestSeries.aspx">Test Series</a>
                 </li>
 
                 <li class="nav-item">
-                    <a id="navCareer" runat="server" class="nav-link nav-custom" href="CareerGuidance.aspx">Career Guidance</a>
+                    <a id="navCareer" runat="server" class="nav-link nav-custom" href="~/CareerGuidance.aspx">Career Guidance</a>
                 </li>
 
                 <li class="nav-item">
-                    <a id="navBlogs" runat="server" class="nav-link nav-custom" href="Blogs.aspx">Blogs</a>
+                    <a id="navBlogs" runat="server" class="nav-link nav-custom" href="~/Blogs.aspx">Blogs</a>
                 </li>
 
             </ul>
 
             <div class="d-flex gap-2">
-                <a href="Login.aspx" class="btn btn-outline-primary px-4">Login</a>
-                <a href="Login.aspx" class="btn btn-primary px-4">Enroll Now</a>
+                <a href="~/Login.aspx" class="btn btn-outline-primary px-4">Login</a>
+                <a href="~/Login.aspx" class="btn btn-primary px-4">Enroll Now</a>
             </div>
 
         </div>
