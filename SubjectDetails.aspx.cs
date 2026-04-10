@@ -94,7 +94,16 @@ namespace StudyIsleWeb
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string sql = "SELECT ChapterId, ChapterName FROM Chapters WHERE SubjectId = @sid AND IsActive = 1 ORDER BY ChapterName ASC";
+                string sql = @"
+            SELECT 
+                ChapterId, 
+                ChapterName,
+                ISNULL(IsQuizEnabled, 0) AS IsQuizEnabled,
+                ISNULL(IsFlashcardEnabled, 0) AS IsFlashcardEnabled
+            FROM Chapters
+            WHERE SubjectId = @sid 
+                  AND IsActive = 1
+            ORDER BY DisplayOrder, ChapterName ASC";
 
                 SqlCommand cmd = new SqlCommand(sql, con);
                 cmd.Parameters.AddWithValue("@sid", sid);
@@ -119,6 +128,29 @@ namespace StudyIsleWeb
             }
         }
 
+        protected string GetChapterRedirectUrl(object chapterIdObj, object quizObj, object flashObj)
+        {
+            string sid = Request.QueryString["sid"];
+            string res = Request.QueryString["res"];
+
+            int cid = Convert.ToInt32(chapterIdObj);
+            bool isQuizEnabled = Convert.ToBoolean(quizObj);
+            bool isFlashcardEnabled = Convert.ToBoolean(flashObj);
+
+            // 🔹 Priority-Based Redirection
+            if (isQuizEnabled)
+            {
+                return $"~/Quiz/QuizList.aspx?sid={sid}&res={res}&cid={cid}";
+            }
+            else if (isFlashcardEnabled)
+            {
+                return $"~/Flashcards/FlashcardSetList.aspx?sid={sid}&res={res}&cid={cid}";
+            }
+            else
+            {
+                return $"~/ViewResources.aspx?sid={sid}&res={res}&cid={cid}";
+            }
+        }
         private DataTable GetData(string sql)
         {
             using (SqlConnection con = new SqlConnection(cs))

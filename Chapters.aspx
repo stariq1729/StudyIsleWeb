@@ -37,7 +37,7 @@
             <asp:Repeater ID="rptChapters" runat="server">
                 <ItemTemplate>
                     <%-- The link is determined by the SetCount helper --%>
-                    <a href='<%# GetFinalUrl(Eval("ChapterId"), Eval("HasSets")) %>' class="chapter-item">
+                   <a href='<%# ResolveUrl(GetFinalUrl(Eval("ChapterId"), Eval("HasSets"))) %>' class="chapter-item">
                         <div class="chapter-info">
                             <div class="chapter-number"><%# Container.ItemIndex + 1 %></div>
                             <div>

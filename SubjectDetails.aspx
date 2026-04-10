@@ -35,19 +35,25 @@
             </div>
         </asp:PlaceHolder>
 
-        <asp:PlaceHolder ID="phChapterPath" runat="server" Visible="false">
-            <div class="row">
-                <asp:Repeater ID="rptChapters" runat="server">
-                    <ItemTemplate>
-                        <div class="col-12">
-                            <div class="chapter-item">
-                                <h5 class="mb-0 fw-bold"><%# Eval("ChapterName") %></h5>
-                                <a href='<%# "ViewResources.aspx?sid=" + Request.QueryString["sid"] + "&res=" + Request.QueryString["res"] + "&cid=" + Eval("ChapterId") %>' class="btn btn-primary btn-sm rounded-pill px-4">View Material</a>
-                            </div>
-                        </div>
-                    </ItemTemplate>
-                </asp:Repeater>
-            </div>
-        </asp:PlaceHolder>
+<asp:PlaceHolder ID="phChapterPath" runat="server" Visible="false">
+    <div class="row">
+        <asp:Repeater ID="rptChapters" runat="server">
+            <ItemTemplate>
+                <div class="col-12">
+                    <div class="chapter-item">
+                        <h5 class="mb-0 fw-bold"><%# Eval("ChapterName") %></h5>
+                        <a href='<%# ResolveUrl(GetChapterRedirectUrl(
+                                Eval("ChapterId"),
+                                Eval("IsQuizEnabled"),
+                                Eval("IsFlashcardEnabled"))) %>'
+                           class="btn btn-primary btn-sm rounded-pill px-4">
+                            View Material
+                        </a>
+                    </div>
+                </div>
+            </ItemTemplate>
+        </asp:Repeater>
+    </div>
+</asp:PlaceHolder>
     </div>
 </asp:Content>

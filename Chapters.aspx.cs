@@ -44,12 +44,10 @@ namespace StudyIsleWeb
 
                 // 🔹 Header
                 string metaSql = @"SELECT SubjectName FROM Subjects WHERE SubjectId = @sid";
-
                 if (subjectId > 0)
                 {
                     SqlCommand cmdMeta = new SqlCommand(metaSql, con);
                     cmdMeta.Parameters.AddWithValue("@sid", subjectId);
-
                     object res = cmdMeta.ExecuteScalar();
                     litSubjectName.Text = res != null ? res.ToString() : "Resources";
                 }
@@ -58,27 +56,38 @@ namespace StudyIsleWeb
                     litSubjectName.Text = "Resources";
                 }
 
-                // 🔹 Chapters Query
-                string sql = @"SELECT ChapterName, ChapterId, 
-                               CASE WHEN EXISTS 
-                               (SELECT 1 FROM Sets WHERE ChapterId = C.ChapterId AND IsActive = 1) 
-                               THEN 1 ELSE 0 END as HasSets
-                               FROM Chapters C 
-                               WHERE IsActive = 1";
+                // 🔹 Chapters Query (Enhanced with Quiz & Flashcard flags)
+                string sql = @"
+                    SELECT 
+                        C.ChapterName,
+                        C.ChapterId,
+                        C.IsQuizEnabled,
+                        C.IsFlashcardEnabled,
+                        CASE 
+                            WHEN EXISTS (
+                                SELECT 1 FROM Sets 
+                                WHERE ChapterId = C.ChapterId AND IsActive = 1
+                            ) THEN 1 ELSE 0 
+                        END AS HasSets
+                    FROM Chapters C
+                    WHERE C.IsActive = 1";
 
                 if (subjectId > 0)
                 {
-                    sql += " AND SubjectId = @sid";
+                    sql += " AND C.SubjectId = @sid";
                 }
                 else
                 {
-                    sql += @" AND (
-                SubCategoryId = @scid
-                OR SubjectId IN (
-                    SELECT SubjectId FROM Subjects WHERE SubCategoryId = @scid
-                )
-             )";
+                    sql += @"
+                        AND (
+                            C.SubCategoryId = @scid OR
+                            C.SubjectId IN (
+                                SELECT SubjectId FROM Subjects WHERE SubCategoryId = @scid
+                            )
+                        )";
                 }
+
+                sql += " ORDER BY C.DisplayOrder, C.ChapterName";
 
                 SqlCommand cmd = new SqlCommand(sql, con);
 
@@ -103,6 +112,10 @@ namespace StudyIsleWeb
             }
         }
 
+        /// <summary>
+        /// Determines the final redirect URL for a chapter.
+        /// Priority: Quiz → Flashcards → Sets → Resources
+        /// </summary>
         protected string GetFinalUrl(object chapterId, object hasSets)
         {
             string bid = Request.QueryString["bid"];
@@ -110,11 +123,56 @@ namespace StudyIsleWeb
             string scid = Request.QueryString["scid"];
             string sid = Request.QueryString["sid"];
 
+            int cid = Convert.ToInt32(chapterId);
             bool setsExist = Convert.ToInt32(hasSets) == 1;
 
-            string targetPage = setsExist ? "Sets.aspx" : "ViewResource.aspx";
+            bool isQuizEnabled = false;
+            bool isFlashcardEnabled = false;
 
-            return $"{targetPage}?bid={bid}&rid={rid}&scid={scid}&sid={sid}&cid={chapterId}";
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                string query = @"SELECT 
+                            ISNULL(IsQuizEnabled, 0) AS IsQuizEnabled,
+                            ISNULL(IsFlashcardEnabled, 0) AS IsFlashcardEnabled
+                         FROM Chapters 
+                         WHERE ChapterId = @cid";
+
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@cid", cid);
+
+                con.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    isQuizEnabled = reader["IsQuizEnabled"] != DBNull.Value &&
+                                    Convert.ToBoolean(reader["IsQuizEnabled"]);
+
+                    isFlashcardEnabled = reader["IsFlashcardEnabled"] != DBNull.Value &&
+                                         Convert.ToBoolean(reader["IsFlashcardEnabled"]);
+                }
+            }
+
+            // 🔹 Priority-Based Redirection
+            if (isQuizEnabled)
+            {
+                return $"~/Quiz/QuizList.aspx?bid={bid}&rid={rid}&scid={scid}&sid={sid}&cid={cid}";
+            }
+            else if (isFlashcardEnabled)
+            {
+                return $"~/Flashcards/FlashcardSetList.aspx?bid={bid}&rid={rid}&scid={scid}&sid={sid}&cid={cid}";
+            }
+            else if (setsExist)
+            {
+                return $"~/Sets.aspx?bid={bid}&rid={rid}&scid={scid}&sid={sid}&cid={cid}";
+            }
+            else
+            {
+                return $"~/ViewResource.aspx?bid={bid}&rid={rid}&scid={scid}&sid={sid}&cid={cid}";
+            }
         }
+
+            // 🔹 Priority-Based Redirection
+          
+        
     }
 }
