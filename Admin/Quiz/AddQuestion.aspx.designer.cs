@@ -24,6 +24,15 @@ namespace StudyIsleWeb.Admin.Quiz
         protected global::System.Web.UI.WebControls.TextBox txtQuestion;
 
         /// <summary>
+        /// fuQuestionImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuQuestionImage;
+
+        /// <summary>
         /// txtA control.
         /// </summary>
         /// <remarks>
@@ -31,6 +40,15 @@ namespace StudyIsleWeb.Admin.Quiz
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtA;
+
+        /// <summary>
+        /// fuAImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuAImage;
 
         /// <summary>
         /// txtB control.
@@ -42,6 +60,15 @@ namespace StudyIsleWeb.Admin.Quiz
         protected global::System.Web.UI.WebControls.TextBox txtB;
 
         /// <summary>
+        /// fuBImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuBImage;
+
+        /// <summary>
         /// txtC control.
         /// </summary>
         /// <remarks>
@@ -51,6 +78,15 @@ namespace StudyIsleWeb.Admin.Quiz
         protected global::System.Web.UI.WebControls.TextBox txtC;
 
         /// <summary>
+        /// fuCImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuCImage;
+
+        /// <summary>
         /// txtD control.
         /// </summary>
         /// <remarks>
@@ -58,6 +94,15 @@ namespace StudyIsleWeb.Admin.Quiz
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtD;
+
+        /// <summary>
+        /// fuDImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuDImage;
 
         /// <summary>
         /// ddlCorrect control.
