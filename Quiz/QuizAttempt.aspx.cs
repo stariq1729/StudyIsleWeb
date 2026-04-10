@@ -196,8 +196,26 @@ namespace StudyIsleWeb.Quiz
 
         protected void btnSubmitTest_Click(object sender, EventArgs e)
         {
-            SaveAnswer();
-            Response.Redirect("~/Quiz/QuizResult.aspx");
+            SaveAnswer(); // Save the last selected answer
+
+            int quizId = Convert.ToInt32(Request.QueryString["quizId"]);
+
+            // Ensure sessions exist
+            Session["QuizId"] = quizId;
+
+            if (Session["UserAnswers"] == null)
+                Session["UserAnswers"] = new Dictionary<int, string>();
+
+            if (Session["NegativeMarkingEnabled"] == null)
+                Session["NegativeMarkingEnabled"] = false;
+
+            if (Session["NegativeMarks"] == null)
+                Session["NegativeMarks"] = 0.25m;
+
+            if (Session["QuizTime"] == null)
+                Session["QuizTime"] = "0";
+
+            Response.Redirect($"~/Quiz/QuizResult.aspx?quizId={quizId}");
         }
     }
 }
