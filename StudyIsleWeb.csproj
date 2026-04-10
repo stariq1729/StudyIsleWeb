@@ -146,6 +146,7 @@
     <Content Include="NCERT.aspx" />
     <Content Include="NcertBook.aspx" />
     <Content Include="Quiz\QuizList.aspx" />
+    <Content Include="Quiz\QuizStart.aspx" />
     <Content Include="Sets.aspx" />
     <Content Include="SetSelection.aspx" />
     <Content Include="Student\StudentIndex.aspx" />
@@ -441,6 +442,13 @@
     </Compile>
     <Compile Include="Quiz\QuizList.aspx.designer.cs">
       <DependentUpon>QuizList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Quiz\QuizStart.aspx.cs">
+      <DependentUpon>QuizStart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Quiz\QuizStart.aspx.designer.cs">
+      <DependentUpon>QuizStart.aspx</DependentUpon>
     </Compile>
     <Compile Include="Sets.aspx.cs">
       <DependentUpon>Sets.aspx</DependentUpon>

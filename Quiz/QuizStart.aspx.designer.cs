@@ -7,155 +7,119 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace StudyIsleWeb.Admin.Quiz
+namespace StudyIsleWeb.Quiz
 {
 
 
-    public partial class AddQuiz
+    public partial class QuizStart
     {
 
         /// <summary>
-        /// ddlBoard control.
+        /// lblChapterName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlBoard;
+        protected global::System.Web.UI.WebControls.Label lblChapterName;
 
         /// <summary>
-        /// ddlResourceType control.
+        /// lblQuizLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlResourceType;
+        protected global::System.Web.UI.WebControls.Label lblQuizLabel;
 
         /// <summary>
-        /// phClass control.
+        /// lblTotalQuestions control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder phClass;
+        protected global::System.Web.UI.WebControls.Label lblTotalQuestions;
 
         /// <summary>
-        /// ddlClass control.
+        /// lblTimeLimit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlClass;
+        protected global::System.Web.UI.WebControls.Label lblTimeLimit;
 
         /// <summary>
-        /// phSubCategory control.
+        /// lblTotalMarks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder phSubCategory;
+        protected global::System.Web.UI.WebControls.Label lblTotalMarks;
 
         /// <summary>
-        /// ddlSubCategory control.
+        /// lblDifficulty control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSubCategory;
+        protected global::System.Web.UI.WebControls.Label lblDifficulty;
 
         /// <summary>
-        /// ddlSubject control.
+        /// lblInstructionQuestions control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSubject;
+        protected global::System.Web.UI.WebControls.Label lblInstructionQuestions;
 
         /// <summary>
-        /// ddlChapter control.
+        /// lblInstructionTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlChapter;
+        protected global::System.Web.UI.WebControls.Label lblInstructionTime;
 
         /// <summary>
-        /// txtQuizLabel control.
+        /// lblNegativeMarks control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtQuizLabel;
+        protected global::System.Web.UI.WebControls.Label lblNegativeMarks;
 
         /// <summary>
-        /// txtTotalQuestions control.
+        /// chkNegativeMarking control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTotalQuestions;
+        protected global::System.Web.UI.WebControls.CheckBox chkNegativeMarking;
 
         /// <summary>
-        /// txtTimeLimit control.
+        /// hfQuizId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTimeLimit;
+        protected global::System.Web.UI.WebControls.HiddenField hfQuizId;
 
         /// <summary>
-        /// txtTotalMarks control.
+        /// btnBeginTest control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTotalMarks;
-
-        /// <summary>
-        /// ddlDifficulty control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDifficulty;
-
-        /// <summary>
-        /// btnSaveQuiz control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSaveQuiz;
-
-        /// <summary>
-        /// btnBack control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBack;
-
-        /// <summary>
-        /// lblMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
+        protected global::System.Web.UI.WebControls.Button btnBeginTest;
     }
 }

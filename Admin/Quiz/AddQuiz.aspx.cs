@@ -120,9 +120,9 @@ namespace StudyIsleWeb.Admin.Quiz
                 using (SqlConnection con = new SqlConnection(cs))
                 {
                     string sql = @"INSERT INTO Quiz 
-            (ChapterId, QuizLabel, TotalQuestions, TimeLimitMinutes, TotalMarks, Difficulty, NegativeMarking, CreatedAt)
+            (ChapterId, QuizLabel, TotalQuestions, TimeLimitMinutes, TotalMarks, Difficulty, CreatedAt)
             VALUES 
-            (@ChapterId, @Label, @TotalQ, @Time, @Marks, @Difficulty, @Neg, GETDATE());
+            (@ChapterId, @Label, @TotalQ, @Time, @Marks, @Difficulty,  GETDATE());
             SELECT SCOPE_IDENTITY();";
 
                     SqlCommand cmd = new SqlCommand(sql, con);
@@ -133,7 +133,7 @@ namespace StudyIsleWeb.Admin.Quiz
                     cmd.Parameters.AddWithValue("@Time", string.IsNullOrEmpty(txtTimeLimit.Text) ? 0 : int.Parse(txtTimeLimit.Text));
                     cmd.Parameters.AddWithValue("@Marks", string.IsNullOrEmpty(txtTotalMarks.Text) ? 0 : int.Parse(txtTotalMarks.Text));
                     cmd.Parameters.AddWithValue("@Difficulty", ddlDifficulty.SelectedValue);
-                    cmd.Parameters.AddWithValue("@Neg", chkNegativeMarking.Checked);
+                    //cmd.Parameters.AddWithValue("@Neg", chkNegativeMarking.Checked);
 
                     con.Open();
 

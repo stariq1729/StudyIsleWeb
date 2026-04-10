@@ -93,12 +93,7 @@
                     </div>
 
                     <!-- Negative Marking -->
-                    <div class="col-md-6">
-                        <div class="form-check mt-4">
-                            <asp:CheckBox ID="chkNegativeMarking" runat="server" CssClass="form-check-input" />
-                            <label class="form-check-label">Enable Negative Marking (-0.25 per wrong answer)</label>
-                        </div>
-                    </div>
+                    
 
                     <!-- Buttons -->
                     <div class="col-12 mt-4 border-top pt-3">
