@@ -175,7 +175,7 @@ namespace StudyIsleWeb.Quiz
                 rptQuestionDetails.DataBind();
 
                 // Show Recommended Revision Panel
-                if (accuracy < 50)
+                if (accuracy < 70)
                 {
                     pnlRevision.Visible = true;
                     lblRevisionAccuracy.Text = $"{accuracy:0.##}%";
