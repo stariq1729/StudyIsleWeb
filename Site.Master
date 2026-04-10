@@ -70,10 +70,10 @@
                                 <div class="col-md-4">
                                     <h6 class="fw-bold text-uppercase mb-3">School Boards</h6>
                                     <ul class="list-unstyled">
-                                        <li><a class="dropdown-item" href="BoardResourceTypes.aspx?board=cbse">CBSE</a></li>
-                                        <li><a class="dropdown-item" href="BoardResourceTypes.aspx?board=icse">ICSE</a></li>
-                                        <li><a class="dropdown-item" href="BoardResourceTypes.aspx?board=state">State Boards</a></li>
-                                        <li><a class="dropdown-item" href="BoardResourceTypes.aspx?board=ncert">NCERT</a></li>
+                                       <li><a class="dropdown-item" href="~/BoardResourceTypes.aspx?board=cbse" runat="server">CBSE</a></li>
+<li><a class="dropdown-item" href="~/BoardResourceTypes.aspx?board=icse" runat="server">ICSE</a></li>
+<li><a class="dropdown-item" href="~/BoardResourceTypes.aspx?board=state" runat="server">State Boards</a></li>
+<li><a class="dropdown-item" href="~/BoardResourceTypes.aspx?board=ncert" runat="server">NCERT</a></li>
                                     </ul>
                                 </div>
 
@@ -81,10 +81,10 @@
     <h6 class="fw-bold text-uppercase mb-3">Competitive Exams</h6>
     <ul class="list-unstyled">
         <%-- Use board=slug to match our C# logic --%>
-        <li><a class="dropdown-item" href="BoardResourceTypes.aspx?board=jee">JEE Main & Advanced</a></li>
-        <li><a class="dropdown-item" href="BoardResourceTypes.aspx?board=neet">NEET UG</a></li>
-        <li><a class="dropdown-item" href="CompSubCategory.aspx?board=cuet">CUET</a></li>
-        <li><a class="dropdown-item" href="CompSubCategory.aspx?board=nda">NDA / Defence</a></li>
+        <li><a class="dropdown-item" href="~/BoardResourceTypes.aspx?board=jee" runat="server">JEE Main & Advanced</a></li>
+<li><a class="dropdown-item" href="~/BoardResourceTypes.aspx?board=neet" runat="server">NEET UG</a></li>
+<li><a class="dropdown-item" href="~/CompSubCategory.aspx?board=cuet" runat="server">CUET</a></li>
+<li><a class="dropdown-item" href="~/CompSubCategory.aspx?board=nda" runat="server">NDA / Defence</a></li>
     </ul>
 </div>
 
@@ -95,7 +95,9 @@
                                         <p class="text-muted small">
                                             Logical reasoning & fundamentals for Class 6–8 students.
                                         </p>
-                                        <a href="BoardResourceTypes.aspx?board=foundation" class="btn btn-primary btn-sm">Learn More</a>
+                                        <a href="~/BoardResourceTypes.aspx?board=foundation" runat="server" class="btn btn-primary btn-sm">
+    Learn More
+</a>
                                     </div>
                                 </div>
 
