@@ -90,6 +90,8 @@
     <Content Include="Admin\Classes\EditClass.aspx" />
     <Content Include="Admin\Classes\ManageClasses.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
+    <Content Include="Admin\Flashcards\AddFlashcards.aspx" />
+    <Content Include="Admin\Flashcards\ManageFlashcards.aspx" />
     <Content Include="Admin\Quiz\AddQuestion.aspx" />
     <Content Include="Admin\Quiz\AddQuiz.aspx" />
     <Content Include="Admin\Quiz\ManageQuiz.aspx" />
@@ -243,6 +245,20 @@
     </Compile>
     <Compile Include="Admin\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Flashcards\AddFlashcards.aspx.cs">
+      <DependentUpon>AddFlashcards.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Flashcards\AddFlashcards.aspx.designer.cs">
+      <DependentUpon>AddFlashcards.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Flashcards\ManageFlashcards.aspx.cs">
+      <DependentUpon>ManageFlashcards.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Flashcards\ManageFlashcards.aspx.designer.cs">
+      <DependentUpon>ManageFlashcards.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Quiz\AddQuestion.aspx.cs">
       <DependentUpon>AddQuestion.aspx</DependentUpon>
@@ -550,6 +566,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Uploads\Flashcards\" />
     <Folder Include="Uploads\Resumes\" />
   </ItemGroup>
   <PropertyGroup>

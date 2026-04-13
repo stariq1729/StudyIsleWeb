@@ -77,8 +77,8 @@
             <a href="/Admin/Classes/ManageClasses.aspx">Classes</a>
             <a href="/Admin/Subjects/ManageSubjects.aspx">Subjects</a>
             <a href="/Admin/Chapters/ManageChapters.aspx">Chapters/Years</a>
-            <a href="/Admin/Quiz/ManageQuiz.aspx">Quiz/Flash</a>
-            
+            <a href="/Admin/Quiz/ManageQuiz.aspx">Quiz</a>
+            <a href="/Admin/Flashcards/ManageFlashcards.aspx">Flash</a>
             <a href="/Admin/Resources/ManageResources.aspx">Resources</a>
             <asp:LinkButton ID="btnLogout" runat="server" OnClick="btnLogout_Click" CssClass="d-block px-3 py-2 text-danger">
                 Logout
