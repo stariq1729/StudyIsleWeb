@@ -141,6 +141,8 @@
     <Content Include="Content\Admin\resourse-types.css" />
     <Content Include="Content\Admin\subjects.css" />
     <Content Include="Default.aspx" />
+    <Content Include="Flashcards\FlashcardSetList.aspx" />
+    <Content Include="Flashcards\FlashcardViewer.aspx" />
     <Content Include="Global.asax" />
     <Content Include="GoogleCallback.aspx" />
     <Content Include="JoinTutor.aspx" />
@@ -414,6 +416,20 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Flashcards\FlashcardSetList.aspx.cs">
+      <DependentUpon>FlashcardSetList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Flashcards\FlashcardSetList.aspx.designer.cs">
+      <DependentUpon>FlashcardSetList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Flashcards\FlashcardViewer.aspx.cs">
+      <DependentUpon>FlashcardViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Flashcards\FlashcardViewer.aspx.designer.cs">
+      <DependentUpon>FlashcardViewer.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
