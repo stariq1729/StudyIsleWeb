@@ -89,39 +89,59 @@ namespace StudyIsleWeb
 
             bool competitive = isCompetitive != DBNull.Value && Convert.ToBoolean(isCompetitive);
 
-            int bid = 0, rid = 0;
+            int scid = Convert.ToInt32(subCatId);
 
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string query = @"SELECT B.BoardId, RT.ResourceTypeId
-                                 FROM Boards B, ResourceTypes RT
-                                 WHERE B.Slug = @b AND RT.Slug = @r";
-
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@b", boardSlug);
-                cmd.Parameters.AddWithValue("@r", resSlug);
-
                 con.Open();
-                using (SqlDataReader dr = cmd.ExecuteReader())
+
+                if (competitive)
                 {
-                    if (dr.Read())
+                    // Competitive Flow (ID-based navigation)
+                    string query = @"SELECT B.BoardId, RT.ResourceTypeId
+                             FROM Boards B, ResourceTypes RT
+                             WHERE B.Slug = @b AND RT.Slug = @r";
+
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@b", boardSlug);
+                    cmd.Parameters.AddWithValue("@r", resSlug);
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
                     {
-                        bid = Convert.ToInt32(dr["BoardId"]);
-                        rid = Convert.ToInt32(dr["ResourceTypeId"]);
+                        if (dr.Read())
+                        {
+                            int bid = Convert.ToInt32(dr["BoardId"]);
+                            int rid = Convert.ToInt32(dr["ResourceTypeId"]);
+
+                            return $"CompSubSelect.aspx?bid={bid}&rid={rid}&scid={scid}";
+                        }
                     }
+                }
+                else
+                {
+                    // Academic Flow (Slug-based navigation)
+                    string subcatSlugQuery = @"SELECT Slug 
+                                       FROM SubCategories 
+                                       WHERE SubCategoryId = @scid";
+
+                    SqlCommand cmd = new SqlCommand(subcatSlugQuery, con);
+                    cmd.Parameters.AddWithValue("@scid", scid);
+
+                    object result = cmd.ExecuteScalar();
+
+                    if (result != null && result != DBNull.Value)
+                    {
+                        string subcatSlug = result.ToString();
+                        return $"BoardResource.aspx?board={boardSlug}&res={resSlug}&subcat={subcatSlug}";
+                    }
+
+                    // Fallback if slug is missing
+                    return $"BoardResource.aspx?board={boardSlug}&res={resSlug}";
                 }
             }
 
-            int scid = Convert.ToInt32(subCatId);
-
-            if (competitive)
-            {
-                return $"CompSubSelect.aspx?bid={bid}&rid={rid}&scid={scid}";
-            }
-            else
-            {
-                return $"BoardResource.aspx?bid={bid}&rid={rid}&scid={scid}";
-            }
+            // Final fallback
+            return "Default.aspx";
         }
     }
 }
