@@ -14,22 +14,22 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <link href="assets/css/site.css" rel="stylesheet" />
-    <link href="~/Assets/css/hero.css" rel="stylesheet" />
-    <link href="~/Assets/css/strip.css" rel="stylesheet" />
-    <link href="~/Assets/css/interactive.css" rel="stylesheet" />
-    <link href="~/Assets/css/Enquiry.css" rel="stylesheet" />
-    <link href="~/Assets/css/CourseSection.css" rel="stylesheet" />
-    <link href="~/Assets/css/BooksSection.css" rel="stylesheet" />
-    <link href="~/Assets/css/Testimonialsection.css" rel="stylesheet" />
-    <link href="~/Assets/css/TutorSection.css" rel="stylesheet" />
-    <link href="~/Assets/css/IC_Section.css" rel="stylesheet" />
-    <link href="~/Assets/css/NoteSection.css" rel="stylesheet" />
-    <link href="~/Assets/css/AISection.css" rel="stylesheet" />
-    <link href="~/Assets/css/CareerGuide.css" rel="stylesheet" />
-    <link href="~/Assets/css/BlogSection.css" rel="stylesheet" />
-    <link href="assets/css/ncert.css" rel="stylesheet" />
-    <link href="~/Assets/css/Blogspage.css" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/assets/css/site.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/Assets/css/hero.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/Assets/css/strip.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/Assets/css/interactive.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/Assets/css/Enquiry.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/Assets/css/CourseSection.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/Assets/css/BooksSection.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/Assets/css/Testimonialsection.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/Assets/css/TutorSection.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/Assets/css/IC_Section.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/Assets/css/NoteSection.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/Assets/css/AISection.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/Assets/css/CareerGuide.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/Assets/css/BlogSection.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/assets/css/ncert.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/Assets/css/Blogspage.css") %>" rel="stylesheet" />
 
     <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
 </head>
@@ -40,7 +40,8 @@
 <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
     <div class="container">
 
-        <a href="Default.aspx" class="navbar-brand fw-bold text-primary fs-4" >
+        <!-- Logo -->
+        <a runat="server" href="~/Default.aspx" class="navbar-brand fw-bold text-primary fs-4">
             StudyIsle
         </a>
 
@@ -65,28 +66,25 @@
                         <div class="container">
                             <div class="row">
 
-                                
-
                                 <div class="col-md-4">
                                     <h6 class="fw-bold text-uppercase mb-3">School Boards</h6>
                                     <ul class="list-unstyled">
-                                       <li><a class="dropdown-item" href="~/BoardResourceTypes.aspx?board=cbse" runat="server">CBSE</a></li>
-<li><a class="dropdown-item" href="~/BoardResourceTypes.aspx?board=icse" runat="server">ICSE</a></li>
-<li><a class="dropdown-item" href="~/BoardResourceTypes.aspx?board=state" runat="server">State Boards</a></li>
-<li><a class="dropdown-item" href="~/BoardResourceTypes.aspx?board=ncert" runat="server">NCERT</a></li>
+                                        <li><a class="dropdown-item" runat="server" href="~/BoardResourceTypes.aspx?board=cbse">CBSE</a></li>
+                                        <li><a class="dropdown-item" runat="server" href="~/BoardResourceTypes.aspx?board=icse">ICSE</a></li>
+                                        <li><a class="dropdown-item" runat="server" href="~/BoardResourceTypes.aspx?board=state">State Boards</a></li>
+                                        <li><a class="dropdown-item" runat="server" href="~/BoardResourceTypes.aspx?board=ncert">NCERT</a></li>
                                     </ul>
                                 </div>
 
                                 <div class="col-md-4">
-    <h6 class="fw-bold text-uppercase mb-3">Competitive Exams</h6>
-    <ul class="list-unstyled">
-        <%-- Use board=slug to match our C# logic --%>
-        <li><a class="dropdown-item" href="~/BoardResourceTypes.aspx?board=jee" runat="server">JEE Main & Advanced</a></li>
-<li><a class="dropdown-item" href="~/BoardResourceTypes.aspx?board=neet" runat="server">NEET UG</a></li>
-<li><a class="dropdown-item" href="~/CompSubCategory.aspx?board=cuet" runat="server">CUET</a></li>
-<li><a class="dropdown-item" href="~/CompSubCategory.aspx?board=nda" runat="server">NDA / Defence</a></li>
-    </ul>
-</div>
+                                    <h6 class="fw-bold text-uppercase mb-3">Competitive Exams</h6>
+                                    <ul class="list-unstyled">
+                                        <li><a class="dropdown-item" runat="server" href="~/BoardResourceTypes.aspx?board=jee">JEE Main & Advanced</a></li>
+                                        <li><a class="dropdown-item" runat="server" href="~/BoardResourceTypes.aspx?board=neet">NEET UG</a></li>
+                                        <li><a class="dropdown-item" runat="server" href="~/CompSubCategory.aspx?board=cuet">CUET</a></li>
+                                        <li><a class="dropdown-item" runat="server" href="~/CompSubCategory.aspx?board=nda">NDA / Defence</a></li>
+                                    </ul>
+                                </div>
 
                                 <div class="col-md-4">
                                     <div class="p-4 rounded bg-light h-100">
@@ -95,9 +93,10 @@
                                         <p class="text-muted small">
                                             Logical reasoning & fundamentals for Class 6–8 students.
                                         </p>
-                                        <a href="~/BoardResourceTypes.aspx?board=foundation" runat="server" class="btn btn-primary btn-sm">
-    Learn More
-</a>
+                                        <a runat="server" href="~/BoardResourceTypes.aspx?board=foundation"
+                                           class="btn btn-primary btn-sm">
+                                            Learn More
+                                        </a>
                                     </div>
                                 </div>
 
@@ -124,9 +123,10 @@
 
             </ul>
 
+            <!-- Right Buttons -->
             <div class="d-flex gap-2">
-                <a href="~/Login.aspx" class="btn btn-outline-primary px-4">Login</a>
-                <a href="~/Login.aspx" class="btn btn-primary px-4">Enroll Now</a>
+                <a runat="server" href="~/Login.aspx" class="btn btn-outline-primary px-4">Login</a>
+                <a runat="server" href="~/Login.aspx" class="btn btn-primary px-4">Enroll Now</a>
             </div>
 
         </div>
