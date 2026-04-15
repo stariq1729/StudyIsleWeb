@@ -4,7 +4,6 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace StudyIsleWeb.Quiz
@@ -14,32 +13,21 @@ namespace StudyIsleWeb.Quiz
         string connStr = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
         protected int RemainingSeconds = 0;
 
-        // --- Existing Properties (Kept to prevent breaking code) ---
+        // Persistent State via Session
         private Dictionary<int, string> UserAnswers
         {
-            get
-            {
-                if (Session["UserAnswers"] == null)
-                    Session["UserAnswers"] = new Dictionary<int, string>();
-                return (Dictionary<int, string>)Session["UserAnswers"];
-            }
+            get { return (Session["UserAnswers"] as Dictionary<int, string>) ?? (Session["UserAnswers"] = new Dictionary<int, string>()) as Dictionary<int, string>; }
         }
-
         private HashSet<int> MarkedQuestions
         {
-            get
-            {
-                if (Session["MarkedQuestions"] == null)
-                    Session["MarkedQuestions"] = new HashSet<int>();
-                return (HashSet<int>)Session["MarkedQuestions"];
-            }
+            get { return (Session["MarkedQuestions"] as HashSet<int>) ?? (Session["MarkedQuestions"] = new HashSet<int>()) as HashSet<int>; }
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            int quizId = Convert.ToInt32(Request.QueryString["quizId"]);
             if (!IsPostBack)
             {
+                int quizId = Convert.ToInt32(Request.QueryString["quizId"]);
                 hfCurrentQuestion.Value = "0";
                 LoadQuizDetails(quizId);
                 LoadQuestions(quizId);
@@ -47,10 +35,9 @@ namespace StudyIsleWeb.Quiz
                 LoadPalette();
                 InitializeTimer(quizId);
             }
-            UpdateTimer();
+            UpdateTimerState();
         }
 
-        // --- Core Fix: LoadQuestion with Option Images ---
         private void LoadQuestion(int index)
         {
             DataTable dt = Session["QuizQuestions"] as DataTable;
@@ -59,64 +46,118 @@ namespace StudyIsleWeb.Quiz
             DataRow row = dt.Rows[index];
             hfCurrentQuestion.Value = index.ToString();
             lblQuestionNumber.Text = (index + 1).ToString();
-            lblQuestionText.Text = row["QuestionText"]?.ToString();
+            lblQuestionText.Text = row["QuestionText"]?.ToString() ?? "";
 
-            // Question Image
+            // Restore selection state for this question
+            hfSelectedOption.Value = UserAnswers.ContainsKey(index) ? UserAnswers[index] : "";
+
+            // Question Image Logic
             string qImg = row["QuestionImage"]?.ToString();
             imgQuestion.Visible = !string.IsNullOrEmpty(qImg);
             if (imgQuestion.Visible) imgQuestion.ImageUrl = ResolveUrl(qImg);
 
-            // Prepare Options List
-            var optionsList = new List<OptionItem>();
+            // Populate Options (Handles cases where text is null but image exists)
+            var options = new List<OptionItem>();
+            MapOption(options, "A", row["OptionA"], row["OptionAImage"]);
+            MapOption(options, "B", row["OptionB"], row["OptionBImage"]);
+            MapOption(options, "C", row["OptionC"], row["OptionCImage"]);
+            MapOption(options, "D", row["OptionD"], row["OptionDImage"]);
 
-            // We pass the raw values to our updated helper method
-            AddOptionToList(optionsList, "A", row["OptionA"], row["OptionAImage"]);
-            AddOptionToList(optionsList, "B", row["OptionB"], row["OptionBImage"]);
-            AddOptionToList(optionsList, "C", row["OptionC"], row["OptionCImage"]);
-            AddOptionToList(optionsList, "D", row["OptionD"], row["OptionDImage"]);
-
-            rptOptions.DataSource = optionsList;
+            rptOptions.DataSource = options;
             rptOptions.DataBind();
 
-            hfSelectedOption.Value = UserAnswers.ContainsKey(index) ? UserAnswers[index] : "";
             btnPrevious.Enabled = index > 0;
             btnNext.Enabled = index < dt.Rows.Count - 1;
-
             UpdateStatusCounts();
         }
 
-        private void AddOptionToList(List<OptionItem> list, string key, object text, object img)
+        private void MapOption(List<OptionItem> list, string key, object text, object img)
         {
-            string optionText = text?.ToString() ?? "";
-            string imgPath = img?.ToString() ?? "";
-
-            // FIX: Show the option if there is Text OR if there is an Image path
-            if (!string.IsNullOrEmpty(optionText) || !string.IsNullOrEmpty(imgPath))
+            string txt = text?.ToString() ?? "";
+            string path = img?.ToString() ?? "";
+            // Add if EITHER text or image exists
+            if (!string.IsNullOrEmpty(txt) || !string.IsNullOrEmpty(path))
             {
-                list.Add(new OptionItem
-                {
-                    Key = key,
-                    Text = optionText,
-                    Image = !string.IsNullOrEmpty(imgPath) ? ResolveUrl(imgPath) : ""
-                });
+                list.Add(new OptionItem { Key = key, Text = txt, Image = !string.IsNullOrEmpty(path) ? ResolveUrl(path) : "" });
             }
         }
 
-        protected string IsChecked(string val)
-        {
-            return hfSelectedOption.Value == val ? "checked" : "";
-        }
+        protected string IsChecked(string val) => hfSelectedOption.Value == val ? "checked" : "";
 
         private void SaveAnswer()
         {
-            int index;
-            if (int.TryParse(hfCurrentQuestion.Value, out index))
+            if (int.TryParse(hfCurrentQuestion.Value, out int idx))
             {
-                string selected = hfSelectedOption.Value;
-                if (!string.IsNullOrEmpty(selected))
-                    UserAnswers[index] = selected;
-                else if (!UserAnswers.ContainsKey(index))
-                    UserAnswers[index] = "";
+                string sel = hfSelectedOption.Value;
+                UserAnswers[idx] = !string.IsNullOrEmpty(sel) ? sel : "";
+            }
+        }
+
+        // Navigation & Command Handlers
+        protected void btnNext_Click(object sender, EventArgs e) { SaveAnswer(); LoadQuestion(int.Parse(hfCurrentQuestion.Value) + 1); LoadPalette(); }
+        protected void btnPrevious_Click(object sender, EventArgs e) { SaveAnswer(); LoadQuestion(int.Parse(hfCurrentQuestion.Value) - 1); LoadPalette(); }
+        protected void btnMarkReview_Click(object sender, EventArgs e) { SaveAnswer(); MarkedQuestions.Add(int.Parse(hfCurrentQuestion.Value)); LoadPalette(); UpdateStatusCounts(); }
+        protected void btnPalette_Command(object sender, CommandEventArgs e) { SaveAnswer(); LoadQuestion(Convert.ToInt32(e.CommandArgument)); LoadPalette(); }
+
+        private void LoadPalette() { rptPalette.DataSource = (DataTable)Session["QuizQuestions"]; rptPalette.DataBind(); }
+
+        protected void rptPalette_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                Button btn = (Button)e.Item.FindControl("btnPalette");
+                int idx = e.Item.ItemIndex;
+                btn.CssClass = "palette-btn " + (idx == int.Parse(hfCurrentQuestion.Value) ? "current " : "");
+
+                if (MarkedQuestions.Contains(idx)) btn.CssClass += "marked";
+                else if (UserAnswers.ContainsKey(idx) && !string.IsNullOrEmpty(UserAnswers[idx])) btn.CssClass += "answered";
+                else if (UserAnswers.ContainsKey(idx)) btn.CssClass += "notanswered";
+                else btn.CssClass += "notvisited";
+            }
+        }
+
+        // Timer & UI Detail Loading
+        private void InitializeTimer(int qid)
+        {
+            using (SqlConnection cn = new SqlConnection(connStr))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT TimeLimitMinutes FROM Quiz WHERE QuizId=@id", cn);
+                cmd.Parameters.AddWithValue("@id", qid);
+                cn.Open();
+                int mins = Convert.ToInt32(cmd.ExecuteScalar() ?? 15);
+                Session["QuizEndTime"] = DateTime.Now.AddMinutes(mins);
+            }
+        }
+
+        private void UpdateTimerState()
+        {
+            if (Session["QuizEndTime"] != null)
+            {
+                TimeSpan diff = (DateTime)Session["QuizEndTime"] - DateTime.Now;
+                RemainingSeconds = (int)Math.Max(0, diff.TotalSeconds);
+            }
+        }
+
+        private void LoadQuizDetails(int qid)
+        {
+            using (SqlConnection cn = new SqlConnection(connStr))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT QuizLabel FROM Quiz WHERE QuizId=@id", cn);
+                cmd.Parameters.AddWithValue("@id", qid);
+                cn.Open();
+                lblQuizTitle.Text = cmd.ExecuteScalar()?.ToString() ?? "Practice Quiz";
+            }
+        }
+
+        private void LoadQuestions(int qid)
+        {
+            using (SqlConnection cn = new SqlConnection(connStr))
+            {
+                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Questions WHERE QuizId=@id AND IsActive=1 ORDER BY QuestionOrder", cn);
+                da.SelectCommand.Parameters.AddWithValue("@id", qid);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                Session["QuizQuestions"] = dt;
             }
         }
 
@@ -125,150 +166,21 @@ namespace StudyIsleWeb.Quiz
             DataTable dt = Session["QuizQuestions"] as DataTable;
             if (dt == null) return;
 
+            int answered = UserAnswers.Values.Count(v => !string.IsNullOrEmpty(v));
             int total = dt.Rows.Count;
-            int answered = UserAnswers.Count(x => !string.IsNullOrEmpty(x.Value));
-            int marked = MarkedQuestions.Count;
-            int visited = UserAnswers.Count;
 
-            litAnsweredCount.Text = answered.ToString();
-            litNotAnsweredCount.Text = (visited - answered).ToString();
-            litMarkedCount.Text = marked.ToString();
-            litNotVisitedCount.Text = (total - visited).ToString();
-            litSummaryCount.Text = answered.ToString();
-            litTotalCount.Text = total.ToString();
+            litAnsweredCount.Text = litSummaryCount.Text = answered.ToString();
+            litNotAnsweredCount.Text = (UserAnswers.Count - answered).ToString();
+            litMarkedCount.Text = MarkedQuestions.Count.ToString();
+            litNotVisitedCount.Text = (total - UserAnswers.Count).ToString();
+
+            // Fixed the missing Control ID error from your screenshot
+            litTotalCount.Text = litTotalCountInModal.Text = total.ToString();
         }
 
-        // --- UI Navigation Events ---
-        protected void btnNext_Click(object sender, EventArgs e)
-        {
-            SaveAnswer();
-            int nextIndex = Convert.ToInt32(hfCurrentQuestion.Value) + 1;
-            LoadQuestion(nextIndex);
-            LoadPalette();
-        }
+        protected void btnSubmitTest_Click(object sender, EventArgs e) { SaveAnswer(); SubmitQuiz(); }
+        private void SubmitQuiz() { Response.Redirect($"~/Quiz/QuizResult.aspx?quizId={Request.QueryString["quizId"]}"); }
 
-        protected void btnPrevious_Click(object sender, EventArgs e)
-        {
-            SaveAnswer();
-            int prevIndex = Convert.ToInt32(hfCurrentQuestion.Value) - 1;
-            LoadQuestion(prevIndex);
-            LoadPalette();
-        }
-
-        protected void btnMarkReview_Click(object sender, EventArgs e)
-        {
-            int index = Convert.ToInt32(hfCurrentQuestion.Value);
-            MarkedQuestions.Add(index);
-            LoadPalette();
-            UpdateStatusCounts();
-        }
-
-        protected void btnPalette_Command(object sender, CommandEventArgs e)
-        {
-            SaveAnswer();
-            LoadQuestion(Convert.ToInt32(e.CommandArgument));
-            LoadPalette();
-        }
-
-        private void LoadPalette()
-        {
-            DataTable dt = (DataTable)Session["QuizQuestions"];
-            rptPalette.DataSource = dt;
-            rptPalette.DataBind();
-        }
-
-        protected void rptPalette_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                Button btn = (Button)e.Item.FindControl("btnPalette");
-                int index = e.Item.ItemIndex;
-                int currentIndex = Convert.ToInt32(hfCurrentQuestion.Value);
-
-                btn.CssClass = "palette-btn";
-                if (index == currentIndex) btn.CssClass += " current";
-
-                if (MarkedQuestions.Contains(index)) btn.CssClass += " marked";
-                else if (UserAnswers.ContainsKey(index) && !string.IsNullOrEmpty(UserAnswers[index])) btn.CssClass += " answered";
-                else if (UserAnswers.ContainsKey(index)) btn.CssClass += " notanswered";
-                else btn.CssClass += " notvisited";
-            }
-        }
-
-        // --- Database & Timer Methods ---
-        private void InitializeTimer(int quizId)
-        {
-            if (Session["QuizEndTime"] == null)
-            {
-                using (SqlConnection conn = new SqlConnection(connStr))
-                {
-                    string query = "SELECT TimeLimitMinutes FROM Quiz WHERE QuizId=@QuizId";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@QuizId", quizId);
-                    conn.Open();
-                    int duration = Convert.ToInt32(cmd.ExecuteScalar());
-                    Session["QuizEndTime"] = DateTime.Now.AddMinutes(duration);
-                }
-            }
-        }
-
-        private void UpdateTimer()
-        {
-            if (Session["QuizEndTime"] != null)
-            {
-                DateTime endTime = (DateTime)Session["QuizEndTime"];
-                TimeSpan remaining = endTime - DateTime.Now;
-                if (remaining.TotalSeconds <= 0) { SubmitQuiz(); return; }
-                RemainingSeconds = (int)remaining.TotalSeconds;
-                lblTimer.Text = remaining.ToString(@"mm\:ss");
-            }
-        }
-
-        private void LoadQuizDetails(int quizId)
-        {
-            using (SqlConnection conn = new SqlConnection(connStr))
-            {
-                string query = "SELECT QuizLabel FROM Quiz WHERE QuizId = @QuizId";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@QuizId", quizId);
-                conn.Open();
-                object result = cmd.ExecuteScalar();
-                lblQuizTitle.Text = result?.ToString() ?? "Quiz";
-            }
-        }
-
-        private void LoadQuestions(int quizId)
-        {
-            using (SqlConnection conn = new SqlConnection(connStr))
-            {
-                string query = "SELECT * FROM Questions WHERE QuizId=@QuizId AND IsActive=1 ORDER BY QuestionOrder";
-                SqlDataAdapter da = new SqlDataAdapter(query, conn);
-                da.SelectCommand.Parameters.AddWithValue("@QuizId", quizId);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                Session["QuizQuestions"] = dt;
-            }
-        }
-
-        protected void btnSubmitTest_Click(object sender, EventArgs e)
-        {
-            SaveAnswer();
-            SubmitQuiz();
-        }
-
-        private void SubmitQuiz()
-        {
-            int quizId = Convert.ToInt32(Request.QueryString["quizId"]);
-            Session["QuizId"] = quizId;
-            Session["QuizEndTime"] = null;
-            Response.Redirect($"~/Quiz/QuizResult.aspx?quizId={quizId}");
-        }
-
-        public class OptionItem
-        {
-            public string Key { get; set; }
-            public string Text { get; set; }
-            public string Image { get; set; }
-        }
+        public class OptionItem { public string Key { get; set; } public string Text { get; set; } public string Image { get; set; } }
     }
 }

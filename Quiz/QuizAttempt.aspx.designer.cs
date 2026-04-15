@@ -24,15 +24,6 @@ namespace StudyIsleWeb.Quiz
         protected global::System.Web.UI.WebControls.Label lblQuizTitle;
 
         /// <summary>
-        /// lblTimer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTimer;
-
-        /// <summary>
         /// btnSubmitTest control.
         /// </summary>
         /// <remarks>
@@ -168,6 +159,15 @@ namespace StudyIsleWeb.Quiz
         protected global::System.Web.UI.WebControls.Literal litNotVisitedCount;
 
         /// <summary>
+        /// litTotalCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litTotalCount;
+
+        /// <summary>
         /// litSummaryCount control.
         /// </summary>
         /// <remarks>
@@ -177,13 +177,13 @@ namespace StudyIsleWeb.Quiz
         protected global::System.Web.UI.WebControls.Literal litSummaryCount;
 
         /// <summary>
-        /// litTotalCount control.
+        /// litTotalCountInModal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litTotalCount;
+        protected global::System.Web.UI.WebControls.Literal litTotalCountInModal;
 
         /// <summary>
         /// btnFinalSubmit control.

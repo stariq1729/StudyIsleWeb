@@ -3,91 +3,39 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         body { background-color: #f8f9fa; }
-        .quiz-container { max-width: 1300px; margin: 20px auto; }
-        
-        /* Card Styles */
-        .quiz-card {
-            background: #fff; border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-            padding: 25px; min-height: 500px;
-        }
-        .status-card {
-            background: #fff; border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-            padding: 20px;
-        }
-
-        /* Question UI */
-        .q-badge {
-            background: #eef2ff; color: #4f46e5;
-            padding: 5px 15px; border-radius: 20px;
-            font-size: 0.9rem; font-weight: 600; display: inline-block;
-        }
-        .question-text { font-size: 1.25rem; font-weight: 500; margin-top: 15px; color: #1e293b; }
-        .question-img { max-width: 100%; height: auto; border-radius: 8px; margin: 20px 0; border: 1px solid #eee; }
-
-        /* Custom Radio Options */
-        .options-list { list-style: none; padding: 0; margin-top: 20px; }
-        .option-item {
-            border: 1px solid #e2e8f0; border-radius: 10px;
-            margin-bottom: 12px; transition: all 0.2s; cursor: pointer;
-            display: flex; align-items: center; padding: 12px 20px;
-        }
+        .quiz-container { max-width: 1300px; margin: 20px auto; padding: 0 15px; }
+        .quiz-card { background: #fff; border-radius: 12px; box-shadow: 0 2px 15px rgba(0,0,0,0.05); padding: 30px; min-height: 550px; }
+        .status-card { background: #fff; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); padding: 20px; position: sticky; top: 20px; }
+        .q-badge { background: #eef2ff; color: #4f46e5; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 700; display: inline-block; margin-bottom: 15px; }
+        .question-text { font-size: 1.3rem; font-weight: 500; color: #1e293b; line-height: 1.5; margin-bottom: 20px; }
+        .question-img { max-width: 100%; height: auto; border-radius: 8px; margin: 10px 0 25px 0; border: 1px solid #f1f5f9; display: block; }
+        .option-item { border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 12px; transition: all 0.2s; cursor: pointer; display: flex; align-items: center; padding: 15px 20px; }
         .option-item:hover { background-color: #f8fafc; border-color: #cbd5e1; }
-        .option-item input[type="radio"] { width: 18px; height: 18px; margin-right: 15px; cursor: pointer; }
+        .option-item input[type="radio"] { width: 20px; height: 20px; margin-right: 15px; cursor: pointer; flex-shrink: 0; }
         .option-content { flex-grow: 1; font-size: 1rem; color: #334155; }
-        .option-img { max-height: 100px; display: block; margin-top: 5px; border-radius: 4px; }
-
-        /* Palette Grid */
-        .palette { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 15px; }
-        .palette-btn {
-            width: 100%; aspect-ratio: 1/1; border-radius: 8px;
-            border: 1px solid #e2e8f0; font-weight: 600; font-size: 0.85rem;
-            transition: transform 0.1s; cursor: pointer;
-        }
-        .palette-btn:hover { transform: scale(1.05); }
-        
+        .option-img { max-height: 180px; display: block; margin-top: 10px; border-radius: 6px; border: 1px solid #eee; }
+        .palette { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 15px; }
+        .palette-btn { width: 100%; aspect-ratio: 1/1; border-radius: 8px; border: 1px solid #e2e8f0; font-weight: 600; cursor: pointer; transition: 0.2s; }
         .notvisited { background: #f1f5f9; color: #64748b; }
-        .answered { background: #10b981 !important; color: white !important; border-color: #10b981; }
-        .notanswered { background: #ef4444 !important; color: white !important; border-color: #ef4444; }
-        .marked { background: #8b5cf6 !important; color: white !important; border-color: #8b5cf6; }
-        .current { border: 2px solid #4f46e5 !important; color: #4f46e5; box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2); }
-
-        /* Status Legend */
-        .legend-item { display: flex; align-items: center; font-size: 0.8rem; margin-bottom: 6px; color: #64748b; }
-        .dot { width: 10px; height: 10px; border-radius: 3px; margin-right: 8px; }
-
-        /* Custom Modal */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000;
-        }
-        .submit-modal {
-            background: white; border-radius: 16px; padding: 30px;
-            width: 350px; text-align: center; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
-        }
-        .success-icon {
-            width: 60px; height: 60px; background: #ecfdf5; color: #10b981;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 20px; font-size: 30px; border: 2px solid #d1fae5;
-        }
+        .answered { background: #10b981 !important; color: white !important; border: none; }
+        .notanswered { background: #ef4444 !important; color: white !important; border: none; }
+        .marked { background: #8b5cf6 !important; color: white !important; border: none; }
+        .current { border: 2px solid #4f46e5 !important; color: #4f46e5; transform: scale(1.05); }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 9999; }
+        .submit-modal { background: white; border-radius: 20px; padding: 40px; width: 400px; text-align: center; }
     </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="quiz-container">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                <h4 class="mb-0"><asp:Label ID="lblQuizTitle" runat="server" /></h4>
-                <%--<small class="text-muted">NCERT CLASS 10 • SCIENCE</small>--%>
-            </div>
+            <h4 class="fw-bold text-dark"><asp:Label ID="lblQuizTitle" runat="server" /></h4>
             <div class="d-flex align-items-center">
-                <div class="me-3 p-2 bg-white rounded border px-3">
-                    <span class="text-muted small">Time Left:</span>
-                    <span id="timerDisplay" class="fw-bold text-dark ms-1">00:00</span>
-                    <asp:Label ID="lblTimer" runat="server" style="display:none;" />
+                <div class="me-3 p-2 bg-white rounded border px-4 shadow-sm">
+                    <span class="text-muted small uppercase">Time Left:</span>
+                    <span id="timerDisplay" class="fw-bold text-danger ms-2">00:00</span>
                 </div>
-                <button type="button" class="btn btn-success px-4" onclick="showSubmitModal()">Submit Test</button>
+                <button type="button" class="btn btn-success fw-bold px-4 shadow-sm" onclick="showSubmitModal()">Submit Test</button>
                 <asp:Button ID="btnSubmitTest" runat="server" style="display:none;" OnClick="btnSubmitTest_Click" />
             </div>
         </div>
@@ -96,37 +44,34 @@
             <div class="col-lg-9">
                 <div class="quiz-card">
                     <div class="q-badge">Question <asp:Label ID="lblQuestionNumber" runat="server" /></div>
-                    
-                    <div class="question-text">
-                        <asp:Label ID="lblQuestionText" runat="server" />
-                    </div>
-
+                    <div class="question-text"><asp:Label ID="lblQuestionText" runat="server" /></div>
                     <asp:Image ID="imgQuestion" runat="server" CssClass="question-img" Visible="false" />
 
                     <div class="options-list">
                         <asp:Repeater ID="rptOptions" runat="server">
                             <ItemTemplate>
                                 <label class="option-item">
-                                    <input type="radio" name="quizOption" value='<%# Eval("Key") %>' 
-                                        <%# IsChecked(Eval("Key").ToString()) %> />
+                                    <input type="radio" name='<%# "q_group_" + hfCurrentQuestion.Value %>' 
+                                           value='<%# Eval("Key") %>' 
+                                           <%# IsChecked(Eval("Key").ToString()) %> />
                                     <div class="option-content">
                                         <strong><%# Eval("Key") %>.</strong> <%# Eval("Text") %>
-                                        <asp:Image runat="server" Visible='<%# !string.IsNullOrEmpty(Eval("Image").ToString()) %>' 
+                                        <asp:Image runat="server" 
+                                            Visible='<%# !string.IsNullOrEmpty(Eval("Image").ToString()) %>' 
                                             ImageUrl='<%# Eval("Image") %>' CssClass="option-img" />
                                     </div>
                                 </label>
                             </ItemTemplate>
                         </asp:Repeater>
-                       <asp:HiddenField ID="hfSelectedOption" runat="server" ClientIDMode="Static" />
+                        <asp:HiddenField ID="hfSelectedOption" runat="server" ClientIDMode="Static" />
+                        <asp:HiddenField ID="hfCurrentQuestion" runat="server" />
                     </div>
 
-                    <asp:HiddenField ID="hfCurrentQuestion" runat="server" />
-
                     <div class="d-flex justify-content-between mt-5 border-top pt-4">
-                        <asp:Button ID="btnPrevious" runat="server" Text="Previous" CssClass="btn btn-outline-secondary px-4" OnClick="btnPrevious_Click" />
+                        <asp:Button ID="btnPrevious" runat="server" Text="Previous" CssClass="btn btn-outline-secondary px-4 fw-bold" OnClick="btnPrevious_Click" OnClientClick="syncSelectedOption();" />
                         <div>
-                            <asp:Button ID="btnMarkReview" runat="server" Text="Mark for Review" CssClass="btn btn-warning text-white px-4 me-2" OnClick="btnMarkReview_Click" />
-                            <asp:Button ID="btnNext" runat="server" Text="Next" CssClass="btn btn-primary px-5" OnClick="btnNext_Click" OnClientClick="syncSelectedOption();" />
+                            <asp:Button ID="btnMarkReview" runat="server" Text="Mark for Review" CssClass="btn btn-warning text-white px-4 me-2 fw-bold" OnClick="btnMarkReview_Click" OnClientClick="syncSelectedOption();" />
+                            <asp:Button ID="btnNext" runat="server" Text="Next Question" CssClass="btn btn-primary px-5 fw-bold" OnClick="btnNext_Click" OnClientClick="syncSelectedOption();" />
                         </div>
                     </div>
                 </div>
@@ -134,9 +79,7 @@
 
             <div class="col-lg-3">
                 <div class="status-card">
-                    <h6 class="fw-bold mb-3">Question Status</h6>
-                    <small class="text-muted">Click on a number to jump</small>
-                    
+                    <h6 class="fw-bold mb-3 border-bottom pb-2">Question Status</h6>
                     <div class="palette">
                         <asp:Repeater ID="rptPalette" runat="server" OnItemDataBound="rptPalette_ItemDataBound">
                             <ItemTemplate>
@@ -147,59 +90,53 @@
                             </ItemTemplate>
                         </asp:Repeater>
                     </div>
-
                     <hr />
-                    <div class="legend-box">
-                        <div class="legend-item"><span class="dot answered"></span> Answered: <b class="ms-auto"><asp:Literal ID="litAnsweredCount" runat="server" /></b></div>
-                        <div class="legend-item"><span class="dot notanswered"></span> Not Answered: <b class="ms-auto"><asp:Literal ID="litNotAnsweredCount" runat="server" /></b></div>
-                        <div class="legend-item"><span class="dot marked"></span> Marked: <b class="ms-auto"><asp:Literal ID="litMarkedCount" runat="server" /></b></div>
-                        <div class="legend-item"><span class="dot notvisited"></span> Not Visited: <b class="ms-auto"><asp:Literal ID="litNotVisitedCount" runat="server" /></b></div>
-                    </div>
+                    <div class="small text-muted mb-2">Summary:</div>
+                    <div class="legend-item d-flex mb-1"><span class="dot answered me-2" style="width:12px;height:12px;border-radius:3px"></span> Answered: <b class="ms-auto"><asp:Literal ID="litAnsweredCount" runat="server" /></b></div>
+                    <div class="legend-item d-flex mb-1"><span class="dot notanswered me-2" style="width:12px;height:12px;border-radius:3px"></span> Not Answered: <b class="ms-auto"><asp:Literal ID="litNotAnsweredCount" runat="server" /></b></div>
+                    <div class="legend-item d-flex mb-1"><span class="dot marked me-2" style="width:12px;height:12px;border-radius:3px"></span> Marked: <b class="ms-auto"><asp:Literal ID="litMarkedCount" runat="server" /></b></div>
+                    <div class="legend-item d-flex mb-1"><span class="dot notvisited me-2" style="width:12px;height:12px;border-radius:3px"></span> Not Visited: <b class="ms-auto"><asp:Literal ID="litNotVisitedCount" runat="server" /></b></div>
+                    <div class="legend-item d-flex mt-2 fw-bold border-top pt-2">Total Questions: <b class="ms-auto"><asp:Literal ID="litTotalCount" runat="server" /></b></div>
                 </div>
             </div>
         </div>
     </div>
 
     <div id="submitModal" class="modal-overlay">
-        <div class="submit-modal">
-            <div class="success-icon">✓</div>
-            <h4 class="fw-bold">Submit Your Test?</h4>
-            <p class="text-muted small">You have answered <asp:Literal ID="litSummaryCount" runat="server" /> out of <asp:Literal ID="litTotalCount" runat="server" /> questions.</p>
+        <div class="submit-modal shadow-lg">
+            <div class="mb-3"><i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i></div>
+            <h3 class="fw-bold">Ready to Finish?</h3>
+            <p class="text-muted">You have answered <asp:Literal ID="litSummaryCount" runat="server" /> out of <asp:Literal ID="litTotalCountInModal" runat="server" /> questions.</p>
             <div class="d-grid gap-2 mt-4">
-                <asp:Button ID="btnFinalSubmit" runat="server" Text="Yes, Submit" CssClass="btn btn-success py-2" OnClick="btnSubmitTest_Click" />
-                <button type="button" class="btn btn-outline-secondary py-2" onclick="closeSubmitModal()">Resume Test</button>
+                <asp:Button ID="btnFinalSubmit" runat="server" Text="Yes, Submit My Test" CssClass="btn btn-success btn-lg fw-bold" OnClick="btnSubmitTest_Click" />
+                <button type="button" class="btn btn-light btn-sm" onclick="closeSubmitModal()">Return to Quiz</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Sync JS Radio to HiddenField before Postback
         function syncSelectedOption() {
-            var selected = document.querySelector('input[name="quizOption"]:checked');
+            const currentIdx = document.getElementById('<%= hfCurrentQuestion.ClientID %>').value;
+            const selected = document.querySelector('input[name="q_group_' + currentIdx + '"]:checked');
             document.getElementById('hfSelectedOption').value = selected ? selected.value : "";
         }
-
-        function showSubmitModal() {
-            syncSelectedOption();
-            document.getElementById('submitModal').style.display = 'flex';
-        }
+        function showSubmitModal() { syncSelectedOption(); document.getElementById('submitModal').style.display = 'flex'; }
         function closeSubmitModal() { document.getElementById('submitModal').style.display = 'none'; }
-
-        // Timer Logic
-        var remainingSeconds = <%= RemainingSeconds %>;
-        function updateTimer() {
-            var minutes = Math.floor(remainingSeconds / 60);
-            var seconds = remainingSeconds % 60;
-            document.getElementById('timerDisplay').innerText = 
-                (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-            
-            if (remainingSeconds <= 0) {
-                document.getElementById('<%= btnSubmitTest.ClientID %>').click();
-            } else {
-                remainingSeconds--;
-                setTimeout(updateTimer, 1000);
-            }
+        
+        let timeLeft = <%= RemainingSeconds %>;
+        function startTimer() {
+            const display = document.getElementById('timerDisplay');
+            const timer = setInterval(() => {
+                let m = Math.floor(timeLeft / 60);
+                let s = timeLeft % 60;
+                display.innerText = (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    document.getElementById('<%= btnSubmitTest.ClientID %>').click();
+                }
+                timeLeft--;
+            }, 1000);
         }
-        window.onload = updateTimer;
+        window.onload = startTimer;
     </script>
 </asp:Content>
