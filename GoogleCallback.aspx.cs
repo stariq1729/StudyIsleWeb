@@ -114,18 +114,28 @@ namespace StudyIsleWeb
                 }
 
                 // 🔹 Redirect AFTER connection closes
-                if (role == "Student")
+                // 🔹 Check for ReturnUrl
+                string returnUrl = Request.QueryString["ReturnUrl"];
+
+                if (!string.IsNullOrEmpty(returnUrl))
                 {
-                    //replace this instead of student index page "~/Default.aspx"
-                    Response.Redirect("~/Student/StudentIndex.aspx");
-                }
-                else if (role == "Admin")
-                {
-                    Response.Redirect("~/Admin/AdminIndex.aspx");
+                    Response.Redirect(returnUrl);
                 }
                 else
                 {
-                    Response.Redirect("~/Login.aspx");
+                    // 🔹 Role-based redirection
+                    if (role == "Student")
+                    {
+                        Response.Redirect("~/Student/StudentIndex.aspx");
+                    }
+                    else if (role == "Admin")
+                    {
+                        Response.Redirect("~/Admin/AdminIndex.aspx");
+                    }
+                    else
+                    {
+                        Response.Redirect("~/Login.aspx");
+                    }
                 }
 
             }

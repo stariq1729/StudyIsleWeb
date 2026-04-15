@@ -79,7 +79,7 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <h4 class="mb-0"><asp:Label ID="lblQuizTitle" runat="server" /></h4>
-                <small class="text-muted">NCERT CLASS 10 • SCIENCE</small>
+                <%--<small class="text-muted">NCERT CLASS 10 • SCIENCE</small>--%>
             </div>
             <div class="d-flex align-items-center">
                 <div class="me-3 p-2 bg-white rounded border px-3">

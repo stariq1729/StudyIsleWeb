@@ -60,7 +60,18 @@ namespace StudyIsleWeb
         protected void btnGoogleLogin_Click(object sender, EventArgs e)
         {
             string clientId = ConfigurationManager.AppSettings["GoogleClientId"];
+
+            // Get ReturnUrl from query string
+            string returnUrl = Request.QueryString["ReturnUrl"];
+
+            // Append ReturnUrl to GoogleCallback
             string redirectUri = "https://localhost:44301/GoogleCallback.aspx";
+
+            if (!string.IsNullOrEmpty(returnUrl))
+            {
+                redirectUri += "?ReturnUrl=" + HttpUtility.UrlEncode(returnUrl);
+            }
+
             string scope = "openid email profile";
 
             string googleAuthUrl =
