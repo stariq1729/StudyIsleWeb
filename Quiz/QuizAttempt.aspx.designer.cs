@@ -69,13 +69,22 @@ namespace StudyIsleWeb.Quiz
         protected global::System.Web.UI.WebControls.Image imgQuestion;
 
         /// <summary>
-        /// rblOptions control.
+        /// rptOptions control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList rblOptions;
+        protected global::System.Web.UI.WebControls.Repeater rptOptions;
+
+        /// <summary>
+        /// hfSelectedOption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfSelectedOption;
 
         /// <summary>
         /// hfCurrentQuestion control.
@@ -121,5 +130,68 @@ namespace StudyIsleWeb.Quiz
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptPalette;
+
+        /// <summary>
+        /// litAnsweredCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litAnsweredCount;
+
+        /// <summary>
+        /// litNotAnsweredCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litNotAnsweredCount;
+
+        /// <summary>
+        /// litMarkedCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litMarkedCount;
+
+        /// <summary>
+        /// litNotVisitedCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litNotVisitedCount;
+
+        /// <summary>
+        /// litSummaryCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litSummaryCount;
+
+        /// <summary>
+        /// litTotalCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litTotalCount;
+
+        /// <summary>
+        /// btnFinalSubmit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFinalSubmit;
     }
 }
