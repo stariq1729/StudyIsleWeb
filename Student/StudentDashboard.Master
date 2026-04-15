@@ -34,9 +34,11 @@
             <!-- ================= SIDEBAR ================= -->
             <div class="bg-dark text-white" id="sidebar-wrapper" style="width:250px; min-height:100vh;">
 
-                <div class="sidebar-heading text-center py-4 fs-5 fw-bold border-bottom">
-                    StudyIsle
-                </div>
+<a href="/Default.aspx" style="text-decoration: none; color: inherit;">
+  <div class="sidebar-heading text-center py-4 fs-5 fw-bold border-bottom">
+    StudyIsle
+  </div>
+</a>
 
                 <div class="list-group list-group-flush my-3">
 

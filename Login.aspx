@@ -125,10 +125,10 @@
 
                 <!-- Google Sign-In (UI Only) -->
         <div class="mb-3">
-            <asp:Button ID="btnGoogleLogin" runat="server"
+           <asp:Button ID="btnGoogleLogin" runat="server"
     Text="Continue with Google"
     CssClass="google-btn w-100"
-    />
+    OnClick="btnGoogleLogin_Click" />
 <%--  OnClick="btnGoogleLogin_Click" remove the OnClick event handler for btnGoogleLogin since it's not implemented yet--%>
         </div>
 

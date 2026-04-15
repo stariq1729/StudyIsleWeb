@@ -116,6 +116,7 @@ namespace StudyIsleWeb
                 // 🔹 Redirect AFTER connection closes
                 if (role == "Student")
                 {
+                    //replace this instead of student index page "~/Default.aspx"
                     Response.Redirect("~/Student/StudentIndex.aspx");
                 }
                 else if (role == "Admin")
@@ -126,8 +127,6 @@ namespace StudyIsleWeb
                 {
                     Response.Redirect("~/Login.aspx");
                 }
-
-
 
             }
         }
