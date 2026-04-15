@@ -60,19 +60,18 @@ namespace StudyIsleWeb
         protected void btnGoogleLogin_Click(object sender, EventArgs e)
         {
             string clientId = ConfigurationManager.AppSettings["GoogleClientId"];
+            string redirectUri = ConfigurationManager.AppSettings["GoogleRedirectUri"];
+            string scope = "openid email profile";
 
-            // Get ReturnUrl from query string
+            // Retrieve ReturnUrl from query string
             string returnUrl = Request.QueryString["ReturnUrl"];
 
-            // Append ReturnUrl to GoogleCallback
-            string redirectUri = "https://localhost:44301/GoogleCallback.aspx";
-
+            // Use OAuth state parameter to carry ReturnUrl
+            string state = string.Empty;
             if (!string.IsNullOrEmpty(returnUrl))
             {
-                redirectUri += "?ReturnUrl=" + HttpUtility.UrlEncode(returnUrl);
+                state = "&state=" + HttpUtility.UrlEncode(returnUrl);
             }
-
-            string scope = "openid email profile";
 
             string googleAuthUrl =
                 "https://accounts.google.com/o/oauth2/v2/auth" +
@@ -81,7 +80,8 @@ namespace StudyIsleWeb
                 "&response_type=code" +
                 "&scope=" + HttpUtility.UrlEncode(scope) +
                 "&access_type=offline" +
-                "&prompt=select_account";
+                "&prompt=select_account" +
+                state;
 
             Response.Redirect(googleAuthUrl);
         }

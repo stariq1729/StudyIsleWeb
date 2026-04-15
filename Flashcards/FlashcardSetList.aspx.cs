@@ -77,12 +77,25 @@ namespace StudyIsleWeb.Flashcards
         /// </summary>
         protected void btnStartFlashcards_Click(object sender, EventArgs e)
         {
+            // Check if the user is logged in
+            if (Session["UserEmail"] == null)
+            {
+                // Store the current URL for redirection after login
+                string returnUrl = Request.RawUrl;
+
+                Response.Redirect("~/Login.aspx?ReturnUrl=" +
+                                  Server.UrlEncode(returnUrl));
+                return;
+            }
+
+            // Retrieve query string parameters
             string bid = Request.QueryString["bid"];
             string rid = Request.QueryString["rid"];
             string scid = Request.QueryString["scid"];
             string sid = Request.QueryString["sid"];
             string cid = Request.QueryString["cid"];
 
+            // Redirect to Flashcard Viewer
             Response.Redirect(
                 $"~/Flashcards/FlashcardViewer.aspx?bid={bid}&rid={rid}&scid={scid}&sid={sid}&cid={cid}");
         }
