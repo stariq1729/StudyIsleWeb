@@ -134,7 +134,8 @@
         </div>
 
         <!-- Quiz List -->
-        <asp:Repeater ID="rptQuizzes" runat="server">
+        <asp:Repeater ID="rptQuizzes" runat="server"
+    OnItemCommand="rptQuizzes_ItemCommand">
             <ItemTemplate>
                 <div class="quiz-card">
                     <div class="quiz-left">
@@ -156,10 +157,14 @@
                         </div>
                     </div>
 
-                    <a class="start-btn"
-                       href='<%# ResolveUrl("~/Quiz/QuizStart.aspx?quizId=" + Eval("QuizId")) %>'>
-                        ▶ Start Test
-                    </a>
+                   <asp:LinkButton 
+    ID="btnStartTest"
+    runat="server"
+    CssClass="start-btn"
+    CommandName="StartQuiz"
+    CommandArgument='<%# Eval("QuizId") %>'>
+    ▶ Start Test
+</asp:LinkButton>
                 </div>
             </ItemTemplate>
         </asp:Repeater>

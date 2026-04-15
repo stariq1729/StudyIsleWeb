@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web.UI.WebControls;
 
 namespace StudyIsleWeb.Quiz
 {
@@ -83,7 +84,34 @@ namespace StudyIsleWeb.Quiz
                 }
             }
         }
+        protected void rptQuizzes_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "StartQuiz")
+            {
+                // 🔐 Check if user is logged in
+                if (Session["UserEmail"] == null)
+                {
+                    string returnUrl = Request.RawUrl;
+                    Response.Redirect("~/Login.aspx?ReturnUrl=" +
+                                      Server.UrlEncode(returnUrl));
+                    return;
+                }
 
+                // ✅ User is logged in
+                string quizId = e.CommandArgument.ToString();
+
+                // Preserve existing query parameters
+                string bid = Request.QueryString["bid"];
+                string rid = Request.QueryString["rid"];
+                string scid = Request.QueryString["scid"];
+                string sid = Request.QueryString["sid"];
+                string cid = Request.QueryString["cid"];
+
+                // Redirect to Quiz Start page
+                Response.Redirect(
+                    $"~/Quiz/QuizStart.aspx?quizId={quizId}&bid={bid}&rid={rid}&scid={scid}&sid={sid}&cid={cid}");
+            }
+        }
         /// <summary>
         /// Displays no data message.
         /// </summary>
