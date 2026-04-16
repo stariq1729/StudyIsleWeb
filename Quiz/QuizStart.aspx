@@ -5,7 +5,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         .quiz-wrapper {
-            max-width: 850px;
+            max-width: 750px;
             margin: 40px auto;
         }
 
