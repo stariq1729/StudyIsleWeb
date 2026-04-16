@@ -81,7 +81,7 @@
                                     <ul class="list-unstyled">
                                         <li><a class="dropdown-item" runat="server" href="~/BoardResourceTypes.aspx?board=jee">JEE Main & Advanced</a></li>
                                         <li><a class="dropdown-item" runat="server" href="~/BoardResourceTypes.aspx?board=neet">NEET UG</a></li>
-                                        <li><a class="dropdown-item" runat="server" href="~/CompSubCategory.aspx?board=cuet">CUET</a></li>
+                                        <li><a class="dropdown-item" runat="server" href="~/BoardResourceTypes.aspx?board=cuet">CUET</a></li>
                                         <li><a class="dropdown-item" runat="server" href="~/CompSubCategory.aspx?board=nda">NDA / Defence</a></li>
                                     </ul>
                                 </div>
