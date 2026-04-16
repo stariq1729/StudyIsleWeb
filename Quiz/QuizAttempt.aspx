@@ -22,7 +22,7 @@
         .marked { background: #8b5cf6 !important; color: white !important; border: none; }
         .current { border: 2px solid #4f46e5 !important; color: #4f46e5; transform: scale(1.05); }
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 9999; }
-        .submit-modal { background: white; border-radius: 20px; padding: 40px; width: 400px; text-align: center; }
+        .submit-modal { background: white; border-radius: 20px; padding: 40px; width: 350px; text-align: center; }
     </style>
 </asp:Content>
 
