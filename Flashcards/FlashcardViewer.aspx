@@ -9,7 +9,7 @@
         }
 
         .viewer-container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 30px auto;
             text-align: center;
         }
