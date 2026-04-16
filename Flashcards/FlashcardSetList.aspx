@@ -5,7 +5,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         .flashcard-container {
-            max-width: 900px;
+            max-width: 700px;
             margin: 50px auto;
             padding: 20px;
         }
