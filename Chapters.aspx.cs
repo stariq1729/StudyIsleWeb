@@ -39,62 +39,56 @@ namespace StudyIsleWeb
             using (SqlConnection con = new SqlConnection(cs))
             {
                 con.Open();
-
                 int subjectId = string.IsNullOrEmpty(sIdStr) ? 0 : Convert.ToInt32(sIdStr);
 
-                // 🔹 Header
-                string metaSql = @"SELECT SubjectName FROM Subjects WHERE SubjectId = @sid";
-                if (subjectId > 0)
+                // 1. Fetch Subject Meta Data (Image and Names)
+                // 1. Fetch Subject Meta Data (Image and Names)
+                string metaSql = @"SELECT SubjectName, IconImage, PageTitle FROM Subjects WHERE SubjectId = @sid";
+                SqlCommand cmdMeta = new SqlCommand(metaSql, con);
+                cmdMeta.Parameters.AddWithValue("@sid", subjectId);
+
+                using (SqlDataReader dr = cmdMeta.ExecuteReader())
                 {
-                    SqlCommand cmdMeta = new SqlCommand(metaSql, con);
-                    cmdMeta.Parameters.AddWithValue("@sid", subjectId);
-                    object res = cmdMeta.ExecuteScalar();
-                    litSubjectName.Text = res != null ? res.ToString() : "Resources";
-                }
-                else
-                {
-                    litSubjectName.Text = "Resources";
+                    if (dr.Read())
+                    {
+                        // Use 'as' or direct assignment with null checks to prevent NullReferenceException
+                        if (litBookTitle != null)
+                            litBookTitle.Text = dr["SubjectName"] != DBNull.Value ? dr["SubjectName"].ToString() : "Subject";
+
+                        if (litBookSub != null)
+                            litBookSub.Text = dr["PageTitle"] != DBNull.Value ? dr["PageTitle"].ToString() : "Study Resources";
+
+                        if (imgSubject != null)
+                        {
+                            string imgPath = dr["IconImage"] != DBNull.Value ? dr["IconImage"].ToString() : "";
+                            if (!string.IsNullOrEmpty(imgPath))
+                            {
+                                imgSubject.ImageUrl = "~/Uploads/SubjectIcons/" + imgPath;
+                            }
+                            else
+                            {
+                                imgSubject.ImageUrl = "~/Images/default-book.png"; // Fallback image
+                            }
+                        }
+                    }
                 }
 
-                // 🔹 Chapters Query (Enhanced with Quiz & Flashcard flags)
+                // 2. Chapters Query (Keep your existing logic)
                 string sql = @"
-                    SELECT 
-                        C.ChapterName,
-                        C.ChapterId,
-                        C.IsQuizEnabled,
-                        C.IsFlashcardEnabled,
-                        CASE 
-                            WHEN EXISTS (
-                                SELECT 1 FROM Sets 
-                                WHERE ChapterId = C.ChapterId AND IsActive = 1
-                            ) THEN 1 ELSE 0 
-                        END AS HasSets
-                    FROM Chapters C
-                    WHERE C.IsActive = 1";
+            SELECT 
+                C.ChapterName, C.ChapterId,
+                CASE WHEN EXISTS (SELECT 1 FROM Sets WHERE ChapterId = C.ChapterId AND IsActive = 1) THEN 1 ELSE 0 END AS HasSets
+            FROM Chapters C
+            WHERE C.IsActive = 1";
 
-                if (subjectId > 0)
-                {
-                    sql += " AND C.SubjectId = @sid";
-                }
-                else
-                {
-                    sql += @"
-                        AND (
-                            C.SubCategoryId = @scid OR
-                            C.SubjectId IN (
-                                SELECT SubjectId FROM Subjects WHERE SubCategoryId = @scid
-                            )
-                        )";
-                }
+                if (subjectId > 0) sql += " AND C.SubjectId = @sid";
+                else sql += " AND (C.SubCategoryId = @scid OR C.SubjectId IN (SELECT SubjectId FROM Subjects WHERE SubCategoryId = @scid))";
 
                 sql += " ORDER BY C.DisplayOrder, C.ChapterName";
 
                 SqlCommand cmd = new SqlCommand(sql, con);
-
-                if (subjectId > 0)
-                    cmd.Parameters.AddWithValue("@sid", subjectId);
-                else
-                    cmd.Parameters.AddWithValue("@scid", subCatId);
+                if (subjectId > 0) cmd.Parameters.AddWithValue("@sid", subjectId);
+                else cmd.Parameters.AddWithValue("@scid", subCatId);
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -102,6 +96,7 @@ namespace StudyIsleWeb
 
                 if (dt.Rows.Count > 0)
                 {
+                    litCount.Text = dt.Rows.Count.ToString();
                     rptChapters.DataSource = dt;
                     rptChapters.DataBind();
                 }
