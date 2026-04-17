@@ -107,12 +107,20 @@ namespace StudyIsleWeb.Quiz
             {
                 Button btn = (Button)e.Item.FindControl("btnPalette");
                 int idx = e.Item.ItemIndex;
-                btn.CssClass = "palette-btn " + (idx == int.Parse(hfCurrentQuestion.Value) ? "current " : "");
+                int currentIdx = int.Parse(hfCurrentQuestion.Value);
 
-                if (MarkedQuestions.Contains(idx)) btn.CssClass += "marked";
-                else if (UserAnswers.ContainsKey(idx) && !string.IsNullOrEmpty(UserAnswers[idx])) btn.CssClass += "answered";
-                else if (UserAnswers.ContainsKey(idx)) btn.CssClass += "notanswered";
-                else btn.CssClass += "notvisited";
+                string statusClass = "";
+
+                // 1. Determine Status Color
+                if (MarkedQuestions.Contains(idx)) statusClass = "marked";
+                else if (UserAnswers.ContainsKey(idx) && !string.IsNullOrEmpty(UserAnswers[idx])) statusClass = "answered";
+                else if (UserAnswers.ContainsKey(idx)) statusClass = "notanswered";
+                else statusClass = "notvisited";
+
+                // 2. Add Current Question Highlight (separate class)
+                if (idx == currentIdx) statusClass += " current-q";
+
+                btn.CssClass = "palette-btn " + statusClass;
             }
         }
 
@@ -169,13 +177,17 @@ namespace StudyIsleWeb.Quiz
             int answered = UserAnswers.Values.Count(v => !string.IsNullOrEmpty(v));
             int total = dt.Rows.Count;
 
+            // Existing Summary Literals
             litAnsweredCount.Text = litSummaryCount.Text = answered.ToString();
             litNotAnsweredCount.Text = (UserAnswers.Count - answered).ToString();
             litMarkedCount.Text = MarkedQuestions.Count.ToString();
             litNotVisitedCount.Text = (total - UserAnswers.Count).ToString();
-
-            // Fixed the missing Control ID error from your screenshot
             litTotalCount.Text = litTotalCountInModal.Text = total.ToString();
+
+            // --- ADD THESE LINES FOR THE NEW UI ---
+            if (litAnsweredCountDisplay != null) litAnsweredCountDisplay.Text = answered.ToString();
+            if (litTotalCountDisplay != null) litTotalCountDisplay.Text = total.ToString();
+            // ---------------------------------------
         }
 
         protected void btnSubmitTest_Click(object sender, EventArgs e) { SaveAnswer(); SubmitQuiz(); }
