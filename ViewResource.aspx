@@ -150,7 +150,7 @@
             // PDF Viewer
             if (type.includes("pdf")) {
                 pdfViewer.style.display = "block";
-                pdfViewer.src = filePath + "#toolbar=1&navpanes=0&scrollbar=1";
+                pdfViewer.src = filePath + "#toolbar=0&navpanes=0&scrollbar=0";
             }
             // Image/Mindmap Viewer
             else if (type.includes("image") || type.includes("mindmap")) {
