@@ -42,7 +42,7 @@
         .selected-card { border-color: #6366f1 !important; background-color: #f5f3ff !important; }
 
         /* Buttons */
-        .quiz-btn { height: 44px; min-width: 130px; font-weight: 600; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; transition: 0.2s; font-size: 14px; }
+        .quiz-btn { height: 44px; min-width: 130px; font-weight: 600; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; transition: 0.2s; font-size: 14px; }
         
         /* Palette Logic Fixes */
         .palette { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 15px; }
@@ -71,6 +71,7 @@
 
         /* Header UI */
         .timer-display { font-family: 'Courier New', monospace; font-size: 1.2rem; font-weight: 700; color: #ef4444; background: #fff1f2; padding: 5px 15px; border-radius: 8px; border: 1px solid #fee2e2; }
+       
     </style>
 </asp:Content>
 
@@ -128,7 +129,7 @@
 
                     <div class="d-flex justify-content-between mt-5 border-top pt-4">
                         <div class="d-flex gap-2">
-                            <asp:Button ID="btnMarkReview" runat="server" Text="Mark for Review" CssClass="btn btn-outline-warning quiz-btn" OnClick="btnMarkReview_Click" OnClientClick="syncSelectedOption();" />
+                            <asp:Button ID="btnMarkReview" runat="server" Text="Mark for Review" CssClass="btn btn-outline-info quiz-btn" OnClick="btnMarkReview_Click" OnClientClick="syncSelectedOption();" />
                             <button type="button" class="btn btn-outline-danger quiz-btn" onclick="clearSelection()">Clear</button>
                         </div>
                         <div class="d-flex gap-2">

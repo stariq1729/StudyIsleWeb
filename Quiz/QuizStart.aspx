@@ -110,7 +110,7 @@
 
 /* 2. Style when the toggle is ON (Checked) */
 #chkNegativeMarking:checked {
-    background-color: #6f42c1 !important; /* Reference Purple */
+    background-color: #6d5dfc !important; /* Reference Purple */
     background-position: right 2px center !important; /* Slides the circle to the right */
 }
 
