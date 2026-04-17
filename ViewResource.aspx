@@ -13,8 +13,8 @@
     <style>
         .res-container {
             background: #f8fafc;
-            padding: 40px 0;
-            min-height: 85vh;
+            padding: 30px 0;
+            min-height: 90vh;
         }
 
         .resource-card {
