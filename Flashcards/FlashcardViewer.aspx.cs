@@ -73,41 +73,39 @@ namespace StudyIsleWeb.Flashcards
             lblQuestion.Text = row["QuestionText"].ToString();
             lblAnswer.Text = row["AnswerText"].ToString();
 
-            // Question Image
-            if (!string.IsNullOrEmpty(row["QuestionImagePath"].ToString()))
+            // Question Image Logic
+            string qImg = row["QuestionImagePath"].ToString();
+            if (!string.IsNullOrEmpty(qImg))
             {
-                imgQuestion.ImageUrl = row["QuestionImagePath"].ToString();
-                imgQuestion.Visible = true;
+                imgQuestion.ImageUrl = qImg;
+                divQuestionImg.Visible = true;
             }
             else
             {
-                imgQuestion.Visible = false;
+                divQuestionImg.Visible = false;
             }
 
-            // Answer Image
-            if (!string.IsNullOrEmpty(row["AnswerImagePath"].ToString()))
+            // Answer Image Logic
+            string aImg = row["AnswerImagePath"].ToString();
+            if (!string.IsNullOrEmpty(aImg))
             {
-                imgAnswer.ImageUrl = row["AnswerImagePath"].ToString();
-                imgAnswer.Visible = true;
+                imgAnswer.ImageUrl = aImg;
+                divAnswerImg.Visible = true;
             }
             else
             {
-                imgAnswer.Visible = false;
+                divAnswerImg.Visible = false;
             }
 
+            // Update Counter & Progress
             int total = Flashcards.Rows.Count;
             lblCardCount.Text = $"CARD {CurrentIndex + 1} OF {total}";
 
-            // Progress Bar
-            int progress = (int)(((double)(CurrentIndex + 1) / total) * 100);
+            double progress = ((double)(CurrentIndex + 1) / total) * 100;
             progressBar.Style["width"] = progress + "%";
 
             btnPrevious.Enabled = CurrentIndex > 0;
-
-            if (CurrentIndex == total - 1)
-                btnNext.Text = "Last Card";
-            else
-                btnNext.Text = "Next Card";
+            btnNext.Text = (CurrentIndex == total - 1) ? "Finish Set" : "Next Card";
         }
 
         protected void btnNext_Click(object sender, EventArgs e)

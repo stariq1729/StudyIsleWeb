@@ -5,42 +5,55 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         body {
-            background-color: #f5f7fb;
+            background-color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .viewer-container {
-            max-width: 800px;
-            margin: 30px auto;
+            max-width: 700px;
+            margin: 40px auto;
             text-align: center;
         }
 
-        /* Header */
+        /* Header Navigation */
         .viewer-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
-            color: #6c757d;
-            font-size: 14px;
+            margin-bottom: 20px;
+            padding: 0 10px;
         }
 
         .viewer-header a {
             text-decoration: none;
-            color: #6c757d;
+            color: #94a3b8;
             font-weight: 600;
+            font-size: 14px;
+            transition: color 0.2s;
         }
 
-        /* Flashcard */
+        .viewer-header a:hover {
+            color: #4b4bd3;
+        }
+
+        .card-counter {
+            color: #94a3b8;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* The Flashcard */
         .flashcard {
             perspective: 1000px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .flashcard-inner {
             position: relative;
             width: 100%;
-            height: 320px;
-            transition: transform 0.6s;
+            height: 380px;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             transform-style: preserve-3d;
             cursor: pointer;
         }
@@ -54,110 +67,175 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            border-radius: 18px;
+            border-radius: 24px;
             backface-visibility: hidden;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 30px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            padding: 60px 40px; /* Space for absolute labels */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
         }
 
         .flashcard-front {
             background: #ffffff;
+            border: 1px solid #edf2f7;
         }
 
         .flashcard-back {
-            background: linear-gradient(135deg, #5b5be0, #4b4bd3);
+            background: #4f46e5;
             color: #ffffff;
             transform: rotateY(180deg);
         }
 
+        /* Absolute Positions for Labels & Hints */
         .card-label {
-            font-size: 12px;
-            letter-spacing: 1px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #6c757d;
+            position: absolute;
+            top: 30px;
+            font-size: 11px;
+            letter-spacing: 2px;
+            font-weight: 700;
+            color: #cbd5e0;
         }
 
         .flashcard-back .card-label {
-            color: #e0e0ff;
-        }
-
-        .card-text {
-            font-size: 18px;
-            font-weight: 600;
-            line-height: 1.6;
-        }
-
-        .card-image {
-            max-width: 150px;
-            margin-bottom: 15px;
-            border-radius: 10px;
+            color: rgba(255, 255, 255, 0.6);
         }
 
         .flip-hint {
-            font-size: 12px;
-            margin-top: 15px;
-            color: #999;
+            position: absolute;
+            bottom: 30px;
+            font-size: 11px;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: #cbd5e0;
+            text-transform: uppercase;
         }
 
         .flashcard-back .flip-hint {
-            color: #dcdcff;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Fixed Image Handling */
+        .image-container {
+    width: 100%;
+    max-height: 180px; /* Limits how much space the image can take */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.card-image {
+    max-height: 180px;
+    max-width: 100%;
+    object-fit: contain; /* Keeps aspect ratio without squishing */
+    display: block;
+}
+
+        .card-text {
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 1.4;
+            color: #1e293b;
+        }
+
+        .flashcard-back .card-text {
+            color: #ffffff;
         }
 
         /* Progress Bar */
-        .progress {
+        .progress-container {
             height: 6px;
-            border-radius: 5px;
-            margin: 20px 0;
-            background-color: #e9ecef;
+            background-color: #e2e8f0;
+            border-radius: 10px;
+            margin: 22px 0;
+            overflow: hidden;
         }
 
-        .progress-bar {
-            background: #4b4bd3;
+        .progress-bar-fill {
+            height: 100%;
+            background: #4f46e5;
+            transition: width 0.4s ease;
         }
 
         /* Navigation Buttons */
         .nav-buttons {
             display: flex;
             justify-content: space-between;
-            margin-top: 10px;
+            gap: 15px;
         }
 
-        .btn-custom {
-            min-width: 140px;
-            border-radius: 8px;
-            font-weight: 500;
-        }
-
-        .btn-primary {
-            background-color: #4b4bd3;
+        .btn-viewer {
+            flex: 1;
+            height: 55px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 16px;
             border: none;
+            transition: all 0.2s;
+            cursor: pointer;
         }
 
-        .btn-primary:hover {
-            background-color: #3d3dbb;
+        .btn-prev {
+            background-color: #f1f5f9;
+            color: #64748b;
+            border: 1px solid black;
+        }
+
+        .btn-prev:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-next {
+            background-color: #3b82f6;
+            color: white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-next:hover {
+            background-color: #2563eb;
+            transform: translateY(-2px);
         }
 
         /* Completion Panel */
-        .completion-panel {
-            background: #ffffff;
-            padding: 40px;
-            border-radius: 18px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-        }
+        /* Completion Panel Styles */
+.completion-panel {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 18px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
 
-        .completion-panel h3 {
-            margin-top: 15px;
-            font-weight: 700;
-        }
+/* The Icon Circle */
+.completion-icon {
+    font-size: 30px;
+    width: 60px;
+    height: 60px;
+    background: #f0fdf4; /* Light green background */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
 
-        .completion-icon {
-            font-size: 40px;
-        }
+.completion-panel h3 {
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 10px;
+}
+
+.completion-panel p {
+    color: #64748b;
+    margin-bottom: 25px;
+}
     </style>
 
     <script>
@@ -168,90 +246,76 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
     <div class="viewer-container">
-
-        <!-- Header -->
         <div class="viewer-header">
             <a href="javascript:history.back()">← Chapters</a>
-            <asp:Label ID="lblCardCount" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblCardCount" runat="server" CssClass="card-counter"></asp:Label>
         </div>
 
-        <!-- Flashcard Panel -->
-        <asp:Panel ID="pnlFlashcard" runat="server">
+       <asp:Panel ID="pnlFlashcard" runat="server">
+    <div id="flashcard" class="flashcard" onclick="flipCard()">
+        <div class="flashcard-inner">
 
-            <div id="flashcard" class="flashcard" onclick="flipCard()">
-                <div class="flashcard-inner">
-
-                    <!-- Front Side -->
-                    <div class="flashcard-front">
-                        <div class="card-label">QUESTION</div>
-
-                        <asp:Image ID="imgQuestion" runat="server"
-                            CssClass="card-image" Visible="false" />
-
-                        <asp:Label ID="lblQuestion" runat="server"
-                            CssClass="card-text"></asp:Label>
-
-                        <div class="flip-hint">TAP TO REVEAL</div>
-                    </div>
-
-                    <!-- Back Side -->
-                    <div class="flashcard-back">
-                        <div class="card-label">ANSWER</div>
-
-                        <asp:Image ID="imgAnswer" runat="server"
-                            CssClass="card-image" Visible="false" />
-
-                        <asp:Label ID="lblAnswer" runat="server"
-                            CssClass="card-text"></asp:Label>
-
-                        <div class="flip-hint">TAP TO FLIP BACK</div>
-                    </div>
-
+            <div class="flashcard-front">
+                <div class="card-label">QUESTION</div>
+                
+                <div id="divQuestionImg" runat="server" class="image-container">
+                    <asp:Image ID="imgQuestion" runat="server" CssClass="card-image" />
                 </div>
+
+                <asp:Label ID="lblQuestion" runat="server" CssClass="card-text"></asp:Label>
+                <div class="flip-hint">TAP TO REVEAL</div>
             </div>
 
-            <!-- Progress Bar -->
-            <div class="progress">
-                <div id="progressBar" runat="server"
-                    class="progress-bar" role="progressbar"></div>
+            <div class="flashcard-back">
+                <div class="card-label">ANSWER</div>
+                
+                <div id="divAnswerImg" runat="server" class="image-container">
+                    <asp:Image ID="imgAnswer" runat="server" CssClass="card-image" />
+                </div>
+
+                <asp:Label ID="lblAnswer" runat="server" CssClass="card-text"></asp:Label>
+                <div class="flip-hint">TAP TO FLIP BACK</div>
             </div>
 
-            <!-- Navigation Buttons -->
-            <div class="nav-buttons">
-                <asp:Button ID="btnPrevious" runat="server"
-                    Text="Previous"
-                    CssClass="btn btn-outline-secondary btn-custom"
-                    OnClick="btnPrevious_Click" />
-
-                <asp:Button ID="btnNext" runat="server"
-                    Text="Next Card"
-                    CssClass="btn btn-primary btn-custom"
-                    OnClick="btnNext_Click" />
-            </div>
-
-        </asp:Panel>
-
-        <!-- Completion Panel -->
-        <asp:Panel ID="pnlCompletion" runat="server" Visible="false">
-            <div class="completion-panel">
-                <div class="completion-icon">🎉</div>
-                <h3>Great Job!</h3>
-                <p>You’ve completed all cards for this session.</p>
-
-                <asp:Button ID="btnNewTopic" runat="server"
-                    Text="New Topic"
-                    CssClass="btn btn-primary me-2"
-                    OnClick="btnNewTopic_Click" />
-
-                <asp:Button ID="btnReviewAgain" runat="server"
-                    Text="Review Again"
-                    CssClass="btn btn-outline-secondary"
-                    OnClick="btnReviewAgain_Click" />
-            </div>
-        </asp:Panel>
-
+        </div>
     </div>
 
+    <div class="progress-container">
+        <div id="progressBar" runat="server" class="progress-bar-fill"></div>
+    </div>
+
+    <div class="nav-buttons">
+        <asp:Button ID="btnPrevious" runat="server"
+            Text="Previous"
+            CssClass="btn-viewer btn-prev"
+            OnClick="btnPrevious_Click" />
+
+        <asp:Button ID="btnNext" runat="server"
+            Text="Next Card"
+            CssClass="btn-viewer btn-next"
+            OnClick="btnNext_Click" />
+    </div>
+</asp:Panel>
+
+       <asp:Panel ID="pnlCompletion" runat="server" Visible="false">
+    <div class="completion-panel">
+        <div class="completion-icon">🎉</div>
+        <h3>Great Job!</h3>
+        <p>You’ve completed all cards for this session.</p>
+        
+        <div style="display: flex; gap: 10px;">
+            <asp:Button ID="btnNewTopic" runat="server"
+                Text="New Topic"
+                CssClass="btn-viewer btn-next" 
+                OnClick="btnNewTopic_Click" />
+
+            <asp:Button ID="btnReviewAgain" runat="server"
+                Text="Review Again"
+                CssClass="btn-viewer btn-prev" 
+                OnClick="btnReviewAgain_Click" />
+        </div>
+    </div>
+</asp:Panel>
+    </div>
 </asp:Content>
