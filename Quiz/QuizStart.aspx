@@ -84,6 +84,46 @@
             font-weight: 600;
             font-size: 12px;
         }
+/* 1. Target the input directly and strip all browser styling */
+#chkNegativeMarking {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    width: 45px !important;
+    height: 24px !important;
+    background-color: #dee2e6 !important; /* Off Color */
+    border-radius: 50px !important;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none !important;
+    /* This creates the white circle (the knob) */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e") !important;
+    background-position: left 2px center;
+    background-repeat: no-repeat;
+    background-size: 20px;
+    outline: none !important;
+    box-shadow: none !important;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* 2. Style when the toggle is ON (Checked) */
+#chkNegativeMarking:checked {
+    background-color: #6f42c1 !important; /* Reference Purple */
+    background-position: right 2px center !important; /* Slides the circle to the right */
+}
+
+/* 3. ASP.NET specific fix: Checkboxes often render inside a span that adds extra margins */
+.form-check-input {
+    margin-left: 0 !important;
+    float: none !important;
+}
+
+/* 4. Fix for Bootstrap's default background-image showing up */
+.form-check-input:checked {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e") !important;
+}
     </style>
 </asp:Content>
 
@@ -161,18 +201,29 @@
                 <li>Click "Submit" only when you have finished all questions.</li>
             </ul>
 
-            <!-- Test Settings -->
-            <div class="card p-3 mb-4 bg-light">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h6 class="mb-1">Negative Marking</h6>
-                        <small>-<asp:Label ID="lblNegativeMarks" runat="server"></asp:Label> marks for each incorrect answer</small>
-                    </div>
-                    <div class="form-check form-switch">
-                        <asp:CheckBox ID="chkNegativeMarking" runat="server" CssClass="form-check-input" />
-                    </div>
-                </div>
+<div class="card border-0 shadow-sm mb-4" style="background-color: #f8fafd; border-radius: 12px;">
+    <div class="card-body p-4">
+        <div class="d-flex align-items-center mb-3" style="color: #6c757d;">
+            <span class="me-2" style="font-size: 1.1rem;">⚙️</span>
+            <h6 class="mb-0 fw-bold">Test Settings</h6>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h6 class="mb-1 fw-bold" style="color: #2d3436;">Negative Marking</h6>
+                <small class="text-muted" style="font-size: 0.85rem;">
+                    -<asp:Label ID="lblNegativeMarks" runat="server"></asp:Label> marks for every incorrect answer
+                </small>
             </div>
+            
+            <div class="form-check form-switch p-0">
+                <asp:CheckBox ID="chkNegativeMarking" runat="server" 
+                    CssClass="form-check-input" 
+                    ClientIDMode="Static" />
+            </div>
+        </div>
+    </div>
+</div>
 
             <!-- Hidden Field -->
             <asp:HiddenField ID="hfQuizId" runat="server" />
