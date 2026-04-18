@@ -41,11 +41,11 @@ namespace StudyIsleWeb
             {
                 con.Open();
 
-                // 🔹 1. Metadata
-                string metaSql = @"SELECT B.BoardName, SC.SubCategoryName 
-                                   FROM Boards B 
-                                   INNER JOIN SubCategories SC ON SC.SubCategoryId = @scid
-                                   WHERE B.BoardId = @bid";
+                // 🔹 1. Metadata (Added Description)
+                string metaSql = @"SELECT B.BoardName, SC.SubCategoryName, SC.Description 
+                           FROM Boards B 
+                           INNER JOIN SubCategories SC ON SC.SubCategoryId = @scid
+                           WHERE B.BoardId = @bid";
 
                 SqlCommand cmdMeta = new SqlCommand(metaSql, con);
                 cmdMeta.Parameters.AddWithValue("@bid", boardId);
@@ -57,6 +57,8 @@ namespace StudyIsleWeb
                     {
                         litBoardName.Text = dr["BoardName"].ToString();
                         litSubCatName.Text = dr["SubCategoryName"].ToString();
+                        // Bind description, fallback to empty string if null
+                        litSubCatDesc.Text = dr["Description"] != DBNull.Value ? dr["Description"].ToString() : "";
                     }
                     else
                     {
@@ -70,10 +72,12 @@ namespace StudyIsleWeb
                 // 🔹 2. SUBJECT STAGE
                 if (subjectId == 0)
                 {
-                    DataTable dtSubjects = GetDataTable(con, @"SELECT SubjectId, SubjectName as DisplayName, SubjectId as Id, IconImage, Description 
-                                                              FROM Subjects 
-                                                              WHERE BoardId=@bid AND SubCategoryId=@scid AND IsActive=1",
-                                                              boardId, subCatId);
+                    // Fetching PageTitle as well
+                    DataTable dtSubjects = GetDataTable(con, @"SELECT SubjectId, SubjectName as DisplayName, SubjectId as Id, IconImage, 
+                                                       ISNULL(PageTitle, '') as PageTitle 
+                                                       FROM Subjects 
+                                                       WHERE BoardId=@bid AND SubCategoryId=@scid AND IsActive=1",
+                                                     boardId, subCatId);
 
                     if (dtSubjects.Rows.Count > 0)
                     {
