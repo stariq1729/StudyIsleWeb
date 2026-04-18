@@ -63,36 +63,37 @@
                 </ol>
             </nav>
             <h2 class="fw-bold"><asp:Literal ID="litViewType" runat="server" /></h2>
+            <%-- Hero description Literal --%>
             <p class="text-muted"><asp:Literal ID="litSubCatDesc" runat="server" /></p>
         </div>
     </div>
 
     <div class="container pb-5">
         <div class="row g-4">
-         <asp:Repeater ID="rptData" runat="server">
-    <ItemTemplate>
-        <div class="col-lg-6 col-md-12">
-            <a href='<%# GetNavigationUrl(Eval("Id")) %>' class="text-decoration-none">
-                <div class="subject-card">
-                    <div class="card-main-content">
-                        <img src='<%# GetIcon(Eval("IconImage")) %>' class="sub-icon" alt="Icon" />
-                        <div class="sub-info">
-                            <div class="sub-name"><%# Eval("DisplayName") %></div>
-                            <div class="sub-title"><%# Eval("PageTitle") %></div>
-                        </div>
+            <asp:Repeater ID="rptData" runat="server">
+                <ItemTemplate>
+                    <div class="col-lg-6 col-md-12">
+                        <a href='<%# GetNavigationUrl(Eval("Id")) %>' class="text-decoration-none">
+                            <div class="subject-card">
+                                <div class="card-main-content">
+                                    <img src='<%# GetIcon(Eval("IconImage")) %>' class="sub-icon" alt="Icon" />
+                                    <div class="sub-info">
+                                        <div class="sub-name"><%# Eval("DisplayName") %></div>
+                                        <%-- Only show subtitle div if data exists --%>
+                                        <%# !string.IsNullOrEmpty(Convert.ToString(Eval("PageTitle"))) ?  "<div class='sub-title'>" + Eval("PageTitle") + "</div>" : "" %>
+   
+                                       
+                                    </div>
+                                </div>
+                                <div class="btn-explore">Explore</div>
+                            </div>
+                        </a>
                     </div>
-
-                    <div class="btn-explore">
-                        Explore <i class="bi bi-arrow-right ms-1"></i>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </ItemTemplate>
-</asp:Repeater>
+                </ItemTemplate>
+            </asp:Repeater>
             
             <asp:Panel ID="pnlNoData" runat="server" Visible="false" CssClass="col-12 text-center py-5">
-                <h5 class="text-muted">No resources found in this category.</h5>
+                <h5 class="text-muted">No resources found.</h5>
             </asp:Panel>
         </div>
     </div>

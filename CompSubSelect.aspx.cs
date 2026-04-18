@@ -41,8 +41,8 @@ namespace StudyIsleWeb
             {
                 con.Open();
 
-                // 🔹 1. Metadata (Added Description)
-                string metaSql = @"SELECT B.BoardName, SC.SubCategoryName, SC.Description 
+                // 🔹 1. Metadata (Safety for Description)
+                string metaSql = @"SELECT B.BoardName, SC.SubCategoryName, ISNULL(SC.Description, '') as Description 
                            FROM Boards B 
                            INNER JOIN SubCategories SC ON SC.SubCategoryId = @scid
                            WHERE B.BoardId = @bid";
@@ -57,8 +57,11 @@ namespace StudyIsleWeb
                     {
                         litBoardName.Text = dr["BoardName"].ToString();
                         litSubCatName.Text = dr["SubCategoryName"].ToString();
-                        // Bind description, fallback to empty string if null
-                        litSubCatDesc.Text = dr["Description"] != DBNull.Value ? dr["Description"].ToString() : "";
+
+                        // Only show the literal if description is not empty
+                        string desc = dr["Description"].ToString();
+                        litSubCatDesc.Text = desc;
+                        litSubCatDesc.Visible = !string.IsNullOrEmpty(desc);
                     }
                     else
                     {
@@ -69,10 +72,9 @@ namespace StudyIsleWeb
 
                 int subjectId = string.IsNullOrEmpty(sIdStr) ? 0 : Convert.ToInt32(sIdStr);
 
-                // 🔹 2. SUBJECT STAGE
                 if (subjectId == 0)
                 {
-                    // Fetching PageTitle as well
+                    // 🔹 2. SUBJECT STAGE (Safety for PageTitle)
                     DataTable dtSubjects = GetDataTable(con, @"SELECT SubjectId, SubjectName as DisplayName, SubjectId as Id, IconImage, 
                                                        ISNULL(PageTitle, '') as PageTitle 
                                                        FROM Subjects 
@@ -100,18 +102,19 @@ namespace StudyIsleWeb
 
         private void CheckForNextLogicalLevel(SqlConnection con, int bid, int scid, int sid)
         {
-            // 🔹 YEAR CHECK
+            // 🔹 Added '' as PageTitle so the Repeater doesn't crash in Year mode
             string yearSql = @"SELECT 
-                                Y.YearName as DisplayName, 
-                                Y.YearId as Id, 
-                                NULL as IconImage, 
-                                'Resources for ' + Y.YearName as Description 
-                               FROM YearMappings YM 
-                               INNER JOIN Years Y ON YM.YearId = Y.YearId 
-                               WHERE YM.BoardId=@bid 
-                               AND YM.SubCategoryId=@scid 
-                               AND (YM.SubjectId=@sid OR YM.SubjectId IS NULL) 
-                               AND YM.IsActive=1";
+                        Y.YearName as DisplayName, 
+                        Y.YearId as Id, 
+                        NULL as IconImage, 
+                        'Resources for ' + Y.YearName as Description,
+                        '' as PageTitle 
+                       FROM YearMappings YM 
+                       INNER JOIN Years Y ON YM.YearId = Y.YearId 
+                       WHERE YM.BoardId=@bid 
+                       AND YM.SubCategoryId=@scid 
+                       AND (YM.SubjectId=@sid OR YM.SubjectId IS NULL) 
+                       AND YM.IsActive=1";
 
             DataTable dtYears = GetDataTable(con, yearSql, bid, scid, sid);
 
@@ -120,7 +123,7 @@ namespace StudyIsleWeb
                 ViewMode = "Year";
                 litViewType.Text = (sid > 0) ? "Select Year" : "Exam Years";
                 rptData.DataSource = dtYears;
-                rptData.DataBind();
+                rptData.DataBind(); // This will now find "PageTitle" as an empty string
             }
             else
             {
