@@ -72,7 +72,7 @@
         font-weight: 800; 
         font-size: 1.1rem; 
         color: var(--si-slate); 
-        margin-bottom: 10px; 
+        margin-bottom: 6px; 
         text-transform: uppercase; /* Match reference */
         z-index: 1;
     }
@@ -81,7 +81,7 @@
         font-size: 0.9rem; 
         color: var(--si-gray); 
         line-height: 1.5;
-        margin-bottom: 20px;
+        margin-bottom: 12px;
         z-index: 1;
     }
 
