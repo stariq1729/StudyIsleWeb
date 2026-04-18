@@ -18,7 +18,7 @@
         .resource-card {
             background: #ffffff;
             border-radius: 20px;
-            padding: 26px;
+            padding:26px;
             text-align: left;
             transition: all 0.3s ease;
             height: 100%;
@@ -32,8 +32,8 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
         .icon-box {
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -92,12 +92,12 @@
         }
 
         /* Fixed Size Card Grid */
-        .content-area { padding: 40px 0; background-color: #f8fafc; }
+        .content-area { padding: 40px 0; background-color: #f8f9fa; }
         
         .resource-card {
             background: var(--card-bg);
             border-radius: 20px;
-            padding: 22px;
+            padding: 24px;
             border: 1px solid #e2e8f0;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             text-decoration: none !important;
