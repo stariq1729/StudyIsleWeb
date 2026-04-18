@@ -15,7 +15,18 @@
     
     .card-main-content { display: flex; align-items: center; flex-grow: 1; }
 
-    .sub-icon { width: 80px; height: 80px; object-fit: contain; margin-right: 20px; flex-shrink: 0; }
+    .sub-icon { 
+    width: 70px !important; 
+    height: 124px !important; 
+    object-fit: cover !important; /* Changed to cover to ensure it fills the radius */
+    margin-right: 20px; 
+    flex-shrink: 0;
+    
+    /* The Fix: Force the radius and clip the image edges */
+    border-radius: 8px !important; 
+    overflow: hidden !important;
+    border: 1px solid #e2e8f0; /* Optional: adds a light border to make the radius more visible */
+}
     
     /* Text and Button Container */
     .sub-info { 
@@ -28,11 +39,25 @@
     .sub-title { font-size: 0.85rem; color: #64748b; margin-bottom: 12px; line-height: 1.4; }
 
     /* Updated Button Style for positioning below text */
-    .btn-explore {
-        background-color: #6366f1; color: white; padding: 6px 18px; border-radius: 6px;
-        font-weight: 600; font-size: 0.85rem; transition: all 0.2s; white-space: nowrap;
-    }
-    .subject-card:hover .btn-explore { background-color: #4f46e5; }
+   /* Smaller Outline/Ghost Button */
+.btn-explore {
+    background-color: transparent; /* Show outer only by default */
+    color: #6366f1; /* Text color matches the border */
+    padding: 4px 14px; /* Reduced padding to make it smaller */
+    border: 1.5px solid #6366f1; /* The outer border */
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.8rem; /* Smaller font size */
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+/* Show color on card hover or button hover */
+.subject-card:hover .btn-explore {
+    background-color: #6366f1;
+    color: white; /* Text turns white when background appears */
+}
         /* Year-Specific Card Styling */
 .year-card {
     background: white;
