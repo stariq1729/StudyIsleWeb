@@ -3,7 +3,6 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace StudyIsleWeb
 {
@@ -16,7 +15,7 @@ namespace StudyIsleWeb
             if (!IsPostBack)
             {
                 string boardSlug = Request.QueryString["board"];
-                string resSlug = Request.QueryString["res"]; // e.g., 'ncert-solutions'
+                string resSlug = Request.QueryString["res"];
                 string classSlug = Request.QueryString["class"];
 
                 if (string.IsNullOrEmpty(boardSlug) || string.IsNullOrEmpty(resSlug))
@@ -25,30 +24,38 @@ namespace StudyIsleWeb
                     return;
                 }
 
-                // 1. Load available classes for this Board and Resource Type
+                // 1. Bind Classes and identify the default (DisplayOrder 1)
                 DataTable dtClasses = BindClasses(boardSlug, resSlug);
 
-                // 2. Determine which class to show (QueryString or first available)
-                if (string.IsNullOrEmpty(classSlug) && dtClasses.Rows.Count > 0)
+                // 2. Logic for default class selection
+                if (string.IsNullOrEmpty(classSlug) && ViewState["DefaultClassSlug"] != null)
                 {
-                    classSlug = dtClasses.Rows[0]["Slug"].ToString();
+                    classSlug = ViewState["DefaultClassSlug"].ToString();
                 }
 
-                // 3. Update Hero Section & Subjects if a class exists
                 if (!string.IsNullOrEmpty(classSlug))
                 {
                     BindPageContent(boardSlug, classSlug);
                     BindSubjects(boardSlug, classSlug, resSlug);
+
+                    litBoardName.Text = boardSlug.ToUpper();
+                    litClassNameCrumb.Text = classSlug.Replace("-", " ").ToUpper();
                 }
             }
+        }
+
+        protected string GetResourceName()
+        {
+            string res = Request.QueryString["res"];
+            return string.IsNullOrEmpty(res) ? "Resource" : res.Replace("-", " ").ToUpper();
         }
 
         private DataTable BindClasses(string boardSlug, string resSlug)
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                // Removed INNER JOIN Resources so classes show up even if empty
-                string query = @"SELECT c.ClassName, c.Slug 
+                // Ensure we order by DisplayOrder
+                string query = @"SELECT c.ClassName, c.Slug, c.DisplayOrder 
                                  FROM Classes c 
                                  INNER JOIN Boards b ON c.BoardId = b.BoardId
                                  INNER JOIN ResourceTypes rt ON c.ResourceTypeId = rt.ResourceTypeId
@@ -63,6 +70,12 @@ namespace StudyIsleWeb
                 DataTable dt = new DataTable();
                 da.Fill(dt);
 
+                if (dt.Rows.Count > 0)
+                {
+                    // Store the first one (DisplayOrder 1) as the default for the UI
+                    ViewState["DefaultClassSlug"] = dt.Rows[0]["Slug"].ToString();
+                }
+
                 rptClasses.DataSource = dt;
                 rptClasses.DataBind();
                 return dt;
@@ -73,7 +86,6 @@ namespace StudyIsleWeb
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                // Pulling Hero Title and Subtitle directly from Class table
                 string query = @"SELECT PageTitle, PageSubtitle FROM Classes c 
                                  JOIN Boards b ON c.BoardId = b.BoardId 
                                  WHERE b.Slug = @bSlug AND c.Slug = @cSlug";
@@ -86,7 +98,18 @@ namespace StudyIsleWeb
                 SqlDataReader dr = cmd.ExecuteReader();
                 if (dr.Read())
                 {
-                    litPageTitle.Text = dr["PageTitle"] != DBNull.Value ? dr["PageTitle"].ToString() : "";
+                    string rawTitle = dr["PageTitle"] != DBNull.Value ? dr["PageTitle"].ToString() : "";
+
+                    if (rawTitle.Contains("-"))
+                    {
+                        var parts = rawTitle.Split('-');
+                        litPageTitle.Text = parts[0] + " - <span>" + parts[1] + "</span>";
+                    }
+                    else
+                    {
+                        litPageTitle.Text = rawTitle;
+                    }
+
                     litPageSubtitle.Text = dr["PageSubtitle"] != DBNull.Value ? dr["PageSubtitle"].ToString() : "";
                 }
                 con.Close();
@@ -99,8 +122,8 @@ namespace StudyIsleWeb
 
             using (SqlConnection con = new SqlConnection(cs))
             {
-                // Show subjects linked to this Board, Class, and ResourceType
-                string query = @"SELECT s.SubjectId, s.SubjectName, s.IconImage 
+                // Added EditionText to the query
+                string query = @"SELECT s.SubjectId, s.SubjectName, s.IconImage, s.PageTitle, s.Edition
                                  FROM Subjects s
                                  INNER JOIN Classes c ON s.ClassId = c.ClassId
                                  INNER JOIN Boards b ON s.BoardId = b.BoardId
