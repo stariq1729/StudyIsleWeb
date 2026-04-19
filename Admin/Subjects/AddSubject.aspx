@@ -86,6 +86,11 @@
         placeholder="e.g. Complete Organic Chemistry Notes for Class 12"></asp:TextBox>
 </div>
                         <div class="col-12">
+    <label class="form-label fw-bold small">Edition</label>
+    <asp:TextBox ID="txtEdition" runat="server" CssClass="form-control"
+        placeholder="e.g. 2025 Edition / Revised Edition"></asp:TextBox>
+</div>
+                        <div class="col-12">
                             <label class="form-label fw-bold small">Description</label>
                             <asp:TextBox ID="txtDescription" runat="server" TextMode="MultiLine" Rows="3" CssClass="form-control"></asp:TextBox>
                         </div>
