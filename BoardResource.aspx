@@ -25,50 +25,63 @@
 
         /* Class Tabs (Pill style) */
        /* Fixed Class Tabs - Pill Container Style */
-    .class-tabs-wrapper {
-        display: flex;
-        justify-content: center;
-        margin: 40px 0;
-    }
-    .class-tabs-container { 
-        background: #ffffff; 
-        padding: 8px; 
-        border-radius: 50px; /* Fully rounded pill shape */
-        display: inline-flex;
-        gap: 5px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        border: 1px solid #f1f5f9;
-    }
-    .class-btn { 
-        padding: 10px 28px; 
-        border-radius: 40px; 
-        text-decoration: none !important; 
-        color: #64748b; 
-        font-weight: 600; 
-        font-size: 0.95rem;
-        transition: all 0.3s ease;
-    }
-    .class-btn:hover { color: #4f46e5; }
-    .class-btn.active { 
-        background: #1e293b; 
-        color: #ffffff !important; 
-        box-shadow: 0 4px 12px rgba(30, 41, 59, 0.2);
-    }
+/* The single white bar containing all buttons */
+.class-tabs-container { 
+    background: #ffffff; 
+    padding: 16px; 
+    border-radius: 12px; 
+    display: inline-flex;
+    align-items: center;
+    gap: 22px;
+    /* This shadow creates the 'lifted' effect from your reference */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); 
+    border: 1px solid #f1f5f9;
+    margin-bottom: 50px;
+}
 
+/* Individual Buttons inside the bar */
+.class-btn { 
+    padding: 10px 24px; 
+    border-radius: 8px; 
+    text-decoration: none !important; 
+    color: #64748b; /* Slate grey for inactive */
+    font-weight: 700; 
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    border: none;
+    display: inline-block;
+}
+
+/* Hover effect for inactive items */
+.class-btn:hover:not(.active) {
+    color: #1e293b;
+    background: #f8fafc;
+}
+
+/* The Active 'Floating' Button (Dark Navy) */
+.class-btn.active { 
+    background: #1e293b !important; 
+    color: #ffffff !important; 
+    /* This shadow makes the active button pop out slightly */
+    box-shadow: 0 4px 12px rgba(30, 41, 59, 0.2); 
+}
     /* Subject Card - Edition Dynamic Style */
-    .edition-info { 
-        color: #10b981; 
-        font-size: 0.82rem; 
-        font-weight: 600; 
-        margin-bottom: 12px; 
-        display: flex;
-        align-items: center;
-        gap: 5px;
-    }
-
+   .edition-info { 
+    color: #10b981 !important; /* Vibrant green from your reference image */
+    font-size: 0.95rem; /* Increased for better readability */
+    font-weight: 600; 
+    margin-bottom: 15px; 
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+   .edition-info i {
+    font-size: 0.85rem;
+}
         /* Subject Section Headers */
         .subject-section-title { 
             display: flex; 
+            font-size: 1.8rem;
             align-items: center; 
             gap: 15px; 
             margin-bottom: 30px; 
@@ -112,23 +125,68 @@
         }
         .subject-img { width: 100%; height: 100%; object-fit: cover; }
 
-        .card-content { flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .cat-tag { font-size: 0.7rem; text-transform: uppercase; font-weight: 700; color: var(--si-primary); letter-spacing: 0.5px; }
-        .sub-name { font-weight: 700; color: #1e293b; font-size: 1.1rem; margin: 4px 0; display: block; }
-        .edition-info { color: #10b981; font-size: 0.85rem; font-weight: 600; margin-bottom: 12px; display: block; }
+        /* Container for the content inside the card */
+.card-content { 
+    flex-grow: 1; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    padding-right: 10px;
+}
 
-        .btn-read-online { 
-            background: #5850ec; 
-            color: white; 
-            padding: 10px; 
-            border-radius: 8px; 
-            text-decoration: none; 
-            text-align: center; 
-            font-weight: 700; 
-            font-size: 0.9rem;
-            display: block;
-        }
-        .btn-read-online:hover { background: #4338ca; color: white; }
+/* 1. Subject Label (Top small text) */
+.cat-tag { 
+    font-size: 0.8rem !important; 
+    text-transform: uppercase; 
+    font-weight: 500; 
+    color: #94a3b8; 
+    display: flex; 
+    align-items: center; 
+    gap: 5px; 
+    margin-bottom: 4px;
+}
+
+/* 2. Main Title (Larger than everything else) */
+.sub-name { 
+    font-weight: 700; 
+    color: #000000 !important; 
+    font-size: 1.2rem !important; /* Increased size for Title */
+    margin-bottom: 4px; 
+    display: block; 
+    line-height: 1.1;
+}
+
+/* 3. Edition (Same size as Subject Label, but Green) */
+.edition-info { 
+    color: #10b981; 
+    font-size: 0.8rem !important; /* Similar to Subject size */
+    font-weight: 500; 
+    margin-bottom: 12px; 
+    display: flex; 
+    align-items: center; 
+    gap: 6px;
+}
+
+/* 4. Button (Full width, rounded, with matching shadow) */
+.btn-read-online { 
+    background: #5850ec; 
+    color: white !important; 
+    padding: 8px 0; 
+    border-radius: 8px; 
+    text-decoration: none !important; 
+    text-align: center; 
+    font-weight: 700; 
+    font-size: 1rem; 
+    display: block; 
+    width: 100%;
+    transition: transform 0.2s;
+    box-shadow: 0 4px 12px rgba(88, 80, 236, 0.2);
+}
+
+.btn-read-online:hover {
+    background: #4338ca;
+    transform: translateY(-1px);
+}
     </style>
 </asp:Content>
 
@@ -144,18 +202,18 @@
             <p><asp:Literal ID="litPageSubtitle" runat="server"></asp:Literal></p>
         </div>
 
-       <div class="class-tabs-wrapper">
-            <div class="class-tabs-container">
-                <asp:Repeater ID="rptClasses" runat="server">
-                    <ItemTemplate>
-                        <a href='<%# "BoardResource.aspx?board=" + Request.QueryString["board"] + "&res=" + (Request.QueryString["res"] ?? "books") + "&class=" + Eval("Slug") %>' 
-                           class='<%# Eval("Slug").ToString() == (Request.QueryString["class"] ?? ViewState["DefaultClassSlug"].ToString()) ? "class-btn active" : "class-btn" %>'>
-                            <%# Eval("ClassName") %>
-                        </a>
-                    </ItemTemplate>
-                </asp:Repeater>
-            </div>
-        </div>
+<div class="text-center">
+    <div class="class-tabs-container">
+        <asp:Repeater ID="rptClasses" runat="server">
+            <ItemTemplate>
+                <a href='<%# "BoardResource.aspx?board=" + Request.QueryString["board"] + "&res=" + (Request.QueryString["res"] ?? "books") + "&class=" + Eval("Slug") %>' 
+                   class='<%# Eval("Slug").ToString() == (Request.QueryString["class"] ?? ViewState["DefaultClassSlug"].ToString()) ? "class-btn active" : "class-btn" %>'>
+                    <%# Eval("ClassName") %>
+                </a>
+            </ItemTemplate>
+        </asp:Repeater>
+    </div>
+</div>
 
         <asp:Repeater ID="rptSubjectGroups" runat="server">
             <ItemTemplate>
@@ -167,25 +225,31 @@
                     <div class="row">
                         <div class="col-md-6 col-lg-5">
                             <a href='<%# "SubjectDetails.aspx?sid=" + Eval("SubjectId") + "&res=" + (Request.QueryString["res"] ?? "books") %>' class="text-decoration-none">
-                                <div class="subject-card">
-                                    <div class="img-container">
-                                        <img src='<%# "/Uploads/SubjectIcons/" + (Eval("IconImage") == DBNull.Value || string.IsNullOrEmpty(Eval("IconImage").ToString()) ? "default.png" : Eval("IconImage")) %>' 
-                                             class="subject-img" alt="Subject Cover" />
-                                    </div>
-                                    <div class="card-content">
-                                        <div>
-                                            <span class="cat-tag"><i class="fas fa-book-open me-1"></i> <%# Eval("SubjectName") %></span>
-                                            <span class="sub-name"><%# Eval("PageTitle") != DBNull.Value ? Eval("PageTitle") : Eval("SubjectName") %></span>
-                                            <span class="edition-info">
-    <i class="fas fa-check-circle"></i> 
-    <%# Eval("Edition") != DBNull.Value ? Eval("Edition") : "2024-25 Latest Edition" %>
-</span>
-                                        </div>
-                                        <div class="btn-read-online">
-                                            Read Online <i class="fas fa-external-link-alt ms-1" style="font-size: 0.8rem;"></i>
-                                        </div>
-                                    </div>
-                                </div>
+<div class="subject-card">
+    <div class="img-container">
+        <img src='<%# "/Uploads/SubjectIcons/" + (Eval("IconImage") == DBNull.Value || string.IsNullOrEmpty(Eval("IconImage").ToString()) ? "default.png" : Eval("IconImage")) %>' 
+             class="subject-img" alt="Subject Image" />
+    </div>
+    <div class="card-content">
+        <span class="cat-tag">
+            <i class="fas fa-calculator" style="font-size: 0.75rem;"></i> 
+            <%# Eval("SubjectName") %>
+        </span>
+        
+        <span class="sub-name">
+            <%# Eval("PageTitle") != DBNull.Value && !string.IsNullOrEmpty(Eval("PageTitle").ToString()) ? Eval("PageTitle") : Eval("SubjectName") + " (NCERT)" %>
+        </span>
+
+        <span class="edition-info">
+            <i class="fas fa-check-circle"></i> 
+            <%# Eval("Edition") != DBNull.Value ? Eval("Edition") : "2024-25 Latest Edition" %>
+        </span>
+
+        <a href='<%# "SubjectDetails.aspx?sid=" + Eval("SubjectId") + "&res=" + (Request.QueryString["res"] ?? "books") %>' class="btn-read-online">
+            Explore <i class="fas fa-external-link-alt ms-1" style="font-size: 0.85rem;"></i>
+        </a>
+    </div>
+</div>
                             </a>
                         </div>
                     </div>
