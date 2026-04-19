@@ -145,17 +145,17 @@
         </div>
 
        <div class="class-tabs-wrapper">
-    <div class="class-tabs-container">
-        <asp:Repeater ID="rptClasses" runat="server">
-            <ItemTemplate>
-                <a href='<%# "BoardResource.aspx?board=" + Request.QueryString["board"] + "&res=" + (Request.QueryString["res"] ?? "books") + "&class=" + Eval("Slug") %>' 
-                   class='<%# Eval("Slug").ToString() == (Request.QueryString["class"] ?? ViewState["DefaultClassSlug"].ToString()) ? "class-btn active" : "class-btn" %>'>
-                    <%# Eval("ClassName") %>
-                </a>
-            </ItemTemplate>
-        </asp:Repeater>
-    </div>
-</div>
+            <div class="class-tabs-container">
+                <asp:Repeater ID="rptClasses" runat="server">
+                    <ItemTemplate>
+                        <a href='<%# "BoardResource.aspx?board=" + Request.QueryString["board"] + "&res=" + (Request.QueryString["res"] ?? "books") + "&class=" + Eval("Slug") %>' 
+                           class='<%# Eval("Slug").ToString() == (Request.QueryString["class"] ?? ViewState["DefaultClassSlug"].ToString()) ? "class-btn active" : "class-btn" %>'>
+                            <%# Eval("ClassName") %>
+                        </a>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </div>
+        </div>
 
         <asp:Repeater ID="rptSubjectGroups" runat="server">
             <ItemTemplate>
