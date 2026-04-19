@@ -81,6 +81,11 @@
                             <asp:TextBox ID="txtPageTitle" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
                         <div class="col-12">
+    <label class="form-label fw-bold small">Page Subtitle</label>
+    <asp:TextBox ID="txtPageSubtitle" runat="server" CssClass="form-control"
+        placeholder="e.g. Complete Organic Chemistry Notes for Class 12"></asp:TextBox>
+</div>
+                        <div class="col-12">
                             <label class="form-label fw-bold small">Description</label>
                             <asp:TextBox ID="txtDescription" runat="server" TextMode="MultiLine" Rows="3" CssClass="form-control"></asp:TextBox>
                         </div>

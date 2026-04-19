@@ -114,6 +114,15 @@ namespace StudyIsleWeb.Admin.Classes
         protected global::System.Web.UI.WebControls.TextBox txtPageTitle;
 
         /// <summary>
+        /// txtPageSubtitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPageSubtitle;
+
+        /// <summary>
         /// txtDisplayOrder control.
         /// </summary>
         /// <remarks>

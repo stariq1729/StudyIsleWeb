@@ -60,8 +60,9 @@ namespace StudyIsleWeb.Admin.Subjects
 
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string sql = @"INSERT INTO Subjects (BoardId, ResourceTypeId, SubCategoryId, ClassId, SubjectName, Slug, IconImage, PageTitle, Description, IsActive, CreatedAt) 
-                               VALUES (@BID, @RTID, @SCID, @CID, @Name, @Slug, @Icon, @Title, @Desc, 1, GETDATE())";
+                string sql = @"INSERT INTO Subjects 
+(BoardId, ResourceTypeId, SubCategoryId, ClassId, SubjectName, Slug, IconImage, PageTitle, PageSubtitle, Description, IsActive, CreatedAt)
+VALUES (@BID, @RTID, @SCID, @CID, @Name, @Slug, @Icon, @Title, @Subtitle, @Desc, 1, GETDATE())";
 
                 SqlCommand cmd = new SqlCommand(sql, con);
                 cmd.Parameters.AddWithValue("@BID", ddlBoard.SelectedValue);
@@ -72,6 +73,10 @@ namespace StudyIsleWeb.Admin.Subjects
                 cmd.Parameters.AddWithValue("@Slug", txtSlug.Text);
                 cmd.Parameters.AddWithValue("@Icon", iconName);
                 cmd.Parameters.AddWithValue("@Title", txtPageTitle.Text.Trim());
+                cmd.Parameters.AddWithValue("@Subtitle",
+    string.IsNullOrWhiteSpace(txtPageSubtitle.Text)
+    ? (object)DBNull.Value
+    : txtPageSubtitle.Text.Trim());
                 cmd.Parameters.AddWithValue("@Desc", txtDescription.Text.Trim());
 
                 con.Open();

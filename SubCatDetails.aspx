@@ -1,4 +1,4 @@
-﻿git<%@ Page Title="Sub Categories" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SubCatDetails.aspx.cs" Inherits="StudyIsleWeb.SubCatDetails" %>
+﻿<%@ Page Title="Sub Categories" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SubCatDetails.aspx.cs" Inherits="StudyIsleWeb.SubCatDetails" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>

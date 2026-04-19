@@ -55,8 +55,9 @@ namespace StudyIsleWeb.Admin.Classes
             {
                 using (SqlConnection con = new SqlConnection(cs))
                 {
-                    string sql = @"INSERT INTO Classes (BoardId, ResourceTypeId, SubCategoryId, ClassName, Slug, DisplayOrder, IsActive, PageTitle, CreatedAt) 
-                                   VALUES (@BID, @RTID, @SCID, @Name, @Slug, @Order, 1, @Title, GETDATE())";
+                    string sql = @"INSERT INTO Classes 
+(BoardId, ResourceTypeId, SubCategoryId, ClassName, Slug, DisplayOrder, IsActive, PageTitle, PageSubtitle, CreatedAt) 
+VALUES (@BID, @RTID, @SCID, @Name, @Slug, @Order, 1, @Title, @Subtitle, GETDATE())";
 
                     SqlCommand cmd = new SqlCommand(sql, con);
                     cmd.Parameters.AddWithValue("@BID", ddlBoard.SelectedValue);
@@ -66,6 +67,8 @@ namespace StudyIsleWeb.Admin.Classes
                     cmd.Parameters.AddWithValue("@Slug", txtSlug.Text.Trim());
                     cmd.Parameters.AddWithValue("@Order", txtDisplayOrder.Text);
                     cmd.Parameters.AddWithValue("@Title", string.IsNullOrWhiteSpace(txtPageTitle.Text) ? (object)DBNull.Value : txtPageTitle.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Subtitle", string.IsNullOrWhiteSpace(txtPageSubtitle.Text) ? (object)DBNull.Value : txtPageSubtitle.Text.Trim());
+
 
                     con.Open();
                     cmd.ExecuteNonQuery();

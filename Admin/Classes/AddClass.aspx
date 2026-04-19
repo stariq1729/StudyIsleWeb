@@ -68,6 +68,11 @@
                             <label class="form-label fw-bold small">SEO Page Title (H1)</label>
                             <asp:TextBox ID="txtPageTitle" runat="server" CssClass="form-control" placeholder="e.g. CBSE Class 10 Study Material"></asp:TextBox>
                         </div>
+                        <div class="col-md-12">
+    <label class="form-label fw-bold small">Page Subtitle</label>
+    <asp:TextBox ID="txtPageSubtitle" runat="server" CssClass="form-control" 
+        placeholder="e.g. Best study material for CBSE Class 10"></asp:TextBox>
+</div>
 
                         <div class="col-md-12">
                             <label class="form-label fw-bold small">Display Order</label>
