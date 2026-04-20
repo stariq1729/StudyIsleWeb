@@ -18,8 +18,8 @@ namespace StudyIsleWeb.Admin.Resources
 
         private void BindInitialData()
         {
+            // Load the primary root
             BindDDL("SELECT BoardId, BoardName FROM Boards WHERE IsActive=1", ddlBoard, "BoardName", "BoardId");
-            BindDDL("SELECT YearId, YearName FROM Years ORDER BY YearName DESC", ddlYear, "YearName", "YearId");
             ResetAllFrom(ddlResourceType);
         }
 
@@ -34,36 +34,66 @@ namespace StudyIsleWeb.Admin.Resources
         protected void ddlResourceType_SelectedIndexChanged(object sender, EventArgs e)
         {
             RefreshSubCategories();
-            // Since SubCat can be skipped, we also refresh Classes immediately
             RefreshClasses();
+            RefreshYears(); // Refresh year when type changes
             ResetAllFrom(ddlSubject);
         }
 
         protected void ddlSubCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RefreshClasses(); // Refresh classes in case they are mapped to SubCat
+            RefreshClasses();
             RefreshSubjects();
+            RefreshYears();
             RefreshChapters();
         }
 
         protected void ddlClass_SelectedIndexChanged(object sender, EventArgs e)
         {
             RefreshSubjects();
+            RefreshYears();
             RefreshChapters();
         }
 
-        protected void ddlSubject_SelectedIndexChanged(object sender, EventArgs e) => RefreshChapters();
+        protected void ddlSubject_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshYears();
+            RefreshChapters();
+        }
+
         protected void ddlYear_SelectedIndexChanged(object sender, EventArgs e) => RefreshSets();
         protected void ddlChapter_SelectedIndexChanged(object sender, EventArgs e) => RefreshSets();
 
-        // --- Refresh Methods (Contextual Filtering) ---
+        // --- Refresh Methods ---
+
+        private void RefreshYears()
+        {
+            int boardId = GetSelVal(ddlBoard);
+            int typeId = GetSelVal(ddlResourceType);
+            int classId = GetSelVal(ddlClass);
+            int subjectId = GetSelVal(ddlSubject);
+            int subCatId = GetSelVal(ddlSubCategory);
+
+            if (boardId == 0) { ResetDDL(ddlYear, "-- Optional --"); return; }
+
+            // FIX: Querying the YearMappings table to get context-specific years
+            string sql = $@"SELECT DISTINCT y.YearId, y.YearName 
+                            FROM Years y
+                            INNER JOIN YearMappings ym ON y.YearId = ym.YearId
+                            WHERE ym.BoardId = {boardId} AND ym.IsActive = 1";
+
+            if (typeId > 0) sql += $" AND ym.ResourceTypeId = {typeId}";
+            if (classId > 0) sql += $" AND ym.ClassId = {classId}";
+            if (subjectId > 0) sql += $" AND ym.SubjectId = {subjectId}";
+            if (subCatId > 0) sql += $" AND ym.SubCategoryId = {subCatId}";
+
+            sql += " ORDER BY y.YearName DESC";
+
+            BindDDL(sql, ddlYear, "YearName", "YearId");
+        }
 
         private void RefreshResourceTypes()
         {
             int boardId = GetSelVal(ddlBoard);
-            if (boardId == 0) { ResetDDL(ddlResourceType, "-- Optional --"); return; }
-
-            // Uses the Mapping table for Board-specific types
             string sql = $@"SELECT rt.ResourceTypeId, rt.TypeName FROM ResourceTypes rt
                             INNER JOIN BoardResourceMapping brm ON rt.ResourceTypeId = brm.ResourceTypeId
                             WHERE brm.BoardId = {boardId} AND rt.IsActive = 1";
@@ -74,10 +104,8 @@ namespace StudyIsleWeb.Admin.Resources
         {
             int boardId = GetSelVal(ddlBoard);
             int typeId = GetSelVal(ddlResourceType);
-
             string sql = $"SELECT SubCategoryId, SubCategoryName FROM SubCategories WHERE BoardId={boardId}";
             if (typeId > 0) sql += $" AND ResourceTypeId={typeId}";
-
             BindDDL(sql, ddlSubCategory, "SubCategoryName", "SubCategoryId");
         }
 
@@ -85,13 +113,8 @@ namespace StudyIsleWeb.Admin.Resources
         {
             int boardId = GetSelVal(ddlBoard);
             int subCatId = GetSelVal(ddlSubCategory);
-            int typeId = GetSelVal(ddlResourceType);
-
-            // Logic: Filter by Board. If SubCat is skipped, still filter by Board + Type.
             string sql = $"SELECT ClassId, ClassName FROM Classes WHERE BoardId={boardId}";
             if (subCatId > 0) sql += $" AND SubCategoryId={subCatId}";
-            if (typeId > 0) sql += $" AND (ResourceTypeId={typeId} OR ResourceTypeId IS NULL)";
-
             BindDDL(sql, ddlClass, "ClassName", "ClassId");
         }
 
@@ -100,13 +123,9 @@ namespace StudyIsleWeb.Admin.Resources
             int boardId = GetSelVal(ddlBoard);
             int subCatId = GetSelVal(ddlSubCategory);
             int classId = GetSelVal(ddlClass);
-
             string sql = $"SELECT SubjectId, SubjectName FROM Subjects WHERE BoardId={boardId}";
-
-            // This is the key: It filters by SubCat OR Class. If either is skipped (0), it is ignored.
             if (subCatId > 0) sql += $" AND SubCategoryId={subCatId}";
             if (classId > 0) sql += $" AND ClassId={classId}";
-
             BindDDL(sql, ddlSubject, "SubjectName", "SubjectId");
         }
 
@@ -116,14 +135,10 @@ namespace StudyIsleWeb.Admin.Resources
             int subCatId = GetSelVal(ddlSubCategory);
             int classId = GetSelVal(ddlClass);
             int subjectId = GetSelVal(ddlSubject);
-
-            if (boardId == 0) { ResetDDL(ddlChapter, "-- Select Board --"); return; }
-
             string sql = $"SELECT ChapterId, ChapterName FROM Chapters WHERE BoardId={boardId}";
             if (subCatId > 0) sql += $" AND SubCategoryId={subCatId}";
             if (classId > 0) sql += $" AND ClassId={classId}";
             if (subjectId > 0) sql += $" AND SubjectId={subjectId}";
-
             BindDDL(sql, ddlChapter, "ChapterName", "ChapterId");
         }
 
@@ -132,11 +147,9 @@ namespace StudyIsleWeb.Admin.Resources
             int boardId = GetSelVal(ddlBoard);
             int subjectId = GetSelVal(ddlSubject);
             int yearId = GetSelVal(ddlYear);
-
             string sql = $"SELECT SetId, SetName FROM Sets WHERE BoardId={boardId}";
             if (subjectId > 0) sql += $" AND SubjectId={subjectId}";
             if (yearId > 0) sql += $" AND YearId={yearId}";
-
             BindDDL(sql, ddlSet, "SetName", "SetId");
         }
 
@@ -215,7 +228,7 @@ namespace StudyIsleWeb.Admin.Resources
 
         private void ResetAllFrom(DropDownList startDdl)
         {
-            DropDownList[] chain = { ddlResourceType, ddlSubCategory, ddlClass, ddlSubject, ddlChapter, ddlSet };
+            DropDownList[] chain = { ddlResourceType, ddlSubCategory, ddlClass, ddlSubject, ddlYear, ddlChapter, ddlSet };
             bool startClearing = false;
             foreach (var ddl in chain)
             {
