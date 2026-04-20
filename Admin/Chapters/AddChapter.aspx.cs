@@ -29,31 +29,39 @@ namespace StudyIsleWeb.Admin.Chapters
             if (ddlBoard.SelectedValue != "0")
             {
                 int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
-                bool isComp = CheckIfCompetitive(boardId);
 
-                if (isComp)
-                {
-                    phSubCategory.Visible = true;
-                    BindDDL($"SELECT SubCategoryId, SubCategoryName FROM SubCategories WHERE BoardId={boardId}", ddlSubCategory, "SubCategoryName", "SubCategoryId", "-- Select Sub-Category --");
-                }
-                else
-                {
-                    phClass.Visible = true;
-                    BindDDL($"SELECT ClassId, ClassName FROM Classes WHERE BoardId={boardId}", ddlLevel, "ClassName", "ClassId", "-- Select Class --");
-                }
+                // ✅ ALWAYS show Class
+                phClass.Visible = true;
+                BindDDL($"SELECT ClassId, ClassName FROM Classes WHERE BoardId={boardId}",
+                    ddlLevel, "ClassName", "ClassId", "-- Select Class --");
+
+                // ✅ ALWAYS show SubCategory
+                phSubCategory.Visible = true;
+                BindDDL($"SELECT SubCategoryId, SubCategoryName FROM SubCategories WHERE BoardId={boardId}",
+                    ddlSubCategory, "SubCategoryName", "SubCategoryId", "-- Select Sub-Category --");
             }
         }
 
         protected void ddlLevel_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ddlSubject.Items.Clear();
+
             if (ddlLevel.SelectedValue != "0")
-                BindDDL($"SELECT SubjectId, SubjectName FROM Subjects WHERE ClassId={ddlLevel.SelectedValue}", ddlSubject, "SubjectName", "SubjectId", "-- Select Subject (Optional) --");
+            {
+                BindDDL($"SELECT SubjectId, SubjectName FROM Subjects WHERE ClassId={ddlLevel.SelectedValue}",
+                    ddlSubject, "SubjectName", "SubjectId", "-- Select Subject (Optional) --");
+            }
         }
 
         protected void ddlSubCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ddlSubject.Items.Clear();
+
             if (ddlSubCategory.SelectedValue != "0")
-                BindDDL($"SELECT SubjectId, SubjectName FROM Subjects WHERE SubCategoryId={ddlSubCategory.SelectedValue}", ddlSubject, "SubjectName", "SubjectId", "-- Select Subject (Optional) --");
+            {
+                BindDDL($"SELECT SubjectId, SubjectName FROM Subjects WHERE SubCategoryId={ddlSubCategory.SelectedValue}",
+                    ddlSubject, "SubjectName", "SubjectId", "-- Select Subject (Optional) --");
+            }
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
@@ -78,9 +86,9 @@ namespace StudyIsleWeb.Admin.Chapters
                 using (SqlConnection con = new SqlConnection(cs))
                 {
                     string sql = @"INSERT INTO Chapters 
-                    (BoardId, ResourceTypeId, SubCategoryId, SubjectId, ChapterName, Slug, DisplayOrder, IsActive, IsQuizEnabled, IsFlashcardEnabled, CreatedAt) 
+(BoardId, ResourceTypeId, SubCategoryId, ClassId, SubjectId, ChapterName, Slug, DisplayOrder, IsActive, IsQuizEnabled, IsFlashcardEnabled, CreatedAt)
                     VALUES 
-                    (@BID, @RTID, @SCID, @SID, @Name, @Slug, @Order, @Active, @IsQuiz, @IsFlash, GETDATE())";
+                    (@BID, @RTID, @SCID, @ClassId, @SID, @Name, @Slug, @Order, @Active, @IsQuiz, @IsFlash, GETDATE())";
 
                     SqlCommand cmd = new SqlCommand(sql, con);
 
@@ -95,7 +103,10 @@ namespace StudyIsleWeb.Admin.Chapters
                         cmd.Parameters.AddWithValue("@SID", ddlSubject.SelectedValue);
                     else
                         cmd.Parameters.AddWithValue("@SID", DBNull.Value);
-
+                    cmd.Parameters.AddWithValue("@ClassId",
+    ddlLevel.SelectedValue != "0"
+        ? (object)ddlLevel.SelectedValue
+        : DBNull.Value);
                     cmd.Parameters.AddWithValue("@Name", txtChapterName.Text.Trim());
                     cmd.Parameters.AddWithValue("@Slug", txtSlug.Text.Trim());
                     cmd.Parameters.AddWithValue("@Order", string.IsNullOrEmpty(txtDisplayOrder.Text) ? 0 : int.Parse(txtDisplayOrder.Text));

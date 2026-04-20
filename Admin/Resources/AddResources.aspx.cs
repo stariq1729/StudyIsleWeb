@@ -13,132 +13,166 @@ namespace StudyIsleWeb.Admin.Resources
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack) { BindPrimaryDropdowns(); }
+            if (!IsPostBack) { BindInitialData(); }
         }
 
-        private void BindPrimaryDropdowns()
+        private void BindInitialData()
         {
             BindDDL("SELECT BoardId, BoardName FROM Boards WHERE IsActive=1", ddlBoard, "BoardName", "BoardId");
-            BindDDL("SELECT ResourceTypeId, TypeName FROM ResourceTypes WHERE IsActive=1", ddlResourceType, "TypeName", "ResourceTypeId");
             BindDDL("SELECT YearId, YearName FROM Years ORDER BY YearName DESC", ddlYear, "YearName", "YearId");
-
-            ResetDDL(ddlSubCategory, "-- Optional --");
-            ResetDDL(ddlClass, "-- Optional --");
-            ResetDDL(ddlSubject, "-- Optional --");
-            ResetDDL(ddlChapter, "-- Optional --");
-            ResetDDL(ddlSet, "-- Optional --");
+            ResetAllFrom(ddlResourceType);
         }
+
+        // --- Event Handlers (Cascading Logic) ---
 
         protected void ddlBoard_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
-            if (boardId > 0)
-            {
-                BindDDL($"SELECT ClassId, ClassName FROM Classes WHERE BoardId={boardId}", ddlClass, "ClassName", "ClassId");
-                BindDDL($"SELECT SubjectId, SubjectName FROM Subjects WHERE BoardId={boardId}", ddlSubject, "SubjectName", "SubjectId");
-
-                // Allow Chapter and Set to open immediately based on Board
-                RefreshChapters();
-                RefreshSets();
-            }
+            RefreshResourceTypes();
+            ResetAllFrom(ddlSubCategory);
         }
 
         protected void ddlResourceType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int typeId = Convert.ToInt32(ddlResourceType.SelectedValue);
-            if (typeId > 0)
-            {
-                BindDDL($"SELECT SubCategoryId, SubCategoryName FROM SubCategories WHERE ResourceTypeId={typeId}", ddlSubCategory, "SubCategoryName", "SubCategoryId");
-            }
+            RefreshSubCategories();
+            // Since SubCat can be skipped, we also refresh Classes immediately
+            RefreshClasses();
+            ResetAllFrom(ddlSubject);
         }
 
         protected void ddlSubCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RefreshChapters(); // SubCategory might influence which Chapters appear
-            RefreshSets();
+            RefreshClasses(); // Refresh classes in case they are mapped to SubCat
+            RefreshSubjects();
+            RefreshChapters();
         }
 
         protected void ddlClass_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int classId = Convert.ToInt32(ddlClass.SelectedValue);
-            if (classId > 0)
-            {
-                BindDDL($"SELECT SubjectId, SubjectName FROM Subjects WHERE ClassId={classId}", ddlSubject, "SubjectName", "SubjectId");
-            }
+            RefreshSubjects();
             RefreshChapters();
         }
 
-        protected void ddlSubject_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            RefreshChapters();
-            RefreshSets();
-        }
-
+        protected void ddlSubject_SelectedIndexChanged(object sender, EventArgs e) => RefreshChapters();
         protected void ddlYear_SelectedIndexChanged(object sender, EventArgs e) => RefreshSets();
         protected void ddlChapter_SelectedIndexChanged(object sender, EventArgs e) => RefreshSets();
 
+        // --- Refresh Methods (Contextual Filtering) ---
+
+        private void RefreshResourceTypes()
+        {
+            int boardId = GetSelVal(ddlBoard);
+            if (boardId == 0) { ResetDDL(ddlResourceType, "-- Optional --"); return; }
+
+            // Uses the Mapping table for Board-specific types
+            string sql = $@"SELECT rt.ResourceTypeId, rt.TypeName FROM ResourceTypes rt
+                            INNER JOIN BoardResourceMapping brm ON rt.ResourceTypeId = brm.ResourceTypeId
+                            WHERE brm.BoardId = {boardId} AND rt.IsActive = 1";
+            BindDDL(sql, ddlResourceType, "TypeName", "ResourceTypeId");
+        }
+
+        private void RefreshSubCategories()
+        {
+            int boardId = GetSelVal(ddlBoard);
+            int typeId = GetSelVal(ddlResourceType);
+
+            string sql = $"SELECT SubCategoryId, SubCategoryName FROM SubCategories WHERE BoardId={boardId}";
+            if (typeId > 0) sql += $" AND ResourceTypeId={typeId}";
+
+            BindDDL(sql, ddlSubCategory, "SubCategoryName", "SubCategoryId");
+        }
+
+        private void RefreshClasses()
+        {
+            int boardId = GetSelVal(ddlBoard);
+            int subCatId = GetSelVal(ddlSubCategory);
+            int typeId = GetSelVal(ddlResourceType);
+
+            // Logic: Filter by Board. If SubCat is skipped, still filter by Board + Type.
+            string sql = $"SELECT ClassId, ClassName FROM Classes WHERE BoardId={boardId}";
+            if (subCatId > 0) sql += $" AND SubCategoryId={subCatId}";
+            if (typeId > 0) sql += $" AND (ResourceTypeId={typeId} OR ResourceTypeId IS NULL)";
+
+            BindDDL(sql, ddlClass, "ClassName", "ClassId");
+        }
+
+        private void RefreshSubjects()
+        {
+            int boardId = GetSelVal(ddlBoard);
+            int subCatId = GetSelVal(ddlSubCategory);
+            int classId = GetSelVal(ddlClass);
+
+            string sql = $"SELECT SubjectId, SubjectName FROM Subjects WHERE BoardId={boardId}";
+
+            // This is the key: It filters by SubCat OR Class. If either is skipped (0), it is ignored.
+            if (subCatId > 0) sql += $" AND SubCategoryId={subCatId}";
+            if (classId > 0) sql += $" AND ClassId={classId}";
+
+            BindDDL(sql, ddlSubject, "SubjectName", "SubjectId");
+        }
+
         private void RefreshChapters()
         {
-            int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
-            int subjectId = Convert.ToInt32(ddlSubject.SelectedValue);
-            int subCatId = Convert.ToInt32(ddlSubCategory.SelectedValue);
+            int boardId = GetSelVal(ddlBoard);
+            int subCatId = GetSelVal(ddlSubCategory);
+            int classId = GetSelVal(ddlClass);
+            int subjectId = GetSelVal(ddlSubject);
 
-            if (boardId == 0) { ResetDDL(ddlChapter, "-- Select Board First --"); return; }
+            if (boardId == 0) { ResetDDL(ddlChapter, "-- Select Board --"); return; }
 
-            // LOGIC: If Subject is missing (JEE), it searches by Board + SubCategory
             string sql = $"SELECT ChapterId, ChapterName FROM Chapters WHERE BoardId={boardId}";
-            if (subjectId > 0) sql += $" AND SubjectId={subjectId}";
             if (subCatId > 0) sql += $" AND SubCategoryId={subCatId}";
+            if (classId > 0) sql += $" AND ClassId={classId}";
+            if (subjectId > 0) sql += $" AND SubjectId={subjectId}";
 
             BindDDL(sql, ddlChapter, "ChapterName", "ChapterId");
         }
 
         private void RefreshSets()
         {
-            int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
-            int subjectId = Convert.ToInt32(ddlSubject.SelectedValue);
-            int yearId = Convert.ToInt32(ddlYear.SelectedValue);
-
-            if (boardId == 0) { ResetDDL(ddlSet, "-- Select Board First --"); return; }
+            int boardId = GetSelVal(ddlBoard);
+            int subjectId = GetSelVal(ddlSubject);
+            int yearId = GetSelVal(ddlYear);
 
             string sql = $"SELECT SetId, SetName FROM Sets WHERE BoardId={boardId}";
-            if (subjectId > 0) sql += $" AND (SubjectId={subjectId} OR SubjectId IS NULL)";
-            if (yearId > 0) sql += $" AND (YearId={yearId} OR YearId IS NULL)";
+            if (subjectId > 0) sql += $" AND SubjectId={subjectId}";
+            if (yearId > 0) sql += $" AND YearId={yearId}";
 
             BindDDL(sql, ddlSet, "SetName", "SetId");
         }
 
+        // --- Save Operation ---
+
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (ddlBoard.SelectedIndex <= 0 || ddlResourceType.SelectedIndex <= 0 || !fuFile.HasFile)
+            if (GetSelVal(ddlBoard) == 0 || string.IsNullOrEmpty(txtTitle.Text) || !fuFile.HasFile)
             {
-                ShowMessage("Board, Type, and File are required.", "text-danger");
+                ShowMessage("Please provide Board, Title, and File.", "text-danger");
                 return;
             }
 
             try
             {
                 string fileName = Guid.NewGuid().ToString() + Path.GetExtension(fuFile.FileName);
-                string path = "/Uploads/Resources/" + fileName;
-                fuFile.SaveAs(Server.MapPath("~" + path));
+                string savePath = "/Uploads/Resources/" + fileName;
+                fuFile.SaveAs(Server.MapPath("~" + savePath));
 
                 using (SqlConnection con = new SqlConnection(cs))
                 {
                     string query = @"INSERT INTO Resources 
-                        (BoardId, ResourceTypeId, ClassId, SubjectId, ChapterId, YearId, SubCategoryId, SetId, Title, FilePath, ContentType, IsPremium, IsActive, CreatedAt, DownloadCount)
-                        VALUES (@BID, @RTID, @CID, @SID, @CHID, @YID, @SCID, @SetID, @Title, @Path, @CType, @Prem, 1, GETDATE(), 0)";
+                        (BoardId, ResourceTypeId, ClassId, SubjectId, ChapterId, YearId, SubCategoryId, SetId, Title, FilePath, ContentType, IsPremium, IsActive, CreatedAt)
+                        VALUES (@BID, @RTID, @CID, @SID, @CHID, @YID, @SCID, @SetID, @Title, @Path, @CType, @Prem, 1, GETDATE())";
 
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@BID", ddlBoard.SelectedValue);
-                    cmd.Parameters.AddWithValue("@RTID", ddlResourceType.SelectedValue);
-                    cmd.Parameters.AddWithValue("@CID", GetValue(ddlClass));
-                    cmd.Parameters.AddWithValue("@SID", GetValue(ddlSubject));
-                    cmd.Parameters.AddWithValue("@CHID", GetValue(ddlChapter));
-                    cmd.Parameters.AddWithValue("@YID", GetValue(ddlYear));
-                    cmd.Parameters.AddWithValue("@SCID", GetValue(ddlSubCategory));
-                    cmd.Parameters.AddWithValue("@SetID", GetValue(ddlSet));
+                    cmd.Parameters.AddWithValue("@RTID", GetValueForDB(ddlResourceType));
+                    cmd.Parameters.AddWithValue("@CID", GetValueForDB(ddlClass));
+                    cmd.Parameters.AddWithValue("@SID", GetValueForDB(ddlSubject));
+                    cmd.Parameters.AddWithValue("@CHID", GetValueForDB(ddlChapter));
+                    cmd.Parameters.AddWithValue("@YID", GetValueForDB(ddlYear));
+                    cmd.Parameters.AddWithValue("@SCID", GetValueForDB(ddlSubCategory));
+                    cmd.Parameters.AddWithValue("@SetID", GetValueForDB(ddlSet));
                     cmd.Parameters.AddWithValue("@Title", txtTitle.Text.Trim());
-                    cmd.Parameters.AddWithValue("@Path", path);
+                    cmd.Parameters.AddWithValue("@Path", savePath);
                     cmd.Parameters.AddWithValue("@CType", fuFile.PostedFile.ContentType);
                     cmd.Parameters.AddWithValue("@Prem", chkIsPremium.Checked);
 
@@ -150,7 +184,13 @@ namespace StudyIsleWeb.Admin.Resources
             catch (Exception ex) { ShowMessage("Error: " + ex.Message, "text-danger"); }
         }
 
-        private object GetValue(DropDownList ddl) => (ddl.SelectedIndex <= 0 || ddl.SelectedValue == "0") ? DBNull.Value : (object)ddl.SelectedValue;
+        // --- Helpers ---
+
+        private int GetSelVal(DropDownList ddl) =>
+            (ddl.SelectedItem != null && !string.IsNullOrEmpty(ddl.SelectedValue)) ? Convert.ToInt32(ddl.SelectedValue) : 0;
+
+        private object GetValueForDB(DropDownList ddl) =>
+            (GetSelVal(ddl) <= 0) ? DBNull.Value : (object)ddl.SelectedValue;
 
         private void BindDDL(string sql, DropDownList ddl, string text, string value)
         {
@@ -173,6 +213,21 @@ namespace StudyIsleWeb.Admin.Resources
             ddl.Items.Insert(0, new ListItem(text, "0"));
         }
 
-        private void ShowMessage(string msg, string css) { lblMessage.Text = msg; lblMessage.CssClass = css; }
+        private void ResetAllFrom(DropDownList startDdl)
+        {
+            DropDownList[] chain = { ddlResourceType, ddlSubCategory, ddlClass, ddlSubject, ddlChapter, ddlSet };
+            bool startClearing = false;
+            foreach (var ddl in chain)
+            {
+                if (ddl == startDdl) startClearing = true;
+                if (startClearing) ResetDDL(ddl, "-- Optional --");
+            }
+        }
+
+        private void ShowMessage(string msg, string css)
+        {
+            lblMessage.Text = msg;
+            lblMessage.CssClass = "d-block mb-3 " + css;
+        }
     }
 }
