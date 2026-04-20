@@ -15,202 +15,163 @@ namespace StudyIsleWeb.Admin.Chapters
         {
             if (!IsPostBack)
             {
-                BindInitialData();
+                BindDDL("SELECT BoardId, BoardName FROM Boards WHERE IsActive=1",
+                    ddlBoard, "BoardName", "BoardId", "-- Select Board --");
+
+                BindDDL("SELECT ResourceTypeId, TypeName FROM ResourceTypes",
+                    ddlResourceType, "TypeName", "ResourceTypeId", "-- Select Resource Type --");
             }
         }
 
-        private void BindInitialData()
-        {
-            // The root starts with Boards
-            BindDDL("SELECT BoardId, BoardName FROM Boards WHERE IsActive=1 ORDER BY BoardName", ddlBoard, "BoardName", "BoardId");
-            ResetAllFrom(ddlResourceType);
-        }
-
-        // --- Event Handlers (Mirroring the Resource logic for proper cascading) ---
-
+        // ✅ UPDATED: Always show BOTH Class + SubCategory
         protected void ddlBoard_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RefreshResourceTypes();
-            // Reset everything below and load next layers
-            ResetAllFrom(ddlSubCategory);
-            RefreshSubCategories();
-            RefreshClasses();
+            phClass.Visible = false;
+            phSubCategory.Visible = false;
+            ddlSubject.Items.Clear();
 
-            // Toggle placeholders based on selection
-            int boardId = GetSelVal(ddlBoard);
-            phClass.Visible = (boardId > 0);
-            phSubCategory.Visible = (boardId > 0);
+            if (ddlBoard.SelectedValue != "0")
+            {
+                int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
+
+                // ✅ ALWAYS show Class
+                phClass.Visible = true;
+                BindDDL($"SELECT ClassId, ClassName FROM Classes WHERE BoardId={boardId}",
+                    ddlLevel, "ClassName", "ClassId", "-- Select Class --");
+
+                // ✅ ALWAYS show SubCategory
+                phSubCategory.Visible = true;
+                BindDDL($"SELECT SubCategoryId, SubCategoryName FROM SubCategories WHERE BoardId={boardId}",
+                    ddlSubCategory, "SubCategoryName", "SubCategoryId", "-- Select Sub-Category --");
+            }
         }
 
-        protected void ddlResourceType_SelectedIndexChanged(object sender, EventArgs e)
+        // ✅ UPDATED: Subject loads from Class
+        protected void ddlLevel_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RefreshSubCategories();
-            RefreshClasses();
-            ResetAllFrom(ddlSubject);
+            ddlSubject.Items.Clear();
+
+            if (ddlLevel.SelectedValue != "0")
+            {
+                BindDDL($"SELECT SubjectId, SubjectName FROM Subjects WHERE ClassId={ddlLevel.SelectedValue}",
+                    ddlSubject, "SubjectName", "SubjectId", "-- Select Subject (Optional) --");
+            }
         }
 
+        // ✅ UPDATED: Subject loads from SubCategory
         protected void ddlSubCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RefreshClasses();
-            RefreshSubjects();
-        }
+            ddlSubject.Items.Clear();
 
-        protected void ddlLevel_SelectedIndexChanged(object sender, EventArgs e) // Level = Class
-        {
-            RefreshSubjects();
-        }
-
-        // --- Refresh Methods (Strict Filtering Logic) ---
-
-        private void RefreshResourceTypes()
-        {
-            int boardId = GetSelVal(ddlBoard);
-            if (boardId == 0) { ResetDDL(ddlResourceType, "-- Optional --"); return; }
-
-            // Using the Mapping Table (Matches Resource page logic)
-            string sql = $@"SELECT rt.ResourceTypeId, rt.TypeName FROM ResourceTypes rt
-                            INNER JOIN BoardResourceMapping brm ON rt.ResourceTypeId = brm.ResourceTypeId
-                            WHERE brm.BoardId = {boardId} AND rt.IsActive = 1 ORDER BY rt.TypeName";
-            BindDDL(sql, ddlResourceType, "TypeName", "ResourceTypeId");
-        }
-
-        private void RefreshSubCategories()
-        {
-            int boardId = GetSelVal(ddlBoard);
-            int typeId = GetSelVal(ddlResourceType);
-
-            if (boardId == 0) { ResetDDL(ddlSubCategory, "-- Optional --"); return; }
-
-            // Filter by Board. Only filter by Type if Type is selected.
-            string sql = $"SELECT SubCategoryId, SubCategoryName FROM SubCategories WHERE BoardId={boardId}";
-            if (typeId > 0) sql += $" AND ResourceTypeId={typeId}";
-
-            BindDDL(sql, ddlSubCategory, "SubCategoryName", "SubCategoryId");
-        }
-
-        private void RefreshClasses()
-        {
-            int boardId = GetSelVal(ddlBoard);
-            int subCatId = GetSelVal(ddlSubCategory);
-            int typeId = GetSelVal(ddlResourceType);
-
-            if (boardId == 0) { ResetDDL(ddlLevel, "-- Optional --"); return; }
-
-            string sql = $"SELECT ClassId, ClassName FROM Classes WHERE BoardId={boardId}";
-
-            // Add optional filters
-            if (subCatId > 0) sql += $" AND SubCategoryId={subCatId}";
-            if (typeId > 0) sql += $" AND ResourceTypeId={typeId}";
-
-            BindDDL(sql, ddlLevel, "ClassName", "ClassId");
-        }
-
-        private void RefreshSubjects()
-        {
-            int boardId = GetSelVal(ddlBoard);
-            int subCatId = GetSelVal(ddlSubCategory);
-            int classId = GetSelVal(ddlLevel);
-
-            if (boardId == 0) { ResetDDL(ddlSubject, "-- Optional --"); return; }
-
-            // If neither Class nor SubCat is selected, we don't show subjects (prevents "Show All")
-            if (subCatId == 0 && classId == 0)
+            if (ddlSubCategory.SelectedValue != "0")
             {
-                ResetDDL(ddlSubject, "-- Select Class First --");
-                return;
+                BindDDL($"SELECT SubjectId, SubjectName FROM Subjects WHERE SubCategoryId={ddlSubCategory.SelectedValue}",
+                    ddlSubject, "SubjectName", "SubjectId", "-- Select Subject (Optional) --");
             }
-
-            string sql = $"SELECT SubjectId, SubjectName FROM Subjects WHERE BoardId={boardId}";
-            if (subCatId > 0) sql += $" AND SubCategoryId={subCatId}";
-            if (classId > 0) sql += $" AND ClassId={classId}";
-
-            BindDDL(sql, ddlSubject, "SubjectName", "SubjectId");
         }
-
-        // --- Save Operation ---
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (GetSelVal(ddlBoard) == 0 || string.IsNullOrWhiteSpace(txtChapterName.Text))
+            try
             {
-                ShowMessage("Board and Chapter Name are required.", true);
-                return;
+                // Validation
+                if (chkIsQuizEnabled.Checked && chkIsFlashcardEnabled.Checked)
+                {
+                    lblMessage.Text = "⚠️ Only one option allowed: Quiz OR Flashcards.";
+                    lblMessage.ForeColor = System.Drawing.Color.Red;
+                    return;
+                }
+
+                if (ddlBoard.SelectedValue == "0" || string.IsNullOrWhiteSpace(txtChapterName.Text))
+                {
+                    lblMessage.Text = "⚠️ Board and Chapter Name are required.";
+                    lblMessage.ForeColor = System.Drawing.Color.Red;
+                    return;
+                }
+
+                using (SqlConnection con = new SqlConnection(cs))
+                {
+                    // ✅ UPDATED: Added ClassId
+                    string sql = @"INSERT INTO Chapters 
+                    (BoardId, ResourceTypeId, SubCategoryId, ClassId, SubjectId, ChapterName, Slug, DisplayOrder, IsActive, IsQuizEnabled, IsFlashcardEnabled, CreatedAt) 
+                    VALUES 
+                    (@BID, @RTID, @SCID, @ClassId, @SID, @Name, @Slug, @Order, @Active, @IsQuiz, @IsFlash, GETDATE())";
+
+                    SqlCommand cmd = new SqlCommand(sql, con);
+
+                    cmd.Parameters.AddWithValue("@BID", ddlBoard.SelectedValue);
+
+                    cmd.Parameters.AddWithValue("@RTID",
+                        ddlResourceType.SelectedValue != "0"
+                        ? (object)ddlResourceType.SelectedValue
+                        : DBNull.Value);
+
+                    cmd.Parameters.AddWithValue("@SCID",
+                        ddlSubCategory.SelectedValue != "0"
+                        ? (object)ddlSubCategory.SelectedValue
+                        : DBNull.Value);
+
+                    // ✅ FIX: ClassId now saving
+                    cmd.Parameters.AddWithValue("@ClassId",
+                        ddlLevel.SelectedValue != "0"
+                        ? (object)ddlLevel.SelectedValue
+                        : DBNull.Value);
+
+                    cmd.Parameters.AddWithValue("@SID",
+                        ddlSubject.SelectedIndex > 0
+                        ? (object)ddlSubject.SelectedValue
+                        : DBNull.Value);
+
+                    cmd.Parameters.AddWithValue("@Name", txtChapterName.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Slug", txtSlug.Text.Trim());
+
+                    cmd.Parameters.AddWithValue("@Order",
+                        string.IsNullOrEmpty(txtDisplayOrder.Text)
+                        ? 0
+                        : int.Parse(txtDisplayOrder.Text));
+
+                    cmd.Parameters.AddWithValue("@Active", chkIsActive.Checked);
+
+                    cmd.Parameters.AddWithValue("@IsQuiz", chkIsQuizEnabled.Checked);
+                    cmd.Parameters.AddWithValue("@IsFlash", chkIsFlashcardEnabled.Checked);
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+
+                    lblMessage.Text = "✅ Chapter added successfully!";
+                    lblMessage.ForeColor = System.Drawing.Color.Green;
+                }
             }
-
-            using (SqlConnection con = new SqlConnection(cs))
+            catch (Exception ex)
             {
-                string sql = @"INSERT INTO Chapters 
-                (BoardId, ResourceTypeId, SubCategoryId, ClassId, SubjectId, ChapterName, Slug, DisplayOrder, IsActive, IsQuizEnabled, IsFlashcardEnabled, CreatedAt)
-                VALUES (@BID, @RTID, @SCID, @ClassId, @SID, @Name, @Slug, @Order, @Active, @IsQuiz, @IsFlash, GETDATE())";
-
-                SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.AddWithValue("@BID", ddlBoard.SelectedValue);
-                cmd.Parameters.AddWithValue("@RTID", GetValueForDB(ddlResourceType));
-                cmd.Parameters.AddWithValue("@SCID", GetValueForDB(ddlSubCategory));
-                cmd.Parameters.AddWithValue("@ClassId", GetValueForDB(ddlLevel));
-                cmd.Parameters.AddWithValue("@SID", GetValueForDB(ddlSubject));
-                cmd.Parameters.AddWithValue("@Name", txtChapterName.Text.Trim());
-                cmd.Parameters.AddWithValue("@Slug", txtSlug.Text.Trim());
-                cmd.Parameters.AddWithValue("@Order", string.IsNullOrEmpty(txtDisplayOrder.Text) ? 0 : int.Parse(txtDisplayOrder.Text));
-                cmd.Parameters.AddWithValue("@Active", chkIsActive.Checked);
-                cmd.Parameters.AddWithValue("@IsQuiz", chkIsQuizEnabled.Checked);
-                cmd.Parameters.AddWithValue("@IsFlash", chkIsFlashcardEnabled.Checked);
-
-                con.Open();
-                cmd.ExecuteNonQuery();
-                ShowMessage("✅ Chapter added successfully!", false);
+                lblMessage.Text = "❌ Database Error: " + ex.Message;
+                lblMessage.ForeColor = System.Drawing.Color.Red;
             }
         }
 
-        // --- Core Helpers (Aligned with Resources Page) ---
-
-        private int GetSelVal(DropDownList ddl) =>
-            (ddl.SelectedItem != null && !string.IsNullOrEmpty(ddl.SelectedValue)) ? Convert.ToInt32(ddl.SelectedValue) : 0;
-
-        private object GetValueForDB(DropDownList ddl) =>
-            (GetSelVal(ddl) <= 0) ? DBNull.Value : (object)ddl.SelectedValue;
-
-        private void BindDDL(string sql, DropDownList ddl, string text, string value)
+        // Helper Methods
+        private void BindDDL(string sql, DropDownList ddl, string text, string value, string defaultText)
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
                 SqlDataAdapter da = new SqlDataAdapter(sql, con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
+
                 ddl.DataSource = dt;
                 ddl.DataTextField = text;
                 ddl.DataValueField = value;
                 ddl.DataBind();
-                ddl.Items.Insert(0, new ListItem("-- Optional --", "0"));
+
+                ddl.Items.Insert(0, new ListItem(defaultText, "0"));
             }
-        }
-
-        private void ResetDDL(DropDownList ddl, string text)
-        {
-            ddl.Items.Clear();
-            ddl.Items.Insert(0, new ListItem(text, "0"));
-        }
-
-        private void ResetAllFrom(DropDownList startDdl)
-        {
-            DropDownList[] chain = { ddlResourceType, ddlSubCategory, ddlLevel, ddlSubject };
-            bool startClearing = false;
-            foreach (var ddl in chain)
-            {
-                if (ddl == startDdl) startClearing = true;
-                if (startClearing) ResetDDL(ddl, "-- Optional --");
-            }
-        }
-
-        private void ShowMessage(string msg, bool isError)
-        {
-            lblMessage.Text = msg;
-            lblMessage.ForeColor = isError ? System.Drawing.Color.Red : System.Drawing.Color.Green;
         }
 
         protected void txtChapterName_TextChanged(object sender, EventArgs e)
         {
-            txtSlug.Text = Regex.Replace(txtChapterName.Text.ToLower(), @"[^a-z0-9]", "-").Replace("--", "-").Trim('-');
+            txtSlug.Text = Regex.Replace(txtChapterName.Text.ToLower(), @"[^a-z0-9]", "-")
+                                .Replace("--", "-")
+                                .Trim('-');
         }
     }
 }
