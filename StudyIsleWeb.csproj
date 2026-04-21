@@ -160,6 +160,7 @@
     <Content Include="Student\Student_Logout.aspx" />
     <Content Include="SubCatDetails.aspx" />
     <Content Include="SubjectDetails.aspx" />
+    <Content Include="VerifyOtp.aspx" />
     <Content Include="ViewResource.aspx" />
     <Content Include="ViewResources.aspx" />
     <Content Include="Web.config" />
@@ -561,6 +562,13 @@
     </Compile>
     <Compile Include="SubjectDetails.aspx.designer.cs">
       <DependentUpon>SubjectDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VerifyOtp.aspx.cs">
+      <DependentUpon>VerifyOtp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VerifyOtp.aspx.designer.cs">
+      <DependentUpon>VerifyOtp.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewResource.aspx.cs">
       <DependentUpon>ViewResource.aspx</DependentUpon>
