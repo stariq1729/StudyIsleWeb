@@ -10,6 +10,13 @@ namespace StudyIsleWeb
         protected void Page_Load(object sender, EventArgs e)
         {
             // If user is already logged in, redirect accordingly
+            // 🔹 If user is in signup flow → DO NOTHING
+            if (Session["IsProfileSetupPending"] != null)
+            {
+                return;
+            }
+
+            // 🔹 Normal login redirect
             if (Session["UserRole"] != null)
             {
                 RedirectUser(Session["UserRole"].ToString());
@@ -95,7 +102,7 @@ namespace StudyIsleWeb
             }
             else
             {
-                Response.Redirect("~/Student/StudentIndex.aspx");
+                Response.Redirect("~/Student/StudentProfile.aspx"); // ✅ Correct
             }
         }
     }

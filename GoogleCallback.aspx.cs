@@ -179,7 +179,7 @@ namespace StudyIsleWeb
             }
             else if (role == "Student")
             {
-                Response.Redirect("~/Student/StudentIndex.aspx", false);
+                Response.Redirect("~/Student/StudentRegister.aspx", false);
             }
             else
             {

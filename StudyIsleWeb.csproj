@@ -156,7 +156,7 @@
     <Content Include="Sets.aspx" />
     <Content Include="SetSelection.aspx" />
     <Content Include="SignUp.aspx" />
-    <Content Include="Student\StudentIndex.aspx" />
+    <Content Include="Student\StudentRegister.aspx" />
     <Content Include="Student\Student_Logout.aspx" />
     <Content Include="SubCatDetails.aspx" />
     <Content Include="SubjectDetails.aspx" />
@@ -535,12 +535,12 @@
     <Compile Include="Student\StudentDashboard.Master.designer.cs">
       <DependentUpon>StudentDashboard.Master</DependentUpon>
     </Compile>
-    <Compile Include="Student\StudentIndex.aspx.cs">
-      <DependentUpon>StudentIndex.aspx</DependentUpon>
+    <Compile Include="Student\StudentRegister.aspx.cs">
+      <DependentUpon>StudentRegister.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Student\StudentIndex.aspx.designer.cs">
-      <DependentUpon>StudentIndex.aspx</DependentUpon>
+    <Compile Include="Student\StudentRegister.aspx.designer.cs">
+      <DependentUpon>StudentRegister.aspx</DependentUpon>
     </Compile>
     <Compile Include="Student\Student_Logout.aspx.cs">
       <DependentUpon>Student_Logout.aspx</DependentUpon>
