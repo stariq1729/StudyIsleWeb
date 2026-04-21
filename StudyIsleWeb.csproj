@@ -155,6 +155,7 @@
     <Content Include="Quiz\QuizStart.aspx" />
     <Content Include="Sets.aspx" />
     <Content Include="SetSelection.aspx" />
+    <Content Include="SignUp.aspx" />
     <Content Include="Student\StudentIndex.aspx" />
     <Content Include="Student\Student_Logout.aspx" />
     <Content Include="SubCatDetails.aspx" />
@@ -511,6 +512,13 @@
     </Compile>
     <Compile Include="SetSelection.aspx.designer.cs">
       <DependentUpon>SetSelection.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SignUp.aspx.cs">
+      <DependentUpon>SignUp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SignUp.aspx.designer.cs">
+      <DependentUpon>SignUp.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
