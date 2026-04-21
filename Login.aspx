@@ -131,7 +131,12 @@
     OnClick="btnGoogleLogin_Click" />
 <%--  OnClick="btnGoogleLogin_Click" remove the OnClick event handler for btnGoogleLogin since it's not implemented yet--%>
         </div>
-
+        <div class="text-center mt-3">
+    <span class="text-muted small">Don't have an account?</span>
+    <a href="Register.aspx" class="fw-semibold text-decoration-none">
+        Sign up
+    </a>
+</div>
 
     </div>
 </div>
