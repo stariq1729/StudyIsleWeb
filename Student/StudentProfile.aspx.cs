@@ -71,7 +71,7 @@ namespace StudyIsleWeb.Student
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                SqlDataAdapter da = new SqlDataAdapter("SELECT TOP 10 * FROM Resources", conn);
+                SqlDataAdapter da = new SqlDataAdapter("SELECT TOP 5 * FROM Resources", conn);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
 
