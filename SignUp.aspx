@@ -96,7 +96,7 @@
                 <asp:TextBox ID="txtEmail" runat="server"
                     CssClass="form-control"
                     TextMode="Email"
-                    placeholder="name@example.com"></asp:TextBox>
+                    placeholder="Email@example.com"></asp:TextBox>
             </div>
 
             <!-- Password -->
