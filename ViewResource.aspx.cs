@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web;
+using System.Web.UI.WebControls;
 
 namespace StudyIsleWeb
 {
@@ -37,14 +38,24 @@ namespace StudyIsleWeb
             using (SqlConnection con = new SqlConnection(cs))
             {
                 string sql = @"
-        SELECT r.Title, r.Description, r.FilePath, r.ContentType
-        FROM Resources r
-        WHERE r.IsActive = 1
-        AND r.BoardId = @bid";
+       SELECT r.ResourceId, r.Title, r.Description, r.FilePath, r.ContentType,
+       CASE 
+           WHEN b.BookmarkId IS NOT NULL THEN 1 
+           ELSE 0 
+       END AS IsBookmarked
+FROM Resources r
+LEFT JOIN Bookmarks b 
+    ON r.ResourceId = b.ItemId 
+    AND b.ItemType = 'Resource'
+    AND b.UserId = @uid
+WHERE r.IsActive = 1
+AND r.BoardId = @bid";
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
+
                 cmd.Parameters.AddWithValue("@bid", Convert.ToInt32(bid));
+                cmd.Parameters.AddWithValue("@uid", Session["UserId"] ?? 0);
 
                 // =====================================================
                 // 🔥 CONTEXT BASED FILTERING (REAL FIX)
@@ -106,7 +117,57 @@ namespace StudyIsleWeb
                 phEmpty.Visible = (dt.Rows.Count == 0);
             }
         }
+        protected void rptResources_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "Bookmark")
+            {
+                if (Session["UserId"] == null)
+                {
+                    Response.Redirect("Login.aspx");
+                    return;
+                }
 
+                int userId = Convert.ToInt32(Session["UserId"]);
+                int resourceId = Convert.ToInt32(e.CommandArgument);
+
+                using (SqlConnection con = new SqlConnection(cs))
+                {
+                    con.Open();
+
+                    string checkQuery = @"SELECT COUNT(*) FROM Bookmarks 
+                                 WHERE UserId=@uid AND ItemId=@iid AND ItemType='Resource'";
+
+                    SqlCommand checkCmd = new SqlCommand(checkQuery, con);
+                    checkCmd.Parameters.AddWithValue("@uid", userId);
+                    checkCmd.Parameters.AddWithValue("@iid", resourceId);
+
+                    int count = (int)checkCmd.ExecuteScalar();
+
+                    if (count > 0)
+                    {
+                        string deleteQuery = @"DELETE FROM Bookmarks 
+                                      WHERE UserId=@uid AND ItemId=@iid AND ItemType='Resource'";
+
+                        SqlCommand delCmd = new SqlCommand(deleteQuery, con);
+                        delCmd.Parameters.AddWithValue("@uid", userId);
+                        delCmd.Parameters.AddWithValue("@iid", resourceId);
+                        delCmd.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        string insertQuery = @"INSERT INTO Bookmarks (UserId, ItemId, ItemType)
+                                      VALUES (@uid, @iid, 'Resource')";
+
+                        SqlCommand insCmd = new SqlCommand(insertQuery, con);
+                        insCmd.Parameters.AddWithValue("@uid", userId);
+                        insCmd.Parameters.AddWithValue("@iid", resourceId);
+                        insCmd.ExecuteNonQuery();
+                    }
+                }
+
+                BindResources();
+            }
+        }
         // UI helpers (unchanged)
         protected string GetTheme(string type)
         {
