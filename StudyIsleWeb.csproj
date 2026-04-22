@@ -609,6 +609,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Uploads\Flashcards\" />
+    <Folder Include="Uploads\ProfileImages\" />
     <Folder Include="Uploads\Resumes\" />
   </ItemGroup>
   <PropertyGroup>
