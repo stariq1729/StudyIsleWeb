@@ -38,29 +38,34 @@ namespace StudyIsleWeb
 
 
                 // =========================
-                // NEW LOGIN / PROFILE LOGIC (ADDED SAFELY)
+                // LOGIN / PROFILE LOGIC
                 // =========================
                 if (Session["UserID"] != null)
                 {
-                    // User Logged In
                     guestButtons.Visible = false;
                     userProfile.Visible = true;
 
-                    lblUserName.Text = Session["UserName"] != null ? Session["UserName"].ToString() : "User";
-                    lblEmail.Text = Session["UserEmail"] != null ? Session["UserEmail"].ToString() : "";
+                    lblUserName.Text = Session["UserName"]?.ToString() ?? "User";
+                    lblEmail.Text = Session["UserEmail"]?.ToString() ?? "";
+
+                    // ✅ PROFILE IMAGE FROM SESSION
+                    if (Session["UserImage"] != null && Session["UserImage"].ToString() != "")
+                    {
+                        imgUserProfile.ImageUrl = ResolveUrl(Session["UserImage"].ToString());
+                    }
+                    else
+                    {
+                        imgUserProfile.ImageUrl = "~/assets/img/default-user.png";
+                    }
                 }
                 else
                 {
-                    // Guest User
                     guestButtons.Visible = true;
                     userProfile.Visible = false;
                 }
             }
         }
 
-        // =========================
-        // LOGOUT FUNCTION
-        // =========================
         protected void btnLogout_Click(object sender, EventArgs e)
         {
             Session.Clear();
