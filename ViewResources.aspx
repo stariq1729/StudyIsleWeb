@@ -219,7 +219,7 @@
             <div class="col-lg-9">
                 <h2 class="fw-bold mb-4">Study Materials</h2>
 
-                <asp:Repeater ID="rptResources" runat="server">
+               <asp:Repeater ID="rptResources" runat="server" OnItemCommand="rptResources_ItemCommand">
                     <ItemTemplate>
                         <div class="resource-card">
                             <div class="d-flex align-items-center">
@@ -234,14 +234,30 @@
                                     </small>
                                 </div>
                             </div>
-                            <div>
-                                <a href="#"
-                                   class="btn btn-primary rounded-pill px-4"
-                                   onclick="return openResource('<%# ResolveUrl(Eval("FilePath").ToString()).Replace("'", "\\'") %>',
-                                   '<%# Eval("ContentType").ToString().Replace("'", "\\'") %>');">
-                                    <i class="fas fa-eye me-2"></i>Open
-                                </a>
-                            </div>
+                            <div class="d-flex gap-2">
+
+    <!-- Open Button (UNCHANGED) -->
+    <a href="#"
+       class="btn btn-primary rounded-pill px-4"
+       onclick="return openResource('<%# ResolveUrl(Eval("FilePath").ToString()).Replace("'", "\\'") %>',
+       '<%# Eval("ContentType").ToString().Replace("'", "\\'") %>');">
+        <i class="fas fa-eye me-2"></i>Open
+    </a>
+
+    <!-- Bookmark Button -->
+    <asp:LinkButton ID="btnBookmark"
+        runat="server"
+        CssClass="btn btn-outline-warning rounded-pill px-3"
+        CommandName="Bookmark"
+        CommandArgument='<%# Eval("ResourceId") %>'>
+
+        <i class='<%# Convert.ToInt32(Eval("IsBookmarked")) == 1 
+            ? "fas fa-bookmark text-warning" 
+            : "far fa-bookmark" %>'></i>
+
+    </asp:LinkButton>
+
+</div>
                         </div>
                     </ItemTemplate>
                 </asp:Repeater>

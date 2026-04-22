@@ -56,15 +56,24 @@ namespace StudyIsleWeb.Quiz
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 string query = @"
-                    SELECT QuizId, QuizLabel, TotalQuestions,
-                           TimeLimitMinutes, TotalMarks, Difficulty
-                    FROM Quiz
-                    WHERE ChapterId = @ChapterId AND IsActive = 1
-                    ORDER BY CreatedAt";
+    SELECT q.QuizId, q.QuizLabel, q.TotalQuestions,
+           q.TimeLimitMinutes, q.TotalMarks, q.Difficulty,
+           CASE 
+               WHEN b.BookmarkId IS NOT NULL THEN 1 
+               ELSE 0 
+           END AS IsBookmarked
+    FROM Quiz q
+    LEFT JOIN Bookmarks b 
+        ON q.QuizId = b.ItemId 
+        AND b.ItemType = 'Quiz'
+        AND b.UserId = @uid
+    WHERE q.ChapterId = @ChapterId AND q.IsActive = 1
+    ORDER BY q.CreatedAt";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@ChapterId", chapterId);
+                    cmd.Parameters.AddWithValue("@uid", Session["UserId"] ?? 0);
 
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
@@ -111,7 +120,58 @@ namespace StudyIsleWeb.Quiz
                 Response.Redirect(
                     $"~/Quiz/QuizStart.aspx?quizId={quizId}&bid={bid}&rid={rid}&scid={scid}&sid={sid}&cid={cid}");
             }
+            else if (e.CommandName == "Bookmark")
+            {
+                if (Session["UserId"] == null)
+                {
+                    Response.Redirect("~/Login.aspx");
+                    return;
+                }
+
+                int userId = Convert.ToInt32(Session["UserId"]);
+                int quizId = Convert.ToInt32(e.CommandArgument);
+
+                using (SqlConnection con = new SqlConnection(connStr))
+                {
+                    con.Open();
+
+                    string checkQuery = @"SELECT COUNT(*) FROM Bookmarks 
+                             WHERE UserId=@uid AND ItemId=@iid AND ItemType='Quiz'";
+
+                    SqlCommand checkCmd = new SqlCommand(checkQuery, con);
+                    checkCmd.Parameters.AddWithValue("@uid", userId);
+                    checkCmd.Parameters.AddWithValue("@iid", quizId);
+
+                    int count = (int)checkCmd.ExecuteScalar();
+
+                    if (count > 0)
+                    {
+                        string deleteQuery = @"DELETE FROM Bookmarks 
+                                  WHERE UserId=@uid AND ItemId=@iid AND ItemType='Quiz'";
+
+                        SqlCommand delCmd = new SqlCommand(deleteQuery, con);
+                        delCmd.Parameters.AddWithValue("@uid", userId);
+                        delCmd.Parameters.AddWithValue("@iid", quizId);
+                        delCmd.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        string insertQuery = @"INSERT INTO Bookmarks (UserId, ItemId, ItemType)
+                                  VALUES (@uid, @iid, 'Quiz')";
+
+                        SqlCommand insCmd = new SqlCommand(insertQuery, con);
+                        insCmd.Parameters.AddWithValue("@uid", userId);
+                        insCmd.Parameters.AddWithValue("@iid", quizId);
+                        insCmd.ExecuteNonQuery();
+                    }
+                }
+
+                // reload quizzes
+                int chapterId = GetChapterId();
+                LoadQuizzes(chapterId);
+            }
         }
+
         /// <summary>
         /// Displays no data message.
         /// </summary>

@@ -157,14 +157,33 @@
                         </div>
                     </div>
 
-                   <asp:LinkButton 
-    ID="btnStartTest"
-    runat="server"
-    CssClass="start-btn"
-    CommandName="StartQuiz"
-    CommandArgument='<%# Eval("QuizId") %>'>
-    ▶ Start Test
-</asp:LinkButton>
+                   <div class="d-flex gap-2">
+
+    <!-- Start Test (UNCHANGED) -->
+    <asp:LinkButton 
+        ID="btnStartTest"
+        runat="server"
+        CssClass="start-btn"
+        CommandName="StartQuiz"
+        CommandArgument='<%# Eval("QuizId") %>'>
+        ▶ Start Test
+    </asp:LinkButton>
+
+    <!-- Bookmark Button -->
+    <asp:LinkButton
+        ID="btnBookmark"
+        runat="server"
+        CssClass="btn btn-outline-warning"
+        CommandName="Bookmark"
+        CommandArgument='<%# Eval("QuizId") %>'>
+
+        <i class='<%# Convert.ToInt32(Eval("IsBookmarked")) == 1 
+            ? "fas fa-bookmark text-warning" 
+            : "far fa-bookmark" %>'></i>
+
+    </asp:LinkButton>
+
+</div>
                 </div>
             </ItemTemplate>
         </asp:Repeater>
