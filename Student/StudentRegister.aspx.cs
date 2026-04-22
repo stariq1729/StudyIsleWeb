@@ -80,6 +80,36 @@ namespace StudyIsleWeb.Student
             }
 
             int userId = Convert.ToInt32(Session["UserId"]);
+            string imagePath = "";
+
+            // CASE 1: User uploaded image
+            if (FileUploadAvatar.HasFile)
+            {
+                string extension = System.IO.Path.GetExtension(FileUploadAvatar.FileName).ToLower();
+
+                // Optional validation
+                if (extension == ".jpg" || extension == ".jpeg" || extension == ".png")
+                {
+                    string fileName = Guid.NewGuid().ToString() + extension;
+
+                    string folderPath = Server.MapPath("~/Uploads/ProfileImages/");
+                    string fullPath = folderPath + fileName;
+
+                    FileUploadAvatar.SaveAs(fullPath);
+
+                    imagePath = "/Uploads/ProfileImages/" + fileName;
+                }
+                else
+                {
+                    Response.Write("<script>alert('Only JPG, JPEG, PNG allowed');</script>");
+                    return;
+                }
+            }
+            else
+            {
+                // CASE 2: Avatar selected
+                imagePath = hfSelectedAvatar.Value;
+            }
 
             using (SqlConnection conn = new SqlConnection(connStr))
             {
@@ -94,16 +124,17 @@ namespace StudyIsleWeb.Student
 
                 if (exists == 0)
                 {
-                    cmd = new SqlCommand("INSERT INTO StudentAdditionalInfo (UserId,MobileNumber,DOB) VALUES (@id,@m,@d)", conn);
+                    cmd = new SqlCommand("INSERT INTO StudentAdditionalInfo (UserId,MobileNumber,DOB,ProfilePicture)\r\nVALUES (@id,@m,@d,@img)", conn);
                 }
                 else
                 {
-                    cmd = new SqlCommand("UPDATE StudentAdditionalInfo SET MobileNumber=@m,DOB=@d WHERE UserId=@id", conn);
+                    cmd = new SqlCommand("UPDATE StudentAdditionalInfo \r\nSET MobileNumber=@m,DOB=@d,ProfilePicture=@img \r\nWHERE UserId=@id", conn);
                 }
 
                 cmd.Parameters.AddWithValue("@id", userId);
                 cmd.Parameters.AddWithValue("@m", txtMobile.Text);
                 cmd.Parameters.AddWithValue("@d", dob);
+                cmd.Parameters.AddWithValue("@img", imagePath);
 
                 cmd.ExecuteNonQuery();
             }

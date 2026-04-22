@@ -42,15 +42,6 @@ namespace StudyIsleWeb.Student
         protected global::System.Web.UI.WebControls.Label lblClass;
 
         /// <summary>
-        /// litCount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litCount;
-
-        /// <summary>
         /// lblExam control.
         /// </summary>
         /// <remarks>
@@ -76,15 +67,6 @@ namespace StudyIsleWeb.Student
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCity;
-
-        /// <summary>
-        /// lnkLogout control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkLogout;
 
         /// <summary>
         /// rptResources control.
@@ -123,6 +105,15 @@ namespace StudyIsleWeb.Student
         protected global::System.Web.UI.WebControls.TextBox txtName;
 
         /// <summary>
+        /// ddlClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlClass;
+
+        /// <summary>
         /// txtDOB control.
         /// </summary>
         /// <remarks>
@@ -130,6 +121,15 @@ namespace StudyIsleWeb.Student
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDOB;
+
+        /// <summary>
+        /// ddlBoard control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlBoard;
 
         /// <summary>
         /// btnUpdate control.
