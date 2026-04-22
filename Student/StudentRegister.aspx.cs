@@ -110,6 +110,12 @@ namespace StudyIsleWeb.Student
 
             pnlStep1.Visible = false;
             pnlStep2.Visible = true;
+
+            // UI Update for Status Bar
+            litStepNum.Text = "2";
+            bar1.Attributes["class"] = "step-bar active";
+            bar2.Attributes["class"] = "step-bar active";
+            bar3.Attributes["class"] = "step-bar";
         }
 
         protected void btnStep2Next_Click(object sender, EventArgs e)
@@ -138,6 +144,12 @@ namespace StudyIsleWeb.Student
 
             pnlStep2.Visible = false;
             pnlStep3.Visible = true;
+
+            // UI Update for Status Bar
+            litStepNum.Text = "3";
+            bar1.Attributes["class"] = "step-bar active";
+            bar2.Attributes["class"] = "step-bar active";
+            bar3.Attributes["class"] = "step-bar active";
         }
 
         protected void btnFinish_Click(object sender, EventArgs e)
