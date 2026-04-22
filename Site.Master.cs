@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace StudyIsleWeb
 {
@@ -13,9 +10,11 @@ namespace StudyIsleWeb
         {
             if (!IsPostBack)
             {
+                // =========================
+                // EXISTING NAVBAR LOGIC (UNCHANGED)
+                // =========================
                 string currentPage = System.IO.Path.GetFileName(Request.Url.AbsolutePath).ToLower();
 
-                // Reset classes first (important)
                 navHome.Attributes["class"] = "nav-link nav-custom";
                 navLive.Attributes["class"] = "nav-link nav-custom";
                 navTest.Attributes["class"] = "nav-link nav-custom";
@@ -36,7 +35,37 @@ namespace StudyIsleWeb
 
                 else if (currentPage == "blogs.aspx")
                     navBlogs.Attributes["class"] += " active";
+
+
+                // =========================
+                // NEW LOGIN / PROFILE LOGIC (ADDED SAFELY)
+                // =========================
+                if (Session["UserID"] != null)
+                {
+                    // User Logged In
+                    guestButtons.Visible = false;
+                    userProfile.Visible = true;
+
+                    lblUserName.Text = Session["UserName"] != null ? Session["UserName"].ToString() : "User";
+                    lblEmail.Text = Session["UserEmail"] != null ? Session["UserEmail"].ToString() : "";
+                }
+                else
+                {
+                    // Guest User
+                    guestButtons.Visible = true;
+                    userProfile.Visible = false;
+                }
             }
+        }
+
+        // =========================
+        // LOGOUT FUNCTION
+        // =========================
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Session.Abandon();
+            Response.Redirect("~/Login.aspx");
         }
     }
 }

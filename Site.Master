@@ -124,10 +124,54 @@
             </ul>
 
             <!-- Right Buttons -->
-            <div class="d-flex gap-2">
-                <a runat="server" href="~/Login.aspx" class="btn btn-outline-primary px-4">Login</a>
-                <a runat="server" href="~/Login.aspx" class="btn btn-primary px-4">Enroll Now</a>
-            </div>
+            <!-- Guest Buttons -->
+<div id="guestButtons" runat="server" class="d-flex gap-2">
+    <a runat="server" href="~/Login.aspx" class="btn btn-outline-primary px-4">Login</a>
+    <a runat="server" href="~/Login.aspx" class="btn btn-primary px-4">Enroll Now</a>
+</div>
+
+<!-- User Profile Dropdown -->
+<div id="userProfile" runat="server" visible="false" class="dropdown">
+    
+    <a class="d-flex align-items-center text-decoration-none dropdown-toggle"
+       href="#" id="profileDropdown" data-bs-toggle="dropdown">
+        
+        <img src="https://i.pravatar.cc/40" class="rounded-circle me-2" width="40" height="40" />
+        <div>
+            <strong><asp:Label ID="lblUserName" runat="server"></asp:Label></strong><br />
+            <small class="text-muted">PRO LEARNER</small>
+        </div>
+    </a>
+
+    <div class="dropdown-menu dropdown-menu-end shadow p-3" style="width:260px; border-radius:15px;">
+        
+        <small class="text-muted">SIGNED IN AS</small>
+        <p class="fw-bold mb-2">
+            <asp:Label ID="lblEmail" runat="server"></asp:Label>
+        </p>
+
+        <hr />
+
+        <a class="dropdown-item" href="/Student/StudentProfile.aspx">
+            <i class="bi bi-person me-2"></i> Your Profile
+        </a>
+
+        <a class="dropdown-item" href="/Student/AccountSettings.aspx">
+            <i class="bi bi-gear me-2"></i> Account Settings
+        </a>
+
+        <a class="dropdown-item" href="#">
+            <i class="bi bi-life-preserver me-2"></i> Support Center
+        </a>
+
+        <hr />
+
+        <asp:LinkButton ID="btnLogout" runat="server" CssClass="dropdown-item text-danger" OnClick="btnLogout_Click">
+            <i class="bi bi-box-arrow-right me-2"></i> Log Out
+        </asp:LinkButton>
+
+    </div>
+</div>
 
         </div>
     </div>

@@ -73,21 +73,18 @@ namespace StudyIsleWeb.Student
 
             using (SqlConnection conn = new SqlConnection(connStr))
             {
+                // Improved query to handle both Resources and Quizzes correctly
                 string query = @"
-        SELECT 
-            b.ItemType,
-            b.ItemId,
-            r.Title,
-            q.QuizLabel
-        FROM Bookmarks b
-        LEFT JOIN Resources r 
-            ON b.ItemId = r.ResourceId 
-            AND b.ItemType = 'Resource'
-        LEFT JOIN Quiz q 
-            ON b.ItemId = q.QuizId 
-            AND b.ItemType = 'Quiz'
-        WHERE b.UserId = @uid
-        ORDER BY b.CreatedAt DESC";
+            SELECT 
+                b.ItemType,
+                b.ItemId,
+                COALESCE(r.Title, q.QuizLabel, 'Untitled Content') AS DisplayTitle,
+                b.CreatedAt
+            FROM Bookmarks b
+            LEFT JOIN Resources r ON b.ItemId = r.ResourceId AND b.ItemType = 'Resource'
+            LEFT JOIN Quiz q ON b.ItemId = q.QuizId AND b.ItemType = 'Quiz'
+            WHERE b.UserId = @uid
+            ORDER BY b.CreatedAt DESC";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@uid", userId);
@@ -98,7 +95,23 @@ namespace StudyIsleWeb.Student
 
                 rptResources.DataSource = dt;
                 rptResources.DataBind();
+
+                // Update the total count label
+                litCount.Text = dt.Rows.Count.ToString();
             }
+        }
+
+        // Add the Logout Method
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            // Clear the session
+            Session.Clear();
+            Session.Abandon();
+
+            // Clear authentication cookie if you're using FormsAuthentication
+            // FormsAuthentication.SignOut(); 
+
+            Response.Redirect("~/Login.aspx");
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
@@ -120,7 +133,10 @@ namespace StudyIsleWeb.Student
                 cmd2.ExecuteNonQuery();
             }
 
-            LoadProfile();
+           LoadProfile();
+    
+    // OPTIONAL: Auto-close the modal by injecting JS
+    ClientScript.RegisterStartupScript(this.GetType(), "alert", "closeModal(); alert('Profile Updated Successfully!');", true);
         }
     }
 }
