@@ -69,9 +69,30 @@ namespace StudyIsleWeb.Student
 
         private void LoadResources()
         {
+            int userId = Convert.ToInt32(Session["UserId"]);
+
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                SqlDataAdapter da = new SqlDataAdapter("SELECT TOP 5 * FROM Resources", conn);
+                string query = @"
+        SELECT 
+            b.ItemType,
+            b.ItemId,
+            r.Title,
+            q.QuizLabel
+        FROM Bookmarks b
+        LEFT JOIN Resources r 
+            ON b.ItemId = r.ResourceId 
+            AND b.ItemType = 'Resource'
+        LEFT JOIN Quiz q 
+            ON b.ItemId = q.QuizId 
+            AND b.ItemType = 'Quiz'
+        WHERE b.UserId = @uid
+        ORDER BY b.CreatedAt DESC";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@uid", userId);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
 

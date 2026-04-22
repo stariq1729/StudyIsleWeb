@@ -70,13 +70,23 @@
             <h4>Resource Library</h4>
             <asp:Repeater ID="rptResources" runat="server">
     <ItemTemplate>
-        <div class="card p-3 mb-2">
-            <b><%# Eval("Title") %></b><br />
+       <div class="card p-3 mb-2 d-flex justify-content-between align-items-center">
+    
+    <div>
+        <span class="badge bg-info">
+            <%# Eval("ItemType") %>
+        </span>
 
-            <!-- Bookmark placeholder (future feature) -->
-            <span class="text-muted">Bookmark</span>
-
+        <div class="fw-bold mt-1">
+            <%# Eval("ItemType").ToString() == "Resource" 
+                ? Eval("Title") 
+                : Eval("QuizLabel") %>
         </div>
+    </div>
+
+    <i class="fas fa-bookmark text-warning"></i>
+
+</div>
     </ItemTemplate>
 </asp:Repeater>
 
