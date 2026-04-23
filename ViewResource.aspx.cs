@@ -155,12 +155,24 @@ AND r.BoardId = @bid";
                     }
                     else
                     {
-                        string insertQuery = @"INSERT INTO Bookmarks (UserId, ItemId, ItemType)
-                                      VALUES (@uid, @iid, 'Resource')";
+                        string insertQuery = @"INSERT INTO Bookmarks 
+(UserId, ItemId, ItemType, BoardId, SubjectId, ChapterId, SubCategoryId, ResourceTypeId, SetId, YearId)
+VALUES 
+(@uid, @iid, 'Resource', @bid, @sid, @cid, @scid, @rid, @setid, @yid)";
 
                         SqlCommand insCmd = new SqlCommand(insertQuery, con);
-                        insCmd.Parameters.AddWithValue("@uid", userId);
+
+                        insCmd.Parameters.AddWithValue("@uid", userId);   // ✅ MUST EXIST
                         insCmd.Parameters.AddWithValue("@iid", resourceId);
+
+                        insCmd.Parameters.AddWithValue("@bid", DBNull.Value);
+                        insCmd.Parameters.AddWithValue("@sid", Request.QueryString["sid"] ?? (object)DBNull.Value);
+                        insCmd.Parameters.AddWithValue("@cid", Request.QueryString["cid"] ?? (object)DBNull.Value);
+                        insCmd.Parameters.AddWithValue("@scid", DBNull.Value);
+                        insCmd.Parameters.AddWithValue("@rid", DBNull.Value);
+                        insCmd.Parameters.AddWithValue("@setid", Request.QueryString["setid"] ?? (object)DBNull.Value);
+                        insCmd.Parameters.AddWithValue("@yid", Request.QueryString["yid"] ?? (object)DBNull.Value);
+
                         insCmd.ExecuteNonQuery();
                     }
                 }

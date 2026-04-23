@@ -156,12 +156,15 @@ namespace StudyIsleWeb.Quiz
                     }
                     else
                     {
-                        string insertQuery = @"INSERT INTO Bookmarks (UserId, ItemId, ItemType)
-                                  VALUES (@uid, @iid, 'Quiz')";
+                        string insertQuery = @"INSERT INTO Bookmarks 
+(UserId, ItemId, ItemType, ChapterId)
+VALUES 
+(@uid, @iid, 'Quiz', @cid)";
 
                         SqlCommand insCmd = new SqlCommand(insertQuery, con);
                         insCmd.Parameters.AddWithValue("@uid", userId);
                         insCmd.Parameters.AddWithValue("@iid", quizId);
+                        insCmd.Parameters.AddWithValue("@cid", Request.QueryString["cid"] ?? (object)DBNull.Value);
                         insCmd.ExecuteNonQuery();
                     }
                 }
