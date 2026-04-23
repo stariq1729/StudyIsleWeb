@@ -152,22 +152,21 @@ Subject or College to
                     </h2>
 
                     <p class="career-description">
-                        Every child is unique. Our expert academic counselors provide
-                        personalized roadmaps for your specific goals—completely free.
+                        Whether you're a Class 10 student choosing between Science, Commerce and Arts — or a Class 12 student shortlisting colleges — our expert counsellors help you make the decision that's right for you. One conversation can change the direction of your entire career.
                     </p>
 
                     <div class="career-features">
                         <div class="feature-item">
                             <i class="bi bi-calendar-check"></i>
-                            Pick your preferred time
+                           Stream & Subject Selection After Class 10
                         </div>
                         <div class="feature-item">
                             <i class="bi bi-camera-video"></i>
-                            Video consultation
+                           Career Path Clarity for College Students
                         </div>
                         <div class="feature-item">
                             <i class="bi bi-file-earmark-text"></i>
-                            Detailed Academic Report
+                           College Shortlisting & Admission Guidance
                         </div>
                         <div class="feature-item">
                             <i class="bi bi-shield-check"></i>
@@ -262,9 +261,10 @@ Subject or College to
         <!-- Header Row -->
         <div class="row align-items-center mb-5">
             <div class="col-md-8">
-                <h1 class="ncert-title">Free NCERT & Revision Hub</h1>
+                <h1 class="ncert-title">Free Study Material for
+CBSE, ICSE & <spam>Competitive Exams</spam> </h1>
                 <p class="ncert-subtitle">
-                    Access thousands of chapter-wise solutions, revision notes, and past year papers curated by experts.
+                    Thousands of chapter-wise notes, NCERT solutions, solved past papers, and topic MCQs — all free, all expert-verified, fully updated for the 2024–25 syllabus.
                 </p>
             </div>
 
@@ -362,7 +362,8 @@ Subject or College to
 
 
 
-        <%--another section from here--%>
+        <%--another section from here online interactive class section--%>
+   <%-- this section css code is not applying properly on UI--%>
 
         <section class="interactive-section py-5">
     <div class="container">
@@ -385,10 +386,11 @@ Subject or College to
             <!-- RIGHT CONTENT -->
             <div class="col-lg-6">
 
-                <span class="tech-badge">WAVE INTERACTIVE TECH</span>
+                <span class="tech-badge">Live Online Classes</span>
 
                 <h2 class="interactive-title">
-                    Classrooms That Feel Like A 
+                    Live Classes That Actually
+Feel Like 
                     <span>Personal Tutor.</span>
                 </h2>
 
@@ -397,7 +399,7 @@ Subject or College to
                     <div class="feature-icon">🎥</div>
                     <div>
                         <h6>Two-Way Audio/Video Interaction</h6>
-                        <p>Teachers can talk directly to students to solve doubts in real-time.</p>
+                        <p>Raise your hand, ask a question, get a direct answer from your teacher — live, in real time. No muting. No waiting in line.</p>
                     </div>
                 </div>
 
@@ -405,8 +407,8 @@ Subject or College to
                 <div class="feature-item">
                     <div class="feature-icon">💬</div>
                     <div>
-                        <h6>Instant Doubt Solving via Chat</h6>
-                        <p>A secondary teacher dedicated to clearing every doubt as it pops up.</p>
+                        <h6>Dedicated Doubt-Solving Teacher in Every Class</h6>
+                        <p>A second educator monitors the chat throughout so no doubt sits unanswered for more than a minute.</p>
                     </div>
                 </div>
 
@@ -414,8 +416,9 @@ Subject or College to
                 <div class="feature-item">
                     <div class="feature-icon">⚡</div>
                     <div>
-                        <h6>Engagement Hotspots</h6>
-                        <p>Compete with 10k+ students in live leaderboard challenges.</p>
+                        <h6>
+Live Leaderboards That Keep You Sharp</h6>
+                        <p>In-class quizzes and live rankings against 10,000+ students make every session competitive and genuinely engaging.</p>
                     </div>
                 </div>
 
