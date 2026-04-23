@@ -843,11 +843,12 @@ Live Leaderboards That Keep You Sharp</h6>
                 <span class="ai-badge">AI-Powered Insights</span>
 
                 <h2 class="ai-heading">
-                    Reports That Drive Rank Improvements.
+                   Know Exactly Why Your Rank
+Isn't Improving- <spam style="color: #4f46e5;">and Fix It.</spam>
                 </h2>
 
                 <p class="ai-description">
-                    We go beyond just scores. Our AI engine analyzes your behavior to identify conceptual gaps, time-management issues, and strength areas.
+                   Most students fail not because they don't work hard, but because they work on the wrong things. Our AI identifies the exact sub-topics costing you marks.
                 </p>
 
                 <div class="feature-item">
@@ -855,8 +856,8 @@ Live Leaderboards That Keep You Sharp</h6>
                         <i class="fa fa-brain"></i>
                     </div>
                     <div>
-                        <h6>Gap Identification</h6>
-                        <p>We pinpoint exactly which sub-topic is pulling your score down.</p>
+                        <h6>Pinpoint Gap Identification</h6>
+                        <p>After every test, our AI highlights the exact sub-topic — not just the chapter — pulling your score down. No more guessing what to revise.</p>
                     </div>
                 </div>
 
@@ -865,8 +866,9 @@ Live Leaderboards That Keep You Sharp</h6>
                         <i class="fa fa-chart-line"></i>
                     </div>
                     <div>
-                        <h6>Comparative Analytics</h6>
-                        <p>See where you stand against the top 1% percentile nationwide.</p>
+                        <h6>Nationwide Percentile Comparison</h6>
+                        <p>See exactly where you stand against the top 1% nationally — so you know how much gap you actually need to close.
+</p>
                     </div>
                 </div>
 
@@ -875,10 +877,20 @@ Live Leaderboards That Keep You Sharp</h6>
                         <i class="fa fa-arrow-trend-up"></i>
                     </div>
                     <div>
-                        <h6>Predictive Ranking</h6>
-                        <p>Get an estimated JEE/NEET rank based on consistent test patterns.</p>
+                        <h6>Predicted JEE / NEET Rank</h6>
+                        <p>Based on your test patterns and improvement curve, our AI gives you an estimated rank so you can set realistic targets.</p>
                     </div>
                 </div>
+                 <div class="feature-item">
+     <div class="icon-box">
+         <i class="fa fa-clock"></i>
+     </div>
+     <div>
+         <h6>
+Time Management Analysis</h6>
+         <p>Identifies which question types are stealing your time so you stop losing marks in the last 20 minutes of every paper.</p>
+     </div>
+ </div>
 
             </div>
 
