@@ -78,6 +78,14 @@ namespace StudyIsleWeb.Student
                 Response.Write("<script>alert('Invalid DOB');</script>");
                 return;
             }
+            string gender = rblGender.SelectedValue;
+
+            //Response.Write("<script>alert('Gender: " + gender + "');</script>");
+            if (string.IsNullOrEmpty(gender))
+            {
+                Response.Write("<script>alert('Please select gender');</script>");
+                return;
+            }
 
             int userId = Convert.ToInt32(Session["UserId"]);
             string imagePath = "";
@@ -138,17 +146,18 @@ namespace StudyIsleWeb.Student
 
                 if (exists == 0)
                 {
-                    cmd = new SqlCommand("INSERT INTO StudentAdditionalInfo (UserId,MobileNumber,DOB,ProfilePicture)\r\nVALUES (@id,@m,@d,@img)", conn);
+                    cmd = new SqlCommand("INSERT INTO StudentAdditionalInfo (UserId,MobileNumber,DOB,ProfilePicture,Gender)\r\nVALUES (@id,@m,@d,@img,@g)", conn);
                 }
                 else
                 {
-                    cmd = new SqlCommand("UPDATE StudentAdditionalInfo \r\nSET MobileNumber=@m,DOB=@d,ProfilePicture=@img \r\nWHERE UserId=@id", conn);
+                    cmd = new SqlCommand("UPDATE StudentAdditionalInfo \r\nSET MobileNumber=@m,DOB=@d,ProfilePicture=@img,Gender=@g \r\nWHERE UserId=@id", conn);
                 }
 
                 cmd.Parameters.AddWithValue("@id", userId);
                 cmd.Parameters.AddWithValue("@m", txtMobile.Text);
                 cmd.Parameters.AddWithValue("@d", dob);
                 cmd.Parameters.AddWithValue("@img", imagePath);
+                cmd.Parameters.AddWithValue("@g", gender);
 
                 cmd.ExecuteNonQuery();
             }

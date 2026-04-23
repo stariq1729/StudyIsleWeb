@@ -150,6 +150,15 @@ namespace StudyIsleWeb.Student
         protected global::System.Web.UI.WebControls.TextBox txtDOB;
 
         /// <summary>
+        /// rblGender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList rblGender;
+
+        /// <summary>
         /// btnStep1Next control.
         /// </summary>
         /// <remarks>

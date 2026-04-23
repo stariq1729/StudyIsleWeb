@@ -63,7 +63,27 @@
     }
     .preset-img:hover { transform: scale(1.1); }
     .preset-img.active { border-color: var(--primary-blue); }
+    
+    .gender-radio {
+    display: flex;
+    gap: 10px; /* space between options */
+    margin-top: 10px;
+    margin-bottom:8px;
+}
 
+.gender-radio input[type="radio"] {
+    margin-right: 2px; /* space between circle and text */
+    transform: scale(1.5); /* slightly bigger radio */
+    cursor: pointer;
+    margin-bottom:8px;
+}
+
+.gender-radio label {
+    margin-right: 18px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom:8px;
+}
     /* Form Elements */
     .input-group-custom { margin-bottom: 20px; }
     .input-label {
@@ -115,6 +135,7 @@
         background: transparent; border: 1px solid var(--border-color);
         color: var(--text-muted); padding: 14px 25px; border-radius: 12px; font-weight: 600;
     }
+
 </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -184,6 +205,20 @@
                         <span class="input-label">Date of Birth</span>
                         <asp:TextBox ID="txtDOB" runat="server" CssClass="form-control-custom" TextMode="Date" />
                     </div>
+                  <div class="input-group-custom">
+    <span class="input-label">Gender</span>
+
+    <asp:RadioButtonList ID="rblGender" runat="server"
+        RepeatDirection="Horizontal"
+        RepeatLayout="Flow"
+        AutoPostBack="false"
+        CssClass="gender-radio">
+
+        <asp:ListItem Text="Male" Value="Male"></asp:ListItem>
+        <asp:ListItem Text="Female" Value="Female"></asp:ListItem>
+        <asp:ListItem Text="Other" Value="Other"></asp:ListItem>
+    </asp:RadioButtonList>
+</div>
                     <asp:Button ID="btnStep1Next" runat="server" Text="Continue" CssClass="btn-next" OnClick="btnStep1Next_Click" />
                 </div>
             </asp:Panel>
