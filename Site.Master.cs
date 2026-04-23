@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.Web;
 using System.Web.UI;
 
@@ -49,9 +50,32 @@ namespace StudyIsleWeb
                     lblEmail.Text = Session["UserEmail"]?.ToString() ?? "";
 
                     // ✅ PROFILE IMAGE FROM SESSION
-                    if (Session["UserImage"] != null && Session["UserImage"].ToString() != "")
+                    // 🔥 FETCH PROFILE IMAGE FROM DB
+                    string imagePath = "";
+
+                    using (SqlConnection con = new SqlConnection(
+                        System.Configuration.ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString))
                     {
-                        imgUserProfile.ImageUrl = ResolveUrl(Session["UserImage"].ToString());
+                        string query = "SELECT ProfilePicture FROM StudentAdditionalInfo WHERE UserId=@UserId";
+
+                        using (SqlCommand cmd = new SqlCommand(query, con))
+                        {
+                            cmd.Parameters.AddWithValue("@UserId", Session["UserID"]);
+
+                            con.Open();
+                            object result = cmd.ExecuteScalar();
+
+                            if (result != null && result != DBNull.Value)
+                            {
+                                imagePath = result.ToString();
+                            }
+                        }
+                    }
+
+                    // APPLY IMAGE
+                    if (!string.IsNullOrEmpty(imagePath))
+                    {
+                        imgUserProfile.ImageUrl = ResolveUrl(imagePath);
                     }
                     else
                     {
