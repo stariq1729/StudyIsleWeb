@@ -143,11 +143,12 @@ Every Step Covered.</span>
                 <!-- LEFT CONTENT -->
                 <div class="col-lg-6 career-left">
 
-                    <span class="career-badge">★ Personalized Guidance</span>
+                    <span class="career-badge">★ Free Career Counselling</span>
 
                     <h2 class="career-heading">
-                        Not sure where to start?
-                        <span>Speak 1-on-1.</span>
+                        Not Sure Which Stream,
+Subject or College to
+                        <span>Choose?</span>
                     </h2>
 
                     <p class="career-description">
@@ -202,20 +203,28 @@ Every Step Covered.</span>
                             <!-- Profile -->
                             <div class="counsellor-top">
                                 <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Dr. Shweta Iyer" />
-                                <h5>Dr. Shweta Iyer</h5>
-                                <p>Senior Academic Counselor</p>
+                                <h5>Pranav Maheshwari</h5>
+                                <p>Certified Career Analyst (CCA)</p>
                             </div>
 
                             <!-- Info rows -->
                             <div class="counsellor-info">
                                 <div class="info-row">
-                                    <span>Experience</span>
-                                    <strong>12+ Years</strong>
+                                    <span>Teaching Experience</span>
+                                    <strong>8+ Years</strong>
                                 </div>
                                 <div class="info-row">
+    <span>Counselling Experience</span>
+    <strong>2+ Years</strong>
+</div>
+                                <div class="info-row">
                                     <span>Specialization</span>
-                                    <strong>JEE &amp; NEET Expert</strong>
+                                    <strong>Stream & College Selection</strong>
                                 </div>
+                                <div class="info-row">
+    <span>Certification</span>
+    <strong>BCPA (India) & ACCPH (UK)</strong>
+</div>
                             </div>
 
                             <!-- Next slot -->
@@ -230,7 +239,7 @@ Every Step Covered.</span>
                         <!-- Success badge: outside card, inside wrapper -->
                         <div class="success-badge">
                             <span class="badge-label">✦ Success Story</span>
-                            <p>"Shweta helped my son choose the right branch!"</p>
+                            <p>"Pranav helped my son choose the right branch!"</p>
                         </div>
 
                     </div>
