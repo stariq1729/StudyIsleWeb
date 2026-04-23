@@ -1136,18 +1136,16 @@ Time Management Analysis</h6>
             <div class="col-lg-6 mb-5 mb-lg-0 enquiry-left">
 
                 <div class="admission-badge">
-                    Admissions Open 2025–26
+                    IB & IGCSE Online Tuition
                 </div>
 
-                <h2 class="main-heading">
-                    Unlock Your <br />
-                    <span class="gradient-text">Academic Potential</span>
-                </h2>
+                <h3 class="main-heading">
+                   Struggling with IB or IGCSE?
+                    <span class="gradient-text">Get Expert Online Tuition.</span>
+                </h3>
 
                 <p class="main-description">
-                    Join thousands of students across the globe who have transformed 
-                    their grades with our personalized 1-on-1 expert coaching.
-                    Our counselors will call you to build a custom roadmap for your success.
+                   Our specialist tutors have helped hundreds of IB Diploma, IGCSE, A-Level and AP students improve their grades, complete their IAs, and walk into exams with confidence — through fully personalised online sessions.
                 </p>
 
                 <div class="feature-wrapper">
@@ -1157,8 +1155,8 @@ Time Management Analysis</h6>
                             <i class="bi bi-person"></i>
                         </div>
                         <div>
-                            <h6>Senior Counselors</h6>
-                            <p>Expert 1-on-1 call for academic planning.</p>
+                            <h6>One-on-One Personalised Online Sessions</h6>
+                            <p>Private sessions built around your exact school, syllabus and learning pace. No one-size-fits-all — just focused, individual attention.</p>
                         </div>
                     </div>
 
@@ -1167,20 +1165,29 @@ Time Management Analysis</h6>
                             <i class="bi bi-award"></i>
                         </div>
                         <div>
-                            <h6>Top-Tier Results</h6>
-                            <p>Specialized tutors for IB, CBSE, IGCSE & AP.</p>
+                            <h6>IA, Extended Essay & TOK Mentoring</h6>
+                            <p>Our tutors guide you step-by-step through Internal Assessments, Extended Essays and Theory of Knowledge to maximise your marks.</p>
                         </div>
                     </div>
 
                     <div class="feature-item">
-                        <div class="icon-box green">
-                            <i class="bi bi-globe"></i>
+                        <div class="icon-box blue">
+                            <i class="bi bi-journal-text"></i>
                         </div>
                         <div>
-                            <h6>Global Recognition</h6>
-                            <p>Supporting students in 20+ countries worldwide.</p>
+                            <h6>Exam Technique & Past Paper Practice</h6>
+                            <p>Learn how IB and Cambridge examiners actually mark. Real past papers with expert feedback so you know exactly what to write.</p>
                         </div>
                     </div>
+                    <div class="feature-item">
+    <div class="icon-box green">
+        <i class="bi bi-globe"></i>
+    </div>
+    <div>
+        <h6>Top University Application Support</h6>
+        <p>We help you build a strong profile for universities in the UK, USA, Canada and beyond — from predicted grades to application strategy.</p>
+    </div>
+</div>
 
                 </div>
 
