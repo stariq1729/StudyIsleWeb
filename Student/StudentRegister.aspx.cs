@@ -87,15 +87,29 @@ namespace StudyIsleWeb.Student
             {
                 string extension = System.IO.Path.GetExtension(FileUploadAvatar.FileName).ToLower();
 
-                // Optional validation
                 if (extension == ".jpg" || extension == ".jpeg" || extension == ".png")
                 {
                     string fileName = Guid.NewGuid().ToString() + extension;
 
                     string folderPath = Server.MapPath("~/Uploads/ProfileImages/");
-                    string fullPath = folderPath + fileName;
 
+                    // Ensure folder exists
+                    if (!System.IO.Directory.Exists(folderPath))
+                    {
+                        System.IO.Directory.CreateDirectory(folderPath);
+                    }
+
+                    string fullPath = System.IO.Path.Combine(folderPath, fileName);
+
+                    // SAVE FILE
                     FileUploadAvatar.SaveAs(fullPath);
+
+                    // VERIFY (for debugging)
+                    if (!System.IO.File.Exists(fullPath))
+                    {
+                        Response.Write("<script>alert('File not saved!');</script>");
+                        return;
+                    }
 
                     imagePath = "/Uploads/ProfileImages/" + fileName;
                 }

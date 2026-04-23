@@ -131,20 +131,35 @@
         <p class="text-muted mb-4">Update your learning profile and personal details</p>
 
         <div class="text-center mb-5">
-            <div class="position-relative d-inline-block">
-                <asp:Image ID="imgModalAvatar" runat="server" ClientIDMode="Static" CssClass="rounded-circle border" style="width:100px; height:100px; object-fit:cover;" />
-                <div class="bg-primary text-white rounded-circle position-absolute bottom-0 end-0 d-flex align-items-center justify-content-center" style="width:30px; height:30px; border:3px solid #fff;">
-                    <i class="fas fa-camera small"></i>
-                </div>
-            </div>
-            <p class="small text-muted mt-2 mb-2 uppercase fw-bold">Avatar Selection</p>
-            <div class="avatar-selection d-flex justify-content-center gap-2">
-                <img src="../assets/img/Deault_Random_boy.png" onclick="setAvatar(this.src)" />
-                <img src="../assets/img/Default_Random_girl.png" onclick="setAvatar(this.src)" />
-                <img src="../images/avatar3.png" onclick="setAvatar(this.src)" />
-            </div>
-            <asp:HiddenField ID="hfAvatar" runat="server" ClientIDMode="Static" />
+    <div class="position-relative d-inline-block">
+
+        <asp:Image ID="imgModalAvatar" runat="server" ClientIDMode="Static"
+            CssClass="rounded-circle border"
+            style="width:100px; height:100px; object-fit:cover;" />
+
+        <!-- Hidden Upload -->
+        <asp:FileUpload ID="fuModalImage" runat="server"
+            style="display:none;" onchange="previewModalImage(this)" />
+
+        <!-- ✅ SINGLE WORKING CAMERA BUTTON -->
+        <div onclick="triggerFileUpload()"
+             class="bg-primary text-white rounded-circle position-absolute bottom-0 end-0 d-flex align-items-center justify-content-center"
+             style="width:30px; height:30px; border:3px solid #fff; cursor:pointer;">
+            <i class="fas fa-camera small"></i>
         </div>
+
+    </div>
+
+    <p class="small text-muted mt-2 mb-2 uppercase fw-bold">Avatar Selection</p>
+
+    <div class="avatar-selection d-flex justify-content-center gap-2">
+        <img src="../assets/img/Deault_Random_boy.png" onclick="setAvatar(this.src)" />
+        <img src="../assets/img/Default_Random_girl.png" onclick="setAvatar(this.src)" />
+       
+    </div>
+
+    <asp:HiddenField ID="hfAvatar" runat="server" ClientIDMode="Static" />
+</div>
 
         <div class="row g-4">
             <div class="col-md-6 text-primary fw-bold small">PERSONAL INFORMATION</div>
@@ -177,11 +192,30 @@
 </div>
 
 <script>
-    function openModal() { document.getElementById("settingsModal").style.display = "flex"; }
-    function closeModal() { document.getElementById("settingsModal").style.display = "none"; }
+    function openModal() {
+        document.getElementById("settingsModal").style.display = "flex";
+    }
+
+    function closeModal() {
+        document.getElementById("settingsModal").style.display = "none";
+    }
+
     function setAvatar(src) {
         document.getElementById("imgModalAvatar").src = src;
         document.getElementById("hfAvatar").value = src;
     }
-</script>
-</asp:Content>
+
+    function previewModalImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById("imgModalAvatar").src = e.target.result;
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function triggerFileUpload() {
+        document.getElementById('<%= fuModalImage.ClientID %>').click();
+    }
+</script></asp:Content>

@@ -163,6 +163,7 @@
     <Content Include="Student\Student_Logout.aspx" />
     <Content Include="SubCatDetails.aspx" />
     <Content Include="SubjectDetails.aspx" />
+    <Content Include="Uploads\ProfileImages\Deault_Random_boy.png" />
     <Content Include="VerifyOtp.aspx" />
     <Content Include="ViewResource.aspx" />
     <Content Include="ViewResources.aspx" />
@@ -609,7 +610,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Uploads\Flashcards\" />
-    <Folder Include="Uploads\ProfileImages\" />
     <Folder Include="Uploads\Resumes\" />
   </ItemGroup>
   <PropertyGroup>

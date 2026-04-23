@@ -48,7 +48,7 @@ namespace StudyIsleWeb.Student
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 string query = @"
-                    SELECT u.FullName, s.City, s.Avatar, s.DOB, s.TargetClassId, s.TargetBoardId,
+                    SELECT u.FullName, s.City, s.ProfilePicture, s.DOB, s.TargetClassId, s.TargetBoardId,
                            c.Name AS ClassName, b.Name AS BoardName, e.Name AS ExamName
                     FROM Users u
                     LEFT JOIN StudentAdditionalInfo s ON u.UserId = s.UserId
@@ -70,10 +70,18 @@ namespace StudyIsleWeb.Student
                     lblBoard.Text = dr["BoardName"].ToString();
                     lblExam.Text = dr["ExamName"].ToString();
 
-                    string avatar = dr["Avatar"].ToString();
-                    imgAvatar.ImageUrl = string.IsNullOrEmpty(avatar) ? "../assets/img/Deault_Random_boy.png" : avatar;
-                    imgModalAvatar.ImageUrl = imgAvatar.ImageUrl;
-                    hfAvatar.Value = imgAvatar.ImageUrl;
+                    string profilePic = dr["ProfilePicture"] == DBNull.Value ? "" : dr["ProfilePicture"].ToString();
+
+                    // Fallback if no image
+                    if (string.IsNullOrEmpty(profilePic))
+                    {
+                        profilePic = "../assets/img/Deault_Random_boy.png";
+                    }
+
+                    // Apply everywhere
+                    imgAvatar.ImageUrl = profilePic;
+                    imgModalAvatar.ImageUrl = profilePic;
+                    hfAvatar.Value = profilePic;
 
                     txtName.Text = dr["FullName"].ToString();
                     if (dr["DOB"] != DBNull.Value)
@@ -145,15 +153,39 @@ namespace StudyIsleWeb.Student
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
             int userId = Convert.ToInt32(Session["UserId"]);
+            string imagePath = hfAvatar.Value;
+
+            // If user uploaded new image
+            if (fuModalImage.HasFile)
+            {
+                string extension = System.IO.Path.GetExtension(fuModalImage.FileName).ToLower();
+
+                if (extension == ".jpg" || extension == ".jpeg" || extension == ".png")
+                {
+                    string fileName = Guid.NewGuid().ToString() + extension;
+
+                    string folderPath = Server.MapPath("~/Uploads/ProfileImages/");
+
+                    if (!System.IO.Directory.Exists(folderPath))
+                    {
+                        System.IO.Directory.CreateDirectory(folderPath);
+                    }
+
+                    string fullPath = System.IO.Path.Combine(folderPath, fileName);
+                    fuModalImage.SaveAs(fullPath);
+
+                    imagePath = "/Uploads/ProfileImages/" + fileName;
+                }
+            }
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 string sql = @"
                     UPDATE Users SET FullName=@n WHERE UserId=@id;
-                    UPDATE StudentAdditionalInfo SET Avatar=@a, DOB=@dob, TargetClassId=@cid, TargetBoardId=@bid WHERE UserId=@id;";
+                    UPDATE StudentAdditionalInfo SET ProfilePicture=@img, DOB=@dob, TargetClassId=@cid, TargetBoardId=@bid WHERE UserId=@id;";
 
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@n", txtName.Text);
-                cmd.Parameters.AddWithValue("@a", hfAvatar.Value);
+                cmd.Parameters.AddWithValue("@img", imagePath);
                 cmd.Parameters.AddWithValue("@dob", txtDOB.Text);
                 cmd.Parameters.AddWithValue("@cid", ddlClass.SelectedValue);
                 cmd.Parameters.AddWithValue("@bid", ddlBoard.SelectedValue);
