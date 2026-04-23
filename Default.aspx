@@ -20,16 +20,16 @@
                     </div>
 
                     <!-- Main Heading -->
-                    <h1 class="hero-title mb-4">Live Learning
-                        <br />
-                        That <span style="color: #4f46e5;">Wins Results.</span>
+                    <h1 class="hero-title mb-4">From Free Notes to Your
+Dream College — 
+                         <span style="color: #4f46e5;">We've Got
+Every Step Covered.</span>
 
                     </h1>
 
                     <!-- Supporting Paragraph -->
                     <p class="hero-subtitle mb-4">
-                        Join 1 million+ students across the globe.
-                    Personalized live classes for Class 1-12, JEE, NEET and more.
+                        Everything a student needs — in one place. Access thousands of free study resources, book a session with our career counsellors to choose the right stream or college, and get personalised online tuition for IB, IGCSE, A-Levels and AP from specialist tutors.
                     </p>
 
                     <!-- Class Buttons -->
@@ -880,9 +880,11 @@
     <div class="container text-center">
 
         <!-- Section Heading -->
-        <h2 class="tutors-title">Learn From the Masters</h2>
+        <h2 class="tutors-title">Highly Qualified Teachers.<br />
+                                     <span style="color: #4f46e5;">Proven Results.</span>
+        </h2>
         <p class="tutors-subtitle">
-            Our teachers aren’t just experts in their subjects; they are mentors who inspire curious minds.
+           Every teacher at StudyIsle brings 10+ years of classroom experience and a track record of helping students score high in board exams — and win seats at their dream colleges. They don't just teach the syllabus; they prepare students to perform when it matters most.
         </p>
 
         <div class="row justify-content-center mt-5">
@@ -893,13 +895,14 @@
                     <div class="tutor-img-wrapper">
                         <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=400&q=80"
                              class="tutor-img"
-                             alt="Dr. Anand Verma">
+                             alt="Pranav Maheshwari">
                         <span class="verify-badge">✓</span>
                     </div>
 
-                    <h6 class="tutor-name">Dr. Anand Verma</h6>
-                    <p class="tutor-subject">Biology Specialist</p>
-                    <p class="tutor-exp">Ph.D., AIIMS Delhi • 15+ Years Exp</p>
+                    <h6 class="tutor-name">Pranav Maheshwari</h6>
+                    <p class="tutor-subject">Physics & Science Specialist</p>
+                    <p class="tutor-exp">AP • IB • IGCSE • A-Level • CBSE & ICSE<br />
+                        • 8+ Years Experience</p>
                     <div class="tutor-rating">★★★★★</div>
                 </div>
             </div>
@@ -910,13 +913,14 @@
                     <div class="tutor-img-wrapper">
                         <img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=400&q=80"
                              class="tutor-img"
-                             alt="Sameer Pathak">
+                             alt="MD Ambar">
                         <span class="verify-badge">✓</span>
                     </div>
 
-                    <h6 class="tutor-name">Sameer Pathak</h6>
-                    <p class="tutor-subject">Physics Guru</p>
-                    <p class="tutor-exp">IIT Bombay Alumnus • 12+ Years Exp</p>
+                    <h6 class="tutor-name">MD Ambar</h6>
+                    <p class="tutor-subject">Mathematics Faculty</p>
+                    <p class="tutor-exp">JEE & NEET Mentor • IB & Cambridge • Vedic Maths Expert
+                        • 9+ Years Experience</p>
                     <div class="tutor-rating">★★★★★</div>
                 </div>
             </div>
@@ -928,7 +932,7 @@
             <div class="row align-items-center">
                 <div class="col-md-8 text-md-start text-center">
                     <h6 class="mb-1">Are you a passionate educator?</h6>
-                    <p>Join our community of world-class tutors and impact thousands of lives.</p>
+                    <p>Join our community of world-class tutors and impact thousands of Student's lives.</p>
                 </div>
 
                 <div class="col-md-4 text-md-end text-center mt-3 mt-md-0">
