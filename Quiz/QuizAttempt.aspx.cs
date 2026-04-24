@@ -36,6 +36,10 @@ namespace StudyIsleWeb.Quiz
                 InitializeTimer(quizId);
             }
             UpdateTimerState();
+            if (Session["UserID"] == null)
+            {
+                Response.Redirect("~/Login.aspx");
+            }
         }
 
         private void LoadQuestion(int index)
