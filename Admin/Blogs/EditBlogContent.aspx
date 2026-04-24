@@ -23,7 +23,7 @@
     <div id="blockContainer"></div>
 
     <!-- Save -->
-    <button class="btn btn-success mt-3" onclick="saveBlocks()">Save Content</button>
+    <button type="button" class="btn btn-success mt-3" onclick="saveBlocks()">Save Content</button>
 
 </div>
 
@@ -130,13 +130,13 @@
                 <thead><tr>${thead}</tr></thead>
                 <tbody>${tbody}</tbody>
             </table>
-            <button onclick="addRow(this)" class="btn btn-sm btn-secondary">+ Row</button>
-            <button onclick="addColumn(this)" class="btn btn-sm btn-secondary">+ Column</button>
+            <button type="button" onclick="addRow(this)" class="btn btn-sm btn-secondary">+ Row</button>
+<button type="button" onclick="addColumn(this)" class="btn btn-sm btn-secondary">+ Column</button>
         `;
         }
 
         block.innerHTML = html + `
-        <button class="btn btn-danger btn-sm mt-2" onclick="this.parentElement.remove()">Delete</button>
+        <button type="button" class="btn btn-danger btn-sm mt-2" onclick="this.parentElement.remove()">Delete</button>
     `;
 
         container.appendChild(block);
