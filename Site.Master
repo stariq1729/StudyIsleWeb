@@ -126,7 +126,7 @@
             <!-- Right Buttons -->
             <!-- Guest Buttons -->
 <div id="guestButtons" runat="server" class="d-flex gap-2">
-    <a runat="server" href="~/Login.aspx" class="btn btn-outline-primary px-4">Login</a>
+    <a runat="server" href="~/Login.aspx" class="btn btn-outline-purple">Login</a>
     <a runat="server" href="~/Login.aspx" class="btn btn-primary px-4">Enroll Now</a>
 </div>
 
