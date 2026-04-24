@@ -253,7 +253,7 @@
         })
             .then(res => res.json())
             .then(data => {
-                let blocks = JSON.parse(data.d);
+                let blocks = data.d;
                 blocks.forEach(b => addBlock(b.BlockType, b));
             });
 

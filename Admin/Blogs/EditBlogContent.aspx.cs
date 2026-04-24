@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Web.Script.Services;
 using System.Web.Services;
-using Newtonsoft.Json;
 
 namespace StudyIsleWeb.Admin.Blogs
 {
@@ -11,6 +11,7 @@ namespace StudyIsleWeb.Admin.Blogs
     {
         protected void Page_Load(object sender, EventArgs e) { }
 
+        // 🔹 Model
         public class BlockModel
         {
             public string BlockType { get; set; }
@@ -19,67 +20,87 @@ namespace StudyIsleWeb.Admin.Blogs
             public int DisplayOrder { get; set; }
         }
 
+        // ================= SAVE =================
         [WebMethod]
-        public static string SaveBlocks(object blocks, int blogId)
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static string SaveBlocks(List<BlockModel> blocks, int blogId)
         {
-            string connStr = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
-            var blockList = JsonConvert.DeserializeObject<List<BlockModel>>(blocks.ToString());
-
-            using (SqlConnection con = new SqlConnection(connStr))
+            try
             {
-                con.Open();
+                string connStr = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
 
-                // Remove old
-                SqlCommand del = new SqlCommand("DELETE FROM BlogBlocks WHERE BlogId=@BlogId", con);
-                del.Parameters.AddWithValue("@BlogId", blogId);
-                del.ExecuteNonQuery();
-
-                foreach (var b in blockList)
+                using (SqlConnection con = new SqlConnection(connStr))
                 {
-                    SqlCommand cmd = new SqlCommand(@"
-                        INSERT INTO BlogBlocks (BlogId, BlockType, Content, ExtraData, DisplayOrder)
-                        VALUES (@BlogId, @BlockType, @Content, @ExtraData, @DisplayOrder)", con);
+                    con.Open();
 
-                    cmd.Parameters.AddWithValue("@BlogId", blogId);
-                    cmd.Parameters.AddWithValue("@BlockType", b.BlockType);
-                    cmd.Parameters.AddWithValue("@Content", (object)b.Content ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@ExtraData", (object)b.ExtraData ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@DisplayOrder", b.DisplayOrder);
+                    // Delete old blocks
+                    SqlCommand del = new SqlCommand("DELETE FROM BlogBlocks WHERE BlogId=@BlogId", con);
+                    del.Parameters.AddWithValue("@BlogId", blogId);
+                    del.ExecuteNonQuery();
 
-                    cmd.ExecuteNonQuery();
+                    // Insert new blocks
+                    foreach (var b in blocks)
+                    {
+                        SqlCommand cmd = new SqlCommand(@"
+                            INSERT INTO BlogBlocks (BlogId, BlockType, Content, ExtraData, DisplayOrder)
+                            VALUES (@BlogId, @BlockType, @Content, @ExtraData, @DisplayOrder)", con);
+
+                        cmd.Parameters.AddWithValue("@BlogId", blogId);
+                        cmd.Parameters.AddWithValue("@BlockType", b.BlockType ?? "");
+                        cmd.Parameters.AddWithValue("@Content", string.IsNullOrEmpty(b.Content) ? (object)DBNull.Value : b.Content);
+                        cmd.Parameters.AddWithValue("@ExtraData", string.IsNullOrEmpty(b.ExtraData) ? (object)DBNull.Value : b.ExtraData);
+                        cmd.Parameters.AddWithValue("@DisplayOrder", b.DisplayOrder);
+
+                        cmd.ExecuteNonQuery();
+                    }
                 }
-            }
 
-            return "success";
+                return "success";
+            }
+            catch (Exception ex)
+            {
+                return "ERROR: " + ex.Message; // 🔥 will show in console
+            }
         }
 
+        // ================= GET =================
         [WebMethod]
-        public static object GetBlocks(int blogId)
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static List<BlockModel> GetBlocks(int blogId)
         {
-            string connStr = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
-            var list = new List<BlockModel>();
+            List<BlockModel> list = new List<BlockModel>();
 
-            using (SqlConnection con = new SqlConnection(connStr))
+            try
             {
-                SqlCommand cmd = new SqlCommand(
-                    "SELECT BlockType, Content, ExtraData, DisplayOrder FROM BlogBlocks WHERE BlogId=@BlogId ORDER BY DisplayOrder",
-                    con);
+                string connStr = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
 
-                cmd.Parameters.AddWithValue("@BlogId", blogId);
-
-                con.Open();
-                var dr = cmd.ExecuteReader();
-
-                while (dr.Read())
+                using (SqlConnection con = new SqlConnection(connStr))
                 {
-                    list.Add(new BlockModel
+                    SqlCommand cmd = new SqlCommand(
+                        "SELECT BlockType, Content, ExtraData, DisplayOrder FROM BlogBlocks WHERE BlogId=@BlogId ORDER BY DisplayOrder",
+                        con);
+
+                    cmd.Parameters.AddWithValue("@BlogId", blogId);
+
+                    con.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
                     {
-                        BlockType = dr["BlockType"].ToString(),
-                        Content = dr["Content"].ToString(),
-                        ExtraData = dr["ExtraData"].ToString(),
-                        DisplayOrder = Convert.ToInt32(dr["DisplayOrder"])
-                    });
+                        list.Add(new BlockModel
+                        {
+                            BlockType = dr["BlockType"] == DBNull.Value ? "" : dr["BlockType"].ToString(),
+                            Content = dr["Content"] == DBNull.Value ? "" : dr["Content"].ToString(),
+                            ExtraData = dr["ExtraData"] == DBNull.Value ? "" : dr["ExtraData"].ToString(),
+                            DisplayOrder = dr["DisplayOrder"] == DBNull.Value ? 0 : Convert.ToInt32(dr["DisplayOrder"])
+                        });
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                // 🔥 return empty list instead of breaking UI
+                return new List<BlockModel>();
             }
 
             return list;
