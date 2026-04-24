@@ -17,11 +17,15 @@ namespace StudyIsleWeb.Admin.Blogs
             }
         }
 
+        // 🔹 Load ONLY active categories
         private void LoadCategories()
         {
             using (SqlConnection con = new SqlConnection(connStr))
             {
-                string query = "SELECT * FROM BlogCategories ORDER BY CreatedDate DESC";
+                string query = @"SELECT CategoryId, CategoryName, Type, CreatedDate 
+                                 FROM BlogCategories
+                                 WHERE IsActive = 1
+                                 ORDER BY CreatedDate DESC";
 
                 using (SqlDataAdapter da = new SqlDataAdapter(query, con))
                 {
@@ -34,27 +38,36 @@ namespace StudyIsleWeb.Admin.Blogs
             }
         }
 
+        // 🔹 Handle Delete (Soft Delete)
         protected void gvCategories_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
         {
             if (e.CommandName == "DeleteCategory")
             {
                 int categoryId = Convert.ToInt32(e.CommandArgument);
 
-                using (SqlConnection con = new SqlConnection(connStr))
-                {
-                    string query = "DELETE FROM BlogCategories WHERE CategoryId=@CategoryId";
-
-                    using (SqlCommand cmd = new SqlCommand(query, con))
-                    {
-                        cmd.Parameters.AddWithValue("@CategoryId", categoryId);
-
-                        con.Open();
-                        cmd.ExecuteNonQuery();
-                        con.Close();
-                    }
-                }
+                SoftDeleteCategory(categoryId);
 
                 LoadCategories();
+            }
+        }
+
+        // 🔹 Soft Delete Method
+        private void SoftDeleteCategory(int categoryId)
+        {
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                string query = @"UPDATE BlogCategories 
+                                 SET IsActive = 0 
+                                 WHERE CategoryId = @CategoryId";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@CategoryId", categoryId);
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
             }
         }
     }

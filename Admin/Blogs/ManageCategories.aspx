@@ -4,13 +4,23 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 <div class="container mt-4">
-    <h3>Manage Blog Categories</h3>
 
-    <div class="card p-3 mt-3">
+    <!-- Header + Add Button -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>Manage Blog Categories</h3>
 
-        <asp:GridView ID="gvCategories" runat="server" AutoGenerateColumns="False" 
-            CssClass="table table-bordered table-striped"
-            OnRowCommand="gvCategories_RowCommand">
+        <a href="AddCategory.aspx" class="btn btn-success">
+            + Add Category
+        </a>
+    </div>
+
+    <!-- Table -->
+    <div class="card p-3">
+
+        <asp:GridView ID="gvCategories" runat="server" AutoGenerateColumns="False"
+            CssClass="table table-bordered table-hover"
+            OnRowCommand="gvCategories_RowCommand"
+            EmptyDataText="No categories found">
 
             <Columns>
 
@@ -20,16 +30,17 @@
 
                 <asp:BoundField DataField="Type" HeaderText="Type" />
 
-                <asp:BoundField DataField="CreatedDate" HeaderText="Created Date" 
+                <asp:BoundField DataField="CreatedDate" HeaderText="Created Date"
                     DataFormatString="{0:dd-MM-yyyy}" />
 
                 <asp:TemplateField HeaderText="Action">
                     <ItemTemplate>
-                        <asp:Button ID="btnDelete" runat="server" Text="Delete" 
+                        <asp:Button ID="btnDelete" runat="server"
+                            Text="Delete"
                             CssClass="btn btn-danger btn-sm"
                             CommandName="DeleteCategory"
                             CommandArgument='<%# Eval("CategoryId") %>'
-                            OnClientClick="return confirm('Are you sure you want to delete?');" />
+                            OnClientClick="return confirm('Are you sure you want to deactivate this category?');" />
                     </ItemTemplate>
                 </asp:TemplateField>
 
@@ -38,6 +49,7 @@
         </asp:GridView>
 
     </div>
+
 </div>
 
 </asp:Content>
