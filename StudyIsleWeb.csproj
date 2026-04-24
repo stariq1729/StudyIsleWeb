@@ -79,6 +79,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\Blogs\AddBlogs.aspx" />
     <Content Include="Admin\Blogs\AddCategory.aspx" />
     <Content Include="Admin\Blogs\ManageCategories.aspx" />
     <Content Include="Admin\Boards\AddBoards.aspx" />
@@ -178,6 +179,13 @@
     </Compile>
     <Compile Include="Admin\Admin.Master.designer.cs">
       <DependentUpon>Admin.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Blogs\AddBlogs.aspx.cs">
+      <DependentUpon>AddBlogs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Blogs\AddBlogs.aspx.designer.cs">
+      <DependentUpon>AddBlogs.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Blogs\AddCategory.aspx.cs">
       <DependentUpon>AddCategory.aspx</DependentUpon>
