@@ -7,7 +7,7 @@ namespace StudyIsleWeb.Admin.Blogs
 {
     public partial class ManageCategories : System.Web.UI.Page
     {
-        string connStr = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
+        string connStr = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
