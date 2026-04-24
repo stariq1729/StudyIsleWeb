@@ -70,7 +70,9 @@
         <!-- Sidebar -->
         <div class="admin-sidebar">
             <h4 class="text-center py-3">StudyIsle Admin</h4>
+
             <a href="/Admin/Dashboard.aspx">Dashboard</a>
+            <a href="/Admin/Blogs/AddCategory.aspx">Boards</a>
             <a href="/Admin/Boards/ManageBoards.aspx">Boards</a>
             <a href="/Admin/ResourceTypes/ManageResourceTypes.aspx">Resource Types</a>
             <a href="/Admin/SubCat/ManageSubCat.aspx">Subcat</a>
