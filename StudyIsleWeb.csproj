@@ -81,6 +81,7 @@
   <ItemGroup>
     <Content Include="Admin\Blogs\AddBlogs.aspx" />
     <Content Include="Admin\Blogs\AddCategory.aspx" />
+    <Content Include="Admin\Blogs\EditBlogContent.aspx" />
     <Content Include="Admin\Blogs\ManageCategories.aspx" />
     <Content Include="Admin\Boards\AddBoards.aspx" />
     <Content Include="Admin\Boards\EditBoard.aspx" />
@@ -193,6 +194,13 @@
     </Compile>
     <Compile Include="Admin\Blogs\AddCategory.aspx.designer.cs">
       <DependentUpon>AddCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Blogs\EditBlogContent.aspx.cs">
+      <DependentUpon>EditBlogContent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Blogs\EditBlogContent.aspx.designer.cs">
+      <DependentUpon>EditBlogContent.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Blogs\ManageCategories.aspx.cs">
       <DependentUpon>ManageCategories.aspx</DependentUpon>
