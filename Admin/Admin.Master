@@ -1,39 +1,36 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="StudyIsleWeb.Admin.Admin" %>
 
-<%--<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="StudyIsleWeb.Admin.Admin" %>
---%>
 <!DOCTYPE html>
 <html>
 <head runat="server">
     <title>StudyIsle Admin Panel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <%-- adding css file for admin dashboard--%>
+    
+    <%-- Existing CSS Files --%>
     <link href="/Content/Admin/dashboard.css" rel="stylesheet" />
     <link href="/Content/Admin/boards.css" rel="stylesheet" />
     <link href="/Content/Admin/resource-types.css" rel="stylesheet" />
-<link href="/Content/Admin/board-form.css" rel="stylesheet" />
+    <link href="/Content/Admin/board-form.css" rel="stylesheet" />
     <link href="/Content/Admin/classes.css" rel="stylesheet" />
-<link href="/Content/Admin/subjects.css" rel="stylesheet" />
+    <link href="/Content/Admin/subjects.css" rel="stylesheet" />
     <link href="/Content/Admin/chapters.css" rel="stylesheet" />
-  
-    
-
     <link href="/Content/Admin/resources.css" rel="stylesheet" />
 
     <style>
-        body {
-            background-color: #f4f6f9;
-        }
+        body { background-color: #f4f6f9; margin: 0; padding: 0; }
 
         .admin-sidebar {
             width: 240px;
-            min-height: 100vh;
+            height: 100vh;
             background: #1e293b;
             color: white;
             position: fixed;
+            left: 0; top: 0;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
         }
 
         .admin-sidebar a {
@@ -43,63 +40,109 @@
             padding: 12px 20px;
         }
 
-        .admin-sidebar a:hover {
-            background: #334155;
-            color: white;
+        .admin-sidebar a:hover { background: #334155; color: white; }
+
+        .submenu { background: #0f172a; }
+
+        .small-link {
+            font-size: 0.85rem;
+            padding-left: 40px !important;
+            color: #94a3b8 !important;
         }
 
-        .admin-content {
-            margin-left: 240px;
-            padding: 30px;
-        }
+        .admin-content { margin-left: 240px; padding: 30px; min-height: 100vh; }
 
         .admin-header {
-            background: white;
-            padding: 15px 30px;
-            border-bottom: 1px solid #ddd;
-            margin-bottom: 25px;
+            background: white; padding: 15px 30px;
+            border-bottom: 1px solid #ddd; margin-bottom: 25px;
+        }
+
+        .sidebar-divider { border-top: 1px solid #334155; margin: 10px 15px; }
+
+        /* Fix for Logout visibility */
+        .logout-container {
+            margin-top: auto;
+            padding-bottom: 20px;
+            border-top: 1px solid #334155;
         }
     </style>
-
     <asp:ContentPlaceHolder ID="head" runat="server" />
 </head>
-
 <body>
     <form id="form1" runat="server">
-
-        <!-- Sidebar -->
         <div class="admin-sidebar">
-            <h4 class="text-center py-3">StudyIsle Admin</h4>
+            <h4 class="text-center py-3 mb-0">StudyIsle Admin</h4>
 
             <a href="/Admin/Dashboard.aspx">Dashboard</a>
-            <a href="/Admin/Blogs/ManageCategories.aspx">Blogs</a>
-            <a href="/Admin/Boards/ManageBoards.aspx">Boards</a>
-            <a href="/Admin/ResourceTypes/ManageResourceTypes.aspx">Resource Types</a>
-            <a href="/Admin/SubCat/ManageSubCat.aspx">Subcat</a>
-            <a href="/Admin/Classes/ManageClasses.aspx">Classes</a>
-            <a href="/Admin/Subjects/ManageSubjects.aspx">Subjects</a>
-            <a href="/Admin/Chapters/ManageChapters.aspx">Chapters/Years</a>
-            <a href="/Admin/Quiz/ManageQuiz.aspx">Quiz</a>
-            <a href="/Admin/Flashcards/ManageFlashcards.aspx">Flash</a>
-            <a href="/Admin/Resources/ManageResources.aspx">Resources</a>
-            <asp:LinkButton ID="btnLogout" runat="server" OnClick="btnLogout_Click" CssClass="d-block px-3 py-2 text-danger">
-                Logout
-            </asp:LinkButton>
+            <div class="sidebar-divider"></div>
+
+            <a href="#blogSubmenu" data-bs-toggle="collapse" class="d-flex justify-content-between align-items-center" onclick="saveState('blogSubmenu')">
+                Blogs <span style="font-size: 10px;">▼</span>
+            </a>
+            <div class="collapse submenu" id="blogSubmenu">
+                <a href="/Admin/Blogs/ManageCategories.aspx" class="small-link">Category</a>
+                <a href="/Admin/Blogs/ManageBlogType.aspx" class="small-link">Blog Type</a>
+                <a href="/Admin/Blogs/ManageBlogContent.aspx" class="small-link">Blog Content</a>
+            </div>
+
+            <div class="sidebar-divider"></div>
+
+            <a href="#dummySubmenu" data-bs-toggle="collapse" class="d-flex justify-content-between align-items-center" onclick="saveState('dummySubmenu')">
+                Dummy <span style="font-size: 10px;">▼</span>
+            </a>
+            <div class="collapse submenu" id="dummySubmenu">
+                <a href="/Admin/Boards/ManageBoards.aspx" class="small-link">Boards</a>
+                <a href="/Admin/ResourceTypes/ManageResourceTypes.aspx" class="small-link">Resource Types</a>
+                <a href="/Admin/SubCat/ManageSubCat.aspx" class="small-link">Subcat</a>
+                <a href="/Admin/Classes/ManageClasses.aspx" class="small-link">Classes</a>
+                <a href="/Admin/Subjects/ManageSubjects.aspx" class="small-link">Subjects</a>
+                <a href="/Admin/Chapters/ManageChapters.aspx" class="small-link">Chapters/Years</a>
+                <a href="/Admin/Quiz/ManageQuiz.aspx" class="small-link">Quiz</a>
+                <a href="/Admin/Flashcards/ManageFlashcards.aspx" class="small-link">Flash</a>
+                <a href="/Admin/Resources/ManageResources.aspx" class="small-link">Resources</a>
+            </div>
+
+            <div class="logout-container">
+                <asp:LinkButton ID="btnLogout" runat="server" OnClick="btnLogout_Click" CssClass="text-danger w-100 py-3 px-4">
+                    Logout
+                </asp:LinkButton>
+            </div>
         </div>
 
-        <!-- Content -->
         <div class="admin-content">
-
             <div class="admin-header d-flex justify-content-between">
                 <h5>Admin Panel</h5>
                 <span>Welcome, <asp:Literal ID="litAdminName" runat="server"></asp:Literal></span>
             </div>
-
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
-
         </div>
-
     </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Function to save which menu is open
+        function saveState(id) {
+            // We wait a tiny bit for Bootstrap to finish the animation
+            setTimeout(() => {
+                const menu = document.getElementById(id);
+                localStorage.setItem(id, menu.classList.contains('show'));
+            }, 500);
+        }
+
+        // On Page Load: Restore the state
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const menus = ['blogSubmenu', 'dummySubmenu'];
+            menus.forEach(id => {
+                const isOpen = localStorage.getItem(id) === 'true';
+                if (isOpen) {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        new bootstrap.Collapse(el, { show: true });
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
-
