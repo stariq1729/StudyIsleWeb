@@ -21,6 +21,11 @@
             <asp:TextBox ID="txtSlug" runat="server" CssClass="form-control" />
         </div>
 
+       <%-- author--%>
+        <div class="mb-3">
+    <label>Author Name</label>
+    <asp:TextBox ID="txtAuthor" runat="server" CssClass="form-control" />
+</div>
         <!-- Category -->
         <div class="mb-3">
             <label>Category</label>

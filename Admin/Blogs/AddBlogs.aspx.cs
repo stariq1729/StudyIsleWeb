@@ -55,6 +55,7 @@ namespace StudyIsleWeb.Admin.Blogs
             int categoryId = Convert.ToInt32(ddlCategory.SelectedValue);
             string description = txtDescription.Text.Trim();
             bool isPublished = chkPublish.Checked;
+            string author = txtAuthor.Text.Trim();
 
             string imagePath = "";
 
@@ -78,10 +79,10 @@ namespace StudyIsleWeb.Admin.Blogs
             using (SqlConnection con = new SqlConnection(connStr))
             {
                 string query = @"INSERT INTO Blogs 
-                                (Title, Slug, CategoryId, CoverImage, ShortDescription, IsPublished)
-                                VALUES 
-                                (@Title, @Slug, @CategoryId, @CoverImage, @ShortDescription, @IsPublished);
-                                SELECT SCOPE_IDENTITY();";
+                (Title, Slug, CategoryId, CoverImage, ShortDescription, AuthorName, IsPublished)
+                VALUES 
+                (@Title, @Slug, @CategoryId, @CoverImage, @ShortDescription, @AuthorName, @IsPublished);
+                SELECT SCOPE_IDENTITY();";
 
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
@@ -91,6 +92,8 @@ namespace StudyIsleWeb.Admin.Blogs
                     cmd.Parameters.AddWithValue("@CoverImage", imagePath);
                     cmd.Parameters.AddWithValue("@ShortDescription", description);
                     cmd.Parameters.AddWithValue("@IsPublished", isPublished);
+                    cmd.Parameters.AddWithValue("@AuthorName", author);
+
 
                     con.Open();
                     int blogId = Convert.ToInt32(cmd.ExecuteScalar());
