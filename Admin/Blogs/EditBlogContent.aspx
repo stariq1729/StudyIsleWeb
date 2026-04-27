@@ -47,7 +47,10 @@
 
 <script>
 
-    let blogId = new URLSearchParams(window.location.search).get("BlogId");
+    let blogId = parseInt(new URLSearchParams(window.location.search).get("BlogId"));
+    if (!blogId) {
+        alert("Invalid BlogId in URL");
+    }
     let menuOpen = false;
 
     // ================= MENU =================
@@ -239,7 +242,15 @@
             body: JSON.stringify({ blocks: blocks, blogId: blogId })
         })
             .then(res => res.json())
-            .then(() => alert("Content Saved!"));
+            .then(data => {
+                console.log("SAVE RESPONSE:", data);
+
+                if (data.d === "success") {
+                    alert("Content Saved!");
+                } else {
+                    alert("Error: " + data.d);
+                }
+            });
     }
 
     // ================= LOAD =================

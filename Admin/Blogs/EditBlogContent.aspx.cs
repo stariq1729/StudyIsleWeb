@@ -72,7 +72,7 @@ namespace StudyIsleWeb.Admin.Blogs
 
             try
             {
-                string connStr = ConfigurationManager.ConnectionStrings["connStr"].ConnectionString;
+                string connStr = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
 
                 using (SqlConnection con = new SqlConnection(connStr))
                 {
@@ -99,8 +99,7 @@ namespace StudyIsleWeb.Admin.Blogs
             }
             catch (Exception ex)
             {
-                // 🔥 return empty list instead of breaking UI
-                return new List<BlockModel>();
+                throw new Exception("GetBlocks Error: " + ex.Message);
             }
 
             return list;
