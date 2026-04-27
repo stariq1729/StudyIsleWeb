@@ -20,7 +20,7 @@
 
         <!-- Latest -->
         <asp:LinkButton ID="btnLatest" runat="server" CssClass="btn btn-primary me-2"
-            OnClick="btnLatest_Click">Latest Updates</asp:LinkButton>
+            OnClick="btnLatest_Click">Latest</asp:LinkButton>
 
         <!-- Dynamic Categories -->
         <asp:Repeater ID="rptCategories" runat="server">
