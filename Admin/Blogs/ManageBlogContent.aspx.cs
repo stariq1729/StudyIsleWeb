@@ -35,7 +35,7 @@ namespace StudyIsleWeb.Admin.Blogs
                     LEFT JOIN BlogBlocks bb ON b.BlogId = bb.BlogId
                     GROUP BY 
                         b.BlogId, b.Title, b.AuthorName, b.IsActive, c.CategoryName
-                    ORDER BY b.CreatedDate DESC";
+                    ORDER BY MAX(b.CreatedDate) DESC";
 
                 SqlDataAdapter da = new SqlDataAdapter(query, con);
                 DataTable dt = new DataTable();

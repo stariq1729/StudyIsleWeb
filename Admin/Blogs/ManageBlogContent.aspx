@@ -30,34 +30,34 @@
 
             <asp:BoundField DataField="AuthorName" HeaderText="Author" />
 
-            <!-- Content Status -->
+           <%-- Content Status -->--%>
             <asp:TemplateField HeaderText="Content">
                 <ItemTemplate>
                     <%# Convert.ToInt32(Eval("BlockCount")) > 0 ? "Available" : "Empty" %>
                 </ItemTemplate>
             </asp:TemplateField>
 
-            <!-- Total Blocks -->
+<%--             Total Blocks -->--%>
             <asp:BoundField DataField="BlockCount" HeaderText="Blocks" />
 
-            <!-- Active Status -->
+             <%--Active Status -->--%>
             <asp:TemplateField HeaderText="Status">
                 <ItemTemplate>
                     <%# Convert.ToBoolean(Eval("IsActive")) ? "Active" : "Inactive" %>
                 </ItemTemplate>
             </asp:TemplateField>
 
-            <!-- Actions -->
+            <%--!-- Actions -->--%>
             <asp:TemplateField HeaderText="Actions">
                 <ItemTemplate>
 
-                    <!-- Edit Full Content -->
+                   <%-- -- Edit Full Content -->--%>
                     <a href='EditBlogContent.aspx?BlogId=<%# Eval("BlogId") %>'
                         class="btn btn-sm btn-primary me-2">
                         Edit
                     </a>
 
-                    <!-- Toggle Active -->
+                    <%---- Toggle Active -->--%>
                     <asp:Button ID="btnToggle" runat="server"
                         Text='<%# Convert.ToBoolean(Eval("IsActive")) ? "Deactivate" : "Activate" %>'
                         CssClass="btn btn-sm btn-warning"
