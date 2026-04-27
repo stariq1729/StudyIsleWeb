@@ -4,334 +4,111 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+<div class="container mt-4">
 
-<section class="blogs-wrapper">
-
-    <div class="container">
-
-        <!-- HERO -->
-        <div class="blogs-hero text-center">
-            <h1 class="hero-title">Student Success Hub</h1>
-
-            <p class="hero-subtitle">
-                High-impact strategies, resources, and expert tips to ace
-                <span>CBSE</span>, <span>JEE</span>, and
-                <span>NEET</span> exams.
-            </p>
-
-            <!-- FILTER TABS -->
-            <div class="filter-tabs">
-                <button class="tab-btn active">Latest Updates</button>
-                <button class="tab-btn">JEE Main & Advanced</button>
-                <button class="tab-btn">NEET UG</button>
-                <button class="tab-btn">CBSE Boards</button>
-                <button class="tab-btn">Study Strategy</button>
-            </div>
-        </div>
-
-        <hr class="section-divider" />
-
- <!-- BLOG GRID -->
-<div class="row g-4">
-
-    <%-- ===== ROW 1 ===== --%>
-
-    <div class="col-lg-4 col-md-6">
-        <div class="blog-card">
-            <div class="blog-img">
-                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b" />
-                <span class="category-badge">JEE</span>
-            </div>
-            <div class="blog-body">
-                <div class="author-row">
-                    <div class="author-info">
-                        <img src="https://i.pravatar.cc/40?img=3" class="author-avatar" />
-                        <span class="author-name">Dr. Anand Verma</span>
-                        <span class="dot">•</span>
-                        <span class="post-date">Feb 18, 2025</span>
-                    </div>
-                </div>
-                <h3 class="blog-title">
-                    JEE Main 2025: 6-Month Roadmap to 99+ Percentile
-                </h3>
-                <p class="blog-excerpt">
-                    A strategic approach to Physics, Chemistry, and Mathematics for top scores.
-                </p>
-                <div class="blog-footer">
-                    <span class="read-time">10 min read</span>
-                    <div class="action-icons">
-                        <i class="bi bi-bookmark"></i>
-                        <i class="bi bi-share"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- 🔷 HEADER -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold">Student Success Hub</h2>
+        <p class="text-muted">
+            High-impact strategies, resources, and expert tips to ace 
+            <b>CBSE</b>, <b>JEE</b>, and <b>NEET</b> exams.
+        </p>
     </div>
 
+    <!-- 🔷 CATEGORY TABS -->
+    <div class="text-center mb-4">
 
-    <%-- ===== ROW 1 - CARD 2 ===== --%>
+        <!-- Latest -->
+        <asp:LinkButton ID="btnLatest" runat="server" CssClass="btn btn-primary me-2"
+            OnClick="btnLatest_Click">Latest Updates</asp:LinkButton>
 
-    <div class="col-lg-4 col-md-6">
-        <div class="blog-card">
-            <div class="blog-img">
-                <img src="https://images.unsplash.com/photo-1581090700227-4c4f50c90c1b" />
-                <span class="category-badge">NEET</span>
-            </div>
-            <div class="blog-body">
-                <div class="author-row">
-                    <div class="author-info">
-                        <img src="https://i.pravatar.cc/40?img=5" class="author-avatar" />
-                        <span class="author-name">Meera Sharma</span>
-                        <span class="dot">•</span>
-                        <span class="post-date">Feb 16, 2025</span>
-                    </div>
-                </div>
-                <h3 class="blog-title">
-                    Mastering NEET Biology: Top 10 Diagrams
-                </h3>
-                <p class="blog-excerpt">
-                    Important NCERT diagrams that can boost your NEET score significantly.
-                </p>
-                <div class="blog-footer">
-                    <span class="read-time">7 min read</span>
-                    <div class="action-icons">
-                        <i class="bi bi-bookmark"></i>
-                        <i class="bi bi-share"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Dynamic Categories -->
+        <asp:Repeater ID="rptCategories" runat="server">
+            <ItemTemplate>
+                <asp:LinkButton runat="server"
+                    CssClass="btn btn-outline-secondary me-2"
+                    CommandArgument='<%# Eval("CategoryId") %>'
+                    OnCommand="Category_Click">
+                    <%# Eval("CategoryName") %>
+                </asp:LinkButton>
+            </ItemTemplate>
+        </asp:Repeater>
+
     </div>
 
+    <!-- 🔷 BLOG CARDS -->
+    <div class="row">
 
-    <%-- ===== ROW 1 - CARD 3 ===== --%>
+        <asp:Repeater ID="rptBlogs" runat="server">
+            <ItemTemplate>
 
-    <div class="col-lg-4 col-md-6">
-        <div class="blog-card">
-            <div class="blog-img">
-                <img src="https://images.unsplash.com/photo-1588072432836-e10032774350" />
-                <span class="category-badge">CBSE</span>
-            </div>
-            <div class="blog-body">
-                <div class="author-row">
-                    <div class="author-info">
-                        <img src="https://i.pravatar.cc/40?img=8" class="author-avatar" />
-                        <span class="author-name">Rahul Kapoor</span>
-                        <span class="dot">•</span>
-                        <span class="post-date">Feb 14, 2025</span>
-                    </div>
-                </div>
-                <h3 class="blog-title">
-                    How to Score 100/100 in CBSE Maths
-                </h3>
-                <p class="blog-excerpt">
-                    Smart presentation techniques and preparation strategy for board exams.
-                </p>
-                <div class="blog-footer">
-                    <span class="read-time">8 min read</span>
-                    <div class="action-icons">
-                        <i class="bi bi-bookmark"></i>
-                        <i class="bi bi-share"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                <div class="col-md-4 mb-4">
 
+                    <div class="card h-100 shadow-sm">
 
-    <%-- ===== ROW 2 ===== --%>
+                        <!-- Image -->
+                        <img src='<%# Eval("CoverImage") %>' class="card-img-top" style="height:200px; object-fit:cover;" />
 
-    <!-- Just duplicate same structure 6 more times with different content -->
+                        <div class="card-body">
 
-    <div class="col-lg-4 col-md-6">
-        <div class="blog-card">
-            <div class="blog-img">
-                <img src="https://images.unsplash.com/photo-1492724441997-5dc865305da7" />
-                <span class="category-badge">Strategy</span>
-            </div>
-            <div class="blog-body">
-                <div class="author-row">
-                    <div class="author-info">
-                        <img src="https://i.pravatar.cc/40?img=12" class="author-avatar" />
-                        <span class="author-name">Anjali Verma</span>
-                        <span class="dot">•</span>
-                        <span class="post-date">Feb 12, 2025</span>
-                    </div>
-                </div>
-                <h3 class="blog-title">Daily Study Routine for Toppers</h3>
-                <p class="blog-excerpt">A practical daily study timetable used by rank holders.</p>
-                <div class="blog-footer">
-                    <span class="read-time">6 min read</span>
-                    <div class="action-icons">
-                        <i class="bi bi-bookmark"></i>
-                        <i class="bi bi-share"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                            <!-- Category Tag -->
+                            <span class="badge bg-primary mb-2">
+                                <%# Eval("CategoryName") %>
+                            </span>
 
-    <!-- Duplicate 4 more similar cards -->
-    
-    <!-- Card 5 -->
-    <div class="col-lg-4 col-md-6"> 
-        <div class="blog-card">
-            <div class="blog-img">
-                <img src="https://images.unsplash.com/photo-1492724441997-5dc865305da7" />
-                <span class="category-badge">Strategy</span>
-            </div>
-            <div class="blog-body">
-                <div class="author-row">
-                    <div class="author-info">
-                        <img src="https://i.pravatar.cc/40?img=12" class="author-avatar" />
-                        <span class="author-name">Anjali Verma</span>
-                        <span class="dot">•</span>
-                        <span class="post-date">Feb 12, 2025</span>
-                    </div>
-                </div>
-                <h3 class="blog-title">Daily Study Routine for Toppers</h3>
-                <p class="blog-excerpt">A practical daily study timetable used by rank holders.</p>
-                <div class="blog-footer">
-                    <span class="read-time">6 min read</span>
-                    <div class="action-icons">
-                        <i class="bi bi-bookmark"></i>
-                        <i class="bi bi-share"></i>
-                    </div>
-                </div>
-            </div>
-        </div> </div>
+                            <!-- Title -->
+                            <h5 class="card-title">
+                                <a href='BlogDetails.aspx?slug=<%# Eval("Slug") %>' style="text-decoration:none;">
+                                    <%# Eval("Title") %>
+                                </a>
+                            </h5>
 
-    <!-- Card 6 -->
-    <div class="col-lg-4 col-md-6">
-                <div class="blog-card">
-            <div class="blog-img">
-                <img src="https://images.unsplash.com/photo-1492724441997-5dc865305da7" />
-                <span class="category-badge">Strategy</span>
-            </div>
-            <div class="blog-body">
-                <div class="author-row">
-                    <div class="author-info">
-                        <img src="https://i.pravatar.cc/40?img=12" class="author-avatar" />
-                        <span class="author-name">Anjali Verma</span>
-                        <span class="dot">•</span>
-                        <span class="post-date">Feb 12, 2025</span>
-                    </div>
-                </div>
-                <h3 class="blog-title">Daily Study Routine for Toppers</h3>
-                <p class="blog-excerpt">A practical daily study timetable used by rank holders.</p>
-                <div class="blog-footer">
-                    <span class="read-time">6 min read</span>
-                    <div class="action-icons">
-                        <i class="bi bi-bookmark"></i>
-                        <i class="bi bi-share"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                            <!-- Description -->
+                            <p class="card-text text-muted">
+                                <%# Eval("ShortDescription") %>
+                            </p>
 
-    <!-- Card 7 -->
-    <div class="col-lg-4 col-md-6">
-                <div class="blog-card">
-            <div class="blog-img">
-                <img src="https://images.unsplash.com/photo-1492724441997-5dc865305da7" />
-                <span class="category-badge">Strategy</span>
-            </div>
-            <div class="blog-body">
-                <div class="author-row">
-                    <div class="author-info">
-                        <img src="https://i.pravatar.cc/40?img=12" class="author-avatar" />
-                        <span class="author-name">Anjali Verma</span>
-                        <span class="dot">•</span>
-                        <span class="post-date">Feb 12, 2025</span>
-                    </div>
-                </div>
-                <h3 class="blog-title">Daily Study Routine for Toppers</h3>
-                <p class="blog-excerpt">A practical daily study timetable used by rank holders.</p>
-                <div class="blog-footer">
-                    <span class="read-time">6 min read</span>
-                    <div class="action-icons">
-                        <i class="bi bi-bookmark"></i>
-                        <i class="bi bi-share"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                        </div>
 
-    <!-- Card 8 -->
-    <div class="col-lg-4 col-md-6">
-                <div class="blog-card">
-            <div class="blog-img">
-                <img src="https://images.unsplash.com/photo-1492724441997-5dc8675305da7" />
-                <span class="category-badge">Strategy</span>
-            </div>
-            <div class="blog-body">
-                <div class="author-row">
-                    <div class="author-info">
-                        <img src="https://i.pravatar.cc/40?img=12" class="author-avatar" />
-                        <span class="author-name">Anjali Verma</span>
-                        <span class="dot">•</span>
-                        <span class="post-date">Feb 12, 2025</span>
-                    </div>
-                </div>
-                <h3 class="blog-title">Daily Study Routine for Toppers</h3>
-                <p class="blog-excerpt">A practical daily study timetable used by rank holders.</p>
-                <div class="blog-footer">
-                    <span class="read-time">6 min read</span>
-                    <div class="action-icons">
-                        <i class="bi bi-bookmark"></i>
-                        <i class="bi bi-share"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
 
-    <!-- Card 9 -->
-    <div class="col-lg-4 col-md-6">
-                <div class="blog-card">
-            <div class="blog-img">
-                <img src="https://images.unsplash.com/photo-1492724441997-5dc865305da7" />
-                <span class="category-badge">Strategy</span>
-            </div>
-            <div class="blog-body">
-                <div class="author-row">
-                    <div class="author-info">
-                        <img src="https://i.pravatar.cc/40?img=12" class="author-avatar" />
-                        <span class="author-name">Anjali Verma</span>
-                        <span class="dot">•</span>
-                        <span class="post-date">Feb 12, 2025</span>
+                            <!-- Read Time -->
+                            <small class="text-muted">5 min read</small>
+
+                            <!-- Actions -->
+                            <div>
+                                <i class="fa fa-bookmark me-2" style="cursor:pointer;"></i>
+                                <i class="fa fa-share" style="cursor:pointer;"
+                                   onclick="shareBlog('<%# Eval("Slug") %>')"></i>
+                            </div>
+
+                        </div>
+
                     </div>
+
                 </div>
-                <h3 class="blog-title">Daily Study Routine for Toppers</h3>
-                <p class="blog-excerpt">A practical daily study timetable used by rank holders.</p>
-                <div class="blog-footer">
-                    <span class="read-time">6 min read</span>
-                    <div class="action-icons">
-                        <i class="bi bi-bookmark"></i>
-                        <i class="bi bi-share"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+            </ItemTemplate>
+        </asp:Repeater>
+
     </div>
 
 </div>
 
+<script>
+function shareBlog(slug) {
+    let url = window.location.origin + "/BlogDetails.aspx?slug=" + slug;
 
-
-        <!-- PAGINATION -->
-        <div class="pagination-wrapper">
-            <button class="page-btn disabled">Previous</button>
-            <button class="page-number active">1</button>
-            <button class="page-number">2</button>
-            <button class="page-number">3</button>
-            <button class="page-btn">Next</button>
-        </div>
-
-    </div>
-
-</section>
+    if (navigator.share) {
+        navigator.share({
+            title: 'Check this blog',
+            url: url
+        });
+    } else {
+        navigator.clipboard.writeText(url);
+        alert("Link copied!");
+    }
+}
+</script>
 
 </asp:Content>
