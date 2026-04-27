@@ -167,6 +167,7 @@
     <Content Include="Student\Student_Logout.aspx" />
     <Content Include="SubCatDetails.aspx" />
     <Content Include="SubjectDetails.aspx" />
+    <Content Include="Uploads\blog\Deault_Random_boy.png" />
     <Content Include="Uploads\ProfileImages\Deault_Random_boy.png" />
     <Content Include="VerifyOtp.aspx" />
     <Content Include="ViewResource.aspx" />

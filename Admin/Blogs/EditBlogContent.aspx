@@ -101,8 +101,12 @@
         }
 
         if (type === "image") {
-            html = `<input type="file" class="form-control" />
-                ${data?.Content ? `<img src="${data.Content}" style="max-width:200px;margin-top:10px;">` : ''}`;
+            html = `
+        <input type="file" class="form-control image-input" />
+        <img class="preview-img" 
+             src="${data?.Content || ''}" 
+             style="max-width:200px;margin-top:10px; ${data?.Content ? '' : 'display:none;'}" />
+    `;
         }
 
         if (type === "html") {
@@ -153,6 +157,23 @@
                 preview.innerHTML = this.value;
             });
         }
+        // ✅ IMAGE PREVIEW (CORRECT PLACE)
+        if (type === "image") {
+            let fileInput = block.querySelector(".image-input");
+            let preview = block.querySelector(".preview-img");
+
+            fileInput.addEventListener("change", function () {
+                let file = this.files[0];
+                if (file) {
+                    let reader = new FileReader();
+                    reader.onload = function (e) {
+                        preview.src = e.target.result;
+                        preview.style.display = "block";
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
 
         let menu = document.getElementById("blockMenu");
         menu.style.display = "none";
@@ -183,17 +204,22 @@
     }
 
     // ================= SAVE =================
-    function saveBlocks() {
+    async function saveBlocks() {
 
         let blocks = [];
 
-        document.querySelectorAll(".block").forEach((block, index) => {
+        let allBlocks = document.querySelectorAll(".block");
+
+        for (let index = 0; index < allBlocks.length; index++) {
+
+            let block = allBlocks[index];
 
             let type = block.getAttribute("data-type");
 
             let content = "";
             let extraData = null;
 
+            // ===== TEXT TYPES =====
             if (type === "h1" || type === "h2") {
                 content = block.querySelector("input").value;
             }
@@ -206,11 +232,79 @@
                 content = block.querySelector("textarea").value;
             }
 
+            // ===== IMAGE TYPE =====
             if (type === "image") {
-                let file = block.querySelector("input").files[0];
-                content = file ? file.name : "";
+                let fileInput = block.querySelector(".image-input");
+                let file = fileInput.files[0];
+
+                if (file) {
+                    let reader = new FileReader();
+
+                    content = await new Promise((resolve, reject) => {
+
+                        reader.onload = async function (e) {
+                            try {
+                                let base64 = e.target.result;
+
+                                let res = await fetch("EditBlogContent.aspx/UploadImage", {
+                                    method: "POST",
+                                    headers: { "Content-Type": "application/json" },
+                                    body: JSON.stringify({
+                                        base64Image: base64,
+                                        fileName: file.name
+                                    })
+                                });
+
+                                // 🔥 CHECK SERVER RESPONSE STATUS FIRST
+                                if (!res.ok) {
+                                    let errorText = await res.text();
+                                    console.error("UPLOAD ERROR RAW:", errorText);
+                                    alert("Upload failed (server error)");
+                                    reject("Server error");
+                                    return;
+                                }
+
+                                let uploadResult = await res.json();
+
+                                console.log("UPLOAD RESPONSE:", uploadResult);
+
+                                // ❌ INVALID RESPONSE CHECK
+                                if (!uploadResult || !uploadResult.d) {
+                                    alert("Invalid response from server");
+                                    reject("Invalid response");
+                                    return;
+                                }
+
+                                // ❌ BACKEND ERROR CHECK
+                                if (uploadResult.d.startsWith("ERROR")) {
+                                    alert(uploadResult.d);
+                                    reject(uploadResult.d);
+                                    return;
+                                }
+
+                                // ✅ SUCCESS
+                                resolve(uploadResult.d);
+
+                            } catch (err) {
+                                console.error("UPLOAD EXCEPTION:", err);
+                                alert("Upload exception occurred");
+                                reject(err);
+                            }
+                        };
+
+                        reader.readAsDataURL(file);
+                    }).catch(err => {
+                        console.error("UPLOAD FAILED:", err);
+                        return null; // prevent crash, but will save null
+                    });
+
+                } else {
+                    // Existing image (already saved URL)
+                    content = block.querySelector(".preview-img").src;
+                }
             }
 
+            // ===== TABLE TYPE =====
             if (type === "table") {
                 let table = block.querySelector("table");
 
@@ -234,23 +328,30 @@
                 ExtraData: extraData,
                 DisplayOrder: index
             });
-        });
+        }
 
-        fetch("EditBlogContent.aspx/SaveBlocks", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ blocks: blocks, blogId: blogId })
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log("SAVE RESPONSE:", data);
-
-                if (data.d === "success") {
-                    alert("Content Saved!");
-                } else {
-                    alert("Error: " + data.d);
-                }
+        // ===== SAVE TO DATABASE =====
+        try {
+            let response = await fetch("EditBlogContent.aspx/SaveBlocks", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ blocks: blocks, blogId: blogId })
             });
+
+            let data = await response.json();
+
+            console.log("SAVE RESPONSE:", data);
+
+            if (data.d === "success") {
+                alert("Content Saved!");
+            } else {
+                alert("Error: " + data.d);
+            }
+        }
+        catch (err) {
+            console.error("SAVE ERROR:", err);
+            alert("Something went wrong while saving.");
+        }
     }
 
     // ================= LOAD =================

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Web;
 using System.Web.Script.Services;
 using System.Web.Services;
 
@@ -103,6 +104,55 @@ namespace StudyIsleWeb.Admin.Blogs
             }
 
             return list;
+        }
+        [WebMethod]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static string UploadImage(string base64Image, string fileName)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(base64Image))
+                    return "ERROR: Base64 string is empty";
+
+                if (string.IsNullOrEmpty(fileName))
+                    return "ERROR: File name is empty";
+
+                // 📁 Correct folder path
+                string folderPath = HttpContext.Current.Server.MapPath("~/Uploads/blog/");
+
+                // Ensure folder exists
+                if (!System.IO.Directory.Exists(folderPath))
+                {
+                    System.IO.Directory.CreateDirectory(folderPath);
+                }
+
+                // ✅ Extract extension safely
+                string ext = System.IO.Path.GetExtension(fileName);
+                if (string.IsNullOrEmpty(ext))
+                    ext = ".png";
+
+                string newFileName = Guid.NewGuid().ToString() + ext;
+
+                // ✅ Proper path combine (IMPORTANT FIX)
+                string fullPath = System.IO.Path.Combine(folderPath, newFileName);
+
+                // ✅ Clean base64 string
+                string base64Data = base64Image.Contains(",")
+                    ? base64Image.Split(',')[1]
+                    : base64Image;
+
+                byte[] imageBytes = Convert.FromBase64String(base64Data);
+
+                // Save file
+                System.IO.File.WriteAllBytes(fullPath, imageBytes);
+
+                // Return relative path
+                return "/Uploads/blog/" + newFileName;
+            }
+            catch (Exception ex)
+            {
+                return "ERROR: " + ex.ToString();
+            }
         }
     }
 }
