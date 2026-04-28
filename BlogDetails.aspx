@@ -116,7 +116,9 @@
                 <asp:Repeater ID="rptTOC" runat="server">
                     <ItemTemplate>
                         <div class="mb-2">
-                            • <%# Eval("Text") %>
+                          • <a href="#<%# Eval("Id") %>" class="toc-link">
+    <%# Eval("Text") %>
+  </a>
                         </div>
                     </ItemTemplate>
                 </asp:Repeater>
@@ -155,5 +157,20 @@
     </div>
 
 </div>
+    <script>
+document.querySelectorAll(".toc-link").forEach(link => {
+    link.addEventListener("click", function (e) {
+        e.preventDefault();
 
+        const target = document.getElementById(this.getAttribute("href").substring(1));
+
+        if (target) {
+            window.scrollTo({
+                top: target.offsetTop - 80,
+                behavior: "smooth"
+            });
+        }
+    });
+});
+    </script>
 </asp:Content>

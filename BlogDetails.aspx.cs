@@ -82,7 +82,7 @@ namespace StudyIsleWeb
         // 🔹 Blog Content
         private void LoadBlogContent(int blogId)
         {
-            List<string> toc = new List<string>();
+            var toc = new List<object>();
             string html = "";
 
             using (SqlConnection con = new SqlConnection(connStr))
@@ -109,12 +109,12 @@ namespace StudyIsleWeb
                     {
                         case "h1":
                             html += $"<h1 id='{id}'>{content}</h1>";
-                            toc.Add($"<a href='#{id}'>{content}</a>");
+                            toc.Add(new { Text = content, Id = id });
                             break;
 
                         case "h2":
                             html += $"<h2 id='{id}'>{content}</h2>";
-                            toc.Add($"<a href='#{id}'>• {content}</a>");
+                            toc.Add(new { Text = content, Id = id });
                             break;
 
                         case "paragraph":
@@ -159,10 +159,9 @@ namespace StudyIsleWeb
             phContent.Controls.Add(new Literal { Text = html });
 
             // 🔹 Bind TOC
-            var tocList = toc.Select(x => new { Text = x }).ToList();
-
-            rptTOC.DataSource = tocList;
+            rptTOC.DataSource = toc;
             rptTOC.DataBind();
+           
         }
 
         // 🔹 Table Renderer
