@@ -22,14 +22,14 @@
 }
 .blog-meta {
     color: #777;
-    font-size: 14px;
+    font-size: 10px;
 }
 
 /* TOC */
 .toc-box {
     position: sticky;
     top: 100px;
-    font-size: 12px;
+    font-size: 10px;
     color: #777;
 }
 
