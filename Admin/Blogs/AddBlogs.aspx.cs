@@ -3,6 +3,8 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Text.RegularExpressions;
+
 
 namespace StudyIsleWeb.Admin.Blogs
 {
@@ -44,7 +46,12 @@ namespace StudyIsleWeb.Admin.Blogs
         protected void txtTitle_TextChanged(object sender, EventArgs e)
         {
             string title = txtTitle.Text.Trim().ToLower();
-            txtSlug.Text = title.Replace(" ", "-");
+            
+
+            string slug = Regex.Replace(title, @"[^a-z0-9\s-]", ""); // remove special chars
+            slug = Regex.Replace(slug, @"\s+", "-"); // spaces → hyphen
+
+            txtSlug.Text = slug;
         }
 
         // 🔹 Save Blog
