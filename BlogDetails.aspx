@@ -11,11 +11,15 @@
 
 /* HEADER */
 .blog-header h1 {
-    font-size: 36px;
-    font-weight: 700;
+    font-size: 30px;
+    font-weight: 600;
     margin: 25px 0;
 }
-
+.blog-header h2 {
+    font-size: 20px;
+    font-weight: 500;
+    margin: 25px 0;
+}
 .blog-meta {
     color: #777;
     font-size: 14px;
@@ -25,20 +29,20 @@
 .toc-box {
     position: sticky;
     top: 100px;
-    font-size: 13px;
+    font-size: 12px;
     color: #777;
 }
 
 .toc-box a {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     text-decoration: none;
     color: #444;
 }
 
 /* CONTENT */
 .blog-content {
-    font-size: 16px;
+    font-size: 12px;
     line-height: 1.7;
 }
 
