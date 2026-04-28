@@ -39,58 +39,70 @@
     <!-- 🔷 BLOG CARDS -->
     <div class="row">
 
-        <asp:Repeater ID="rptBlogs" runat="server">
-            <ItemTemplate>
+       <asp:Repeater ID="rptBlogs" runat="server">
+    <ItemTemplate>
 
-                <div class="col-md-4 mb-4">
+        <div class="col-md-4 mb-4">
 
-                    <div class="card h-100 shadow-sm">
+            <!-- 🔥 FULL CARD CLICKABLE -->
+            <a href='BlogDetails.aspx?slug=<%# Eval("Slug") %>' 
+               style="text-decoration:none; color:inherit; display:block;">
 
-                        <!-- Image -->
-                        <img src='<%# Eval("CoverImage") %>' class="card-img-top" style="height:200px; object-fit:cover;" />
+                <div class="card h-100 shadow-sm">
 
-                        <div class="card-body">
+                    <!-- Image -->
+                    <img src='<%# Eval("CoverImage") %>' 
+                         class="card-img-top" 
+                         style="height:200px; object-fit:cover;" />
 
-                            <!-- Category Tag -->
-                            <span class="badge bg-primary mb-2">
-                                <%# Eval("CategoryName") %>
-                            </span>
+                    <div class="card-body">
 
-                            <!-- Title -->
-                            <h5 class="card-title">
-                                <a href='BlogDetails.aspx?slug=<%# Eval("Slug") %>' style="text-decoration:none;">
-                                    <%# Eval("Title") %>
-                                </a>
-                            </h5>
+                        <!-- Category Tag -->
+                        <span class="badge bg-primary mb-2">
+                            <%# Eval("CategoryName") %>
+                        </span>
 
-                            <!-- Description -->
-                            <p class="card-text text-muted">
-                                <%# Eval("ShortDescription") %>
-                            </p>
+                        <!-- Title -->
+                        <h5 class="card-title">
+                            <%# Eval("Title") %>
+                        </h5>
 
-                        </div>
+                        <!-- Description -->
+                        <p class="card-text text-muted">
+                            <%# Eval("ShortDescription") %>
+                        </p>
 
-                        <div class="card-footer d-flex justify-content-between align-items-center">
+                    </div>
 
-                            <!-- Read Time -->
-                            <small class="text-muted">5 min read</small>
+                    <div class="card-footer d-flex justify-content-between align-items-center">
 
-                            <!-- Actions -->
-                            <div>
-                                <i class="fa fa-bookmark me-2" style="cursor:pointer;"></i>
-                                <i class="fa fa-share" style="cursor:pointer;"
-                                   onclick="shareBlog('<%# Eval("Slug") %>')"></i>
-                            </div>
+                        <!-- Read Time -->
+                        <small class="text-muted">5 min read</small>
 
+                        <!-- Actions -->
+                        <div>
+                            <!-- Prevent click redirect -->
+                            <i class="fa fa-bookmark me-2" 
+                               style="cursor:pointer;"
+                               onclick="event.preventDefault(); event.stopPropagation();">
+                            </i>
+
+                            <i class="fa fa-share" 
+                               style="cursor:pointer;"
+                               onclick="event.preventDefault(); event.stopPropagation(); shareBlog('<%# Eval("Slug") %>')">
+                            </i>
                         </div>
 
                     </div>
 
                 </div>
 
-            </ItemTemplate>
-        </asp:Repeater>
+            </a>
 
+        </div>
+
+    </ItemTemplate>
+</asp:Repeater>
     </div>
 
 </div>

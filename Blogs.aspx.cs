@@ -40,16 +40,24 @@ namespace StudyIsleWeb
             using (SqlConnection con = new SqlConnection(connStr))
             {
                 string query = @"
-                    SELECT b.*, c.CategoryName
-                    FROM Blogs b
-                    INNER JOIN BlogCategories c ON b.CategoryId = c.CategoryId
-                    WHERE b.IsPublished = 1";
+            SELECT 
+                b.BlogId,
+                b.Title,
+                b.Slug,
+                b.CoverImage,
+                b.ShortDescription,
+                c.CategoryName
+            FROM Blogs b
+            INNER JOIN BlogCategories c ON b.CategoryId = c.CategoryId
+            WHERE b.IsActive = 1";
 
+                // 🔹 Category Filter
                 if (categoryId != null)
                 {
                     query += " AND b.CategoryId = @CategoryId";
                 }
 
+                // 🔹 Latest First
                 query += " ORDER BY b.CreatedDate DESC";
 
                 SqlCommand cmd = new SqlCommand(query, con);
@@ -67,7 +75,6 @@ namespace StudyIsleWeb
                 rptBlogs.DataBind();
             }
         }
-
         // 🔹 Latest Button
         protected void btnLatest_Click(object sender, EventArgs e)
         {

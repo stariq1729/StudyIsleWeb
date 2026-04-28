@@ -12,15 +12,49 @@ namespace StudyIsleWeb
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            int blogId = 0;
+
+            if (Request.QueryString["blogid"] != null)
             {
-                int blogId = Convert.ToInt32(Request.QueryString["BlogId"]);
-
-                LoadBlogMeta(blogId);
-                LoadBlogContent(blogId);
+                blogId = Convert.ToInt32(Request.QueryString["blogid"]);
             }
-        }
+            else if (Request.QueryString["slug"] != null)
+            {
+                string slug = Request.QueryString["slug"].ToString();
+                blogId = GetBlogIdFromSlug(slug);
+            }
+            else
+            {
+                Response.Write("Invalid URL");
+                return;
+            }
 
+            LoadBlogMeta(blogId);
+            LoadBlogContent(blogId);
+        }
+        private int GetBlogIdFromSlug(string slug)
+        {
+            int blogId = 0;
+
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                string query = "SELECT BlogId FROM Blogs WHERE Slug = @Slug AND IsActive = 1";
+
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@Slug", slug);
+
+                con.Open();
+
+                object result = cmd.ExecuteScalar();
+
+                if (result != null)
+                {
+                    blogId = Convert.ToInt32(result);
+                }
+            }
+
+            return blogId;
+        }
         // 🔹 Blog Meta
         private void LoadBlogMeta(int blogId)
         {
