@@ -15,6 +15,15 @@ namespace StudyIsleWeb
     {
 
         /// <summary>
+        /// rptTOC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptTOC;
+
+        /// <summary>
         /// litTitle control.
         /// </summary>
         /// <remarks>
@@ -42,21 +51,12 @@ namespace StudyIsleWeb
         protected global::System.Web.UI.WebControls.Literal litDate;
 
         /// <summary>
-        /// litTOC control.
+        /// phContent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litTOC;
-
-        /// <summary>
-        /// litContent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litContent;
+        protected global::System.Web.UI.WebControls.PlaceHolder phContent;
     }
 }

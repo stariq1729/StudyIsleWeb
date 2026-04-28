@@ -13,6 +13,7 @@
 .blog-header h1 {
     font-size: 36px;
     font-weight: 700;
+    margin: 25px 0;
 }
 
 .blog-meta {
@@ -99,30 +100,52 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-<div class="container-blog mt-4">
-
-    <!-- HEADER -->
-    <div class="blog-header mb-4">
-        <h1><asp:Literal ID="litTitle" runat="server" /></h1>
-        <div class="blog-meta">
-            By <asp:Literal ID="litAuthor" runat="server" /> • 
-            <asp:Literal ID="litDate" runat="server" />
-        </div>
-    </div>
+<div class="container mt-4">
 
     <div class="row">
 
-        <!-- TOC -->
+        <!-- 🔷 LEFT SIDE (TOC) -->
         <div class="col-md-3">
-            <div class="toc-box">
-                <h6>TABLE OF CONTENTS</h6>
-                <asp:Literal ID="litTOC" runat="server"></asp:Literal>
+            <div style="position:sticky; top:100px;">
+                <h6 class="text-muted">TABLE OF CONTENTS</h6>
+
+                <asp:Repeater ID="rptTOC" runat="server">
+                    <ItemTemplate>
+                        <div class="mb-2">
+                            • <%# Eval("Text") %>
+                        </div>
+                    </ItemTemplate>
+                </asp:Repeater>
+
             </div>
         </div>
 
-        <!-- CONTENT -->
-        <div class="col-md-9 blog-content">
-            <asp:Literal ID="litContent" runat="server"></asp:Literal>
+        <!-- 🔷 RIGHT SIDE (MAIN CONTENT) -->
+        <div class="col-md-9">
+
+            <!-- 🔥 TITLE -->
+            <h1 class="fw-bold mb-3">
+                <asp:Literal ID="litTitle" runat="server"></asp:Literal>
+            </h1>
+
+            <!-- 🔥 AUTHOR -->
+            <div class="d-flex align-items-center mb-4">
+
+                <img src="/assets/user.png" 
+                     style="width:40px; height:40px; border-radius:50%;" />
+
+                <div class="ms-2">
+                    <strong><asp:Literal ID="litAuthor" runat="server"></asp:Literal></strong><br />
+                    <small class="text-muted">
+                        <asp:Literal ID="litDate" runat="server"></asp:Literal>
+                    </small>
+                </div>
+
+            </div>
+            <br />
+            <!-- 🔥 BLOG CONTENT -->
+            <asp:PlaceHolder ID="phContent" runat="server"></asp:PlaceHolder>
+
         </div>
 
     </div>

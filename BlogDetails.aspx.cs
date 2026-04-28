@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using Newtonsoft.Json;
+using System.Linq;
+using System.Web.UI.WebControls;
 
 namespace StudyIsleWeb
 {
@@ -152,8 +154,15 @@ namespace StudyIsleWeb
                 }
             }
 
-            litContent.Text = html;
-            litTOC.Text = string.Join("", toc);
+            // 🔹 Render HTML content
+            phContent.Controls.Clear();
+            phContent.Controls.Add(new Literal { Text = html });
+
+            // 🔹 Bind TOC
+            var tocList = toc.Select(x => new { Text = x }).ToList();
+
+            rptTOC.DataSource = tocList;
+            rptTOC.DataBind();
         }
 
         // 🔹 Table Renderer
