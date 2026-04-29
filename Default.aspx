@@ -388,7 +388,7 @@ CBSE, ICSE & <spam>Competitive Exams</spam> </h1>
                 <span class="tech-badge">Live Online Classes</span>
 
                 <h2 class="interactive-title">
-                    Live Classes That Actually
+                    Live Classes That
 Feel Like 
                     <span>Personal Tutor.</span>
                 </h2>
@@ -398,7 +398,7 @@ Feel Like
                     <div class="feature-icon">🎥</div>
                     <div>
                         <h6>Two-Way Audio/Video Interaction</h6>
-                        <p>Raise your hand, ask a question, get a direct answer from your teacher — live, in real time. No muting. No waiting in line.</p>
+                        <p>Ask questions live. Your teacher responds directly — no waiting, no muting.</p>
                     </div>
                 </div>
 
@@ -407,7 +407,7 @@ Feel Like
                     <div class="feature-icon">💬</div>
                     <div>
                         <h6>Dedicated Doubt-Solving Teacher in Every Class</h6>
-                        <p>A second educator monitors the chat throughout so no doubt sits unanswered for more than a minute.</p>
+                        <p>A second teacher in every class clears doubts from chat in real time.</p>
                     </div>
                 </div>
 
@@ -417,7 +417,7 @@ Feel Like
                     <div>
                         <h6>
 Live Leaderboards That Keep You Sharp</h6>
-                        <p>In-class quizzes and live rankings against 10,000+ students make every session competitive and genuinely engaging.</p>
+                        <p>In-class quizzes and live rankings against 10k+ students keep every session sharp.</p>
                     </div>
                 </div>
 
