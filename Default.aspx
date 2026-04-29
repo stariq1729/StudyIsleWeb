@@ -907,8 +907,7 @@ Time Management Analysis</h6>
                                      <span style="color: #4f46e5;">Proven Results.</span>
         </h2>
         <p class="tutors-subtitle">
-           Every teacher at StudyIsle brings 10+ years of classroom experience and a track record of helping students score high in board exams — and win seats at their dream colleges. They don't just teach the syllabus; they prepare students to perform when it matters most.
-        </p>
+10+ years of teaching experience. Strong board scores. Dream college admissions. That's what our teachers deliver.        </p>
 
         <div class="row justify-content-center mt-5">
 
