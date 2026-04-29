@@ -151,7 +151,7 @@ Subject or College to
                     </h2>
 
                     <p class="career-description">
-                        Whether you're a Class 10 student choosing between Science, Commerce and Arts — or a Class 12 student shortlisting colleges — our expert counsellors help you make the decision that's right for you. One conversation can change the direction of your entire career.
+                      Whether you're choosing your stream after Class 10 or colleges after Class 12, our expert counsellors help you make the right decision. One conversation can shape your career.
                     </p>
 
                     <div class="career-features">
