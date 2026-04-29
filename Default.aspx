@@ -842,12 +842,12 @@ Live Leaderboards That Keep You Sharp</h6>
                 <span class="ai-badge">AI-Powered Insights</span>
 
                 <h2 class="ai-heading">
-                   Know Exactly Why Your Rank
-Isn't Improving- <spam style="color: #4f46e5;">and Fix It.</spam>
+                   Know What's Holding
+Your Rank Back —<spam style="color: #4f46e5;"> and Fix It.</spam>
                 </h2>
 
                 <p class="ai-description">
-                   Most students fail not because they don't work hard, but because they work on the wrong things. Our AI identifies the exact sub-topics costing you marks.
+                  Our AI finds the exact topics costing you marks — so you stop guessing and start improving.
                 </p>
 
                 <div class="feature-item">
@@ -856,7 +856,7 @@ Isn't Improving- <spam style="color: #4f46e5;">and Fix It.</spam>
                     </div>
                     <div>
                         <h6>Pinpoint Gap Identification</h6>
-                        <p>After every test, our AI highlights the exact sub-topic — not just the chapter — pulling your score down. No more guessing what to revise.</p>
+                        <p>Pinpoints the exact sub-topic pulling your score down — not just the chapter.</p>
                     </div>
                 </div>
 
@@ -865,8 +865,8 @@ Isn't Improving- <spam style="color: #4f46e5;">and Fix It.</spam>
                         <i class="fa fa-chart-line"></i>
                     </div>
                     <div>
-                        <h6>Nationwide Percentile Comparison</h6>
-                        <p>See exactly where you stand against the top 1% nationally — so you know how much gap you actually need to close.
+                        <h6>Percentile Comparison</h6>
+                        <p>See where you stand against the top 1% of students nationwide.
 </p>
                     </div>
                 </div>
@@ -877,7 +877,7 @@ Isn't Improving- <spam style="color: #4f46e5;">and Fix It.</spam>
                     </div>
                     <div>
                         <h6>Predicted JEE / NEET Rank</h6>
-                        <p>Based on your test patterns and improvement curve, our AI gives you an estimated rank so you can set realistic targets.</p>
+                        <p>Get an estimated rank based on your test pattern and improvement curve.</p>
                     </div>
                 </div>
                  <div class="feature-item">
@@ -887,7 +887,7 @@ Isn't Improving- <spam style="color: #4f46e5;">and Fix It.</spam>
      <div>
          <h6>
 Time Management Analysis</h6>
-         <p>Identifies which question types are stealing your time so you stop losing marks in the last 20 minutes of every paper.</p>
+         <p>Identifies which question types eat your time so you stop losing marks at the end.</p>
      </div>
  </div>
 
