@@ -20,16 +20,15 @@
                     </div>
 
                     <!-- Main Heading -->
-                    <h1 class="hero-title mb-4">From Free Notes to Your
-Dream College — 
-                         <span style="color: #4f46e5;">We've Got
-Every Step Covered.</span>
+                    <h1 class="hero-title mb-4">From Free Notes to
+Your
+                         <span style="color: #4f46e5;">Dream College.</span>
 
                     </h1>
 
                     <!-- Supporting Paragraph -->
                     <p class="hero-subtitle mb-4">
-                        Everything a student needs — in one place. Access thousands of free study resources, book a session with our career counsellors to choose the right stream or college, and get personalised online tuition for IB, IGCSE, A-Levels and AP from specialist tutors.
+                       Free study material. Expert career counselling. 1-on-1 online tuition for IB & IGCSE. Everything in one place.
                     </p>
 
                     <!-- Class Buttons -->
