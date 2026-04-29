@@ -1138,13 +1138,12 @@ Time Management Analysis</h6>
                 </div>
 
                 <h3 class="main-heading">
-                   Struggling with IB or IGCSE?
-                    <span class="gradient-text">Get Expert Online Tuition.</span>
+                  Struggling with IB or IGCSE?
+                    <span class="gradient-text">We've Got You.</span>
                 </h3>
 
                 <p class="main-description">
-                   Our specialist tutors have helped hundreds of IB Diploma, IGCSE, A-Level and AP students improve their grades, complete their IAs, and walk into exams with confidence — through fully personalised online sessions.
-                </p>
+Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real specialists. Real results.                </p>
 
                 <div class="feature-wrapper">
 
@@ -1153,8 +1152,8 @@ Time Management Analysis</h6>
                             <i class="bi bi-person"></i>
                         </div>
                         <div>
-                            <h6>One-on-One Personalised Online Sessions</h6>
-                            <p>Private sessions built around your exact school, syllabus and learning pace. No one-size-fits-all — just focused, individual attention.</p>
+                            <h6>One-on-One Online Sessions</h6>
+                            <p>Built around your school, syllabus and pace. Fully personalised.</p>
                         </div>
                     </div>
 
@@ -1164,7 +1163,8 @@ Time Management Analysis</h6>
                         </div>
                         <div>
                             <h6>IA, Extended Essay & TOK Mentoring</h6>
-                            <p>Our tutors guide you step-by-step through Internal Assessments, Extended Essays and Theory of Knowledge to maximise your marks.</p>
+                            <p>Step-by-step guidance on Internal Assessments, Extended Essays and TOK.
+</p>
                         </div>
                     </div>
 
@@ -1173,8 +1173,8 @@ Time Management Analysis</h6>
                             <i class="bi bi-journal-text"></i>
                         </div>
                         <div>
-                            <h6>Exam Technique & Past Paper Practice</h6>
-                            <p>Learn how IB and Cambridge examiners actually mark. Real past papers with expert feedback so you know exactly what to write.</p>
+                            <h6>Exam Technique & Past Paper</h6>
+                            <p>Learn exactly how examiners mark. Practice with real papers and expert feedback.</p>
                         </div>
                     </div>
                     <div class="feature-item">
@@ -1183,7 +1183,7 @@ Time Management Analysis</h6>
     </div>
     <div>
         <h6>Top University Application Support</h6>
-        <p>We help you build a strong profile for universities in the UK, USA, Canada and beyond — from predicted grades to application strategy.</p>
+        <p>Build your profile for UK, US and Canadian universities — grades to strategy.</p>
     </div>
 </div>
 
