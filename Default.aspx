@@ -200,7 +200,7 @@ Subject or College to
 
                             <!-- Profile -->
                             <div class="counsellor-top">
-                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Dr. Shweta Iyer" />
+                                <img src="..\assets\tutorimg\Pranav.jpg" alt="Dr. Shweta Iyer" />
                                 <h5>Pranav Maheshwari</h5>
                                 <p>Certified Career Analyst (CCA)</p>
                             </div>
@@ -915,7 +915,7 @@ Time Management Analysis</h6>
             <div class="col-md-6 col-lg-4 mb-5">
                 <div class="tutor-item">
                     <div class="tutor-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=400&q=80"
+                        <img src="..\assets\tutorimg\Pranav.jpg"
                              class="tutor-img"
                              alt="Pranav Maheshwari">
                         <span class="verify-badge">✓</span>
@@ -933,7 +933,7 @@ Time Management Analysis</h6>
             <div class="col-md-6 col-lg-4 mb-5">
                 <div class="tutor-item">
                     <div class="tutor-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=400&q=80"
+                        <img src="..\assets\tutorimg\Ambar.jpg"
                              class="tutor-img"
                              alt="MD Ambar">
                         <span class="verify-badge">✓</span>
