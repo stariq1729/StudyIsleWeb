@@ -224,27 +224,65 @@
     }
 
     // ================= TABLE FUNCTIONS =================
+    function fixTableStructure(table) {
+
+        let theadCols = table.querySelectorAll("thead th").length;
+
+        let rows = table.querySelectorAll("tbody tr");
+
+        rows.forEach(tr => {
+
+            let cells = tr.children;
+
+            // If row has extra cells → remove extras
+            while (cells.length > theadCols) {
+                tr.removeChild(tr.lastElementChild);
+            }
+
+            // If row has less cells → add missing
+            while (cells.length < theadCols) {
+                let td = document.createElement("td");
+                td.contentEditable = true;
+                td.innerText = "New";
+                tr.appendChild(td);
+            }
+
+            // 🔥 Ensure last cell is delete button
+            let lastCell = tr.lastElementChild;
+
+            if (!lastCell.innerHTML.includes("deleteRow")) {
+                lastCell.innerHTML = `<button class="btn btn-danger btn-sm" onclick="deleteRow(this)">✖</button>`;
+            }
+        });
+    }
+
     function addRow(btn) {
 
-        let table = btn.parentElement.querySelector("table");
-        let headerCount = table.querySelectorAll("thead th").length;
+        let block = btn.closest(".block");
+        let table = block.querySelector("table");
+
+        // 🔥 Fix existing structure first
+        fixTableStructure(table);
+
+        let tbody = table.querySelector("tbody");
+        let theadCols = table.querySelectorAll("thead th");
+
+        let dataColumnCount = theadCols.length - 1;
 
         let tr = document.createElement("tr");
 
-        // ✅ add cells
-        for (let i = 0; i < headerCount; i++) {
+        for (let i = 0; i < dataColumnCount; i++) {
             let td = document.createElement("td");
             td.contentEditable = true;
             td.innerText = "New";
             tr.appendChild(td);
         }
 
-        // ✅ add delete button column
         let tdDelete = document.createElement("td");
-        tdDelete.innerHTML = `<button type="button" class="btn btn-sm btn-danger" onclick="deleteThisRow(this)">✖</button>`;
+        tdDelete.innerHTML = `<button class="btn btn-danger btn-sm" onclick="deleteRow(this)">✖</button>`;
         tr.appendChild(tdDelete);
 
-        table.querySelector("tbody").appendChild(tr);
+        tbody.appendChild(tr);
     }
 
     function addColumn(btn) {
