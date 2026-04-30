@@ -232,13 +232,27 @@
     }
 
     function addColumn(btn) {
+
         let table = btn.parentElement.querySelector("table");
 
-        for (let row of table.rows) {
-            let cell = row.insertCell();
-            cell.contentEditable = true;
-            cell.innerText = "New";
-        }
+        // ✅ ADD HEADER
+        let theadRow = table.querySelector("thead tr");
+
+        let th = document.createElement("th");
+        th.contentEditable = true;
+        th.innerText = "Column " + (theadRow.children.length + 1);
+
+        theadRow.appendChild(th);
+
+        // ✅ ADD CELLS IN EACH ROW
+        let rows = table.querySelectorAll("tbody tr");
+
+        rows.forEach(row => {
+            let td = document.createElement("td");
+            td.contentEditable = true;
+            td.innerText = "New";
+            row.appendChild(td);
+        });
     }
 
     // ================= Move buttons =================
@@ -356,20 +370,43 @@
 
             // ===== TABLE TYPE =====
             if (type === "table") {
+
                 let table = block.querySelector("table");
 
                 let headers = [];
                 let rows = [];
 
-                table.querySelectorAll("thead th").forEach(th => headers.push(th.innerText));
+                // ✅ FIX 1: Proper header extraction
+                table.querySelectorAll("thead th").forEach(th => {
+                    headers.push(th.innerText.trim());
+                });
 
+                // ✅ FIX 2: Proper row extraction (handles dynamic columns)
                 table.querySelectorAll("tbody tr").forEach(tr => {
+
                     let row = [];
-                    tr.querySelectorAll("td").forEach(td => row.push(td.innerText));
+
+                    tr.querySelectorAll("td").forEach(td => {
+                        row.push(td.innerText.trim());
+                    });
+
                     rows.push(row);
                 });
 
-                extraData = JSON.stringify({ headers, rows });
+                // ✅ FIX 3: Ensure column consistency (VERY IMPORTANT)
+                let maxCols = headers.length;
+
+                rows = rows.map(r => {
+                    while (r.length < maxCols) {
+                        r.push(""); // fill missing cells
+                    }
+                    return r;
+                });
+
+                extraData = JSON.stringify({
+                    headers: headers,
+                    rows: rows
+                });
             }
             // ===== SECTION TYPE =====
             if (type === "section") {
