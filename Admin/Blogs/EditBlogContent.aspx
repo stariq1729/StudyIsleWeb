@@ -37,6 +37,7 @@
     <div class="block-option" onclick="addBlock('html')">HTML</div>
     <div class="block-option" onclick="addBlock('divider')">Divider</div>
     <div class="block-option" onclick="addBlock('table')">Table</div>
+    <div class="block-option" onclick="addBlock('section')">Section</div>
 </div>
 
 <style>
@@ -111,6 +112,7 @@
 
         if (type === "html") {
             html = `
+            <p>html content with live preview:</p>
             <textarea class="form-control html-input">${data?.Content || ''}</textarea>
             <div class="preview border p-2 mt-2">${data?.Content || ''}</div>
         `;
@@ -140,6 +142,29 @@
             <button type="button" onclick="addRow(this)" class="btn btn-sm btn-secondary">+ Row</button>
 <button type="button" onclick="addColumn(this)" class="btn btn-sm btn-secondary">+ Column</button>
         `;
+        }
+
+        /*this structure for the section*/
+        if (type === "section") {
+            html = `
+        <div class="section-block p-3 rounded" style="background:#f8f9fa;">
+            
+            <input 
+                type="text" 
+                class="form-control mb-2 section-title" 
+                placeholder="Section Title..."
+                value="${data?.Content || ''}"
+            />
+
+            <textarea 
+                class="form-control section-desc" 
+                placeholder="Section description..."
+                rows="2"
+            >${data?.ExtraData || ''}</textarea>
+
+
+        </div>
+    `;
         }
 
         block.innerHTML = `
