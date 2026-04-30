@@ -145,25 +145,25 @@
         }
 
         /*this structure for the section*/
+        /* ===== SECTION TYPE ===== */
         if (type === "section") {
             html = `
-        <div class="section-block p-3 rounded" style="background:#f8f9fa;">
-            
-            <input 
-                type="text" 
-                class="form-control mb-2 section-title" 
-                placeholder="Section Title..."
-                value="${data?.Content || ''}"
-            />
+    <div class="section-block p-3 rounded" style="background:#f8f9fa;">
+        
+        <input 
+            type="text" 
+            class="form-control mb-2 section-title" 
+            placeholder="Section Title..."
+            value="${data?.Content || ''}"
+        />
 
-            <textarea 
-                class="form-control section-desc" 
-                placeholder="Section description..."
-                rows="2"
-            >${data?.ExtraData || ''}</textarea>
+        <textarea 
+            class="form-control section-desc" 
+            placeholder="Section description..."
+            rows="2"
+        ></textarea>
 
-
-        </div>
+    </div>
     `;
         }
 
@@ -177,6 +177,14 @@
 `;
 
         container.appendChild(block);
+
+        // ✅ ADD HERE
+        if (type === "section" && data && data.ExtraData) {
+            let textarea = block.querySelector(".section-desc");
+            if (textarea) {
+                textarea.value = data.ExtraData;
+            }
+        }
 
         // HTML live preview
         if (type === "html") {
@@ -362,6 +370,15 @@
                 });
 
                 extraData = JSON.stringify({ headers, rows });
+            }
+            // ===== SECTION TYPE =====
+            if (type === "section") {
+
+                let title = block.querySelector(".section-title")?.value || "";
+                let desc = block.querySelector(".section-desc")?.value || "";
+
+                content = title;
+                extraData = desc;  
             }
 
             blocks.push({
