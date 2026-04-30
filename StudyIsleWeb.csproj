@@ -132,6 +132,8 @@
     <Content Include="assets\img\Deault_Random_boy.png" />
     <Content Include="assets\img\Default_Random_girl.png" />
     <Content Include="assets\Public\books.css" />
+    <Content Include="assets\tutorimg\Ambar.jpg" />
+    <Content Include="assets\tutorimg\Pranav.jpg" />
     <Content Include="BlogDetails.aspx" />
     <Content Include="Blogs.aspx" />
     <Content Include="BoardResource.aspx" />
