@@ -208,6 +208,33 @@
         }
     }
 
+    // ================= Move buttons =================
+    function moveUp(btn) {
+
+        // 🔹 get the block div
+        let block = btn.closest(".block");
+
+        // 🔹 get previous block
+        let prev = block.previousElementSibling;
+
+        // 🔹 if exists → move up
+        if (prev) {
+            block.parentElement.insertBefore(block, prev);
+        }
+    }
+    function moveDown(btn) {
+
+        // 🔹 get the block div
+        let block = btn.closest(".block");
+
+        // 🔹 get next block
+        let next = block.nextElementSibling;
+
+        // 🔹 if exists → move down
+        if (next) {
+            block.parentElement.insertBefore(next, block);
+        }
+    }
     // ================= SAVE =================
     async function saveBlocks() {
 
