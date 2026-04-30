@@ -142,9 +142,14 @@
         `;
         }
 
-        block.innerHTML = html + `
-        <button type="button" class="btn btn-danger btn-sm mt-2" onclick="this.parentElement.remove()">Delete</button>
-    `;
+        block.innerHTML = `
+    <div class="d-flex gap-2 mb-2">
+        <button type="button" class="btn btn-sm btn-secondary" onclick="moveUp(this)">⬆</button>
+        <button type="button" class="btn btn-sm btn-secondary" onclick="moveDown(this)">⬇</button>
+        <button type="button" class="btn btn-danger btn-sm" onclick="this.parentElement.parentElement.remove()">Delete</button>
+    </div>
+    ${html}
+`;
 
         container.appendChild(block);
 
