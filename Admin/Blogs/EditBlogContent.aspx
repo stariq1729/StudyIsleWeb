@@ -131,7 +131,12 @@
             let thead = headers.map(h => `<th contenteditable="true">${h}</th>`).join("");
 
             let tbody = rows.map(r =>
-                `<tr>${r.map(c => `<td contenteditable="true">${c}</td>`).join("")}</tr>`
+                `<tr>
+        ${r.map(c => `<td contenteditable="true">${c}</td>`).join("")}
+        <td>
+            <button type="button" class="btn btn-sm btn-danger" onclick="deleteThisRow(this)">✖</button>
+        </td>
+    </tr>`
             ).join("");
 
             html = `
@@ -220,38 +225,50 @@
 
     // ================= TABLE FUNCTIONS =================
     function addRow(btn) {
-        let table = btn.parentElement.querySelector("table");
-        let cols = table.rows[0].cells.length;
-        let row = table.insertRow();
 
-        for (let i = 0; i < cols; i++) {
-            let cell = row.insertCell();
-            cell.contentEditable = true;
-            cell.innerText = "New";
+        let table = btn.parentElement.querySelector("table");
+        let headerCount = table.querySelectorAll("thead th").length;
+
+        let tr = document.createElement("tr");
+
+        // ✅ add cells
+        for (let i = 0; i < headerCount; i++) {
+            let td = document.createElement("td");
+            td.contentEditable = true;
+            td.innerText = "New";
+            tr.appendChild(td);
         }
+
+        // ✅ add delete button column
+        let tdDelete = document.createElement("td");
+        tdDelete.innerHTML = `<button type="button" class="btn btn-sm btn-danger" onclick="deleteThisRow(this)">✖</button>`;
+        tr.appendChild(tdDelete);
+
+        table.querySelector("tbody").appendChild(tr);
     }
 
     function addColumn(btn) {
 
-        let table = btn.parentElement.querySelector("table");
+        let block = btn.closest(".block");
+        let table = block.querySelector("table");
 
-        // ✅ ADD HEADER
         let theadRow = table.querySelector("thead tr");
+        let rows = table.querySelectorAll("tbody tr");
+
+        let insertIndex = theadRow.children.length - 1;
 
         let th = document.createElement("th");
         th.contentEditable = true;
-        th.innerText = "Column " + (theadRow.children.length + 1);
+        th.innerText = "New Column";
 
-        theadRow.appendChild(th);
+        theadRow.insertBefore(th, theadRow.children[insertIndex]);
 
-        // ✅ ADD CELLS IN EACH ROW
-        let rows = table.querySelectorAll("tbody tr");
-
-        rows.forEach(row => {
+        rows.forEach(tr => {
             let td = document.createElement("td");
             td.contentEditable = true;
             td.innerText = "New";
-            row.appendChild(td);
+
+            tr.insertBefore(td, tr.children[insertIndex]);
         });
     }
 
@@ -280,6 +297,18 @@
         // 🔹 if exists → move down
         if (next) {
             block.parentElement.insertBefore(next, block);
+        }
+    }
+    // ================= Delete Row =================
+    function deleteThisRow(btn) {
+
+        let row = btn.closest("tr");
+        let tbody = row.parentElement;
+
+        if (tbody.rows.length > 1) {
+            row.remove();
+        } else {
+            alert("At least one row required");
         }
     }
     // ================= SAVE =================
