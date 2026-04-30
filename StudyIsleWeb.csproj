@@ -657,6 +657,7 @@
     <Content Include="Admin\Admin.Master" />
     <Content Include="Site.Master" />
     <Content Include="Student\StudentDashboard.Master" />
+    <Content Include="Admin\Blogs\UploadImageHandler.ashx" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

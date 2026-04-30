@@ -233,70 +233,55 @@
             }
 
             // ===== IMAGE TYPE =====
+            // ===== IMAGE TYPE =====
             if (type === "image") {
+
                 let fileInput = block.querySelector(".image-input");
                 let file = fileInput.files[0];
 
                 if (file) {
-                    let reader = new FileReader();
+                    try {
 
-                    content = await new Promise((resolve, reject) => {
+                        let formData = new FormData();
+                        formData.append("file", file);
 
-                        reader.onload = async function (e) {
-                            try {
-                                let base64 = e.target.result;
+                        let res = await fetch("/Admin/Blogs/UploadImageHandler.ashx", {
+                            method: "POST",
+                            body: formData
+                        });
 
-                                let res = await fetch("EditBlogContent.aspx/UploadImage", {
-                                    method: "POST",
-                                    headers: { "Content-Type": "application/json" },
-                                    body: JSON.stringify({
-                                        base64Image: base64,
-                                        fileName: file.name
-                                    })
-                                });
+                        // 🔥 CHECK RESPONSE STATUS
+                        if (!res.ok) {
+                            let errorText = await res.text();
+                            console.error("UPLOAD ERROR RAW:", errorText);
+                            alert("Upload failed (server error)");
+                            return;
+                        }
 
-                                // 🔥 CHECK SERVER RESPONSE STATUS FIRST
-                                if (!res.ok) {
-                                    let errorText = await res.text();
-                                    console.error("UPLOAD ERROR RAW:", errorText);
-                                    alert("Upload failed (server error)");
-                                    reject("Server error");
-                                    return;
-                                }
+                        let result = await res.json();
 
-                                let uploadResult = await res.json();
+                        console.log("UPLOAD RESPONSE:", result);
 
-                                console.log("UPLOAD RESPONSE:", uploadResult);
+                        // ❌ INVALID RESPONSE CHECK
+                        if (!result || !result.path) {
+                            alert("Invalid response from server");
+                            return;
+                        }
 
-                                // ❌ INVALID RESPONSE CHECK
-                                if (!uploadResult || !uploadResult.d) {
-                                    alert("Invalid response from server");
-                                    reject("Invalid response");
-                                    return;
-                                }
+                        // ❌ BACKEND ERROR CHECK
+                        if (result.error) {
+                            alert(result.error);
+                            return;
+                        }
 
-                                // ❌ BACKEND ERROR CHECK
-                                if (uploadResult.d.startsWith("ERROR")) {
-                                    alert(uploadResult.d);
-                                    reject(uploadResult.d);
-                                    return;
-                                }
+                        // ✅ SUCCESS
+                        content = result.path;
 
-                                // ✅ SUCCESS
-                                resolve(uploadResult.d);
-
-                            } catch (err) {
-                                console.error("UPLOAD EXCEPTION:", err);
-                                alert("Upload exception occurred");
-                                reject(err);
-                            }
-                        };
-
-                        reader.readAsDataURL(file);
-                    }).catch(err => {
-                        console.error("UPLOAD FAILED:", err);
-                        return null; // prevent crash, but will save null
-                    });
+                    } catch (err) {
+                        console.error("UPLOAD EXCEPTION:", err);
+                        alert("Upload exception occurred");
+                        return;
+                    }
 
                 } else {
                     // Existing image (already saved URL)
