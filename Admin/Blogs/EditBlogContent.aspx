@@ -130,11 +130,14 @@
 
             let thead = headers.map(h => `<th contenteditable="true">${h}</th>`).join("");
 
+            // 🔥 FORCE DELETE COLUMN IN HEADER
+            thead += `<th style="width:60px;"></th>`;
+
             let tbody = rows.map(r =>
                 `<tr>
         ${r.map(c => `<td contenteditable="true">${c}</td>`).join("")}
         <td>
-            <button type="button" class="btn btn-sm btn-danger" onclick="deleteThisRow(this)">✖</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">✖</button>
         </td>
     </tr>`
             ).join("");
@@ -267,7 +270,11 @@
         let tbody = table.querySelector("tbody");
         let theadCols = table.querySelectorAll("thead th");
 
-        let dataColumnCount = theadCols.length - 1;
+        let hasDeleteColumn = table.querySelector("thead th:last-child").innerText === "";
+
+        let dataColumnCount = hasDeleteColumn
+            ? theadCols.length - 1
+            : theadCols.length;
 
         let tr = document.createElement("tr");
 
