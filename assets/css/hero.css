@@ -111,6 +111,28 @@
 .carousel-fade .carousel-item {
     transition-duration: 0.8s;
 }
+
+/* Customizing the Navigation Arrows */
+.carousel-control-prev,
+.carousel-control-next {
+    width: 10%; /* Makes the clickable area smaller so it doesn't interfere with the center of the image */
+    z-index: 5; /* Ensures they stay above the images but below the floating badges if necessary */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.3); /* Adds a subtle dark circle background */
+    background-size: 60%;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    transition: background-color 0.3s ease;
+}
+
+    .carousel-control-prev-icon:hover,
+    .carousel-control-next-icon:hover {
+        background-color: #4f46e5; /* Matches your brand purple on hover */
+    }
 /* Floating Badge */
 .floating-badge {
     position: absolute;

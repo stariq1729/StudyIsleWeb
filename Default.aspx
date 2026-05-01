@@ -69,7 +69,7 @@ Your
                            <div class="image-inner">
     <!-- Carousel Wrapper -->
     <div id="heroImageCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
-        <div class="carousel-inner">
+    <div class="carousel-inner">
             
             <!-- Image 1 -->
             <div class="carousel-item active" data-bs-interval="3000">
@@ -90,6 +90,15 @@ Your
             </div>
 
         </div>
+        <!-- Navigation Buttons -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroImageCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroImageCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
     </div>
 </div>
 
