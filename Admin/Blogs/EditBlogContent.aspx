@@ -128,17 +128,27 @@
             let headers = tableData?.headers || ["Column 1", "Column 2"];
             let rows = tableData?.rows || [["Data", "Data"]];
 
-            let thead = headers.map(h => `<th contenteditable="true">${h}</th>`).join("");
+            // 🔥 Create normal headers
+            let thead = headers.map((h, i) => `
+    <th contenteditable="true" style="position:relative;">
+        ${h}
+        <button 
+            type="button"
+            onclick="deleteColumn(this)"
+            style="position:absolute; top:2px; right:2px; font-size:10px;"
+        >✖</button>
+    </th>
+`).join("");
 
-            // 🔥 FORCE DELETE COLUMN IN HEADER
-            thead += `<th style="width:60px;"></th>`;
+            // 🔥 FIXED DELETE COLUMN (with identifier)
+            thead += `<th class="delete-col" style="width:60px;"></th>`;
 
             let tbody = rows.map(r =>
                 `<tr>
         ${r.map(c => `<td contenteditable="true">${c}</td>`).join("")}
-        <td>
-            <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">✖</button>
-        </td>
+       <td class="delete-col">
+    <button class="btn btn-danger btn-sm" onclick="deleteThisRow(this)">✖</button>
+</td>
     </tr>`
             ).join("");
 
@@ -227,57 +237,22 @@
     }
 
     // ================= TABLE FUNCTIONS =================
-    function fixTableStructure(table) {
-
-        let theadCols = table.querySelectorAll("thead th").length;
-
-        let rows = table.querySelectorAll("tbody tr");
-
-        rows.forEach(tr => {
-
-            let cells = tr.children;
-
-            // If row has extra cells → remove extras
-            while (cells.length > theadCols) {
-                tr.removeChild(tr.lastElementChild);
-            }
-
-            // If row has less cells → add missing
-            while (cells.length < theadCols) {
-                let td = document.createElement("td");
-                td.contentEditable = true;
-                td.innerText = "New";
-                tr.appendChild(td);
-            }
-
-            // 🔥 Ensure last cell is delete button
-            let lastCell = tr.lastElementChild;
-
-            if (!lastCell.innerHTML.includes("deleteRow")) {
-                lastCell.innerHTML = `<button class="btn btn-danger btn-sm" onclick="deleteRow(this)">✖</button>`;
-            }
-        });
-    }
+   
 
     function addRow(btn) {
 
         let block = btn.closest(".block");
         let table = block.querySelector("table");
 
-        // 🔥 Fix existing structure first
-        fixTableStructure(table);
-
         let tbody = table.querySelector("tbody");
-        let theadCols = table.querySelectorAll("thead th");
 
-        let hasDeleteColumn = table.querySelector("thead th:last-child").innerText === "";
-
-        let dataColumnCount = hasDeleteColumn
-            ? theadCols.length - 1
-            : theadCols.length;
+        // ✅ Get only DATA columns (exclude delete column)
+        let headers = table.querySelectorAll("thead th:not(.delete-col)");
+        let dataColumnCount = headers.length;
 
         let tr = document.createElement("tr");
 
+        // ✅ Add data cells
         for (let i = 0; i < dataColumnCount; i++) {
             let td = document.createElement("td");
             td.contentEditable = true;
@@ -285,8 +260,10 @@
             tr.appendChild(td);
         }
 
+        // ✅ Add delete column (always last)
         let tdDelete = document.createElement("td");
-        tdDelete.innerHTML = `<button class="btn btn-danger btn-sm" onclick="deleteRow(this)">✖</button>`;
+        tdDelete.className = "delete-col";
+        tdDelete.innerHTML = `<button class="btn btn-danger btn-sm" onclick="deleteThisRow(this)">✖</button>`;
         tr.appendChild(tdDelete);
 
         tbody.appendChild(tr);
@@ -300,20 +277,35 @@
         let theadRow = table.querySelector("thead tr");
         let rows = table.querySelectorAll("tbody tr");
 
-        let insertIndex = theadRow.children.length - 1;
+        // ✅ Find delete column directly (no guessing)
+        let deleteHeader = theadRow.querySelector(".delete-col");
 
+        // ✅ Create new header
         let th = document.createElement("th");
-        th.contentEditable = true;
-        th.innerText = "New Column";
+        th.setAttribute("contenteditable", "true");
+        th.style.position = "relative";
 
-        theadRow.insertBefore(th, theadRow.children[insertIndex]);
+        th.innerHTML = `
+    New Column
+    <button 
+        type="button"
+        onclick="deleteColumn(this)"
+        style="position:absolute; top:2px; right:2px; font-size:10px;"
+    >✖</button>
+`;
 
+        // ✅ Insert BEFORE delete column
+        theadRow.insertBefore(th, deleteHeader);
+
+        // ✅ Add new cell in each row BEFORE delete column
         rows.forEach(tr => {
+            let deleteCell = tr.querySelector(".delete-col");
+
             let td = document.createElement("td");
             td.contentEditable = true;
             td.innerText = "New";
 
-            tr.insertBefore(td, tr.children[insertIndex]);
+            tr.insertBefore(td, deleteCell);
         });
     }
 
@@ -355,6 +347,30 @@
         } else {
             alert("At least one row required");
         }
+    }
+
+    // ======== delete column button=========
+    function deleteColumn(btn) {
+
+        let th = btn.closest("th");
+        let table = th.closest("table");
+
+        let colIndex = Array.from(th.parentElement.children).indexOf(th);
+
+        // ❌ Prevent deleting last data column
+        let totalCols = table.querySelectorAll("thead th:not(.delete-col)").length;
+        if (totalCols <= 1) {
+            alert("At least one column required");
+            return;
+        }
+
+        // Remove header
+        th.remove();
+
+        // Remove corresponding cell in each row
+        table.querySelectorAll("tbody tr").forEach(tr => {
+            tr.children[colIndex].remove();
+        });
     }
     // ================= SAVE =================
     async function saveBlocks() {
@@ -451,8 +467,15 @@
                 let rows = [];
 
                 // ✅ FIX 1: Proper header extraction
-                table.querySelectorAll("thead th").forEach(th => {
-                    headers.push(th.innerText.trim());
+                table.querySelectorAll("thead th:not(.delete-col)").forEach(th => {
+
+                    // ✅ Clone header to remove button safely
+                    let clone = th.cloneNode(true);
+
+                    let btn = clone.querySelector("button");
+                    if (btn) btn.remove();
+
+                    headers.push(clone.innerText.trim());
                 });
 
                 // ✅ FIX 2: Proper row extraction (handles dynamic columns)
@@ -460,7 +483,7 @@
 
                     let row = [];
 
-                    tr.querySelectorAll("td").forEach(td => {
+                    tr.querySelectorAll("td:not(.delete-col)").forEach(td => {
                         row.push(td.innerText.trim());
                     });
 
