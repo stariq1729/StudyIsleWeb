@@ -69,6 +69,9 @@
     font-size: 13px;
     color: #666;
 }
+        .text-center a {
+    color: #5b5aec;
+}
 
     </style>
 </asp:Content>
