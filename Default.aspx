@@ -46,12 +46,7 @@ Your
                             <a href="BoardResourceTypes.aspx?board=jee" class="btn class-btn m-1">JEE</a>
                             <a href="BoardResourceTypes.aspx?board=neet" class="btn class-btn m-1">NEET</a>
 
-                            <!-- Active Class -->
-                            <%--<a href="/Courses.aspx?class=10" class="btn class-btn active m-1">Class 10</a>
-
-                            <a href="/Courses.aspx?class=11" class="btn class-btn m-1">Class 11</a>
-                            <a href="/Courses.aspx?class=12" class="btn class-btn m-1">Class 12</a>
-                            <a href="/Courses.aspx?class=jee-neet" class="btn class-btn m-1">JEE/NEET</a>--%>
+                           
 
                         </div>
 
@@ -71,10 +66,32 @@ Your
                         <!-- Main White Card -->
                         <div class="image-card shadow-lg">
 
-                            <div class="image-inner">
-                                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"
-                                    alt="Live Learning" />
-                            </div>
+                           <div class="image-inner">
+    <!-- Carousel Wrapper -->
+    <div id="heroImageCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            
+            <!-- Image 1 -->
+            <div class="carousel-item active" data-bs-interval="3000">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" 
+                     class="d-block w-100" alt="Live Learning 1" />
+            </div>
+
+            <!-- Image 2 -->
+            <div class="carousel-item" data-bs-interval="3000">
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644" 
+                     class="d-block w-100" alt="Live Learning 2" />
+            </div>
+
+            <!-- Image 3 -->
+            <div class="carousel-item" data-bs-interval="3000">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3" 
+                     class="d-block w-100" alt="Live Learning 3" />
+            </div>
+
+        </div>
+    </div>
+</div>
 
                             <div class="masterclass-section">
                                 <h6 class="mb-1">Today's Masterclass</h6>

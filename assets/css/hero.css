@@ -92,6 +92,25 @@
         display: block;
     }
 
+/* Carousel Specific Fixes */
+.carousel-item img {
+    width: 100%;
+    height: 290px; /* Matches your original img height */
+    object-fit: cover;
+    border-radius: 18px; /* Matches your original img radius */
+    display: block;
+}
+
+/* Ensure the carousel container itself respects the radius */
+#heroImageCarousel {
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+/* Optional: Smooth out the fade transition speed */
+.carousel-fade .carousel-item {
+    transition-duration: 0.8s;
+}
 /* Floating Badge */
 .floating-badge {
     position: absolute;
