@@ -121,7 +121,7 @@ namespace StudyIsleWeb
 
                 while (dr.Read())
                 {
-                    string type = dr["BlockType"].ToString();
+                    string type = dr["BlockType"].ToString().Trim().ToLower();
                     string content = dr["Content"]?.ToString();
                     string extra = dr["ExtraData"]?.ToString();
 
@@ -171,6 +171,14 @@ namespace StudyIsleWeb
                                 <h4 style='font-weight:600; margin-bottom:8px;'>{content}</h4>
                                 <p style='margin:0;'>{extra}</p>
                             </div>";
+                            break;
+
+                        case "note":
+                            html += $@"
+    <div class='note-block'>
+        <div class='note-title'>{content}</div>
+        <div class='note-desc'>{extra}</div>
+    </div>";
                             break;
 
                         case "html":

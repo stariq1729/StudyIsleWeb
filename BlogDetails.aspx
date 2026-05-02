@@ -61,7 +61,34 @@
     margin: 30px 0;
     color: #6b7280;
 }
+/* Note Section */
+.note-block {
+    background: #f5efe4;
+    padding: 20px;
+    border-radius: 12px;
+    margin: 25px 0;
+    border-left: 4px solid #c89b3c;
+}
 
+.note-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #a16207;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.note-title::before {
+    content: "●";
+    color: #c89b3c;
+    margin-right: 8px;
+}
+
+.note-desc {
+    font-size: 13px;
+    color: #444;
+}
 /* HTML BLOCK */
 .html-block {
     display: flex;
