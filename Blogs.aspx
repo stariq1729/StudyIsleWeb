@@ -1,6 +1,29 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Blogs.aspx.cs" Inherits="StudyIsleWeb.Blogs" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    
+    <style>
+/* 🔹 Title clamp (2 lines) */
+.clamp-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 🔹 Description clamp (3 lines) */
+.clamp-desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.card-title {
+    min-height: 48px;
+}
+
+.card-text {
+    min-height: 60px;
+}
+</style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -40,68 +63,83 @@
     <div class="row">
 
        <asp:Repeater ID="rptBlogs" runat="server">
-    <ItemTemplate>
+<ItemTemplate>
 
-        <div class="col-md-4 mb-4">
+    <div class="col-md-4 mb-4">
 
-            <!-- 🔥 FULL CARD CLICKABLE -->
-            <a href='BlogDetails.aspx?slug=<%# Eval("Slug") %>' 
-               style="text-decoration:none; color:inherit; display:block;">
+        <!-- 🔥 FULL CARD CLICKABLE -->
+        <a href='BlogDetails.aspx?slug=<%# Eval("Slug") %>' 
+           style="text-decoration:none; color:inherit; display:block;">
 
-                <div class="card h-100 shadow-sm">
+            <div class="card h-100 shadow-sm">
 
-                    <!-- Image -->
-                    <img src='<%# Eval("CoverImage") %>' 
-                         class="card-img-top" 
-                         style="height:200px; object-fit:cover;" />
+                <!-- Image -->
+                <img src='<%# Eval("CoverImage") %>' 
+                     class="card-img-top" 
+                     style="height:200px; object-fit:cover;" />
 
-                    <div class="card-body">
+                <div class="card-body">
 
-                        <!-- Category Tag -->
-                        <span class="badge bg-primary mb-2">
-                            <%# Eval("CategoryName") %>
-                        </span>
+                    <!-- Category Tag -->
+                    <span class="badge bg-primary mb-2">
+                        <%# Eval("CategoryName") %>
+                    </span>
 
-                        <!-- Title -->
-                        <h5 class="card-title">
-                            <%# Eval("Title") %>
-                        </h5>
+                    <!-- 🔥 Author + Date Row -->
+                    <div class="d-flex align-items-center mb-2">
 
-                        <!-- Description -->
-                        <p class="card-text text-muted">
-                            <%# Eval("ShortDescription") %>
-                        </p>
+                        <!-- Author Image -->
+                        <img src='<%# string.IsNullOrEmpty(Eval("AuthorImage").ToString()) ? "/uploads/default-user.png" : Eval("AuthorImage") %>'
+     style="width:30px; height:30px; border-radius:50%; object-fit:cover; margin-right:8px;" />
+
+                        <!-- Author Name -->
+                        <small class="text-muted">
+                            <%# Eval("AuthorName") %>
+                        </small>
 
                     </div>
 
-                    <div class="card-footer d-flex justify-content-between align-items-center">
+                    <!-- Title -->
+                   <h5 class="card-title clamp-title">
+                        <%# Eval("Title") %>
+                    </h5>
 
-                        <!-- Read Time -->
-                        <small class="text-muted">5 min read</small>
+                    <!-- Description -->
+                   <p class="card-text text-muted clamp-desc">
+                        <%# Eval("ShortDescription") %>
+                    </p>
 
-                        <!-- Actions -->
-                        <div>
-                            <!-- Prevent click redirect -->
-                            <i class="fa fa-bookmark me-2" 
-                               style="cursor:pointer;"
-                               onclick="event.preventDefault(); event.stopPropagation();">
-                            </i>
+                </div>
 
-                            <i class="fa fa-share" 
-                               style="cursor:pointer;"
-                               onclick="event.preventDefault(); event.stopPropagation(); shareBlog('<%# Eval("Slug") %>')">
-                            </i>
-                        </div>
+                <div class="card-footer d-flex justify-content-between align-items-center">
 
+                    <!-- 🔥 Dynamic Read Time -->
+                    <small class="text-muted">
+                        <%# Eval("ReadTime") %> min read
+                    </small>
+
+                    <!-- Actions -->
+                    <div>
+                        <i class="fa fa-bookmark me-2" 
+                           style="cursor:pointer;"
+                           onclick="event.preventDefault(); event.stopPropagation();">
+                        </i>
+
+                        <i class="fa fa-share" 
+                           style="cursor:pointer;"
+                           onclick="event.preventDefault(); event.stopPropagation(); shareBlog('<%# Eval("Slug") %>')">
+                        </i>
                     </div>
 
                 </div>
 
-            </a>
+            </div>
 
-        </div>
+        </a>
 
-    </ItemTemplate>
+    </div>
+
+</ItemTemplate>
 </asp:Repeater>
     </div>
 

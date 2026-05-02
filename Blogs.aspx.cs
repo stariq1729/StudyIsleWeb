@@ -34,22 +34,47 @@ namespace StudyIsleWeb
             }
         }
 
-        // 🔹 Load Blogs (Latest or Filtered)
+        // 🔹 Load Blogs (UPDATED - CORE CHANGE)
         private void LoadBlogs(int? categoryId = null)
         {
             using (SqlConnection con = new SqlConnection(connStr))
             {
                 string query = @"
-            SELECT 
-                b.BlogId,
-                b.Title,
-                b.Slug,
-                b.CoverImage,
-                b.ShortDescription,
-                c.CategoryName
-            FROM Blogs b
-            INNER JOIN BlogCategories c ON b.CategoryId = c.CategoryId
-            WHERE b.IsActive = 1";
+                SELECT 
+                    b.BlogId,
+                    b.Slug,
+                    b.AuthorName,
+                    b.AuthorImage,
+                    b.ReadTime,
+                    c.CategoryName,
+
+                    -- Title from blocks (H1)
+                    ISNULL((
+                        SELECT TOP 1 Content 
+                        FROM BlogBlocks 
+                        WHERE BlogId = b.BlogId AND BlockType = 'h1'
+                        ORDER BY DisplayOrder
+                    ), 'Untitled Blog') AS Title,
+
+                    -- Image from blocks
+                    ISNULL((
+                        SELECT TOP 1 Content 
+                        FROM BlogBlocks 
+                        WHERE BlogId = b.BlogId AND BlockType = 'image'
+                        ORDER BY DisplayOrder
+                    ), '/uploads/default.jpg') AS CoverImage,
+
+                    -- Description from blocks
+                    ISNULL((
+                        SELECT TOP 1 Content 
+                        FROM BlogBlocks 
+                        WHERE BlogId = b.BlogId AND BlockType = 'paragraph'
+                        ORDER BY DisplayOrder
+                    ), 'No description available') AS ShortDescription
+
+                FROM Blogs b
+                INNER JOIN BlogCategories c ON b.CategoryId = c.CategoryId
+                WHERE b.IsActive = 1";
 
                 // 🔹 Category Filter
                 if (categoryId != null)
@@ -75,6 +100,7 @@ namespace StudyIsleWeb
                 rptBlogs.DataBind();
             }
         }
+
         // 🔹 Latest Button
         protected void btnLatest_Click(object sender, EventArgs e)
         {
