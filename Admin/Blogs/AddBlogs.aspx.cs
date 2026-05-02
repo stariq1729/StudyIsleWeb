@@ -73,11 +73,12 @@ namespace StudyIsleWeb.Admin.Blogs
             // 🔹 Insert into database
             using (SqlConnection con = new SqlConnection(connStr))
             {
+                string slug = "blog-" + DateTime.Now.Ticks;
                 string query = @"INSERT INTO Blogs 
-                (CategoryId, AuthorName, AuthorImage, ReadTime, IsPublished)
-                VALUES 
-                (@CategoryId, @AuthorName, @AuthorImage, @ReadTime, @IsPublished);
-                SELECT SCOPE_IDENTITY();";
+(Slug, CategoryId, AuthorName, AuthorImage, ReadTime, IsPublished)
+VALUES 
+(@Slug, @CategoryId, @AuthorName, @AuthorImage, @ReadTime, @IsPublished);
+SELECT SCOPE_IDENTITY();";
 
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
@@ -86,6 +87,7 @@ namespace StudyIsleWeb.Admin.Blogs
                     cmd.Parameters.AddWithValue("@AuthorImage", authorImagePath);
                     cmd.Parameters.AddWithValue("@ReadTime", readTime);
                     cmd.Parameters.AddWithValue("@IsPublished", isPublished);
+                    cmd.Parameters.AddWithValue("@Slug", slug);
 
                     con.Open();
                     int blogId = Convert.ToInt32(cmd.ExecuteScalar());

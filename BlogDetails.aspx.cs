@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Web.UI.WebControls;
 
 namespace StudyIsleWeb
@@ -14,39 +13,49 @@ namespace StudyIsleWeb
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            int blogId = 0;
+            if (!IsPostBack)
+            {
+                int blogId = 0;
 
-            if (Request.QueryString["blogid"] != null)
-            {
-                blogId = Convert.ToInt32(Request.QueryString["blogid"]);
-            }
-            else if (Request.QueryString["slug"] != null)
-            {
-                string slug = Request.QueryString["slug"].ToString();
-                blogId = GetBlogIdFromSlug(slug);
-            }
-            else
-            {
-                Response.Write("Invalid URL");
-                return;
-            }
+                if (Request.QueryString["blogid"] != null)
+                {
+                    blogId = Convert.ToInt32(Request.QueryString["blogid"]);
+                }
+                else if (Request.QueryString["slug"] != null)
+                {
+                    string slug = Request.QueryString["slug"].ToString();
+                    blogId = GetBlogIdFromSlug(slug);
+                }
+                else
+                {
+                    Response.Write("Invalid URL");
+                    return;
+                }
 
-            LoadBlogMeta(blogId);
-            LoadBlogContent(blogId);
+                if (blogId == 0)
+                {
+                    Response.Write("Blog not found");
+                    return;
+                }
+
+                LoadBlogMeta(blogId);
+                LoadBlogContent(blogId);
+            }
         }
+
+        // 🔹 Get BlogId from slug
         private int GetBlogIdFromSlug(string slug)
         {
             int blogId = 0;
 
             using (SqlConnection con = new SqlConnection(connStr))
             {
-                string query = "SELECT BlogId FROM Blogs WHERE Slug = @Slug AND IsActive = 1";
+                string query = "SELECT BlogId FROM Blogs WHERE Slug=@Slug AND IsActive=1";
 
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@Slug", slug);
 
                 con.Open();
-
                 object result = cmd.ExecuteScalar();
 
                 if (result != null)
@@ -57,12 +66,13 @@ namespace StudyIsleWeb
 
             return blogId;
         }
-        // 🔹 Blog Meta
+
+        // 🔹 Load Author + Date ONLY
         private void LoadBlogMeta(int blogId)
         {
             using (SqlConnection con = new SqlConnection(connStr))
             {
-                string query = "SELECT Title, AuthorName, CreatedDate FROM Blogs WHERE BlogId=@BlogId";
+                string query = "SELECT AuthorName, CreatedDate FROM Blogs WHERE BlogId=@BlogId";
 
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@BlogId", blogId);
@@ -72,18 +82,19 @@ namespace StudyIsleWeb
 
                 if (dr.Read())
                 {
-                    litTitle.Text = dr["Title"].ToString();
                     litAuthor.Text = dr["AuthorName"].ToString();
                     litDate.Text = Convert.ToDateTime(dr["CreatedDate"]).ToString("MMM dd, yyyy");
                 }
             }
         }
 
-        // 🔹 Blog Content
+        // 🔹 Blog Content (UPDATED)
         private void LoadBlogContent(int blogId)
         {
             var toc = new List<object>();
             string html = "";
+
+            bool titleSet = false; // 🔥 important
 
             using (SqlConnection con = new SqlConnection(connStr))
             {
@@ -108,6 +119,18 @@ namespace StudyIsleWeb
                     switch (type)
                     {
                         case "h1":
+
+                            // 🔥 FIRST H1 = PAGE TITLE
+                            if (!titleSet)
+                            {
+                                litTitle.Text = content;
+                                titleSet = true;
+
+                                toc.Add(new { Text = content, Id = id });
+                                break; // ❌ do NOT render again
+                            }
+
+                            // 🔹 Other H1 (rare case)
                             html += $"<h1 id='{id}'>{content}</h1>";
                             toc.Add(new { Text = content, Id = id });
                             break;
@@ -131,10 +154,10 @@ namespace StudyIsleWeb
 
                         case "section":
                             html += $@"
-    <div class='section-block'>
-        <h4 style='font-weight:600; margin-bottom:8px;'>{content}</h4>
-        <p style='margin:0;'>{extra}</p>
-    </div>";
+                            <div class='section-block'>
+                                <h4 style='font-weight:600; margin-bottom:8px;'>{content}</h4>
+                                <p style='margin:0;'>{extra}</p>
+                            </div>";
                             break;
 
                         case "html":
@@ -158,14 +181,13 @@ namespace StudyIsleWeb
                 }
             }
 
-            // 🔹 Render HTML content
+            // 🔹 Render content
             phContent.Controls.Clear();
             phContent.Controls.Add(new Literal { Text = html });
 
             // 🔹 Bind TOC
             rptTOC.DataSource = toc;
             rptTOC.DataBind();
-           
         }
 
         // 🔹 Table Renderer
