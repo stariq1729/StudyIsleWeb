@@ -72,7 +72,7 @@ namespace StudyIsleWeb
         {
             using (SqlConnection con = new SqlConnection(connStr))
             {
-                string query = "SELECT AuthorName, CreatedDate FROM Blogs WHERE BlogId=@BlogId";
+                string query = "SELECT AuthorName, AuthorImage, CreatedDate FROM Blogs WHERE BlogId=@BlogId";
 
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@BlogId", blogId);
@@ -84,6 +84,17 @@ namespace StudyIsleWeb
                 {
                     litAuthor.Text = dr["AuthorName"].ToString();
                     litDate.Text = Convert.ToDateTime(dr["CreatedDate"]).ToString("MMM dd, yyyy");
+
+                    // 🔥 NEW: set author image
+                    string authorImage = dr["AuthorImage"] == DBNull.Value ? "" : dr["AuthorImage"].ToString();
+
+                    // keep in hidden literal (optional, for debugging/reuse)
+                    litAuthorImage.Text = authorImage;
+
+                    // set image src with fallback
+                    imgAuthor.Src = string.IsNullOrEmpty(authorImage)
+                        ? "/assets/user.png"
+                        : authorImage;
                 }
             }
         }
@@ -126,8 +137,10 @@ namespace StudyIsleWeb
                                 litTitle.Text = content;
                                 titleSet = true;
 
-                                toc.Add(new { Text = content, Id = id });
-                                break; // ❌ do NOT render again
+                                // 🔥 FIX: link TOC to main title
+                                toc.Add(new { Text = content, Id = "mainTitle" });
+
+                                break;
                             }
 
                             // 🔹 Other H1 (rare case)

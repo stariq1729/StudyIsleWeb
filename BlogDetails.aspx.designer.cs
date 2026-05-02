@@ -33,6 +33,15 @@ namespace StudyIsleWeb
         protected global::System.Web.UI.WebControls.Literal litTitle;
 
         /// <summary>
+        /// imgAuthor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage imgAuthor;
+
+        /// <summary>
         /// litAuthor control.
         /// </summary>
         /// <remarks>
@@ -49,6 +58,15 @@ namespace StudyIsleWeb
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal litDate;
+
+        /// <summary>
+        /// litAuthorImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litAuthorImage;
 
         /// <summary>
         /// phContent control.

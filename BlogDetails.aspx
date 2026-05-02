@@ -130,24 +130,27 @@
         <div class="col-md-9">
 
             <!-- 🔥 TITLE -->
-            <h1 class="fw-bold mb-3">
-                <asp:Literal ID="litTitle" runat="server"></asp:Literal>
-            </h1>
+            <h1 id="mainTitle" class="fw-bold mb-3">
+    <asp:Literal ID="litTitle" runat="server"></asp:Literal>
+</h1>
 
             <!-- 🔥 AUTHOR -->
-            <div class="d-flex align-items-center mb-4">
+           <div class="d-flex align-items-center mb-4">
 
-                <img src="/assets/user.png" 
-                     style="width:40px; height:40px; border-radius:50%;" />
+    <!-- 🔥 AUTHOR IMAGE (UPDATED) -->
+    <img id="imgAuthor" runat="server"
+         style="width:40px; height:40px; border-radius:50%; object-fit:cover;" />
 
-                <div class="ms-2">
-                    <strong><asp:Literal ID="litAuthor" runat="server"></asp:Literal></strong><br />
-                    <small class="text-muted">
-                        <asp:Literal ID="litDate" runat="server"></asp:Literal>
-                    </small>
-                </div>
+    <div class="ms-2">
+        <strong><asp:Literal ID="litAuthor" runat="server"></asp:Literal></strong><br />
+        <small class="text-muted">
+            <asp:Literal ID="litDate" runat="server"></asp:Literal>
+        </small>
+    </div>
 
-            </div>
+</div>
+            <asp:Literal ID="litAuthorImage" runat="server" Visible="false"></asp:Literal>
+
             <br />
             <!-- 🔥 BLOG CONTENT -->
             <asp:PlaceHolder ID="phContent" runat="server"></asp:PlaceHolder>
@@ -158,19 +161,23 @@
 
 </div>
     <script>
-document.querySelectorAll(".toc-link").forEach(link => {
-    link.addEventListener("click", function (e) {
-        e.preventDefault();
+        window.addEventListener("load", function () {
 
-        const target = document.getElementById(this.getAttribute("href").substring(1));
+            document.querySelectorAll(".toc-link").forEach(link => {
+                link.addEventListener("click", function (e) {
+                    e.preventDefault();
 
-        if (target) {
-            window.scrollTo({
-                top: target.offsetTop - 80,
-                behavior: "smooth"
+                    const target = document.getElementById(this.getAttribute("href").substring(1));
+
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 80,
+                            behavior: "smooth"
+                        });
+                    }
+                });
             });
-        }
-    });
-});
+
+        });
     </script>
 </asp:Content>
