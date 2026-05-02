@@ -38,6 +38,7 @@
     <div class="block-option" onclick="addBlock('divider')">Divider</div>
     <div class="block-option" onclick="addBlock('table')">Table</div>
     <div class="block-option" onclick="addBlock('section')">Section</div>
+    <div class="block-option" onclick="addBlock('note')">Note</div>
 </div>
 
 <style>
@@ -184,6 +185,26 @@
     </div>
     `;
         }
+        if (type === "note") {
+            html = `
+        <div class="note-block p-3 rounded" style="background:#f5efe4; border-left:4px solid #c89b3c;">
+            
+            <input 
+                type="text" 
+                class="form-control mb-2 note-title" 
+                placeholder="Note Title (e.g. PRO TIP)"
+                value="${data?.Content || ''}"
+            />
+
+            <textarea 
+                class="form-control note-desc" 
+                placeholder="Write your note..."
+                rows="3"
+            >${data?.ExtraData || ''}</textarea>
+
+        </div>
+    `;
+        }
 
         block.innerHTML = `
     <div class="d-flex gap-2 mb-2">
@@ -199,6 +220,13 @@
         // ✅ ADD HERE
         if (type === "section" && data && data.ExtraData) {
             let textarea = block.querySelector(".section-desc");
+            if (textarea) {
+                textarea.value = data.ExtraData;
+            }
+        }
+
+        if (type === "note" && data && data.ExtraData) {
+            let textarea = block.querySelector(".note-desc");
             if (textarea) {
                 textarea.value = data.ExtraData;
             }
@@ -513,6 +541,15 @@
 
                 content = title;
                 extraData = desc;  
+            }
+            // =========note type =====
+            if (type === "note") {
+
+                let title = block.querySelector(".note-title")?.value || "";
+                let desc = block.querySelector(".note-desc")?.value || "";
+
+                content = title;
+                extraData = desc;
             }
 
             blocks.push({
