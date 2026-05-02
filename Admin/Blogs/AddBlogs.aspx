@@ -9,40 +9,27 @@
 
     <div class="card p-4 mt-3">
 
-        <!-- Title -->
-        <div class="mb-3">
-            <label>Blog Title</label>
-            <asp:TextBox ID="txtTitle" runat="server" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtTitle_TextChanged" />
-        </div>
-
-        <!-- Slug -->
-        <div class="mb-3">
-            <label>Slug (URL)</label>
-            <asp:TextBox ID="txtSlug" runat="server" CssClass="form-control" />
-        </div>
+       
 
        <%-- author--%>
         <div class="mb-3">
     <label>Author Name</label>
     <asp:TextBox ID="txtAuthor" runat="server" CssClass="form-control" />
 </div>
+        <div class="mb-3">
+    <label>Author Image</label>
+    <asp:FileUpload ID="fileAuthorImage" runat="server" CssClass="form-control" />
+</div>
         <!-- Category -->
         <div class="mb-3">
             <label>Category</label>
             <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control"></asp:DropDownList>
         </div>
-
-        <!-- Cover Image -->
-        <div class="mb-3">
-            <label>Cover Image</label>
-            <asp:FileUpload ID="fileCoverImage" runat="server" CssClass="form-control" />
-        </div>
-
-        <!-- Short Description -->
-        <div class="mb-3">
-            <label>Short Description</label>
-            <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3" />
-        </div>
+         <!-- Readtime -->
+       <div class="mb-3">
+    <label>Read Time (in minutes)</label>
+    <asp:TextBox ID="txtReadTime" runat="server" CssClass="form-control" />
+</div>
 
         <!-- Publish -->
         <div class="mb-3">
