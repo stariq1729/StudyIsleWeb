@@ -252,5 +252,14 @@
             });
 
         });
+        function toggleFaq(el) {
+
+            // close others (optional, but matches modern UX)
+            document.querySelectorAll(".faq-item-ui").forEach(item => {
+                if (item !== el) item.classList.remove("active");
+            });
+
+            el.classList.toggle("active");
+        }
     </script>
 </asp:Content>

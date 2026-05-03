@@ -175,13 +175,13 @@ namespace StudyIsleWeb
 
                         case "note":
                             html += $@"
-    <div class='note-block'>
-        <div class='note-title'>{content}</div>
-        <div class='note-desc'>{extra}</div>
+                             <div class='note-block'>
+                              <div class='note-title'>{content}</div>
+                              <div class='note-desc'>{extra}</div>
     </div>";
                             break;
 
-                        case "html":
+                         case "html":
                             html += $@"
                             <div class='html-block'>
                                 <div class='html-code'>
@@ -193,8 +193,37 @@ namespace StudyIsleWeb
                             </div>";
                             break;
 
-                        case "table":
+                            case "table":
                             html += RenderTable(extra);
+                            break;
+
+                        case "faq":
+
+                            string faqHtml = "";
+
+                            if (!string.IsNullOrEmpty(extra))
+                            {
+                                dynamic items = JsonConvert.DeserializeObject(extra);
+
+                                foreach (var item in items)
+                                {
+                                    faqHtml += $@"
+                          <div class='faq-item-ui' onclick='toggleFaq(this)'>
+                             <div class='faq-question'>
+                                 <span>{item.q}</span>
+                                     <span class='faq-arrow'>⌄</span>
+                              </div>
+                                 <div class='faq-answer'>{item.a}</div>
+                               </div>";
+                                }
+                            }
+
+                            html += $@"
+    <div class='faq-section'>
+        <div class='faq-title-main'>Frequently Asked Questions</div>
+        {faqHtml}
+    </div>";
+
                             break;
                     }
 
