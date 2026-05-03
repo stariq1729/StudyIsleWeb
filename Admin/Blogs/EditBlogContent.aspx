@@ -206,6 +206,47 @@
         </div>
     `;
         }
+        if (type === "faq") {
+
+            let faqData = [];
+
+            if (data && data.ExtraData) {
+                try {
+                    faqData = JSON.parse(data.ExtraData);
+                } catch { }
+            }
+
+            if (faqData.length === 0) {
+                faqData = [{ q: "", a: "" }];
+            }
+
+            let faqHtml = faqData.map(f => `
+        <div class="faq-item mb-2">
+            <input type="text" class="form-control mb-1 faq-q" placeholder="Question" value="${f.q}" />
+            <textarea class="form-control faq-a" placeholder="Answer">${f.a}</textarea>
+            <button type="button" class="btn btn-sm btn-danger mt-1" onclick="this.parentElement.remove()">Delete</button>
+        </div>
+    `).join("");
+
+            html = `
+        <div class="faq-block">
+
+            <input 
+                type="text" 
+                class="form-control mb-2 faq-title" 
+                placeholder="FAQ Title (optional)"
+                value="${data?.Content || ''}"
+            />
+
+            <div class="faq-container">
+                ${faqHtml}
+            </div>
+
+            <button type="button" class="btn btn-sm btn-secondary mt-2" onclick="addFaqItem(this)">+ Add Question</button>
+
+        </div>
+    `;
+        }
 
         block.innerHTML = `
     <div class="d-flex gap-2 mb-2">
@@ -400,6 +441,23 @@
         table.querySelectorAll("tbody tr").forEach(tr => {
             tr.children[colIndex].remove();
         });
+    }
+
+    // ========== faq section ===========
+    function addFaqItem(btn) {
+
+        let container = btn.parentElement.querySelector(".faq-container");
+
+        let div = document.createElement("div");
+        div.className = "faq-item mb-2";
+
+        div.innerHTML = `
+        <input type="text" class="form-control mb-1 faq-q" placeholder="Question" />
+        <textarea class="form-control faq-a" placeholder="Answer"></textarea>
+        <button type="button" class="btn btn-sm btn-danger mt-1" onclick="this.parentElement.remove()">Delete</button>
+    `;
+
+        container.appendChild(div);
     }
     // ================= SAVE =================
     async function saveBlocks() {
