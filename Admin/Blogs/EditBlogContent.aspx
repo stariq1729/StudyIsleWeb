@@ -39,6 +39,7 @@
     <div class="block-option" onclick="addBlock('table')">Table</div>
     <div class="block-option" onclick="addBlock('section')">Section</div>
     <div class="block-option" onclick="addBlock('note')">Note</div>
+    <div class="block-option" onclick="addBlock('faq')">FAQ</div>
 </div>
 
 <style>
