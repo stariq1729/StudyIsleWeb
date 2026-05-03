@@ -124,7 +124,53 @@
     border: 1px solid #ddd;
     padding: 10px;
 }
+/* ===== FAQ ===== */
+.faq-section {
+    margin: 40px 0;
+}
 
+.faq-title-main {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.faq-item-ui {
+    background: #f5f7fb;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.faq-item-ui:hover {
+    background: #eef2ff;
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+}
+
+.faq-answer {
+    margin-top: 10px;
+    display: none;
+    color: #555;
+}
+
+.faq-item-ui.active .faq-answer {
+    display: block;
+}
+
+.faq-arrow {
+    transition: transform 0.3s;
+}
+
+.faq-item-ui.active .faq-arrow {
+    transform: rotate(180deg);
+}
 </style>
 
 </asp:Content>
