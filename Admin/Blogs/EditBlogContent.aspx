@@ -611,6 +611,26 @@
                 extraData = desc;
             }
 
+            // ✅ PASTE HERE
+            if (type === "faq") {
+
+                let title = block.querySelector(".faq-title")?.value || "";
+
+                let items = [];
+
+                block.querySelectorAll(".faq-item").forEach(item => {
+                    let q = item.querySelector(".faq-q")?.value || "";
+                    let a = item.querySelector(".faq-a")?.value || "";
+
+                    if (q.trim() !== "" || a.trim() !== "") {
+                        items.push({ q: q, a: a });
+                    }
+                });
+
+                content = title;
+                extraData = JSON.stringify(items);
+            }
+
             blocks.push({
                 BlockType: type,
                 Content: content,
@@ -618,7 +638,7 @@
                 DisplayOrder: index
             });
         }
-
+       
         // ===== SAVE TO DATABASE =====
         try {
             let response = await fetch("EditBlogContent.aspx/SaveBlocks", {
