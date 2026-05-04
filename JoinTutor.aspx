@@ -1,356 +1,164 @@
-﻿<%@ Page Language="C#"  AutoEventWireup="true" CodeBehind="JoinTutor.aspx.cs" Inherits="StudyIsleWeb.JoinTutor" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="JoinTutor.aspx.cs" Inherits="StudyIsleWeb.JoinTutor" %>
 
-<!DOCTYPE html>
-<html>
-<head runat="server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
     <title>Join Our Teaching Team - StudyIsle</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="Content/css/join-tutor.css" rel="stylesheet" />
+
     <style>
-        body {
-    background: linear-gradient(135deg, #f1f5ff, #ffffff);
-    font-family: 'Segoe UI', sans-serif;
-}
-
-.join-section {
-    padding: 60px 0;
-}
-
-.join-header h2 {
-    font-weight: 700;
-    margin-bottom: 5px;
-}
-
-.join-header p {
-    color: #6c757d;
-    font-size: 14px;
-}
-
-.join-card {
-    background: #ffffff;
-    padding: 35px 40px;
-    border-radius: 18px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.06);
-    margin-top: 30px;
-}
-
-.section-title {
-    font-weight: 600;
-    font-size: 16px;
-    color: #4f46e5;
-    margin-bottom: 15px;
-}
-
-label {
-    font-weight: 500;
-    font-size: 14px;
-}
-
-.form-control, .form-select {
-    border-radius: 8px;
-    font-size: 14px;
-    padding: 8px 12px;
-}
-/* Clean Checkbox Grid */
-
-.subject-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 12px 20px;
-    margin-top: 10px;
-}
-
-/* Each checkbox item */
-.custom-check {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    cursor: pointer;
-}
-
-/* Improve default checkbox */
-.custom-check input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-}
-
-
-.validator {
-    color: red;
-    font-size: 12px;
-}
-
-.submit-btn {
-    background: #4f46e5;
-    color: #fff;
-    padding: 10px 30px;
-    border-radius: 25px;
-    border: none;
-    font-weight: 500;
-    transition: 0.3s ease;
-}
-
-.submit-btn:hover {
-    background: #4338ca;
-}
-
+        body { background: linear-gradient(135deg, #f1f5ff, #ffffff); font-family: 'Segoe UI', sans-serif; }
+        .join-section { padding: 60px 0; }
+        .join-header h2 { font-weight: 700; margin-bottom: 5px; }
+        .join-header p { color: #6c757d; font-size: 14px; }
+        .join-card { background: #fff; padding: 35px 40px; border-radius: 18px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); margin-top: 30px; }
+        .section-title { font-weight: 600; font-size: 16px; color: #4f46e5; margin-bottom: 15px; }
+        label { font-weight: 500; font-size: 14px; }
+        .form-control, .form-select { border-radius: 8px; font-size: 14px; padding: 8px 12px; }
+        .subject-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px 20px; margin-top: 10px; }
+        .custom-check { display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; }
+        .validator { color: red; font-size: 12px; }
+        .submit-btn { background: #4f46e5; color: #fff; padding: 10px 30px; border-radius: 25px; border: none; }
     </style>
-</head>
-<body>
 
-<form id="form1" runat="server">
+</asp:Content>
+
+
+
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 <section class="join-section">
 <div class="container">
 
-    <!-- Header -->
     <div class="text-center join-header">
         <h2>Join Our Teaching Team</h2>
         <p>Share your knowledge. Inspire students. Grow with StudyIsle.</p>
     </div>
 
-    <!-- Form Card -->
     <div class="join-card">
 
-        <!-- BASIC INFO -->
+        <!-- BASIC -->
         <h5 class="section-title">Basic Information</h5>
-
         <div class="row">
 
-            <!-- Full Name -->
             <div class="col-md-6 mb-3">
                 <label>Full Name *</label>
                 <asp:TextBox ID="txtName" runat="server" CssClass="form-control" />
-                <asp:RequiredFieldValidator ID="rfvName" runat="server"
-                    ControlToValidate="txtName"
-                    ErrorMessage="Required"
-                    CssClass="validator"
-                    Display="Dynamic" />
             </div>
 
-            <!-- Mobile -->
             <div class="col-md-6 mb-3">
-                <label>Mobile Number (WhatsApp) *</label>
+                <label>Mobile *</label>
                 <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control" />
-                <asp:RequiredFieldValidator ID="rfvMobile" runat="server"
-                    ControlToValidate="txtMobile"
-                    ErrorMessage="Required"
-                    CssClass="validator"
-                    Display="Dynamic" />
-                <asp:RegularExpressionValidator ID="revMobile" runat="server"
-                    ControlToValidate="txtMobile"
-                    ValidationExpression="^[0-9]{10}$"
-                    ErrorMessage="Enter valid 10 digit number"
-                    CssClass="validator"
-                    Display="Dynamic" />
             </div>
 
-            <!-- Email -->
             <div class="col-md-6 mb-3">
-                <label>Email ID *</label>
+                <label>Email *</label>
                 <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" />
-                <asp:RequiredFieldValidator ID="rfvEmail" runat="server"
-                    ControlToValidate="txtEmail"
-                    ErrorMessage="Required"
-                    CssClass="validator"
-                    Display="Dynamic" />
-                <asp:RegularExpressionValidator ID="revEmail" runat="server"
-                    ControlToValidate="txtEmail"
-                    ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
-                    ErrorMessage="Invalid Email"
-                    CssClass="validator"
-                    Display="Dynamic" />
             </div>
 
-            <!-- Location -->
             <div class="col-md-6 mb-3">
-                <label>Country & State *</label>
+                <label>Location *</label>
                 <asp:TextBox ID="txtLocation" runat="server" CssClass="form-control" />
-                <asp:RequiredFieldValidator ID="rfvLocation" runat="server"
-                    ControlToValidate="txtLocation"
-                    ErrorMessage="Required"
-                    CssClass="validator"
-                    Display="Dynamic" />
             </div>
 
         </div>
 
-        <!-- PROFESSIONAL INFO -->
+        <!-- PROFESSIONAL -->
         <h5 class="section-title mt-4">Professional Details</h5>
-
         <div class="row">
 
             <div class="col-md-6 mb-3">
-                <label>Highest Qualification *</label>
+                <label>Qualification *</label>
                 <asp:DropDownList ID="ddlQualification" runat="server" CssClass="form-select">
                     <asp:ListItem Value="">Select</asp:ListItem>
                     <asp:ListItem>Graduation</asp:ListItem>
                     <asp:ListItem>Post Graduation</asp:ListItem>
                     <asp:ListItem>B.Ed / M.Ed</asp:ListItem>
                     <asp:ListItem>PhD</asp:ListItem>
-                    <asp:ListItem>Other</asp:ListItem>
                 </asp:DropDownList>
-                <asp:RequiredFieldValidator ID="rfvQualification" runat="server"
-                    InitialValue=""
-                    ControlToValidate="ddlQualification"
-                    ErrorMessage="Required"
-                    CssClass="validator"
-                    Display="Dynamic" />
             </div>
 
             <div class="col-md-6 mb-3">
-                <label>Teaching Experience *</label>
+                <label>Experience *</label>
                 <asp:DropDownList ID="ddlExperience" runat="server" CssClass="form-select">
                     <asp:ListItem Value="">Select</asp:ListItem>
                     <asp:ListItem>Fresher</asp:ListItem>
-                    <asp:ListItem>0–2 Years</asp:ListItem>
-                    <asp:ListItem>2–5 Years</asp:ListItem>
+                    <asp:ListItem>2 Years</asp:ListItem>
                     <asp:ListItem>5+ Years</asp:ListItem>
                 </asp:DropDownList>
-                <asp:RequiredFieldValidator ID="rfvExperience" runat="server"
-                    InitialValue=""
-                    ControlToValidate="ddlExperience"
-                    ErrorMessage="Required"
-                    CssClass="validator"
-                    Display="Dynamic" />
             </div>
 
         </div>
 
-        <!-- Subjects -->
-       <div class="mt-4">
-    <label class="fw-semibold d-block mb-2">Subjects You Can Teach *</label>
-
-    <div class="subject-grid">
-
-        <label class="custom-check">
-            <asp:CheckBox ID="chkMaths" runat="server" />
-            <span>Maths</span>
-        </label>
-
-        <label class="custom-check">
-            <asp:CheckBox ID="chkPhysics" runat="server" />
-            <span>Physics</span>
-        </label>
-
-        <label class="custom-check">
-            <asp:CheckBox ID="chkChemistry" runat="server" />
-            <span>Chemistry</span>
-        </label>
-
-        <label class="custom-check">
-            <asp:CheckBox ID="chkBiology" runat="server" />
-            <span>Biology</span>
-        </label>
-
-        <label class="custom-check">
-            <asp:CheckBox ID="chkEnglish" runat="server" />
-            <span>English</span>
-        </label>
-
-        <label class="custom-check">
-            <asp:CheckBox ID="chkComputer" runat="server" />
-            <span>Computer</span>
-        </label>
-
-    </div>
-</div>
-        <div class="col-md-6 mb-3">
-    <label>Current Employment Status *</label>
-    <asp:DropDownList ID="ddlEmployment" runat="server" CssClass="form-select">
-        <asp:ListItem Value="">Select</asp:ListItem>
-        <asp:ListItem>Working in School</asp:ListItem>
-        <asp:ListItem>Coaching Institute</asp:ListItem>
-        <asp:ListItem>Freelancer</asp:ListItem>
-        <asp:ListItem>Not Working</asp:ListItem>
-    </asp:DropDownList>
-</div>
-<div class="mt-4">
-    <label class="fw-semibold">Classes / Grades Comfortable With *</label>
-
-    <div class="subject-grid">
-
-        <label class="custom-check">
-            <asp:CheckBox ID="chk6to8" runat="server" />
-            <span>Class 6–8</span>
-        </label>
-
-        <label class="custom-check">
-            <asp:CheckBox ID="chk9to10" runat="server" />
-            <span>Class 9–10</span>
-        </label>
-
-        <label class="custom-check">
-            <asp:CheckBox ID="chk11to12" runat="server" />
-            <span>Class 11–12</span>
-        </label>
-
-    </div>
-</div>
-<div class="mt-4">
-    <label class="fw-semibold">Boards You Have Experience With *</label>
-
-    <div class="subject-grid">
-
-        <label class="custom-check">
-            <asp:CheckBox ID="chkCBSE" runat="server" />
-            <span>CBSE</span>
-        </label>
-
-        <label class="custom-check">
-            <asp:CheckBox ID="chkICSE" runat="server" />
-            <span>ICSE</span>
-        </label>
-
-        <label class="custom-check">
-            <asp:CheckBox ID="chkIB" runat="server" />
-            <span>IB</span>
-        </label>
-
-        <label class="custom-check">
-            <asp:CheckBox ID="chkIGCSE" runat="server" />
-            <span>IGCSE</span>
-        </label>
-
-        <label class="custom-check">
-            <asp:CheckBox ID="chkAP" runat="server" />
-            <span>AP</span>
-        </label>
-
-        <label class="custom-check">
-            <asp:CheckBox ID="chkStateBoard" runat="server" />
-            <span>State Board</span>
-        </label>
-
-    </div>
-</div>
-<div class="mt-4">
-    <label>Demo Class Link (YouTube / Drive)</label>
-    <asp:TextBox ID="txtDemoLink" runat="server" CssClass="form-control" />
-</div>
-
-
-        <!-- Resume -->
+        <!-- SUBJECTS -->
         <div class="mt-4">
-            <label>Resume Upload (PDF) *</label>
+            <label>Subjects *</label>
+            <div class="subject-grid">
+                <asp:CheckBox ID="chkMaths" runat="server" Text="Maths" />
+                <asp:CheckBox ID="chkPhysics" runat="server" Text="Physics" />
+                <asp:CheckBox ID="chkChemistry" runat="server" Text="Chemistry" />
+                <asp:CheckBox ID="chkBiology" runat="server" Text="Biology" />
+                <asp:CheckBox ID="chkEnglish" runat="server" Text="English" />
+                <asp:CheckBox ID="chkComputer" runat="server" Text="Computer" />
+            </div>
+        </div>
+
+        <!-- EMPLOYMENT -->
+        <div class="mt-4">
+            <label>Employment *</label>
+            <asp:DropDownList ID="ddlEmployment" runat="server" CssClass="form-select">
+                <asp:ListItem Value="">Select</asp:ListItem>
+                <asp:ListItem>School</asp:ListItem>
+                <asp:ListItem>Institute</asp:ListItem>
+                <asp:ListItem>Freelancer</asp:ListItem>
+            </asp:DropDownList>
+        </div>
+
+        <!-- CLASSES -->
+        <div class="mt-4">
+            <label>Classes *</label>
+            <div class="subject-grid">
+                <asp:CheckBox ID="chk6to8" runat="server" Text="6-8" />
+                <asp:CheckBox ID="chk9to10" runat="server" Text="9-10" />
+                <asp:CheckBox ID="chk11to12" runat="server" Text="11-12" />
+            </div>
+        </div>
+
+        <!-- BOARDS -->
+        <div class="mt-4">
+            <label>Boards *</label>
+            <div class="subject-grid">
+                <asp:CheckBox ID="chkCBSE" runat="server" Text="CBSE" />
+                <asp:CheckBox ID="chkICSE" runat="server" Text="ICSE" />
+                <asp:CheckBox ID="chkIB" runat="server" Text="IB" />
+                <asp:CheckBox ID="chkIGCSE" runat="server" Text="IGCSE" />
+                <asp:CheckBox ID="chkAP" runat="server" Text="AP" />
+                <asp:CheckBox ID="chkStateBoard" runat="server" Text="State Board" />
+            </div>
+        </div>
+
+        <!-- DEMO -->
+        <div class="mt-4">
+            <label>Demo Link</label>
+            <asp:TextBox ID="txtDemoLink" runat="server" CssClass="form-control" />
+        </div>
+
+        <!-- RESUME -->
+        <div class="mt-4">
+            <label>Resume</label>
             <asp:FileUpload ID="fileResume" runat="server" CssClass="form-control" />
         </div>
 
-        <!-- Submit -->
         <div class="text-center mt-4">
             <asp:Button ID="btnSubmit" runat="server"
                 Text="Submit Application"
                 CssClass="btn submit-btn"
-                OnClick="btnSubmit_Click"/>
+                OnClick="btnSubmit_Click" />
         </div>
 
     </div>
 </div>
 </section>
 
-</form>
-</body>
-</html>
+</asp:Content>
