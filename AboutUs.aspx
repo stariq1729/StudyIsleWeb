@@ -345,6 +345,129 @@
 .pillar-card:hover .learn-more-btn {
     color: #646cff;
 }
+/* Founders Section */
+.founders-section {
+    padding: 80px 5%;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.founders-title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #0a0b1e;
+    margin-bottom: 10px;
+}
+
+.founders-title span.italic-blue {
+    color: #646cff;
+    font-style: italic;
+}
+
+.founders-subtitle {
+    color: #666;
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+}
+
+/* Founder Cards Container */
+.founders-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    user-select: none;
+}
+
+.founder-card {
+    background: #ffffff;
+    border: 1px solid #f0f2f8;
+    border-radius: 40px;
+    padding: 30px;
+    flex: 1;
+    min-width: 400px;
+    max-width: 500px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-align: left;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+/* Hover and Click Stability */
+.founder-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(100, 108, 255, 0.08);
+}
+
+.founder-card:active {
+    background: #ffffff !important;
+    transform: translateY(-2px);
+}
+
+/* Profile Placeholder/Image Area */
+/* Update this existing class */
+.profile-img-area {
+    width: 140px;
+    height: 140px;
+    background: #dfe4f0;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* This crops the image to the border-radius */
+    flex-shrink: 0;
+}
+
+/* Add this new rule for the image itself */
+.profile-img-area img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This makes the image fill the square without stretching */
+    display: block;
+}
+
+/* Text Content */
+.founder-info { flex: 1; }
+
+.subject-badge {
+    background: #f0f2ff;
+    color: #646cff;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 12px;
+}
+
+.founder-name { font-size: 1.4rem; font-weight: 800; color: #0a0b1e; margin: 0; }
+.founder-role { font-size: 0.8rem; color: #a0a0c0; font-weight: 500; margin-bottom: 12px; display: block; letter-spacing: 1px; }
+.founder-bio { font-size: 0.7rem; color: #667; line-height: 1.2; margin-bottom: 18px; }
+
+/* Mini Tags */
+.tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.mini-tag {
+    background: #ffffff;
+    border: 1px solid #eee;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 9px;
+    color: #888;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .founder-card { min-width: 100%; flex-direction: column; text-align: center; }
+    .tag-row { justify-content: center; }
+}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <!-- Adding FontAwesome for the icons -->
@@ -484,6 +607,55 @@
             <h3>IB & IGCSE Online Tuition</h3>
             <p>Personalised 1-on-1 sessions for IB Diploma, IGCSE, A-Level and AP students. IA, EE and TOK support included.</p>
             <a href="#" class="learn-more-btn">Learn More <i class="fa-solid fa-arrow-right-long"></i></a>
+        </div>
+    </div>
+</section>
+    <section class="founders-section">
+    <span class="offer-badge">Our Team</span>
+    <h2 class="founders-title">Meet the <span class="italic-blue">Founders.</span></h2>
+    <p class="founders-subtitle">Two educators. One shared mission.</p>
+
+    <div class="founders-container">
+        <!-- Founder 1: Pranav -->
+        <div class="founder-card">
+            <div class="profile-img-area">
+    <img src="Images/pranav.jpg" alt="Pranav Maheshwari" />
+</div>
+            <div class="founder-info">
+                <span class="subject-badge">Physics & Career Counsellor</span>
+                <h3 class="founder-name">Pranav Maheshwari</h3>
+                <span class="founder-role">CO-FOUNDER</span>
+                <p class="founder-bio">
+                    9+ Years Teaching • 3+ Years Career Counselling • Certified Career Analyst (BCPA India & ACCPH UK)
+                </p>
+                <div class="tag-row">
+                    <span class="mini-tag">IB • IGCSE • AP</span>
+                    <span class="mini-tag">CBSE • ICSE</span>
+                    <span class="mini-tag">Stream Selection</span>
+                    <span class="mini-tag">College Guidance</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Founder 2: Md Ambar -->
+        <div class="founder-card">
+            <div class="profile-img-area">
+    <img src="Images/ambar.jpg" alt="Md Ambar" />
+</div>
+            <div class="founder-info">
+                <span class="subject-badge" style="background: #eef0ff;">Mathematics Faculty</span>
+                <h3 class="founder-name">Md Ambar</h3>
+                <span class="founder-role">CO-FOUNDER</span>
+                <p class="founder-bio">
+                    9+ Years Teaching • JEE & NEET Mentor • Vedic Maths Certified Trainer
+                </p>
+                <div class="tag-row">
+                    <span class="mini-tag">JEE • NEET</span>
+                    <span class="mini-tag">IB • Cambridge</span>
+                    <span class="mini-tag">Vedic Maths</span>
+                    <span class="mini-tag">Class 9–12</span>
+                </div>
+            </div>
         </div>
     </div>
 </section>
