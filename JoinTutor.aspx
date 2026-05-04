@@ -4,11 +4,14 @@
 
     <title>Join Our Teaching Team - StudyIsle</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  
     <link href="Content/css/join-tutor.css" rel="stylesheet" />
 
     <style>
-        body { background: linear-gradient(135deg, #f1f5ff, #ffffff); font-family: 'Segoe UI', sans-serif; }
+     .join-section {
+    background: linear-gradient(135deg, #f1f5ff, #ffffff);
+    padding: 60px 0;
+}
         .join-section { padding: 60px 0; }
         .join-header h2 { font-weight: 700; margin-bottom: 5px; }
         .join-header p { color: #6c757d; font-size: 14px; }
