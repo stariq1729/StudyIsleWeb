@@ -17,7 +17,7 @@ namespace StudyIsleWeb
                 string currentPage = System.IO.Path.GetFileName(Request.Url.AbsolutePath).ToLower();
 
                 navHome.Attributes["class"] = "nav-link nav-custom";
-                navLive.Attributes["class"] = "nav-link nav-custom";
+                //navLive.Attributes["class"] = "nav-link nav-custom";
                 navTest.Attributes["class"] = "nav-link nav-custom";
                 navCareer.Attributes["class"] = "nav-link nav-custom";
                 navBlogs.Attributes["class"] = "nav-link nav-custom";
@@ -25,8 +25,8 @@ namespace StudyIsleWeb
                 if (currentPage == "default.aspx")
                     navHome.Attributes["class"] += " active";
 
-                else if (currentPage == "liveclasses.aspx")
-                    navLive.Attributes["class"] += " active";
+                //else if (currentPage == "liveclasses.aspx")
+                //    navLive.Attributes["class"] += " active";
 
                 else if (currentPage == "testseries.aspx")
                     navTest.Attributes["class"] += " active";
