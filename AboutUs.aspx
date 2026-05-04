@@ -226,6 +226,125 @@
     font-size: 9px;
     color: #888;
 }
+
+/* Third section css */
+/* Pillars Section */
+.pillars-section {
+    padding: 100px 5%;
+    background-color: #f8fafc;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.offer-badge {
+    background: #f0f2ff;
+    color: #646cff;
+    padding: 4px 14px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.pillars-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #0a0b1e;
+    margin-bottom: 15px;
+}
+
+.pillars-subtitle {
+    color: #666;
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+}
+
+/* Pillar Card Grid */
+.pillars-container {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.pillar-card {
+    background: #ffffff;
+    border: 1px solid #eef0f7;
+    border-radius: 24px;
+    padding: 45px 35px;
+    flex: 1;
+    min-width: 300px;
+    max-width: 360px;
+    text-align: left;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+    cursor: pointer;
+    outline: none;
+}
+
+.pillar-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(100, 108, 255, 0.1);
+    border-color: #646cff;
+}
+
+/* FIX: Prevent brightening/flicker on click */
+.pillar-card:active {
+    background: #ffffff !important; 
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(100, 108, 255, 0.1);
+}
+
+.pillar-icon-box {
+    width: 40px;
+    height: 40px;
+    background: #f8faff;
+    border: 1px solid #eef0f7;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #646cff;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.pillar-card h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #0a0b1e;
+    margin-bottom: 15px;
+}
+
+.pillar-card p {
+    color: #667;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 35px;
+}
+
+.learn-more-btn {
+    color: #a0a0c0;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s ease;
+}
+
+.pillar-card:hover .learn-more-btn {
+    color: #646cff;
+}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <!-- Adding FontAwesome for the icons -->
@@ -328,6 +447,43 @@
                 <span class="story-tag"><i class="fa-solid fa-graduation-cap"></i> JEE • NEET</span>
                 <span class="story-tag"><i class="fa-solid fa-globe"></i> IB • IGCSE</span>
             </div>
+        </div>
+    </div>
+</section>
+    <section class="pillars-section">
+    <span class="offer-badge">What We Offer</span>
+    <h2 class="pillars-title">Three Core Pillars. All Done Well.</h2>
+    <p class="pillars-subtitle">Helping students get the outcome they came for.</p>
+
+    <div class="pillars-container">
+        <!-- Pillar 1 -->
+        <div class="pillar-card">
+            <div class="pillar-icon-box">
+                <i class="fa-solid fa-book-open"></i>
+            </div>
+            <h3>Free Study Material</h3>
+            <p>Chapter notes, NCERT solutions, MCQs, past papers and mock tests — free for all boards. Updated for 2024–25.</p>
+            <a href="#" class="learn-more-btn">Learn More <i class="fa-solid fa-arrow-right-long"></i></a>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="pillar-card">
+            <div class="pillar-icon-box">
+                <i class="fa-solid fa-compass"></i>
+            </div>
+            <h3>Career Counselling</h3>
+            <p>Certified psychometric-based career guidance for students from Class 9 to graduates. Stream, college and career path clarity in one session.</p>
+            <a href="#" class="learn-more-btn">Learn More <i class="fa-solid fa-arrow-right-long"></i></a>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="pillar-card">
+            <div class="pillar-icon-box">
+                <i class="fa-solid fa-globe"></i>
+            </div>
+            <h3>IB & IGCSE Online Tuition</h3>
+            <p>Personalised 1-on-1 sessions for IB Diploma, IGCSE, A-Level and AP students. IA, EE and TOK support included.</p>
+            <a href="#" class="learn-more-btn">Learn More <i class="fa-solid fa-arrow-right-long"></i></a>
         </div>
     </div>
 </section>
