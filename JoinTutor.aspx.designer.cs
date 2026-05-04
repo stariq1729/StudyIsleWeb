@@ -132,6 +132,15 @@ namespace StudyIsleWeb
         protected global::System.Web.UI.WebControls.DropDownList ddlEmployment;
 
         /// <summary>
+        /// txtDemoLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDemoLink;
+
+        /// <summary>
         /// chk6to8 control.
         /// </summary>
         /// <remarks>
@@ -211,15 +220,6 @@ namespace StudyIsleWeb
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkStateBoard;
-
-        /// <summary>
-        /// txtDemoLink control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDemoLink;
 
         /// <summary>
         /// fileResume control.
