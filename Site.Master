@@ -206,7 +206,7 @@
             <div class="col-md-4 mb-4">
                 <h6 class="fw-bold text-uppercase">Company</h6>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-muted text-decoration-none">About Us</a></li>
+                    <li><a href="AboutUs.aspx" class="text-muted text-decoration-none">About Us</a></li>
                     <li><a href="#" class="text-muted text-decoration-none">Our Faculty</a></li>
                     <li><a href="#" class="text-muted text-decoration-none">Careers</a></li>
                     <li><a href="#" class="text-muted text-decoration-none">News & PR</a></li>
