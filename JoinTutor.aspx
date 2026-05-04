@@ -14,7 +14,7 @@
         .join-header p { color: #6c757d; font-size: 14px; }
         .join-card { background: #fff; padding: 35px 40px; border-radius: 16px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); margin-top: 0px; }
         .section-title { font-weight: 600; font-size: 14px; color: #4f46e5; margin-bottom: 15px; }
-        label { font-weight: 500; font-size: 14px; }
+        label { font-weight: 500; font-size: 12px; }
         .form-control, .form-select { border-radius: 8px; font-size: 12px; padding: 8px 12px; }
         .subject-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px 20px; margin-top: 8px; }
         .custom-check { display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; }
@@ -201,7 +201,93 @@
     width: 100%;
 }
 
+/* Why Choose Us Section */
+.why-choose-section {
+    padding: 80px 0;
+    background: #fff;
+}
 
+.benefit-list {
+    list-style: none;
+    padding: 0;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #4b5563;
+}
+
+.benefit-item i {
+    color: #10b981; /* Green checkmark */
+    margin-right: 12px;
+    font-size: 16px;
+}
+
+/* Image with Floating Testimonial */
+.img-wrapper {
+    position: relative;
+    padding-bottom: 40px;
+}
+
+.main-feature-img {
+    border-radius: 40px;
+    width: 100%;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.testimonial-float {
+    position: absolute;
+    bottom: 0;
+    left: -30px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    max-width: 280px;
+    z-index: 2;
+}
+
+/* FAQ Section */
+.faq-section {
+    padding-bottom: 80px;
+}
+
+.faq-card {
+    background: #fff;
+    border: 1px solid #eef2ff;
+    border-radius: 20px;
+    padding: 25px;
+    height: 100%;
+    transition: transform 0.3s ease;
+}
+
+.faq-card:hover {
+    transform: translateY(-5px);
+}
+
+.faq-icon {
+    color: #6366f1;
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.faq-card h5 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.faq-card p {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.6;
+    margin: 0;
+}
     </style>
 
 </asp:Content>
@@ -224,7 +310,7 @@
                     <span style="color: #6366f1;">Generation</span> of thinkers.
                 </h1>
 
-                <p class="text-muted mb-5" style="font-size: 1.1rem;">
+                <p class="text-muted mb-5" style="font-size: 1rem;">
                     Join StudyIsle and reach thousands of students worldwide. <br />
                     We provide the tools, you provide the inspiration.
                 </p>
@@ -425,6 +511,75 @@
 </div>
             </div>
         </div>
+</section>
+    <!-- WHY CHOOSE US -->
+<section class="why-choose-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 pe-lg-5">
+                <h2 class="fw-bold mb-3">Why thousands of educators choose <span style="color:#6366f1;">StudyIsle</span></h2>
+                <p class="text-muted mb-4">StudyIsle is more than just a tutoring platform. It's a community of dedicated professionals committed to making high-quality education accessible to everyone.</p>
+                
+                <ul class="benefit-list">
+                    <li class="benefit-item"><i class="fas fa-check-circle"></i> Access to a growing community of eager learners worldwide.</li>
+                    <li class="benefit-item"><i class="fas fa-check-circle"></i> Professional development workshops and certification programs.</li>
+                    <li class="benefit-item"><i class="fas fa-check-circle"></i> State-of-the-art virtual classroom with interactive whiteboards.</li>
+                    <li class="benefit-item"><i class="fas fa-check-circle"></i> Dedicated support team available 24/7 for technical assistance.</li>
+                </ul>
+            </div>
+            
+            <div class="col-lg-6 mt-5 mt-lg-0">
+                <div class="img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"  class="main-feature-img" alt="Educators" />
+                    <div class="testimonial-float">
+                        <p class="fw-bold mb-2">"The best decision for my career."</p>
+                        <small class="text-muted">- Sarah Jenkins, Senior Math Educator</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ SECTION -->
+<section class="faq-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Frequently Asked Questions</h2>
+            <p class="text-muted">Everything you need to know about the application process and teaching on StudyIsle.</p>
+        </div>
+        
+        <div class="row g-4">
+            <!-- FAQ 1 -->
+            <div class="col-md-6">
+                <div class="faq-card">
+                    <h5><i class="far fa-question-circle faq-icon"></i> What are the minimum requirements?</h5>
+                    <p>We typically require a Bachelor's degree in your subject area and at least 1 year of teaching experience. However, we also value passion and unique teaching styles.</p>
+                </div>
+            </div>
+            <!-- FAQ 2 -->
+            <div class="col-md-6">
+                <div class="faq-card">
+                    <h5><i class="far fa-question-circle faq-icon"></i> How do I get paid?</h5>
+                    <p>Payments are processed bi-weekly via direct bank transfer or PayPal. You can track your earnings in real-time through your teacher dashboard.</p>
+                </div>
+            </div>
+            <!-- FAQ 3 -->
+            <div class="col-md-6">
+                <div class="faq-card">
+                    <h5><i class="far fa-question-circle faq-icon"></i> Can I choose my own hours?</h5>
+                    <p>Absolutely. You can set your availability in your profile, and students will book sessions based on your schedule.</p>
+                </div>
+            </div>
+            <!-- FAQ 4 -->
+            <div class="col-md-6">
+                <div class="faq-card">
+                    <h5><i class="far fa-question-circle faq-icon"></i> Is there a fee to join?</h5>
+                    <p>No, joining StudyIsle as a teacher is completely free. We take a small commission from each session to maintain the platform and support services.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
