@@ -1063,7 +1063,7 @@ Time Management Analysis</h6>
    INTERNATIONAL CURRICULUM SECTION
 ================================== -->
 
-<section class="ic-section">
+<%--<section class="ic-section">
 
     <div class="container">
 
@@ -1208,7 +1208,7 @@ Time Management Analysis</h6>
 
     </div>
 
-</section>
+</section>--%>
 
 
 
