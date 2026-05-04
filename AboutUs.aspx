@@ -468,6 +468,102 @@
     .founder-card { min-width: 100%; flex-direction: column; text-align: center; }
     .tag-row { justify-content: center; }
 }
+
+
+/* Final CTA Section */
+.cta-section {
+    padding: 50px 5% 100px 5%;
+    background-color: #ffffff;
+}
+
+.cta-container {
+    background: #0a0b1e;
+    border-radius: 50px;
+    padding: 70px 35px;
+    text-align: center;
+    color: #ffffff;
+    max-width: 1100px;
+    margin: 0 auto;
+    box-shadow: 0 40px 80px rgba(10, 11, 30, 0.15);
+}
+
+.cta-title {
+    font-size: 2.1rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+    line-height: 1;
+}
+
+.cta-title span.italic-blue {
+    color: #646cff;
+    font-style: italic;
+}
+
+.cta-subtitle {
+    color: #a0a0c0;
+    font-size: 1.1rem;
+    max-width: 650px;
+    margin: 0 auto 40px auto;
+    line-height: 1.6;
+}
+
+/* Button Container */
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.btn-primary-cta {
+    background: #646cff;
+    color: white;
+    padding: 16px 32px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-primary-cta:hover {
+    background: #5259df;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(100, 108, 255, 0.3);
+}
+
+.btn-secondary-cta {
+    background: transparent;
+    color: white;
+    padding: 16px 32px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.btn-secondary-cta:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: white;
+    transform: translateY(-3px);
+}
+
+/* Stability Fix for Click */
+.btn-primary-cta:active, .btn-secondary-cta:active {
+    transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+    .cta-title { font-size: 2rem; }
+    .cta-container { border-radius: 30px; padding: 50px 20px; }
+}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <!-- Adding FontAwesome for the icons -->
@@ -656,6 +752,19 @@
                     <span class="mini-tag">Class 9–12</span>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+    <section class="cta-section">
+    <div class="cta-container">
+        <h2 class="cta-title">Ready to Be Part<br />Of The <span class="italic-blue">Story?</span></h2>
+        <p class="cta-subtitle">
+            Join thousands of students who trust StudyIsle for their education, guidance and growth.
+        </p>
+        
+        <div class="cta-buttons">
+            <a href="Resources.aspx" class="btn-primary-cta">Start Free Learning</a>
+            <a href="Contact.aspx" class="btn-secondary-cta">Book Free Session</a>
         </div>
     </div>
 </section>
