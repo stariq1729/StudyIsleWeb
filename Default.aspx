@@ -625,11 +625,13 @@ Live Leaderboards That Keep You Sharp</h6>
 
    <%-- ===========TESTIMONIALS SECTION START FROM HERE===========--%>
 
+<!-- RESULTS SECTION -->
+<!-- RESULTS SECTION -->
 <section class="results-section py-5">
     <div class="container">
 
         <!-- Section Header -->
-        <div class="text-center mb-5">
+        <div class="text-center mb-4">
             <div class="section-icon mb-2">
                 <i class="bi bi-trophy-fill"></i>
             </div>
@@ -639,80 +641,140 @@ Live Leaderboards That Keep You Sharp</h6>
             </p>
         </div>
 
-        <!-- Result Cards -->
-        <div class="row g-3 justify-content-center">
+        <!-- Class Selection Buttons -->
+        <ul class="nav nav-pills justify-content-center mb-5" id="classTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="class12-tab" data-bs-toggle="pill" data-bs-target="#class12" type="button" role="tab">Class 12</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="class10-tab" data-bs-toggle="pill" data-bs-target="#class10" type="button" role="tab">Class 10</button>
+            </li>
+        </ul>
 
-            <!-- Card 1 -->
-            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
-                <div class="result-card">
-                    <span class="topper-badge">TOPPER</span>
-
-                    <img src="https://randomuser.me/api/portraits/women/44.jpg"
-                        class="student-img" alt="Student" />
-
-                    <h6 class="student-name">Aditi Jain</h6>
-                    <div class="student-rank">AIR 1</div>
-                    <small class="exam-label">JEE ADV 2024</small>
+        <!-- Tab Content -->
+        <div class="tab-content" id="classTabContent">
+            
+            <!-- Class 12 Pane (Fixed 5 Cards) -->
+            <div class="tab-pane fade show active" id="class12" role="tabpanel">
+                <div class="row g-3 justify-content-center">
+                    <!-- Card 1 -->
+                    <div class="col-xl-2 col-lg-4 col-md-6">
+                        <div class="result-card">
+                            <span class="topper-badge">TOPPER</span>
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" class="student-img" alt="Student" />
+                            <h6 class="student-name">Aditi Jain</h6>
+                            <div class="student-rank">AIR 1</div>
+                            <small class="exam-label">JEE ADV 2024</small>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="col-xl-2 col-lg-4 col-md-6">
+                        <div class="result-card">
+                            <span class="topper-badge">TOPPER</span>
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="student-img" alt="Student" />
+                            <h6 class="student-name">Rahul S.</h6>
+                            <div class="student-rank">99.98 %ile</div>
+                            <small class="exam-label">CAT 2023</small>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="col-xl-2 col-lg-4 col-md-6">
+                        <div class="result-card">
+                            <span class="topper-badge">TOPPER</span>
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" class="student-img" alt="Student" />
+                            <h6 class="student-name">Priya K.</h6>
+                            <div class="student-rank">AIR 52</div>
+                            <small class="exam-label">NEET 2024</small>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="col-xl-2 col-lg-4 col-md-6">
+                        <div class="result-card">
+                            <span class="topper-badge">TOPPER</span>
+                            <img src="https://randomuser.me/api/portraits/men/50.jpg" class="student-img" alt="Student" />
+                            <h6 class="student-name">Arjun M.</h6>
+                            <div class="student-rank">AIR 112</div>
+                            <small class="exam-label">JEE ADV 2024</small>
+                        </div>
+                    </div>
+                    <!-- Card 5 -->
+                    <div class="col-xl-2 col-lg-4 col-md-6">
+                        <div class="result-card">
+                            <span class="topper-badge">TOPPER</span>
+                            <img src="https://randomuser.me/api/portraits/women/22.jpg" class="student-img" alt="Student" />
+                            <h6 class="student-name">Sana V.</h6>
+                            <div class="student-rank">99.5 %ile</div>
+                            <small class="exam-label">JEE Main</small>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Card 2 -->
-            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
-                <div class="result-card">
-                    <span class="topper-badge">TOPPER</span>
-
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg"
-                        class="student-img" alt="Student" />
-
-                    <h6 class="student-name">Rahul S.</h6>
-                    <div class="student-rank">99.98 %ile</div>
-                    <small class="exam-label">CAT 2023</small>
+            <!-- Class 10 Pane (Fixed 5 Cards) -->
+            <div class="tab-pane fade" id="class10" role="tabpanel">
+                <div class="row g-3 justify-content-center">
+                    <!-- Card 1 -->
+                    <div class="col-xl-2 col-lg-4 col-md-6">
+                        <div class="result-card">
+                            <span class="topper-badge">TOPPER</span>
+                            <img src="https://randomuser.me/api/portraits/men/45.jpg" class="student-img" alt="Student" />
+                            <h6 class="student-name">Vihan D.</h6>
+                            <div class="student-rank">98% Board</div>
+                            <small class="exam-label">CBSE 10th</small>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="col-xl-2 col-lg-4 col-md-6">
+                        <div class="result-card">
+                            <span class="topper-badge">TOPPER</span>
+                            <img src="https://randomuser.me/api/portraits/women/11.jpg" class="student-img" alt="Student" />
+                            <h6 class="student-name">Megha R.</h6>
+                            <div class="student-rank">97.5% Board</div>
+                            <small class="exam-label">ICSE 10th</small>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="col-xl-2 col-lg-4 col-md-6">
+                        <div class="result-card">
+                            <span class="topper-badge">TOPPER</span>
+                            <img src="https://randomuser.me/api/portraits/men/20.jpg" class="student-img" alt="Student" />
+                            <h6 class="student-name">Ishaan K.</h6>
+                            <div class="student-rank">99% Board</div>
+                            <small class="exam-label">CBSE 10th</small>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="col-xl-2 col-lg-4 col-md-6">
+                        <div class="result-card">
+                            <span class="topper-badge">TOPPER</span>
+                            <img src="https://randomuser.me/api/portraits/women/5.jpg" class="student-img" alt="Student" />
+                            <h6 class="student-name">Riya P.</h6>
+                            <div class="student-rank">96.8% Board</div>
+                            <small class="exam-label">State Board</small>
+                        </div>
+                    </div>
+                    <!-- Card 5 -->
+                    <div class="col-xl-2 col-lg-4 col-md-6">
+                        <div class="result-card">
+                            <span class="topper-badge">TOPPER</span>
+                            <img src="https://randomuser.me/api/portraits/men/15.jpg" class="student-img" alt="Student" />
+                            <h6 class="student-name">Aarav J.</h6>
+                            <div class="student-rank">95.4% Board</div>
+                            <small class="exam-label">CBSE 10th</small>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <!-- Card 3 -->
-            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
-                <div class="result-card">
-                    <span class="topper-badge">TOPPER</span>
-
-                    <img src="https://randomuser.me/api/portraits/women/68.jpg"
-                        class="student-img" alt="Student" />
-
-                    <h6 class="student-name">Priya K.</h6>
-                    <div class="student-rank">AIR 52</div>
-                    <small class="exam-label">NEET 2024</small>
-                </div>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
-                <div class="result-card">
-                    <span class="topper-badge">TOPPER</span>
-
-                    <img src="https://randomuser.me/api/portraits/men/45.jpg"
-                        class="student-img" alt="Student" />
-
-                    <h6 class="student-name">Vihan D.</h6>
-                    <div class="student-rank">98% Board</div>
-                    <small class="exam-label">CBSE 10th</small>
-                </div>
-            </div>
-
         </div>
-        <br />
-        <!-- Featured Purple Testimonial -->
+
+        <!-- Featured Testimonial Banner -->
         <div class="featured-testimonial mt-5">
             <div class="row align-items-center">
-                <div class="col-lg-8 col-12">
-                    <h4 class="featured-quote">
-                        "It wasn't just a course, it was a lifestyle change for my prep."
-                    </h4>
-                    <p class="featured-author">
-                        — Mother of AIR 45, JEE Advanced 2024
-                    </p>
+                <div class="col-lg-8 col-12 text-center text-lg-start">
+                    <h4 class="featured-quote">"It wasn't just a course, it was a lifestyle change for my prep."</h4>
+                    <p class="featured-author">— Mother of AIR 45, JEE Advanced 2024</p>
                 </div>
-
-                <div class="col-lg-4 col-12 text-lg-end mt-3 mt-lg-0">
+                <div class="col-lg-4 col-12 text-center text-lg-end mt-3 mt-lg-0">
                     <a href="#" class="watch-btn">Watch Testimonial</a>
                 </div>
             </div>
@@ -1545,10 +1607,6 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
 
     </div>
 </section>
-
-
-
-
 
 
 </asp:Content>
