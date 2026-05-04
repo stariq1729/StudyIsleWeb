@@ -114,7 +114,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a id="navCareer" runat="server" class="nav-link nav-custom" href="~/CareerGuidance.aspx">Career Guidance</a>
+                    <a id="navCareer" runat="server" class="nav-link nav-custom" href="~/CareerGuidance.aspx">Online Classes</a>
                 </li>
 
                 <li class="nav-item">
