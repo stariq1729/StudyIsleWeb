@@ -616,6 +616,96 @@
         font-size: 16px;
     }
 }
+/* Final CTA Section */
+.final-cta-section {
+    padding: 100px 0 60px;
+    background: radial-gradient(circle at center, #1e2445 0%, #0f1225 100%);
+    color: #ffffff;
+    position: relative;
+}
+
+/* Limited Slots Pill */
+.slots-pill {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: #cbd5e1;
+}
+
+.cta-heading {
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.cta-subtext {
+    color: #94a3b8;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+/* Glowing Button Styling */
+.btn-glow-primary {
+    background-color: #6366f1;
+    color: #ffffff;
+    border: none;
+    padding: 16px 36px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.4); /* The glow effect */
+}
+
+.btn-glow-primary:hover {
+    background-color: #4f46e5;
+    transform: translateY(-3px);
+    box-shadow: 0 0 45px rgba(99, 102, 241, 0.6);
+}
+
+/* Contact Footer Elements */
+.cta-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    width: 80%;
+    margin: 0 auto;
+}
+
+.contact-icon-circle {
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #cbd5e1;
+}
+
+.contact-label {
+    font-size: 10px;
+    color: #64748b;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.contact-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .cta-heading { font-size: 32px; }
+    .cta-subtext { font-size: 16px; }
+    .btn-glow-primary { width: 100%; padding: 14px; }
+}
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -1172,6 +1262,53 @@ Subject or College to
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- FINAL CTA SECTION -->
+<section class="final-cta-section">
+    <div class="container text-center">
+        <!-- Top Badge -->
+        <div class="mb-4">
+            <span class="slots-pill">LIMITED SLOTS WEEKLY</span>
+        </div>
+
+        <!-- Main Heading -->
+        <h2 class="cta-heading mb-3">Book Your Free 1-on-1 Clarity Call.</h2>
+        
+        <!-- Subtext -->
+        <p class="cta-subtext mb-5">
+            Ready to clear your career confusion? Click below to WhatsApp us and schedule<br class="d-none d-md-block"> 
+            your free 1-on-1 session. Most calls are confirmed within 48 hours.
+        </p>
+
+        <!-- Glowing Button -->
+        <div class="mb-5">
+            <button type="button" class="btn-glow-primary">Schedule Free 1-on-1 Call →</button>
+        </div>
+
+        <hr class="cta-divider">
+
+        <!-- Contact Info Footer -->
+        <div class="row justify-content-center mt-4">
+            <div class="col-auto d-flex align-items-center mx-4 mb-3">
+                <div class="contact-icon-circle me-3">
+                    <i class="bi bi-telephone"></i>
+                </div>
+                <div class="text-start">
+                    <span class="contact-label">CALL OR WHATSAPP</span><br>
+                    <span class="contact-value">+91 76652 46654</span>
+                </div>
+            </div>
+            <div class="col-auto d-flex align-items-center mx-4 mb-3">
+                <div class="contact-icon-circle me-3">
+                    <i class="bi bi-envelope"></i>
+                </div>
+                <div class="text-start">
+                    <span class="contact-label">EMAIL US</span><br>
+                    <span class="contact-value">contact@studyisle.in</span>
                 </div>
             </div>
         </div>
