@@ -1,6 +1,239 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CareerGuidance.aspx.cs" Inherits="StudyIsleWeb.CareerGuidance" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="assets\css\Enquiry.css" rel="stylesheet" />
+    <style>
+        /* Subject Section Styles */
+
+        .subjects-section {
+    padding: 80px 0;
+    background-color: #ffffff;
+}
+
+/* Header Styles */
+.subjects-badge {
+    font-size: 14px;
+    font-weight: 700;
+    color: #6366f1;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.blue-dash {
+    width: 12px;
+    height: 12px;
+    background-color: #60a5fa;
+    display: inline-block;
+}
+
+.section-title {
+    font-size: 42px;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 20px;
+}
+
+.section-subtitle {
+    color: #6b7280;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+/* Card Styles */
+.subject-card {
+    background-color: #f9fafb; /* Light grey base */
+    border-radius: 30px;
+    padding: 40px 30px;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    height: 100%;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+/* Hover Effect: Brighter and Lifted */
+.subject-card:hover {
+    background-color: #ffffff; /* Brighter */
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    border-color: #e5e7eb;
+}
+
+.subject-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 25px;
+}
+
+.subject-icon img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.subject-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 10px;
+}
+
+.subject-desc {
+    font-size: 14px;
+    color: #9ca3af;
+    margin-bottom: 25px;
+}
+
+/* Tags Styles */
+.tag-container {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.subject-tag {
+    background-color: #ffffff;
+    color: #9ca3af;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+/* Brighter tags on card hover */
+.subject-card:hover .subject-tag {
+    border-color: #6366f1;
+    color: #6366f1;
+}
+/* Icon Container Styling */
+.subject-icon {
+    font-size: 28px; /* Size of the icon */
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    transition: transform 0.3s ease;
+}
+
+/* Specific Icon Colors from Image_1241f1.png */
+.icon-purple { color: #a855f7; }
+.icon-indigo { color: #6366f1; }
+.icon-green  { color: #4ade80; }
+.icon-pink   { color: #ec4899; }
+.icon-emerald{ color: #10b981; }
+.icon-blue   { color: #3b82f6; }
+.icon-orange { color: #f97316; }
+.icon-cyan   { color: #06b6d4; }
+
+/* Brighter effect on hover */
+.subject-card:hover .subject-icon {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}
+
+/* Ensure the card background actually gets brighter */
+.subject-card {
+    background-color: #f8f9fa; /* Slightly off-white */
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.subject-card:hover {
+    background-color: #ffffff !important;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+    border-color: #f1f1f1;
+}
+
+/* How it works Section Styles */
+.how-it-works-section {
+    padding: 100px 0;
+    background-color: #fff;
+}
+
+.how-badge {
+    font-size: 13px;
+    font-weight: 800;
+    color: #6366f1;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Process Flow Layout */
+.process-wrapper {
+    position: relative;
+    margin-top: 60px;
+}
+
+/* The horizontal line behind the numbers */
+.process-line {
+    position: absolute;
+    top: 25px; /* Centers it with the number badges */
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background-color: #f0f0f0;
+    z-index: 1;
+}
+
+.process-item {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+/* Purple Number Badges */
+.number-badge {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    margin: 0 auto 30px;
+    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
+}
+
+.step-icon {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.step-content h5 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 15px;
+}
+
+.step-content p {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.6;
+    padding: 0 10px;
+}
+
+/* Mobile Fix: Hide line and adjust spacing on small screens */
+@media (max-width: 768px) {
+    .process-line {
+        display: none;
+    }
+    .process-item {
+        margin-bottom: 50px;
+    }
+}
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section class="enquiry-section">
@@ -205,6 +438,198 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
                 </div>
             </div>
 
+        </div>
+    </div>
+</section>
+    <section class="subjects-section">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="text-center mb-5">
+            <div class="subjects-badge">
+                <span class="blue-dash"></span> SUBJECTS
+            </div>
+            <h2 class="section-title">Every Subject, Every Board</h2>
+            <p class="section-subtitle">
+                From HL Maths to IGCSE Economics — our tutors are curriculum specialists<br class="d-none d-md-block"> 
+                who know exactly what examiners want.
+            </p>
+        </div>
+
+        <!-- Subjects Grid -->
+       <div class="row g-4">
+    <!-- Mathematics -->
+    <div class="col-lg-3 col-md-6">
+        <div class="subject-card">
+            <div class="subject-icon icon-purple"><i class="bi bi-rulers"></i></div>
+            <h5 class="subject-name">Mathematics</h5>
+            <p class="subject-desc">AA/AI HL & SL - Extended & Core</p>
+            <div class="tag-container">
+                <span class="subject-tag">IB</span>
+                <span class="subject-tag">IGCSE</span>
+                <span class="subject-tag">A-Level</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Physics -->
+    <div class="col-lg-3 col-md-6">
+        <div class="subject-card">
+            <div class="subject-icon icon-indigo"><i class="bi bi-atom"></i></div>
+            <h5 class="subject-name">Physics</h5>
+            <p class="subject-desc">HL & SL - Paper 1, 2 & 3 focus</p>
+            <div class="tag-container">
+                <span class="subject-tag">IB</span>
+                <span class="subject-tag">IGCSE</span>
+                <span class="subject-tag">AP</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chemistry -->
+    <div class="col-lg-3 col-md-6">
+        <div class="subject-card">
+            <div class="subject-icon icon-green"><i class="bi bi-bezier2"></i></div>
+            <h5 class="subject-name">Chemistry</h5>
+            <p class="subject-desc">Organic, Inorganic & Physical</p>
+            <div class="tag-container">
+                <span class="subject-tag">IB</span>
+                <span class="subject-tag">IGCSE</span>
+                <span class="subject-tag">A-Level</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Biology -->
+    <div class="col-lg-3 col-md-6">
+        <div class="subject-card">
+            <div class="subject-icon icon-pink"><i class="bi bi-dna"></i></div>
+            <h5 class="subject-name">Biology</h5>
+            <p class="subject-desc">HL & SL - IA guidance included</p>
+            <div class="tag-container">
+                <span class="subject-tag">IB</span>
+                <span class="subject-tag">IGCSE</span>
+                <span class="subject-tag">AP</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Economics -->
+    <div class="col-lg-3 col-md-6">
+        <div class="subject-card">
+            <div class="subject-icon icon-emerald"><i class="bi bi-graph-up-arrow"></i></div>
+            <h5 class="subject-name">Economics</h5>
+            <p class="subject-desc">Micro, Macro & IA Commentary</p>
+            <div class="tag-container">
+                <span class="subject-tag">IB</span>
+                <span class="subject-tag">IGCSE</span>
+                <span class="subject-tag">A-Level</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Business -->
+    <div class="col-lg-3 col-md-6">
+        <div class="subject-card">
+            <div class="subject-icon icon-blue"><i class="bi bi-bar-chart-steps"></i></div>
+            <h5 class="subject-name">Business Studies</h5>
+            <p class="subject-desc">Case study & exam technique</p>
+            <div class="tag-container">
+                <span class="subject-tag">IB</span>
+                <span class="subject-tag">IGCSE</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- English -->
+    <div class="col-lg-3 col-md-6">
+        <div class="subject-card">
+            <div class="subject-icon icon-orange"><i class="bi bi-file-earmark-text"></i></div>
+            <h5 class="subject-name">English Lang & Lit</h5>
+            <p class="subject-desc">Paper 1, Paper 2 & IO prep</p>
+            <div class="tag-container">
+                <span class="subject-tag">IB</span>
+                <span class="subject-tag">IGCSE</span>
+                <span class="subject-tag">A-Level</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Computer Science -->
+    <div class="col-lg-3 col-md-6">
+        <div class="subject-card">
+            <div class="subject-icon icon-cyan"><i class="bi bi-display"></i></div>
+            <h5 class="subject-name">Computer Science</h5>
+            <p class="subject-desc">Java, Python & IA projects</p>
+            <div class="tag-container">
+                <span class="subject-tag">IB</span>
+                <span class="subject-tag">IGCSE</span>
+                <span class="subject-tag">AP</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+   
+</section>
+    <section class="how-it-works-section">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="text-center mb-5">
+            <div class="how-badge">
+                <span class="emoji-icon">📋</span> HOW IT WORKS
+            </div>
+            <h2 class="section-title">From Booking to Better Grades</h2>
+            <p class="section-subtitle">
+                Four simple steps — and you're learning with the best.
+            </p>
+        </div>
+
+        <div class="process-wrapper">
+            <!-- Connecting Line -->
+            <div class="process-line"></div>
+
+            <div class="row">
+                <!-- Step 1 -->
+                <div class="col-md-3 process-item">
+                    <div class="number-badge">1</div>
+                    <div class="step-content">
+                        <div class="step-icon">📝</div>
+                        <h5>Book Free Demo</h5>
+                        <p>Fill the form above with your board, subject and grade. Takes 30 seconds.</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="col-md-3 process-item">
+                    <div class="number-badge">2</div>
+                    <div class="step-content">
+                        <div class="step-icon">🎯</div>
+                        <h5>Get Matched</h5>
+                        <p>Our coordinator pairs you with a tutor who specialises in your exact curriculum and level.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="col-md-3 process-item">
+                    <div class="number-badge">3</div>
+                    <div class="step-content">
+                        <div class="step-icon">💻</div>
+                        <h5>Attend Live Class</h5>
+                        <p>Join your 1-on-1 or small-group session on Zoom with an interactive whiteboard.</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="col-md-3 process-item">
+                    <div class="number-badge">4</div>
+                    <div class="step-content">
+                        <div class="step-icon">📈</div>
+                        <h5>See Results</h5>
+                        <p>Get weekly progress reports, exam-style practice and personalised improvement plans.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
