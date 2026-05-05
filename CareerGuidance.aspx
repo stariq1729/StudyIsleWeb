@@ -387,6 +387,101 @@
     background-size: 1rem;
     transition: transform 0.2s ease-in-out;
 }
+
+       /* CTA section */
+.cta-section {
+    padding: 100px 0;
+    background-color: #ffffff;
+}
+
+.cta-title {
+    font-size: 52px;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+/* Italicized Gradient Text */
+.gradient-text-italic {
+    font-style: italic;
+    background: linear-gradient(90deg, #6366f1, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.cta-subtitle {
+    font-size: 18px;
+    color: #6b7280;
+    margin-bottom: 45px;
+}
+
+.cta-button-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Primary Gradient Button (Book Free Demo) */
+.btn-cta-primary {
+    background: linear-gradient(135deg, #e0d7ff 0%, #a855f7 100%);
+    color: white;
+    font-weight: 700;
+    padding: 18px 35px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px rgba(168, 85, 247, 0.2);
+    display: inline-block;
+}
+
+.btn-cta-primary:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(168, 85, 247, 0.4);
+    color: white;
+}
+
+/* WhatsApp Button */
+.btn-cta-whatsapp {
+    background-color: #f0fff4; /* Light green */
+    color: #059669; /* Green text */
+    font-weight: 700;
+    padding: 18px 35px;
+    border-radius: 20px;
+    border: 1px solid #d1fae5;
+    text-decoration: none;
+    font-size: 18px;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.btn-cta-whatsapp:hover {
+    background-color: #d1fae5;
+    transform: translateY(-5px);
+    color: #047857;
+}
+
+/* Bi Icons Spacing */
+.btn-cta-primary i, .btn-cta-whatsapp i {
+    margin-left: 8px;
+}
+.btn-cta-whatsapp i {
+    margin-right: 8px;
+    margin-left: 0;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .cta-title {
+        font-size: 36px;
+    }
+    .cta-button-group {
+        flex-direction: column;
+        align-items: center;
+    }
+}
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -945,6 +1040,31 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
 
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+    <section class="cta-section">
+    <div class="container text-center">
+        <!-- Main Heading with Gradient -->
+        <h2 class="cta-title">
+            Ready to Ace Your <br />
+            <span class="gradient-text-italic">IB / IGCSE Exams?</span>
+        </h2>
+
+        <p class="cta-subtitle">
+            Book a free demo class today — no payment, no commitment. Just great teaching.
+        </p>
+
+        <div class="cta-button-group">
+            <!-- Redirects to top of page -->
+            <a href="#top" class="btn-cta-primary">
+                Book Free Demo <i class="bi bi-arrow-right"></i>
+            </a>
+
+            <!-- Redirects to WhatsApp -->
+            <a href="https://wa.me/8210935819" target="_blank" class="btn-cta-whatsapp">
+                <i class="bi bi-whatsapp"></i> Chat on WhatsApp
+            </a>
         </div>
     </div>
 </section>
