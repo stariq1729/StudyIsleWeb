@@ -140,6 +140,7 @@
     <Content Include="BoardResource.aspx" />
     <Content Include="BoardResourceTypes.aspx" />
     <Content Include="Books.aspx" />
+    <Content Include="CareerCouncelling.aspx" />
     <Content Include="CareerGuidance.aspx" />
     <Content Include="Chapters.aspx" />
     <Content Include="CompSubCategory.aspx" />
@@ -462,6 +463,13 @@
     </Compile>
     <Compile Include="Books.aspx.designer.cs">
       <DependentUpon>Books.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CareerCouncelling.aspx.cs">
+      <DependentUpon>CareerCouncelling.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CareerCouncelling.aspx.designer.cs">
+      <DependentUpon>CareerCouncelling.aspx</DependentUpon>
     </Compile>
     <Compile Include="CareerGuidance.aspx.cs">
       <DependentUpon>CareerGuidance.aspx</DependentUpon>
