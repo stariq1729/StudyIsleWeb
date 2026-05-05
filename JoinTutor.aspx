@@ -250,43 +250,68 @@
     z-index: 2;
 }
 
-/* FAQ Section */
+        /* FAQ Section Adjustments */
 .faq-section {
-    padding-bottom: 80px;
+    padding: 100px 0;
+    background-color: #f8fafc; /* Very light blue/grey background */
 }
 
-.faq-card {
-    background: #fff;
-    border: 1px solid #eef2ff;
-    border-radius: 20px;
-    padding: 25px;
-    height: 100%;
-    transition: transform 0.3s ease;
-}
-
-.faq-card:hover {
-    transform: translateY(-5px);
-}
-
-.faq-icon {
+.faq-badge {
+    font-size: 13px;
+    font-weight: 800;
     color: #6366f1;
-    font-size: 18px;
-    margin-right: 10px;
-}
-
-.faq-card h5 {
-    font-size: 16px;
-    font-weight: 700;
+    letter-spacing: 2px;
     margin-bottom: 15px;
     display: flex;
     align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
-.faq-card p {
-    font-size: 14px;
-    color: #6b7280;
+/* Accordion Customization */
+.custom-accordion .accordion-item {
+    border: none;
+    background-color: #fff;
+    border-radius: 15px !important;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    overflow: hidden;
+}
+
+.custom-accordion .accordion-button {
+    padding: 25px 30px;
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 17px;
+    background-color: #fff;
+    box-shadow: none;
+}
+
+/* Remove default blue focus and background */
+.custom-accordion .accordion-button:not(.collapsed) {
+    color: #4f46e5;
+    background-color: #fff;
+    box-shadow: none;
+}
+
+.custom-accordion .accordion-button:focus {
+    box-shadow: none;
+    border-color: rgba(0,0,0,.125);
+}
+
+/* Accordion body text */
+.custom-accordion .accordion-body {
+    padding: 0 30px 25px 30px;
+    color: #64748b;
+    font-size: 15px;
     line-height: 1.6;
-    margin: 0;
+    border-top: 1px solid #f1f5f9;
+}
+
+/* Customizing the Chevron Arrow */
+.custom-accordion .accordion-button::after {
+    background-size: 1rem;
+    transition: transform 0.2s ease-in-out;
 }
     </style>
 
@@ -542,40 +567,104 @@
 </section>
 
 <!-- FAQ SECTION -->
-<section class="faq-section">
+    <section class="faq-section">
     <div class="container">
+        <!-- Section Header -->
         <div class="text-center mb-5">
-            <h2 class="fw-bold">Frequently Asked Questions</h2>
-            <p class="text-muted">Everything you need to know about the application process and teaching on StudyIsle.</p>
+            <div class="faq-badge">
+                <span class="emoji-icon">❓</span> FAQ
+            </div>
+            <h2 class="section-title">Common Questions</h2>
         </div>
-        
-        <div class="row g-4">
-            <!-- FAQ 1 -->
-            <div class="col-md-6">
-                <div class="faq-card">
-                    <h5><i class="far fa-question-circle faq-icon"></i> What are the minimum requirements?</h5>
-                    <p>We typically require a Bachelor's degree in your subject area and at least 1 year of teaching experience. However, we also value passion and unique teaching styles.</p>
-                </div>
-            </div>
-            <!-- FAQ 2 -->
-            <div class="col-md-6">
-                <div class="faq-card">
-                    <h5><i class="far fa-question-circle faq-icon"></i> How do I get paid?</h5>
-                    <p>Payments are processed bi-weekly via direct bank transfer or PayPal. You can track your earnings in real-time through your teacher dashboard.</p>
-                </div>
-            </div>
-            <!-- FAQ 3 -->
-            <div class="col-md-6">
-                <div class="faq-card">
-                    <h5><i class="far fa-question-circle faq-icon"></i> Can I choose my own hours?</h5>
-                    <p>Absolutely. You can set your availability in your profile, and students will book sessions based on your schedule.</p>
-                </div>
-            </div>
-            <!-- FAQ 4 -->
-            <div class="col-md-6">
-                <div class="faq-card">
-                    <h5><i class="far fa-question-circle faq-icon"></i> Is there a fee to join?</h5>
-                    <p>No, joining StudyIsle as a teacher is completely free. We take a small commission from each session to maintain the platform and support services.</p>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="accordion custom-accordion" id="faqAccordion">
+                    
+                    <!-- Question 1 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                Which international boards do you teach?
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                We cover IB Diploma (DP), IB MYP, Cambridge IGCSE, Cambridge A-Level, AP (Advanced Placement), and Edexcel International. If your board isn't listed, reach out — we likely cover it.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                Are classes 1-on-1 or in groups?
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Dummy text: All our core sessions are strictly 1-on-1 to ensure maximum focus, though we do offer optional small-group workshops for exam revision.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                                What platform do you use for classes?
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Dummy text: We primarily use Zoom integrated with an interactive digital whiteboard, allowing students to save all session notes instantly.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
+                                Can I get help with IB Internal Assessments (IA)?
+                            </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Dummy text: Yes, we provide specialized mentoring for IAs, Extended Essays (EE), and TOK, focusing on structure, criteria, and academic honesty.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive">
+                                How do I reschedule a session?
+                            </button>
+                        </h2>
+                        <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Dummy text: Rescheduling is easy via our student portal. We just ask for at least 24 hours' notice to coordinate with your tutor.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 6 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix">
+                                Is the demo class really free?
+                            </button>
+                        </h2>
+                        <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Dummy text: Absolutely. The 30-minute demo is completely free and designed to help you meet the tutor and discuss your learning goals.
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
