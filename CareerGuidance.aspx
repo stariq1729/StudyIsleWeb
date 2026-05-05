@@ -149,15 +149,16 @@
     border-color: #f1f1f1;
 }
 
-/* How it works Section Styles */
+              /* How it works Section Styles */
+
 .how-it-works-section {
     padding: 100px 0;
-    background-color: #fff;
+    background-color: #f9fafb;
 }
 
 .how-badge {
     font-size: 13px;
-    font-weight: 800;
+    font-weight: 700;
     color: #6366f1;
     letter-spacing: 2px;
     margin-bottom: 15px;
@@ -170,7 +171,7 @@
 /* Process Flow Layout */
 .process-wrapper {
     position: relative;
-    margin-top: 60px;
+    margin-top: 40px;
 }
 
 /* The horizontal line behind the numbers */
