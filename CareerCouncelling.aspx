@@ -1,6 +1,106 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CareerCouncelling.aspx.cs" Inherits="StudyIsleWeb.CareerCouncelling" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="assets\css\CareerGuide.css" rel="stylesheet" />
+    <style>
+                /* Custom styles for this page */
+        /* Audience Section */
+.audience-section {
+    padding: 60px 0;
+    background-color: #ffffff;
+}
+
+.section-header .sub-title {
+    color: #6366f1;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 1.2px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.section-header .main-title {
+    font-size: 34px;
+    font-weight: 800;
+    color: #1e293b;
+    margin-bottom: 15px;
+    letter-spacing: -0.5px;
+}
+
+.section-header .main-title span {
+    color: #6366f1;
+}
+
+.section-header .section-desc {
+    color: #64748b;
+    font-size: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Compact Card Styling */
+.audience-card {
+    background: #fff;
+    padding: 30px 25px; /* Reduced padding for smaller height */
+    border-radius: 18px;
+    height: 100%;
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Icon Styling - Matched to Image */
+.card-icon-box {
+    margin-bottom: 20px;
+}
+
+.card-icon-box i {
+    font-size: 32px;
+    color: #6366f1;
+    -webkit-text-stroke: 0.5px #6366f1; /* Makes the outline icons look sharper */
+}
+
+.audience-tag {
+    display: block;
+    color: #6366f1;
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.card-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 12px;
+    line-height: 1.3;
+}
+
+.card-text {
+    color: #64748b;
+    line-height: 1.5;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+/* Hover Effect - Subtle Lift */
+.audience-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(99, 102, 241, 0.1);
+    border-color: #e2e8f0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .section-header .main-title {
+        font-size: 28px;
+    }
+    .audience-card {
+        padding: 25px 20px;
+    }
+}
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
       <%-- CAREER GUIDANCE SECTION
@@ -117,6 +217,57 @@ Subject or College to
                 </div>
                 <!-- END RIGHT CARD -->
 
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- WHO IS IT FOR SECTION -->
+<!-- WHO IS IT FOR SECTION -->
+<section class="audience-section">
+    <div class="container">
+        <div class="section-header text-center">
+            <span class="sub-title">WHO IS IT FOR</span>
+            <h2 class="main-title">Right for You if You're <span>At a Crossroads.</span></h2>
+            <p class="section-desc">Our counselling covers every major decision point in a student's academic journey.</p>
+        </div>
+
+        <div class="row mt-4 justify-content-center">
+            <!-- Card 1 -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="audience-card">
+                    <div class="card-icon-box">
+                        <i class="bi bi-book"></i>
+                    </div>
+                    <span class="audience-tag">CLASS 9 & 10</span>
+                    <h3 class="card-title">Choosing Your Stream</h3>
+                    <p class="card-text">Science, Commerce or Arts? We map your strengths, interests and goals to find the right fit — before you commit.</p>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="audience-card">
+                    <div class="card-icon-box">
+                        <i class="bi bi-mortarboard"></i>
+                    </div>
+                    <span class="audience-tag">CLASS 11 & 12</span>
+                    <h3 class="card-title">College & Career Planning</h3>
+                    <p class="card-text">Shortlist colleges based on rank, budget and career path. Get a clear roadmap from board exams to admission.</p>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="audience-card">
+                    <div class="card-icon-box">
+                        <i class="bi bi-bank"></i>
+                    </div>
+                    <span class="audience-tag">COLLEGE STUDENTS</span>
+                    <h3 class="card-title">What's Next After Graduation?</h3>
+                    <p class="card-text">Confused about your future after a degree? We assess your skills and ambitions to find a clear direction ahead.</p>
+                </div>
             </div>
         </div>
     </div>
