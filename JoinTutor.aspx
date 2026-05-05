@@ -414,6 +414,76 @@
     background-size: 1rem;
     transition: transform 0.2s ease-in-out;
 }
+
+/*last CTA Section*/
+
+/* SECTION */
+.cta-section {
+    padding: 60px 0 100px;
+    background: #f9faff;
+}
+
+/* BOX */
+.cta-box {
+    background: linear-gradient(135deg, #0f0f1a, #1a1a2e);
+    color: #fff;
+    border-radius: 30px;
+    padding: 60px 20px;
+    max-width: 1100px;
+    margin: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+
+/* TITLE */
+.cta-box h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+/* TEXT */
+.cta-box p {
+    color: #cbd5e1;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+/* BUTTON GROUP */
+.cta-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* APPLY BUTTON */
+.cta-btn {
+    background: linear-gradient(135deg, #6d5dfc, #4f46e5);
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    border: none;
+    transition: 0.3s ease;
+}
+
+.cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(109, 93, 252, 0.4);
+    color: #fff;
+}
+
+/* CHAT LINK */
+.chat-link {
+    color: #cbd5e1;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.chat-link:hover {
+    color: #fff;
+}
     </style>
 
 </asp:Content>
@@ -879,6 +949,33 @@
                 </div>
             </div>
         </div>
+    </div>
+</section>
+
+    <%--Final CTA Section--%>
+    <section class="cta-section">
+    <div class="container">
+
+        <div class="cta-box text-center">
+
+            <h2>Ready to Make a Difference?</h2>
+
+            <p>
+                Apply today and start teaching IB, IGCSE, A-Level and AP students globally.
+            </p>
+
+            <div class="cta-actions">
+                <a href="#join-form" class="btn cta-btn">
+                    Apply Now →
+                </a>
+
+                <a href="#" class="chat-link">
+                    💬 Chat With Us
+                </a>
+            </div>
+
+        </div>
+
     </div>
 </section>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
