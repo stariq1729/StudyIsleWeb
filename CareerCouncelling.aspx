@@ -244,10 +244,11 @@
     .session-details-section .main-title { font-size: 36px; }
     .session-card { padding: 30px 20px; border-radius: 30px; }
 }
+    
 /* How It Works Section */
 .process-section {
     padding: 60px 0; /* Compact padding */
-    background-color: #fff;
+    background-color: #f9fafb;
 }
 
 .process-wrapper {
@@ -330,6 +331,110 @@
     }
     .process-item {
         margin-bottom: 40px;
+    }
+}
+
+/* Assessment Grid Section */
+.assessment-grid-section {
+    padding: 60px 0;
+    background-color: #ffffff;
+}
+
+        .assessment-grid-section .sub-title {
+            color: #6366f1;
+            font-weight: 600;
+            font-size: 10px;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            
+        }
+
+.assessment-grid-section .main-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1e293b;
+    line-height: 1.1;
+}
+
+.assessment-grid-section .main-title span {
+    color: #6366f1;
+}
+
+.assessment-description p {
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.1;
+}
+
+/* Assessment Button with Line spacing */
+.btn-assessment {
+    display: inline-block;
+    background-color: #6366f1;
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+.btn-assessment:hover {
+    background-color: #4f46e5;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+/* Mini Cards Grid */
+.mini-card {
+    background: #ffffff;
+    border: 1px solid #f1f5f9;
+    padding: 15px;
+    border-radius: 18px;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.mini-card i {
+    font-size: 20px;
+    display: block;
+    margin-bottom: 12px;
+}
+
+/* Icon Colors */
+.pink-text { color: #f472b6; }
+.blue-text { color: #38bdf8; }
+.orange-text { color: #fb923c; }
+.purple-text { color: #a78bfa; }
+.green-text { color: #34d399; }
+.indigo-text { color: #818cf8; }
+
+.mini-card h5 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1e293b;
+    margin-bottom: 6px;
+}
+
+.mini-card p {
+    font-size: 12px;
+    color: #64748b;
+    margin-bottom: 0;
+    line-height: 1.2;
+}
+
+/* Card Hover Effect */
+.mini-card:hover {
+    border-color: #e2e8f0;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 991px) {
+    .assessment-grid-section .main-title {
+        font-size: 32px;
     }
 }
     </style>
@@ -656,6 +761,84 @@ Subject or College to
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+    <!-- PSYCHOMETRIC ASSESSMENT SECTION -->
+<section class="assessment-grid-section">
+    <div class="container">
+        <div class="row align-items-center">
+            
+            <!-- LEFT CONTENT -->
+            <div class="col-lg-5 mb-5 mb-lg-0">
+                <span class="sub-title">PSYCHOMETRIC ASSESSMENT</span>
+                <h2 class="main-title mb-4">Decisions Based on<br><span>Data, Not Guesswork.</span></h2>
+                
+                <div class="assessment-description">
+                    <p>Before your session, you'll take a free career assessment. This helps Pranav understand your strengths and match the right career paths to you — not just the popular ones.</p>
+                    <p class="mt-4">We assess across <strong>20 career clusters</strong>, <strong>160+ career paths</strong> and <strong>3,000+ occupations</strong> — so no option is missed.</p>
+                </div>
+
+                <div class="mt-5">
+                    <a href="#" class="btn-assessment">Take Free Assessment →</a>
+                </div>
+            </div>
+
+            <!-- RIGHT GRID -->
+            <div class="col-lg-7">
+                <div class="row g-2"> <!-- g-3 handles the tight gap between cards -->
+                    <!-- Card 1 -->
+                    <div class="col-md-6">
+                        <div class="mini-card">
+                            <i class="bi bi-bar-chart-line pink-text"></i>
+                            <h5>Class 9 & 10</h5>
+                            <p>Career path & subject suitability</p>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="col-md-6">
+                        <div class="mini-card">
+                            <i class="bi bi-eyedropper blue-text"></i>
+                            <h5>Class 11 & 12 Science</h5>
+                            <p>Engineering, Medical, Research paths</p>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="col-md-6">
+                        <div class="mini-card">
+                            <i class="bi bi-briefcase orange-text"></i>
+                            <h5>Class 11 & 12 Commerce</h5>
+                            <p>Finance, Law, Management paths</p>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="col-md-6">
+                        <div class="mini-card">
+                            <i class="bi bi-palette purple-text"></i>
+                            <h5>Arts & Humanities</h5>
+                            <p>Creative, social and teaching careers</p>
+                        </div>
+                    </div>
+                    <!-- Card 5 -->
+                    <div class="col-md-6">
+                        <div class="mini-card">
+                            <i class="bi bi-mortarboard green-text"></i>
+                            <h5>College Graduates</h5>
+                            <p>Career shift or advancement planning</p>
+                        </div>
+                    </div>
+                    <!-- Card 6 -->
+                    <div class="col-md-6">
+                        <div class="mini-card">
+                            <i class="bi bi-gear indigo-text"></i>
+                            <h5>Engineering Stream</h5>
+                            <p>Right branch before college admission</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
