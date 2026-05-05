@@ -28,7 +28,7 @@ namespace StudyIsleWeb
                 //else if (currentPage == "liveclasses.aspx")
                 //    navLive.Attributes["class"] += " active";
 
-                else if (currentPage == "testseries.aspx")
+                else if (currentPage == "CareerCouncelling.aspx")
                     navTest.Attributes["class"] += " active";
 
                 else if (currentPage == "careerguidance.aspx")

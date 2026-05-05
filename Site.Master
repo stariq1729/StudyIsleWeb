@@ -110,7 +110,7 @@
                 </li>--%>
 
                 <li class="nav-item">
-                    <a id="navTest" runat="server" class="nav-link nav-custom" href="https://studyisle.edumilestones.com/">Career Councelling</a>
+                    <a id="navTest" runat="server" class="nav-link nav-custom" href="~/CareerCouncelling.aspx">Career Councelling</a>
                 </li>
 
                 <li class="nav-item">
