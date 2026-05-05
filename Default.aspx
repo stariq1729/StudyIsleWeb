@@ -1425,188 +1425,137 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
 
 
 
-<section class="blogs-section">
-    <div class="container">
+<div class="container mt-4 blogs-section">
 
-        <!-- HERO SECTION -->
-        <div class="blogs-hero text-center">
-            <h1 class="blogs-main-title">Student Success Hub</h1>
+    <!-- 🔷 HEADER -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold">Student Success Hub</h2>
+        <p class="text-muted">
+            High-impact strategies, resources, and expert tips to ace 
+            <b>CBSE</b>, <b>JEE</b>, and <b>NEET</b> exams.
+        </p>
+    </div>
 
-            <p class="blogs-description">
-                High-impact strategies, resources, and expert tips to ace
-                <span>CBSE</span>, <span>JEE</span>, and <span>NEET</span> exams.
-            </p>
+    <!-- 🔷 CATEGORY TABS -->
+    <div class="text-center mb-4">
 
-            <div class="blogs-filters">
-                <button class="filter-btn active">Latest Updates</button>
-                <button class="filter-btn">JEE Main & Advanced</button>
-                <button class="filter-btn">NEET UG</button>
-                <button class="filter-btn">CBSE Boards</button>
-                <button class="filter-btn">Study Strategy</button>
-            </div>
-        </div>
+        <!-- Latest -->
+        <asp:LinkButton ID="btnLatest" runat="server" CssClass="btn btn-primary me-2"
+            OnClick="btnLatest_Click">Latest</asp:LinkButton>
 
-
-        <!-- BLOG GRID -->
-        <div class="row g-4 mt-4">
-
-            <!-- CARD -->
-            <div class="col-lg-4 col-md-6">
-                <div class="blog-card">
-
-                    <!-- Clickable Content -->
-                    <a href="BlogDetails.aspx?slug=jee-main-2025-roadmap" class="blog-link">
-
-                        <div class="blog-img">
-                            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b" />
-                            <span class="blog-badge">JEE</span>
-                        </div>
-
-                        <div class="blog-content">
-
-                            <div class="blog-author">
-                                <span class="author-name">Dr. Anand Verma</span>
-                                <span class="dot">•</span>
-                                <span>Feb 18, 2025</span>
-                            </div>
-
-                            <h3 class="blog-title">
-                                JEE Main 2025: A Comprehensive 6-Month Roadmap to 99+ Percentile
-                            </h3>
-
-                            <p class="blog-excerpt">
-                                Cracking JEE requires more than just hard work; it requires a strategic approach to Physics, Chemistry, and Mathematics.
-                            </p>
-
-                        </div>
-                    </a>
-
-                    <!-- Action Footer -->
-                    <div class="blog-actions">
-                        <span class="read-time">10 min read</span>
-
-                        <div class="action-icons">
-                            <button class="icon-btn" title="Bookmark">
-                                <i class="bi bi-bookmark"></i>
-                            </button>
-
-                            <button class="icon-btn" title="Share">
-                                <i class="bi bi-share"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-
-            <!-- Duplicate Above Card Structure 2 More Times -->
-            <!-- Just change content/image/title/slug -->
-
-            <%----card 2----%>
-                        <!-- CARD -->
-            <div class="col-lg-4 col-md-6">
-                <div class="blog-card">
-
-                    <!-- Clickable Content -->
-                    <a href="BlogDetails.aspx?slug=jee-main-2025-roadmap" class="blog-link">
-
-                        <div class="blog-img">
-                            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b" />
-                            <span class="blog-badge">JEE</span>
-                        </div>
-
-                        <div class="blog-content">
-
-                            <div class="blog-author">
-                                <span class="author-name">Dr. Anand Verma</span>
-                                <span class="dot">•</span>
-                                <span>Feb 18, 2025</span>
-                            </div>
-
-                            <h3 class="blog-title">
-                                JEE Main 2025: A Comprehensive 6-Month Roadmap to 99+ Percentile
-                            </h3>
-
-                            <p class="blog-excerpt">
-                                Cracking JEE requires more than just hard work; it requires a strategic approach to Physics, Chemistry, and Mathematics.
-                            </p>
-
-                        </div>
-                    </a>
-
-                    <!-- Action Footer -->
-                    <div class="blog-actions">
-                        <span class="read-time">10 min read</span>
-
-                        <div class="action-icons">
-                            <button class="icon-btn" title="Bookmark">
-                                <i class="bi bi-bookmark"></i>
-                            </button>
-
-                            <button class="icon-btn" title="Share">
-                                <i class="bi bi-share"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-           <%-- --card 3----%>
-                        <!-- CARD -->
-            <div class="col-lg-4 col-md-6">
-                <div class="blog-card">
-
-                    <!-- Clickable Content -->
-                    <a href="BlogDetails.aspx?slug=jee-main-2025-roadmap" class="blog-link">
-
-                        <div class="blog-img">
-                            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b" />
-                            <span class="blog-badge">JEE</span>
-                        </div>
-
-                        <div class="blog-content">
-
-                            <div class="blog-author">
-                                <span class="author-name">Dr. Anand Verma</span>
-                                <span class="dot">•</span>
-                                <span>Feb 18, 2025</span>
-                            </div>
-
-                            <h3 class="blog-title">
-                                JEE Main 2025: A Comprehensive 6-Month Roadmap to 99+ Percentile
-                            </h3>
-
-                            <p class="blog-excerpt">
-                                Cracking JEE requires more than just hard work; it requires a strategic approach to Physics, Chemistry, and Mathematics.
-                            </p>
-
-                        </div>
-                    </a>
-
-                    <!-- Action Footer -->
-                    <div class="blog-actions">
-                        <span class="read-time">10 min read</span>
-
-                        <div class="action-icons">
-                            <button class="icon-btn" title="Bookmark">
-                                <i class="bi bi-bookmark"></i>
-                            </button>
-
-                            <button class="icon-btn" title="Share">
-                                <i class="bi bi-share"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
+        <!-- Dynamic Categories -->
+        <asp:Repeater ID="rptCategories" runat="server">
+            <ItemTemplate>
+                <asp:LinkButton runat="server"
+                    CssClass="btn btn-outline-secondary me-2"
+                    CommandArgument='<%# Eval("CategoryId") %>'
+                    OnCommand="Category_Click">
+                    <%# Eval("CategoryName") %>
+                </asp:LinkButton>
+            </ItemTemplate>
+        </asp:Repeater>
 
     </div>
-</section>
 
+    <!-- 🔷 BLOG CARDS -->
+    <div class="row">
 
+       <asp:Repeater ID="rptBlogs" runat="server">
+<ItemTemplate>
+
+    <div class="col-md-4 mb-4">
+
+        <!-- 🔥 FULL CARD CLICKABLE -->
+        <a href='BlogDetails.aspx?slug=<%# Eval("Slug") %>' 
+           style="text-decoration:none; color:inherit; display:block;">
+
+            <div class="card h-100 shadow-sm">
+
+                <!-- Image -->
+                <img src='<%# Eval("CoverImage") %>' 
+                     class="card-img-top" 
+                     style="height:200px; object-fit:cover;" />
+
+                <div class="card-body">
+
+                    <!-- Category Tag -->
+                    <span class="badge bg-primary mb-2">
+                        <%# Eval("CategoryName") %>
+                    </span>
+
+                    <!-- 🔥 Author + Date Row -->
+                    <div class="d-flex align-items-center mb-2">
+
+                        <!-- Author Image -->
+                        <img src='<%# string.IsNullOrEmpty(Eval("AuthorImage").ToString()) ? "/uploads/default-user.png" : Eval("AuthorImage") %>'
+     style="width:30px; height:30px; border-radius:50%; object-fit:cover; margin-right:8px;" />
+
+                        <!-- Author Name -->
+                        <small class="text-muted">
+                            <%# Eval("AuthorName") %>
+                        </small>
+
+                    </div>
+
+                    <!-- Title -->
+                   <h5 class="card-title clamp-title">
+                        <%# Eval("Title") %>
+                    </h5>
+
+                    <!-- Description -->
+                   <p class="card-text text-muted clamp-desc">
+                        <%# Eval("ShortDescription") %>
+                    </p>
+
+                </div>
+
+                <div class="card-footer d-flex justify-content-between align-items-center">
+
+                    <!-- 🔥 Dynamic Read Time -->
+                    <small class="text-muted">
+                        <%# Eval("ReadTime") %> min read
+                    </small>
+
+                    <!-- Actions -->
+                    <div>
+                        <i class="fa fa-bookmark me-2" 
+                           style="cursor:pointer;"
+                           onclick="event.preventDefault(); event.stopPropagation();">
+                        </i>
+
+                        <i class="fa fa-share" 
+                           style="cursor:pointer;"
+                           onclick="event.preventDefault(); event.stopPropagation(); shareBlog('<%# Eval("Slug") %>')">
+                        </i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+</ItemTemplate>
+</asp:Repeater>
+    </div>
+
+</div>
+
+    <script>
+function shareBlog(slug) {
+    let url = window.location.origin + "/BlogDetails.aspx?slug=" + slug;
+
+    if (navigator.share) {
+        navigator.share({
+            title: 'Check this blog',
+            url: url
+        });
+    } else {
+        navigator.clipboard.writeText(url);
+        alert("Link copied!");
+    }
+}
+    </script>
 </asp:Content>
