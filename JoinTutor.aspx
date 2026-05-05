@@ -202,52 +202,71 @@
 }
 
 /* Why Choose Us Section */
-.why-choose-section {
+/* SECTION */
+.why-section {
     padding: 80px 0;
-    background: #fff;
+    background: #f9faff;
 }
 
-.benefit-list {
-    list-style: none;
-    padding: 0;
-}
-
-.benefit-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    font-size: 14px;
-    color: #4b5563;
-}
-
-.benefit-item i {
-    color: #10b981; /* Green checkmark */
-    margin-right: 12px;
-    font-size: 16px;
-}
-
-/* Image with Floating Testimonial */
-.img-wrapper {
-    position: relative;
-    padding-bottom: 40px;
-}
-
-.main-feature-img {
-    border-radius: 40px;
-    width: 100%;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-}
-
-.testimonial-float {
-    position: absolute;
-    bottom: 0;
-    left: -30px;
-    background: #fff;
-    padding: 25px;
+/* TAG */
+.section-tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #6d5dfc;
+    background: rgba(109, 93, 252, 0.1);
+    padding: 6px 12px;
     border-radius: 20px;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-    max-width: 280px;
-    z-index: 2;
+    margin-bottom: 10px;
+}
+
+/* TITLE */
+.section-title-main {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+/* SUBTITLE */
+.section-subtitle {
+    color: #6c757d;
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 14px;
+}
+
+/* CARD */
+.why-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 25px;
+    height: 100%;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+/* HOVER */
+.why-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+}
+
+/* ICON */
+.why-card .icon {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+/* TEXT */
+.why-card h5 {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.why-card p {
+    font-size: 14px;
+    color: #6c757d;
+    margin: 0;
 }
 
         /* FAQ Section Adjustments */
@@ -538,30 +557,70 @@
         </div>
 </section>
     <!-- WHY CHOOSE US -->
-<section class="why-choose-section">
+<section class="why-section">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 pe-lg-5">
-                <h2 class="fw-bold mb-3">Why thousands of educators choose <span style="color:#6366f1;">StudyIsle</span></h2>
-                <p class="text-muted mb-4">StudyIsle is more than just a tutoring platform. It's a community of dedicated professionals committed to making high-quality education accessible to everyone.</p>
-                
-                <ul class="benefit-list">
-                    <li class="benefit-item"><i class="fas fa-check-circle"></i> Access to a growing community of eager learners worldwide.</li>
-                    <li class="benefit-item"><i class="fas fa-check-circle"></i> Professional development workshops and certification programs.</li>
-                    <li class="benefit-item"><i class="fas fa-check-circle"></i> State-of-the-art virtual classroom with interactive whiteboards.</li>
-                    <li class="benefit-item"><i class="fas fa-check-circle"></i> Dedicated support team available 24/7 for technical assistance.</li>
-                </ul>
-            </div>
-            
-            <div class="col-lg-6 mt-5 mt-lg-0">
-                <div class="img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"  class="main-feature-img" alt="Educators" />
-                    <div class="testimonial-float">
-                        <p class="fw-bold mb-2">"The best decision for my career."</p>
-                        <small class="text-muted">- Sarah Jenkins, Senior Math Educator</small>
-                    </div>
+
+        <!-- Heading -->
+        <div class="text-center mb-5">
+            <span class="section-tag">WHY STUDYISLE</span>
+            <h2 class="section-title-main">Why Educators Choose Us</h2>
+            <p class="section-subtitle">
+                We take care of everything — student matching, scheduling, resources, payments —
+                so you can focus on what you do best: teaching.
+            </p>
+        </div>
+
+        <!-- Cards -->
+        <div class="row g-4">
+
+            <div class="col-md-6 col-lg-4">
+                <div class="why-card">
+                    <div class="icon">💰</div>
+                    <h5>Competitive Pay</h5>
+                    <p>Earn ₹500–₹1,500 per session. Weekly payouts with no delays.</p>
                 </div>
             </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="why-card">
+                    <div class="icon">⏱️</div>
+                    <h5>Your Schedule, Your Rules</h5>
+                    <p>Set your availability and teach anytime, anywhere.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="why-card">
+                    <div class="icon">🌍</div>
+                    <h5>Global Student Base</h5>
+                    <p>Work with students across India, UAE, UK, US and more.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="why-card">
+                    <div class="icon">📚</div>
+                    <h5>Everything Provided</h5>
+                    <p>Access curated materials, question banks, and teaching guides.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="why-card">
+                    <div class="icon">🏅</div>
+                    <h5>Career Growth</h5>
+                    <p>Grow into leadership roles with certification and training.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="why-card">
+                    <div class="icon">🤝</div>
+                    <h5>Supportive Community</h5>
+                    <p>Collaborate with educators and grow together.</p>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
@@ -572,7 +631,7 @@
         <!-- Section Header -->
         <div class="text-center mb-5">
             <div class="faq-badge">
-                <span class="emoji-icon">❓</span> FAQ
+                <span class="emoji-icon">❓</span>TUTOR FAQ
             </div>
             <h2 class="section-title">Common Questions</h2>
         </div>
