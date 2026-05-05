@@ -531,24 +531,90 @@
 }
 
 /* CTA Link */
+/* --- REPLACE EXISTING .btn-book-session WITH THIS --- */
 .btn-book-session {
-    color: #6366f1;
+    display: inline-block;
+    background-color: #6366f1; /* Solid purple from reference images */
+    color: #ffffff;
+    padding: 14px 30px;
+    border-radius: 12px;
     font-weight: 700;
-    text-decoration: none;
     font-size: 16px;
-    transition: all 0.3s ease;
-    border-bottom: 2px solid transparent;
+    border: none; /* Removes default button border */
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+    text-align: center;
 }
 
+/* Updated Hover State: Lift effect + Glow */
 .btn-book-session:hover {
-    color: #4f46e5;
-    border-bottom: 2px solid #4f46e5;
+    background-color: #4f46e5; /* Slightly darker purple on hover */
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+}
+
+/* Active State: Slight "push down" effect when clicked */
+.btn-book-session:active {
+    transform: translateY(-1px);
 }
 
 /* Mobile Adjustments */
 @media (max-width: 991px) {
     .ps-lg-5 { padding-left: 15px !important; }
     .profile-name { font-size: 28px; }
+}
+
+/* FAQ Section Styling */
+.faq-section {
+    padding: 80px 0;
+    background-color: #ffffff;
+}
+
+.faq-section .accordion-item {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid #f1f5f9; /* Light line separator */
+    margin-bottom: 10px;
+}
+
+.faq-section .accordion-button {
+    padding: 25px 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e293b;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Match the grey italic answer style from the image */
+.faq-section .accordion-body {
+    padding: 0 0 25px 0;
+    color: #94a3b8;
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* Arrow icon styling */
+.faq-section .accordion-button::after {
+    background-size: 14px;
+    background-position: center;
+    transition: transform 0.3s ease;
+}
+
+/* Customizing the active state (when open) */
+.faq-section .accordion-button:not(.collapsed) {
+    color: #1e293b;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 991px) {
+    .faq-section .accordion-button {
+        font-size: 16px;
+    }
 }
     </style>
 </asp:Content>
@@ -1004,7 +1070,108 @@ Subject or College to
                 </ul>
 
                 <div class="mt-5">
-                     <a href="#" class="btn-book-session">Book a Free Session with Pranav →</a>
+    <button type="button" href="#" class="btn-book-session">Book a Free Session with Pranav →</button>
+</div>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- FAQ SECTION -->
+<section class="faq-section">
+    <div class="container">
+        <div class="section-header text-center mb-5">
+            <span class="sub-title">FAQS</span>
+            <h2 class="main-title">Common Questions</h2>
+        </div>
+
+        <div class="row">
+            <!-- Left Column -->
+            <div class="col-lg-6">
+                <div class="accordion accordion-flush" id="faqLeft">
+                    <!-- Q1 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q1">
+                                Is the session really free?
+                            </button>
+                        </h2>
+                        <div id="q1" class="accordion-collapse collapse" data-bs-parent="#faqLeft">
+                            <div class="accordion-body">
+                                Yes — completely free. No hidden charges, no credit card, no upsell during the call.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Q2 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q2">
+                                How long is the session?
+                            </button>
+                        </h2>
+                        <div id="q2" class="accordion-collapse collapse" data-bs-parent="#faqLeft">
+                            <div class="accordion-body">
+                                A typical session lasts about 45 minutes, allowing enough time for assessment review and roadmap planning.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Q3 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q3">
+                                Can my parents join the session?
+                            </button>
+                        </h2>
+                        <div id="q3" class="accordion-collapse collapse" data-bs-parent="#faqLeft">
+                            <div class="accordion-body">
+                                Absolutely. We encourage parents to join so everyone is on the same page regarding the student's future path.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="col-lg-6">
+                <div class="accordion accordion-flush" id="faqRight">
+                    <!-- Q4 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q4">
+                                What is a psychometric assessment?
+                            </button>
+                        </h2>
+                        <div id="q4" class="accordion-collapse collapse" data-bs-parent="#faqRight">
+                            <div class="accordion-body">
+                                It is a scientifically designed test that evaluates your interests, personality traits, and aptitudes to suggest the best career fit.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Q5 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q5">
+                                Is this for school students only?
+                            </button>
+                        </h2>
+                        <div id="q5" class="accordion-collapse collapse" data-bs-parent="#faqRight">
+                            <div class="accordion-body">
+                                While we specialize in Class 9-12, we also provide guidance for college graduates and early-career professionals.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Q6 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q6">
+                                How do I book?
+                            </button>
+                        </h2>
+                        <div id="q6" class="accordion-collapse collapse" data-bs-parent="#faqRight">
+                            <div class="accordion-body">
+                                Simply click the "Schedule 1:1 Call" button and pick a time slot that works best for you.
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
