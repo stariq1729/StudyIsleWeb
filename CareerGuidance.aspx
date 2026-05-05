@@ -234,6 +234,95 @@
         margin-bottom: 50px;
     }
 }
+
+         /* Main Purple Container */
+.results-section {
+    padding: 40px 0;
+    background-color: #ffffff;
+}
+
+/* Main Purple Container */
+.results-container {
+    background-color: #2e2a87; /* Deep Indigo */
+    border-radius: 50px;
+    padding: 70px 50px;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.results-badge {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #a5b4fc; /* Light lavender color */
+}
+
+.results-title {
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 22px;
+}
+
+.results-description {
+    font-size: 16px;
+    color: #c7d2fe;
+    line-height: 1.1;
+    max-width: 350px;
+}
+
+/* Stat Cards */
+.stat-card {
+    background-color: rgba(255, 255, 255, 0.05); /* Transparent white */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 20px 16px;
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+/* Brighter on Hover */
+.stat-card:hover {
+    background-color: rgba(255, 255, 255, 0.12); /* Brighter background */
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.stat-card h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.stat-subtext {
+    font-size: 11px;
+    font-weight: 400;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 991px) {
+    .results-container {
+        padding: 50px 30px;
+        border-radius: 30px;
+    }
+    .results-title {
+        font-size: 36px;
+    }
+}
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -630,6 +719,64 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
                         <p>Get weekly progress reports, exam-style practice and personalised improvement plans.</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <section class="results-section">
+    <div class="container">
+        <div class="results-container">
+            <div class="row align-items-center">
+                
+                <!-- Left Side: Text -->
+                <div class="col-lg-5 mb-5 mb-lg-0">
+                    <div class="results-badge">
+                        <span>🏆</span> RESULTS
+                    </div>
+                    <h2 class="results-title">Numbers That Speak Louder</h2>
+                    <p class="results-description">
+                        Our students consistently outperform global averages across IB, IGCSE and A-Levels.
+                    </p>
+                </div>
+
+                <!-- Right Side: Stats Grid -->
+                <div class="col-lg-7">
+                    <div class="row g-3">
+                        <!-- Stat 1 -->
+                        <div class="col-sm-6">
+                            <div class="stat-card">
+                                <h3>40+</h3>
+                                <p class="stat-label">Avg. IB Score</p>
+                                <span class="stat-subtext">(OUT OF 45)</span>
+                            </div>
+                        </div>
+                        <!-- Stat 2 -->
+                        <div class="col-sm-6">
+                            <div class="stat-card">
+                                <h3>8 A*s</h3>
+                                <p class="stat-label">Avg. IGCSE</p>
+                                <span class="stat-subtext">TOP PERFORMER</span>
+                            </div>
+                        </div>
+                        <!-- Stat 3 -->
+                        <div class="col-sm-6">
+                            <div class="stat-card">
+                                <h3>95%</h3>
+                                <p class="stat-label">Score Rate</p>
+                                <span class="stat-subtext">IMPROVEMENT</span>
+                            </div>
+                        </div>
+                        <!-- Stat 4 -->
+                        <div class="col-sm-6">
+                            <div class="stat-card">
+                                <h3>12+</h3>
+                                <p class="stat-label">Countries</p>
+                                <span class="stat-subtext">SERVED</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
