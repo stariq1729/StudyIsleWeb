@@ -121,10 +121,7 @@
 
                     <!-- Actions -->
                     <div>
-                        <i class="fa fa-bookmark me-2" 
-                           style="cursor:pointer;"
-                           onclick="event.preventDefault(); event.stopPropagation();">
-                        </i>
+                        
 
                         <i class="fa fa-share" 
                            style="cursor:pointer;"
