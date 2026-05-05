@@ -9,6 +9,13 @@ namespace StudyIsleWeb
     {
         string connStr = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
 
+        // ✅ NEW: PageIndex (pagination state)
+        public int PageIndex
+        {
+            get { return ViewState["PageIndex"] != null ? (int)ViewState["PageIndex"] : 1; }
+            set { ViewState["PageIndex"] = value; }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -34,7 +41,7 @@ namespace StudyIsleWeb
             }
         }
 
-        // 🔹 Load Blogs (UPDATED - CORE CHANGE)
+        // 🔹 Load Blogs (UPDATED WITH PAGINATION)
         private void LoadBlogs(int? categoryId = null)
         {
             using (SqlConnection con = new SqlConnection(connStr))
@@ -85,7 +92,13 @@ namespace StudyIsleWeb
                 // 🔹 Latest First
                 query += " ORDER BY b.CreatedDate DESC";
 
+                // ✅ NEW: Pagination
+                query += " OFFSET (@PageIndex - 1) * 9 ROWS FETCH NEXT 9 ROWS ONLY";
+
                 SqlCommand cmd = new SqlCommand(query, con);
+
+                // ✅ NEW: PageIndex parameter
+                cmd.Parameters.AddWithValue("@PageIndex", PageIndex);
 
                 if (categoryId != null)
                 {
@@ -104,6 +117,7 @@ namespace StudyIsleWeb
         // 🔹 Latest Button
         protected void btnLatest_Click(object sender, EventArgs e)
         {
+            PageIndex = 1; // ✅ reset page
             LoadBlogs();
         }
 
@@ -111,7 +125,25 @@ namespace StudyIsleWeb
         protected void Category_Click(object sender, System.Web.UI.WebControls.CommandEventArgs e)
         {
             int categoryId = Convert.ToInt32(e.CommandArgument);
+
+            PageIndex = 1; // ✅ reset page on filter change
             LoadBlogs(categoryId);
+        }
+
+        // ✅ NEW: Next Page
+        protected void btnNext_Click(object sender, EventArgs e)
+        {
+            PageIndex++;
+            LoadBlogs();
+        }
+
+        // ✅ NEW: Previous Page
+        protected void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (PageIndex > 1)
+                PageIndex--;
+
+            LoadBlogs();
         }
     }
 }

@@ -139,6 +139,15 @@
 
 </ItemTemplate>
 </asp:Repeater>
+        <div class="text-center mt-4">
+    <asp:Button ID="btnPrev" runat="server" Text="Previous"
+        OnClick="btnPrev_Click"
+        CssClass="btn btn-outline-secondary me-2" />
+
+    <asp:Button ID="btnNext" runat="server" Text="Next"
+        OnClick="btnNext_Click"
+        CssClass="btn btn-primary" />
+</div>
     </div>
 
 </div>
