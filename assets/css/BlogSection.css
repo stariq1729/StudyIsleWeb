@@ -196,3 +196,34 @@
 .card-text {
     min-height: 60px;
 }
+.card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: 0.3s ease;
+    border: 1px solid #eee;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+    }
+
+.card-img-top {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.badge {
+    font-size: 11px;
+    padding: 5px 10px;
+    border-radius: 12px;
+}
+
+.card-footer {
+    background: #fff;
+    border-top: 1px solid #f1f1f1;
+}
+
+.btn {
+    border-radius: 20px;
+}
