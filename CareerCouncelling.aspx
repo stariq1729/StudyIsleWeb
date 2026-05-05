@@ -100,6 +100,150 @@
         padding: 25px 20px;
     }
 }
+
+                /*
+                WHAT YOU GET SECTION
+                */  
+                /* Session Details Section */
+.session-details-section {
+    padding: 100px 0;
+    background-color: #ffffff;
+}
+
+/* Typography Left Side */
+.session-details-section .sub-title {
+    color: #6366f1;
+    font-weight: 600;
+    font-size: 10px;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.session-details-section .main-title {
+    font-size: 36px;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1;
+}
+
+.session-details-section .main-title span {
+    color: #6366f1;
+}
+
+.session-details-section .section-desc {
+    color: #64748b;
+    font-size: 14px;
+    max-width: 400px;
+}
+
+/* Benefit List Styling */
+.benefit-list {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+}
+
+.benefit-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.benefit-icon {
+    font-size: 20px;
+    padding-top: 4px;
+}
+
+.benefit-icon.pink-icon { color: #f472b6; }
+.benefit-icon.blue-icon { color: #38bdf8; }
+.benefit-icon.orange-icon { color: #fb923c; }
+.benefit-icon.purple-icon { color: #a78bfa; }
+
+.benefit-text h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 6px;
+}
+
+.benefit-text p {
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.2;
+    margin: 0;
+}
+
+/* Right Side: Dark Card */
+.session-card {
+    background: linear-gradient(145deg, #0f172a 0%, #1e1b4b 100%);
+    padding: 40px;
+    border-radius: 36px;
+    color: #ffffff;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.card-badge {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-heading {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+/* Timeline/Steps */
+.timeline-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.timeline-item {
+    display: flex;
+    gap: 20px;
+}
+
+.step-number {
+    width: 30px;
+    height: 30px;
+    background: #6366f1;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.step-content h5 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.step-content p {
+    color: #94a3b8;
+    font-size: 12px;
+    line-height: 1.1;
+    margin: 0;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .session-details-section .main-title { font-size: 36px; }
+    .session-card { padding: 30px 20px; border-radius: 30px; }
+}
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -269,6 +413,100 @@ Subject or College to
                     <p class="card-text">Confused about your future after a degree? We assess your skills and ambitions to find a clear direction ahead.</p>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+    <!-- WHAT YOU GET SECTION -->
+<section class="session-details-section">
+    <div class="container">
+        <div class="row align-items-center">
+            
+            <!-- LEFT CONTENT -->
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <span class="sub-title">WHAT YOU GET</span>
+                <h2 class="main-title mb-3">One Session.<br><span>A Lot of Clarity.</span></h2>
+                <p class="section-desc mb-5">No generic advice. Everything is based on your individual assessment, goals and situation.</p>
+
+                <div class="benefit-list">
+                    <!-- Item 1 -->
+                    <div class="benefit-item">
+                        <div class="benefit-icon pink-icon"><i class="bi bi-lightbulb"></i></div>
+                        <div class="benefit-text">
+                            <h4>Psychometric Career Assessment</h4>
+                            <p>A structured test to understand your aptitude, interests and personality before the session.</p>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="benefit-item">
+                        <div class="benefit-icon blue-icon"><i class="bi bi-map"></i></div>
+                        <div class="benefit-text">
+                            <h4>Personalised Career Roadmap</h4>
+                            <p>A step-by-step plan tailored to your profile — subjects, colleges, exams and timelines.</p>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="benefit-item">
+                        <div class="benefit-icon orange-icon"><i class="bi bi-file-earmark-text"></i></div>
+                        <div class="benefit-text">
+                            <h4>Written Session Summary</h4>
+                            <p>Key decisions and next steps documented and shared after your call.</p>
+                        </div>
+                    </div>
+                    <!-- Item 4 -->
+                    <div class="benefit-item">
+                        <div class="benefit-icon purple-icon"><i class="bi bi-chat-dots"></i></div>
+                        <div class="benefit-text">
+                            <h4>Post-Session Support</h4>
+                            <p>Follow-up questions answered via WhatsApp — so the guidance doesn't stop when the call does.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT DARK CARD -->
+            <div class="col-lg-6">
+                <div class="session-card">
+                    <span class="card-badge">HOW A SESSION LOOKS</span>
+                    <h3 class="card-heading">A Typical 45-Minute Session</h3>
+                    
+                    <div class="timeline-wrapper">
+                        <!-- Step 1 -->
+                        <div class="timeline-item">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h5>Introduction (5 mins)</h5>
+                                <p>Your background, current situation and what's confusing you.</p>
+                            </div>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="timeline-item">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h5>Assessment Review (10 mins)</h5>
+                                <p>Counsellor reviews your psychometric results with you.</p>
+                            </div>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="timeline-item">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h5>Guidance & Options (20 mins)</h5>
+                                <p>Specific streams, colleges or career paths laid out clearly.</p>
+                            </div>
+                        </div>
+                        <!-- Step 4 -->
+                        <div class="timeline-item">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h5>Q&A & Next Steps (10 mins)</h5>
+                                <p>Your questions answered. Action plan discussed and confirmed.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
