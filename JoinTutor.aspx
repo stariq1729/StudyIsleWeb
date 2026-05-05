@@ -13,7 +13,7 @@
         .join-header h2 { font-weight: 700; margin-bottom: 5px; }
         .join-header p { color: #6c757d; font-size: 14px; }
         .join-card { background: #fff; padding: 35px 40px; border-radius: 16px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); margin-top: 0px; }
-        .section-title { font-weight: 600; font-size: 14px; color: #4f46e5; margin-bottom: 15px; }
+        .section-title { font-weight: 600; font-size: 18px; color: #4f46e5; margin-bottom: 15px; }
         label { font-weight: 500; font-size: 12px; }
         .form-control, .form-select { border-radius: 8px; font-size: 12px; padding: 8px 12px; }
         .subject-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px 20px; margin-top: 8px; }
@@ -264,6 +264,88 @@
 }
 
 .why-card p {
+    font-size: 14px;
+    color: #6c757d;
+    margin: 0;
+}
+     /* How It works SECTION */
+.process-section {
+    padding: 80px 0;
+    background: #ffffff;
+}
+
+/* TAG */
+.process-tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+    padding: 6px 12px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+/* TITLE */
+.process-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+/* SUBTITLE */
+.process-subtitle {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+/* CARD */
+.process-card {
+    position: relative;
+    background: #f9faff;
+    border-radius: 16px;
+    padding: 25px 20px;
+    text-align: left;
+    height: 100%;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+    transition: 0.3s ease;
+}
+
+.process-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+/* STEP NUMBER (CIRCLE TOP LEFT) */
+.step-number {
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    background: #4f46e5;
+    color: white;
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ICON */
+.process-icon {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+/* TEXT */
+.process-card h5 {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.process-card p {
     font-size: 14px;
     color: #6c757d;
     margin: 0;
@@ -624,7 +706,77 @@
         </div>
     </div>
 </section>
+   <%-- How It Works Section--%>
+    <section class="process-section">
+    <div class="container">
 
+        <!-- Heading -->
+        <div class="text-center mb-5">
+            <span class="process-tag">HOW IT WORKS</span>
+            <h2 class="process-title">From Application to First Session</h2>
+            <p class="process-subtitle">
+                Four simple steps and you're live — teaching students who need you.
+            </p>
+        </div>
+
+        <!-- Steps -->
+        <div class="row g-4 justify-content-center">
+
+            <!-- Step 1 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="process-card">
+                    <div class="step-number">1</div>
+                    <div class="process-icon">📝</div>
+                    <h5>Apply Online</h5>
+                    <p>
+                        Fill the form below with your subject, board expertise and experience.
+                        Takes 2 minutes.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="process-card">
+                    <div class="step-number">2</div>
+                    <div class="process-icon">🎤</div>
+                    <h5>Quick Interview</h5>
+                    <p>
+                        A 15-minute video call with our academic head to assess teaching style
+                        and subject depth.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="process-card">
+                    <div class="step-number">3</div>
+                    <div class="process-icon">📦</div>
+                    <h5>Get Onboarded</h5>
+                    <p>
+                        Receive your resource kit, Zoom setup guide, Google Classroom access
+                        and student matches.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="col-md-6 col-lg-3">
+                <div class="process-card">
+                    <div class="step-number">4</div>
+                    <div class="process-icon">🚀</div>
+                    <h5>Start Teaching</h5>
+                    <p>
+                        Conduct your first session! Get rated, build your profile, and grow
+                        your student roster.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
 <!-- FAQ SECTION -->
     <section class="faq-section">
     <div class="container">
@@ -633,7 +785,7 @@
             <div class="faq-badge">
                 <span class="emoji-icon">❓</span>TUTOR FAQ
             </div>
-            <h2 class="section-title">Common Questions</h2>
+            <h1 class="section-title">Common Questions</h1>
         </div>
 
         <div class="row justify-content-center">
