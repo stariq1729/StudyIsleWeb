@@ -323,6 +323,70 @@
         font-size: 36px;
     }
 }
+
+        /* FAQ Section Adjustments */
+.faq-section {
+    padding: 100px 0;
+    background-color: #f8fafc; /* Very light blue/grey background */
+}
+
+.faq-badge {
+    font-size: 13px;
+    font-weight: 800;
+    color: #6366f1;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Accordion Customization */
+.custom-accordion .accordion-item {
+    border: none;
+    background-color: #fff;
+    border-radius: 15px !important;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    overflow: hidden;
+}
+
+.custom-accordion .accordion-button {
+    padding: 25px 30px;
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 17px;
+    background-color: #fff;
+    box-shadow: none;
+}
+
+/* Remove default blue focus and background */
+.custom-accordion .accordion-button:not(.collapsed) {
+    color: #4f46e5;
+    background-color: #fff;
+    box-shadow: none;
+}
+
+.custom-accordion .accordion-button:focus {
+    box-shadow: none;
+    border-color: rgba(0,0,0,.125);
+}
+
+/* Accordion body text */
+.custom-accordion .accordion-body {
+    padding: 0 30px 25px 30px;
+    color: #64748b;
+    font-size: 15px;
+    line-height: 1.6;
+    border-top: 1px solid #f1f5f9;
+}
+
+/* Customizing the Chevron Arrow */
+.custom-accordion .accordion-button::after {
+    background-size: 1rem;
+    transition: transform 0.2s ease-in-out;
+}
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -777,6 +841,109 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </div>
+</section>
+    <section class="faq-section">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="text-center mb-5">
+            <div class="faq-badge">
+                <span class="emoji-icon">❓</span> FAQ
+            </div>
+            <h2 class="section-title">Common Questions</h2>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="accordion custom-accordion" id="faqAccordion">
+                    
+                    <!-- Question 1 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                Which international boards do you teach?
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                We cover IB Diploma (DP), IB MYP, Cambridge IGCSE, Cambridge A-Level, AP (Advanced Placement), and Edexcel International. If your board isn't listed, reach out — we likely cover it.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                Are classes 1-on-1 or in groups?
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Dummy text: All our core sessions are strictly 1-on-1 to ensure maximum focus, though we do offer optional small-group workshops for exam revision.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                                What platform do you use for classes?
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Dummy text: We primarily use Zoom integrated with an interactive digital whiteboard, allowing students to save all session notes instantly.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
+                                Can I get help with IB Internal Assessments (IA)?
+                            </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Dummy text: Yes, we provide specialized mentoring for IAs, Extended Essays (EE), and TOK, focusing on structure, criteria, and academic honesty.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive">
+                                How do I reschedule a session?
+                            </button>
+                        </h2>
+                        <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Dummy text: Rescheduling is easy via our student portal. We just ask for at least 24 hours' notice to coordinate with your tutor.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 6 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix">
+                                Is the demo class really free?
+                            </button>
+                        </h2>
+                        <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Dummy text: Absolutely. The 30-minute demo is completely free and designed to help you meet the tutor and discuss your learning goals.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
