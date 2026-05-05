@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Blogs.aspx.cs" Inherits="StudyIsleWeb.Blogs" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link href="assets\css\Blogspage.css" rel="stylesheet" />
+    <link href="assets\css\BlogSection.css" rel="stylesheet" />
     <style>
 /* 🔹 Title clamp (2 lines) */
 .clamp-title {

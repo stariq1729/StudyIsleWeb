@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CareerGuidance.aspx.cs" Inherits="StudyIsleWeb.CareerGuidance" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link href="assets\css\Enquiry.css" rel="stylesheet" />
+    <link href="assets/css/Enquiry.css" rel="stylesheet" />
     <style>
         /* Subject Section Styles */
 
