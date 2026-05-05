@@ -3,7 +3,7 @@
     <style>
         /*hero section*/
         .hero {
-    padding: 80px 0;
+    padding: 80px 10px;
     background: #eef2ff;
     font-family: 'Segoe UI', sans-serif;
 }
