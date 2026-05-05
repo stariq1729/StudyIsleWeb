@@ -170,6 +170,7 @@
     <Content Include="Sets.aspx" />
     <Content Include="SetSelection.aspx" />
     <Content Include="SignUp.aspx" />
+    <Content Include="SocialMedia.aspx" />
     <Content Include="Student\StudentProfile.aspx" />
     <Content Include="Student\StudentRegister.aspx" />
     <Content Include="Student\Student_Logout.aspx" />
@@ -614,6 +615,13 @@
     </Compile>
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="SocialMedia.aspx.cs">
+      <DependentUpon>SocialMedia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SocialMedia.aspx.designer.cs">
+      <DependentUpon>SocialMedia.aspx</DependentUpon>
     </Compile>
     <Compile Include="Student\StudentDashboard.Master.cs">
       <DependentUpon>StudentDashboard.Master</DependentUpon>
