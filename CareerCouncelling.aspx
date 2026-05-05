@@ -244,6 +244,94 @@
     .session-details-section .main-title { font-size: 36px; }
     .session-card { padding: 30px 20px; border-radius: 30px; }
 }
+/* How It Works Section */
+.process-section {
+    padding: 60px 0; /* Compact padding */
+    background-color: #fff;
+}
+
+.process-wrapper {
+    position: relative;
+    margin-top: 40px;
+}
+
+/* The horizontal line */
+.process-line {
+    position: absolute;
+    top: 40px; /* Aligns with the middle of the icons */
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: #e2e8f0;
+    z-index: 1;
+}
+
+.process-item {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 10px;
+}
+
+.process-icon {
+    width: 80px;
+    height: 80px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+}
+
+.process-icon i {
+    font-size: 28px;
+    color: #64748b;
+}
+
+/* Active Step Styling (to match the purple glow in the image) */
+.active-step .process-icon {
+    border-color: #6366f1;
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
+}
+
+.active-step .process-icon i {
+    color: #6366f1;
+}
+
+.process-item h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 10px;
+}
+
+.process-item p {
+    font-size: 14px;
+    color: #64748b;
+    line-height: 1.5;
+    max-width: 200px;
+    margin: 0 auto;
+}
+
+/* Hover Effect */
+.process-item:hover .process-icon {
+    transform: scale(1.1);
+    border-color: #6366f1;
+}
+
+/* Responsive Logic */
+@media (max-width: 991px) {
+    .process-line {
+        display: none; /* Hide line on mobile for vertical layout */
+    }
+    .process-item {
+        margin-bottom: 40px;
+    }
+}
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -507,6 +595,67 @@ Subject or College to
                 </div>
             </div>
 
+        </div>
+    </div>
+</section>
+
+    <!-- HOW IT WORKS SECTION -->
+<section class="process-section">
+    <div class="container">
+        <div class="section-header text-center mb-5">
+            <span class="sub-title">HOW IT WORKS</span>
+            <h2 class="main-title">4 Simple Steps to <span>Your Career Clarity.</span></h2>
+        </div>
+
+        <div class="process-wrapper">
+            <!-- Line connecting the steps -->
+            <div class="process-line"></div>
+
+            <div class="row">
+                <!-- Step 1 -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="process-item">
+                        <div class="process-icon">
+                            <i class="bi bi-pencil-square"></i>
+                        </div>
+                        <h4>Fill the Form</h4>
+                        <p>Share your details and what you need help with.</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="process-item active-step">
+                        <div class="process-icon">
+                            <i class="bi bi-lightbulb"></i>
+                        </div>
+                        <h4>Take Assessment</h4>
+                        <p>Complete a quick psychometric test online — free.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="process-item">
+                        <div class="process-icon">
+                            <i class="bi bi-telephone-outbound"></i>
+                        </div>
+                        <h4>1-on-1 Session</h4>
+                        <p>45-minute private video call with Pranav.</p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="process-item">
+                        <div class="process-icon">
+                            <i class="bi bi-map"></i>
+                        </div>
+                        <h4>Get Your Plan</h4>
+                        <p>Receive your written roadmap and next steps.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
