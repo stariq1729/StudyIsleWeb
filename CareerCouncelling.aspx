@@ -437,6 +437,119 @@
         font-size: 32px;
     }
 }
+
+/* Counsellor Profile Section */
+.counsellor-profile-section {
+    padding: 60px 0;
+    background-color: #ffffff;
+}
+
+/* Image Container with Dark Glow/Shadow */
+.counsellor-image-container {
+    border-radius: 30px;
+    overflow: hidden;
+    background: #000;
+    padding: 2px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.counsellor-image-container img {
+    border-radius: 28px;
+    width: 100%;
+    display: block;
+    opacity: 0.9; /* Slight dimming to match the image style */
+}
+
+/* Green Banner */
+.cert-banner {
+    display: inline-flex;
+    align-items: center;
+    background-color: #f0fdf4;
+    color: #166534;
+    padding: 7px 14px;
+    border: 1px solid #bbf7d0;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.profile-name {
+    font-size: 30px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 5px;
+}
+
+.profile-location {
+    color: #94a3b8;
+    font-size: 14px;
+    margin-bottom: 22px;
+}
+
+/* Badges/Pills */
+.profile-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.badge-pill {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.profile-bio p {
+    color: #475569;
+    line-height: 1.1;
+    font-size: 14px;
+}
+
+/* Expertise Checklist */
+.expertise-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.expertise-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+    color: #475569;
+    font-size: 15px;
+}
+
+.expertise-list i {
+    color: #475569; /* Dark checkmarks as per image */
+    font-weight: bold;
+}
+
+/* CTA Link */
+.btn-book-session {
+    color: #6366f1;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.btn-book-session:hover {
+    color: #4f46e5;
+    border-bottom: 2px solid #4f46e5;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 991px) {
+    .ps-lg-5 { padding-left: 15px !important; }
+    .profile-name { font-size: 28px; }
+}
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -839,6 +952,61 @@ Subject or College to
                 </div>
             </div>
 
+        </div>
+    </div>
+</section>
+    <!-- MEET THE COUNSELLOR SECTION -->
+<section class="counsellor-profile-section">
+    <div class="container">
+        <div class="section-header text-center mb-5">
+            <span class="sub-title">YOUR COUNSELLOR</span>
+            <h2 class="main-title">Meet <span>Pranav Maheshwari</span></h2>
+        </div>
+
+        <div class="row align-items-start">
+            <!-- Left: Image with Dark Glow -->
+            <div class="col-lg-5 col-md-12 mb-4 mb-lg-0">
+                <div class="counsellor-image-container">
+                    <img src="assets/tutorimg/Pranav.jpg" alt="Pranav Maheshwari" class="img-fluid" />
+                </div>
+            </div>
+
+            <!-- Right: Content -->
+            <div class="col-lg-7 col-md-12 ps-lg-5">
+                <!-- Green Certification Badge -->
+                <div class="cert-banner mb-4">
+                    <i class="bi bi-check2-square me-2"></i>
+                    Certified Career Analyst — BCPA India & ACCPH UK
+                </div>
+
+                <h3 class="profile-name">Pranav Maheshwari</h3>
+                <p class="profile-location">Bhiwadi, Rajasthan · Online & Offline Sessions</p>
+
+                <!-- Experience Pills -->
+                <div class="profile-badges mb-4">
+                    <span class="badge-pill">9+ Years Teaching</span>
+                    <span class="badge-pill">3+ Years Career Counselling</span>
+                    <span class="badge-pill">Physics & Science Educator</span>
+                    <span class="badge-pill">IB · IGCSE · AP · CBSE</span>
+                </div>
+
+                <div class="profile-bio mb-4">
+                    <p>Pranav is a Certified Career Analyst accredited by both BCPA (India) and ACCPH (UK). He has guided hundreds of students through stream selection, college choices and career decisions — with a focus on clarity, honesty and outcomes that actually fit the student.</p>
+                </div>
+
+                <!-- Expertise Checklist -->
+                <ul class="expertise-list">
+                    <li><i class="bi bi-check2"></i> Stream selection after Class 10 (Science / Commerce / Arts)</li>
+                    <li><i class="bi bi-check2"></i> College shortlisting based on rank, budget and career goals</li>
+                    <li><i class="bi bi-check2"></i> Engineering branch selection</li>
+                    <li><i class="bi bi-check2"></i> Career guidance for college graduates & working professionals</li>
+                    <li><i class="bi bi-check2"></i> Psychometric-based career planning (20 clusters, 3,000+ occupations)</li>
+                </ul>
+
+                <div class="mt-5">
+                     <a href="#" class="btn-book-session">Book a Free Session with Pranav →</a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
