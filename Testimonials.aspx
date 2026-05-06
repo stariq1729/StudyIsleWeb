@@ -267,6 +267,110 @@
 /* Responsive Columns */
 @media (max-width: 992px) { .masonry-wrapper { column-count: 2; } }
 @media (max-width: 600px) { .masonry-wrapper { column-count: 1; } }
+
+.cta-wrapper {
+    padding: 20px 0;
+    background-color: #fcfcfd; /* Matches the previous section background */
+}
+
+.cta-card {
+    background-color: #635bff;
+    border-radius: 24px;
+    padding: 40px 14px;
+    position: relative; /* Essential for the circles */
+    overflow: hidden; /* Clips the circles at the border */
+    text-align: center;
+    box-shadow: 0 16px 32px rgba(99, 91, 255, 0.2);
+}
+
+.cta-content {
+    position: relative;
+    z-index: 2; /* Keeps text above circles */
+}
+
+.cta-heading {
+    color: #ffffff;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+}
+
+.cta-subtext {
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
+    margin: 0 auto 39px;
+    font-size: 0.9rem;
+    line-height: 1.1;
+}
+
+/* Button Group */
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn-white-pill {
+    background-color: #ffffff;
+    color: #635bff;
+    padding: 12px 28px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 12px;
+    transition: 0.3s ease;
+}
+
+.btn-white-pill:hover {
+    background-color: #f0efff;
+    transform: scale(1.05);
+}
+
+.btn-dark-pill {
+    background-color: #4e45e4; /* Slightly darker than the main purple */
+    color: #ffffff;
+    padding: 12px 28px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 12px;
+    transition: 0.3s ease;
+}
+
+.btn-dark-pill:hover {
+    background-color: #4138d6;
+    transform: scale(1.05);
+}
+
+/* Decorative Circles */
+.circle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.circle-top-right {
+    width: 160px;
+    height: 160px;
+    top: -50px;
+    right: -50px;
+}
+
+.circle-bottom-left {
+    width: 200px;
+    height: 200px;
+    bottom: -70px;
+    left: -70px;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .cta-heading { font-size: 1.8rem; }
+    .cta-card { padding: 40px 15px; }
+    .cta-buttons { flex-direction: column; align-items: center; }
+    .btn-white-pill, .btn-dark-pill { width: 80%; }
+}
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -463,6 +567,26 @@
                     <div class="rating-stars">★★★★★</div>
                 </div>
                 <p class="card-quote">"The certification prep matches the official exams perfectly. Passed on my first try thanks to the practice modules."</p>
+            </div>
+        </div>
+    </div>
+</section>
+    <section class="cta-wrapper">
+    <div class="container">
+        <div class="cta-card">
+            <!-- Decorative Background Circles -->
+            <div class="circle circle-top-right"></div>
+            <div class="circle circle-bottom-left"></div>
+
+            <div class="cta-content">
+                <h2 class="cta-heading">Ready to write your story?</h2>
+                <p class="cta-subtext">
+                    Join 10,000+ ambitious learners. Get unlimited access to top-tier courses and a supporting community.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn-white-pill">Join StudyIsle Free</a>
+                    <a href="#" class="btn-dark-pill">Talk to an Advisor</a>
+                </div>
             </div>
         </div>
     </div>
