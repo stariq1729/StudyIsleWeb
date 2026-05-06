@@ -173,7 +173,7 @@
     }
 
     .hero-card {
-        height: 400px;
+        height: 350px;
         border-radius: 24px;
     }
 
@@ -184,7 +184,7 @@
     }
 
     .hero-title {
-        font-size: 32px;
+        font-size: 30px;
     }
 
     .hero-description {
@@ -201,7 +201,7 @@
 ========================================= */
 
 .institute-feed-section {
-    padding-bottom: 120px;
+    padding-bottom: 60px;
     background: #f7f8fc;
 }
 
@@ -230,21 +230,21 @@
 .feed-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 12px !important;
 }
 
 /* CARD */
 
 .feed-card {
     position: relative;
-    height: 230px;
-    width: 290px;
+    height: 260px;
+    width: 320px;
     border-radius: 28px;
     overflow: hidden;
     display: block;
     text-decoration: none;
     background: #e2e8f0;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
 }
 
 /* IMAGE */
@@ -302,19 +302,6 @@
 }
 
 /* TAG */
-
-.feed-tag {
-    display: inline-block;
-    background: #7367ff;
-    color: #ffffff;
-    padding: 6px 12px;
-    border-radius: 30px;
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-}
 
 /* TITLE */
 
@@ -539,9 +526,7 @@
 
                         <div class="feed-content">
 
-                            <div class="feed-tag">
-                                Campus Life
-                            </div>
+                            
 
                             <h3 class="feed-card-title">
                                 <%# Eval("Title") %>

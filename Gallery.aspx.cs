@@ -51,7 +51,7 @@ namespace StudyIsleWeb
             FROM Gallery
             WHERE GalleryId NOT IN
             (
-                SELECT TOP 3 GalleryId
+                SELECT TOP 1 GalleryId
                 FROM Gallery
                 ORDER BY CreatedDate DESC
             )
