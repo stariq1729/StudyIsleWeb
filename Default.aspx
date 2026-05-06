@@ -50,7 +50,7 @@ Your
 
                         </div>
 
-                        <a href="/Register.aspx" class="btn btn-primary btn-lg w-100">Start Free Learning →
+                        <a href="/Register.aspx" class="btn btn-primary btn-primary-pur btn-lg w-100">Start Free Learning →
                         </a>
                     </div>
                     <!-- Reviews -->
