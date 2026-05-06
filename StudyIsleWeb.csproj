@@ -158,6 +158,7 @@
     <Content Include="Default.aspx" />
     <Content Include="Flashcards\FlashcardSetList.aspx" />
     <Content Include="Flashcards\FlashcardViewer.aspx" />
+    <Content Include="Gallery.aspx" />
     <Content Include="Global.asax" />
     <Content Include="GoogleCallback.aspx" />
     <Content Include="JoinTutor.aspx" />
@@ -528,6 +529,13 @@
     </Compile>
     <Compile Include="Flashcards\FlashcardViewer.aspx.designer.cs">
       <DependentUpon>FlashcardViewer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Gallery.aspx.cs">
+      <DependentUpon>Gallery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Gallery.aspx.designer.cs">
+      <DependentUpon>Gallery.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
