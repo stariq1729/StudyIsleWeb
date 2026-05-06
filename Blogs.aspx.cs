@@ -2,6 +2,14 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
+using System.Reflection;
+using System.Security.Policy;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using static System.Net.Mime.MediaTypeNames;
+
+
 
 namespace StudyIsleWeb
 {
@@ -9,11 +17,18 @@ namespace StudyIsleWeb
     {
         string connStr = ConfigurationManager.ConnectionStrings["dbcs"].ConnectionString;
 
-        // ✅ NEW: PageIndex (pagination state)
+        // ✅ Pagination State
         public int PageIndex
         {
             get { return ViewState["PageIndex"] != null ? (int)ViewState["PageIndex"] : 1; }
             set { ViewState["PageIndex"] = value; }
+        }
+
+        // ✅ Total Pages
+        public int TotalPages
+        {
+            get { return ViewState["TotalPages"] != null ? (int)ViewState["TotalPages"] : 0; }
+            set { ViewState["TotalPages"] = value; }
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -21,11 +36,11 @@ namespace StudyIsleWeb
             if (!IsPostBack)
             {
                 LoadCategories();
-                LoadBlogs(); // default = latest
+                LoadBlogs();
             }
         }
 
-        // 🔹 Load Categories (Tabs)
+        // 🔹 Load Categories
         private void LoadCategories()
         {
             using (SqlConnection con = new SqlConnection(connStr))
@@ -41,13 +56,37 @@ namespace StudyIsleWeb
             }
         }
 
-        // 🔹 Load Blogs (UPDATED WITH PAGINATION)
+        // 🔹 Load Blogs
         private void LoadBlogs(int? categoryId = null)
         {
             using (SqlConnection con = new SqlConnection(connStr))
             {
+                con.Open();
+
+                // ✅ COUNT TOTAL BLOGS
+                string countQuery = "SELECT COUNT(*) FROM Blogs WHERE IsActive = 1";
+
+                if (categoryId != null)
+                {
+                    countQuery += " AND CategoryId = @CategoryId";
+                }
+
+                SqlCommand countCmd = new SqlCommand(countQuery, con);
+
+                if (categoryId != null)
+                {
+                    countCmd.Parameters.AddWithValue("@CategoryId", categoryId);
+                }
+
+                int totalBlogs = Convert.ToInt32(countCmd.ExecuteScalar());
+
+                // ✅ CALCULATE TOTAL PAGES
+                int pageSize = 9;
+                TotalPages = (int)Math.Ceiling((double)totalBlogs / pageSize);
+
+                // 🔹 MAIN BLOG QUERY
                 string query = @"
-                SELECT 
+                SELECT
                     b.BlogId,
                     b.Slug,
                     b.AuthorName,
@@ -55,26 +94,23 @@ namespace StudyIsleWeb
                     b.ReadTime,
                     c.CategoryName,
 
-                    -- Title from blocks (H1)
                     ISNULL((
-                        SELECT TOP 1 Content 
-                        FROM BlogBlocks 
+                        SELECT TOP 1 Content
+                        FROM BlogBlocks
                         WHERE BlogId = b.BlogId AND BlockType = 'h1'
                         ORDER BY DisplayOrder
                     ), 'Untitled Blog') AS Title,
 
-                    -- Image from blocks
                     ISNULL((
-                        SELECT TOP 1 Content 
-                        FROM BlogBlocks 
+                        SELECT TOP 1 Content
+                        FROM BlogBlocks
                         WHERE BlogId = b.BlogId AND BlockType = 'image'
                         ORDER BY DisplayOrder
                     ), '/uploads/default.jpg') AS CoverImage,
 
-                    -- Description from blocks
                     ISNULL((
-                        SELECT TOP 1 Content 
-                        FROM BlogBlocks 
+                        SELECT TOP 1 Content
+                        FROM BlogBlocks
                         WHERE BlogId = b.BlogId AND BlockType = 'paragraph'
                         ORDER BY DisplayOrder
                     ), 'No description available') AS ShortDescription
@@ -89,15 +125,12 @@ namespace StudyIsleWeb
                     query += " AND b.CategoryId = @CategoryId";
                 }
 
-                // 🔹 Latest First
+                // 🔹 Pagination
                 query += " ORDER BY b.CreatedDate DESC";
-
-                // ✅ NEW: Pagination
                 query += " OFFSET (@PageIndex - 1) * 9 ROWS FETCH NEXT 9 ROWS ONLY";
 
                 SqlCommand cmd = new SqlCommand(query, con);
 
-                // ✅ NEW: PageIndex parameter
                 cmd.Parameters.AddWithValue("@PageIndex", PageIndex);
 
                 if (categoryId != null)
@@ -111,13 +144,38 @@ namespace StudyIsleWeb
 
                 rptBlogs.DataSource = dt;
                 rptBlogs.DataBind();
+
+                // ✅ LOAD PAGE NUMBERS
+                LoadPagination();
             }
+        }
+
+        // ✅ LOAD PAGE NUMBERS
+        private void LoadPagination()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("PageNumber");
+
+            for (int i = 1; i <= TotalPages; i++)
+            {
+                dt.Rows.Add(i);
+            }
+
+            rptPagination.DataSource = dt;
+            rptPagination.DataBind();
+        }
+
+        // ✅ PAGE CLICK EVENT
+        protected void Page_Changed(object sender, System.Web.UI.WebControls.CommandEventArgs e)
+        {
+            PageIndex = Convert.ToInt32(e.CommandArgument);
+            LoadBlogs();
         }
 
         // 🔹 Latest Button
         protected void btnLatest_Click(object sender, EventArgs e)
         {
-            PageIndex = 1; // ✅ reset page
+            PageIndex = 1;
             LoadBlogs();
         }
 
@@ -126,24 +184,8 @@ namespace StudyIsleWeb
         {
             int categoryId = Convert.ToInt32(e.CommandArgument);
 
-            PageIndex = 1; // ✅ reset page on filter change
+            PageIndex = 1;
             LoadBlogs(categoryId);
-        }
-
-        // ✅ NEW: Next Page
-        protected void btnNext_Click(object sender, EventArgs e)
-        {
-            PageIndex++;
-            LoadBlogs();
-        }
-
-        // ✅ NEW: Previous Page
-        protected void btnPrev_Click(object sender, EventArgs e)
-        {
-            if (PageIndex > 1)
-                PageIndex--;
-
-            LoadBlogs();
         }
     }
 }

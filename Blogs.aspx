@@ -43,7 +43,7 @@
     <div class="text-center mb-4">
 
         <!-- Latest -->
-        <asp:LinkButton ID="btnLatest" runat="server" CssClass="btn btn-primary me-2"
+        <asp:LinkButton ID="btnLatest" runat="server" CssClass="btn btn-outline-secondary me-2"
             OnClick="btnLatest_Click">Latest</asp:LinkButton>
 
         <!-- Dynamic Categories -->
