@@ -718,9 +718,9 @@ Live Leaderboards That Keep You Sharp</h6>
                         <div class="result-card">
                             <span class="topper-badge">TOPPER</span>
                             <img src="https://randomuser.me/api/portraits/men/45.jpg" class="student-img" alt="Student" />
-                            <h6 class="student-name">Vihan D.</h6>
-                            <div class="student-rank">98% Board</div>
-                            <small class="exam-label">CBSE 10th</small>
+                            <h6 class="student-name">Sagarika Singh</h6>
+                            <div class="student-rank">99.6%</div>
+                            <small class="exam-label">CBSE X</small>
                         </div>
                     </div>
                     <!-- Card 2 -->
@@ -728,9 +728,9 @@ Live Leaderboards That Keep You Sharp</h6>
                         <div class="result-card">
                             <span class="topper-badge">TOPPER</span>
                             <img src="https://randomuser.me/api/portraits/women/11.jpg" class="student-img" alt="Student" />
-                            <h6 class="student-name">Megha R.</h6>
-                            <div class="student-rank">97.5% Board</div>
-                            <small class="exam-label">ICSE 10th</small>
+                            <h6 class="student-name">Navya Chaudhary</h6>
+                            <div class="student-rank">99%</div>
+                            <small class="exam-label">CBSE X</small>
                         </div>
                     </div>
                     <!-- Card 3 -->
@@ -738,9 +738,9 @@ Live Leaderboards That Keep You Sharp</h6>
                         <div class="result-card">
                             <span class="topper-badge">TOPPER</span>
                             <img src="https://randomuser.me/api/portraits/men/20.jpg" class="student-img" alt="Student" />
-                            <h6 class="student-name">Ishaan K.</h6>
-                            <div class="student-rank">99% Board</div>
-                            <small class="exam-label">CBSE 10th</small>
+                            <h6 class="student-name">Ansh Grover.</h6>
+                            <div class="student-rank">96.4% </div>
+                            <small class="exam-label">CBSE X</small>
                         </div>
                     </div>
                     <!-- Card 4 -->
@@ -748,9 +748,9 @@ Live Leaderboards That Keep You Sharp</h6>
                         <div class="result-card">
                             <span class="topper-badge">TOPPER</span>
                             <img src="https://randomuser.me/api/portraits/women/5.jpg" class="student-img" alt="Student" />
-                            <h6 class="student-name">Riya P.</h6>
-                            <div class="student-rank">96.8% Board</div>
-                            <small class="exam-label">State Board</small>
+                            <h6 class="student-name">Aarushi Mittla</h6>
+                            <div class="student-rank">96.4% </div>
+                            <small class="exam-label">CBSE X</small>
                         </div>
                     </div>
                     <!-- Card 5 -->
@@ -758,9 +758,9 @@ Live Leaderboards That Keep You Sharp</h6>
                         <div class="result-card">
                             <span class="topper-badge">TOPPER</span>
                             <img src="https://randomuser.me/api/portraits/men/15.jpg" class="student-img" alt="Student" />
-                            <h6 class="student-name">Aarav J.</h6>
-                            <div class="student-rank">95.4% Board</div>
-                            <small class="exam-label">CBSE 10th</small>
+                            <h6 class="student-name">Dhairya Sarin</h6>
+                            <div class="student-rank">96.2% </div>
+                            <small class="exam-label">CBSE </small>
                         </div>
                     </div>
                 </div>

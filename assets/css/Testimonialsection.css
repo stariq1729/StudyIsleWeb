@@ -42,8 +42,8 @@
 /* Result Card - Large Original Design */
 .result-card {
     background: #ffffff;
-    border-radius: 20px;
-    padding: 40px 20px; /* High vertical padding for original size */
+    border-radius: 10px;
+    padding: 15px 15px; /* High vertical padding for original size */
     text-align: center;
     position: relative;
     height: 100%;
@@ -94,7 +94,7 @@
 .student-rank {
     color: #4f46e5;
     font-weight: 700;
-    font-size: 14px;
+    font-size: 20px;
     margin-bottom: 2px;
 }
 
