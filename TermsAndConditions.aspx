@@ -10,15 +10,15 @@
         /* Sidebar Sticky Alignment */
         .terms-nav {
             position: sticky;
-            top: 100px;
+            top: 80px;
         }
 
         .nav-title {
             font-size: 11px;
             font-weight: 800;
             color: #9ca3af;
-            letter-spacing: 1.5px;
-            margin-bottom: 25px;
+            letter-spacing: 1.1px;
+            margin-bottom: 20px;
             text-transform: uppercase;
         }
 
