@@ -179,6 +179,7 @@
     <Content Include="Student\Student_Logout.aspx" />
     <Content Include="SubCatDetails.aspx" />
     <Content Include="SubjectDetails.aspx" />
+    <Content Include="Testimonials.aspx" />
     <Content Include="Uploads\blog\Deault_Random_boy.png" />
     <Content Include="Uploads\ProfileImages\Deault_Random_boy.png" />
     <Content Include="VerifyOtp.aspx" />
@@ -688,6 +689,13 @@
     </Compile>
     <Compile Include="SubjectDetails.aspx.designer.cs">
       <DependentUpon>SubjectDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Testimonials.aspx.cs">
+      <DependentUpon>Testimonials.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Testimonials.aspx.designer.cs">
+      <DependentUpon>Testimonials.aspx</DependentUpon>
     </Compile>
     <Compile Include="VerifyOtp.aspx.cs">
       <DependentUpon>VerifyOtp.aspx</DependentUpon>
