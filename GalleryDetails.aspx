@@ -32,7 +32,7 @@
         .details-main-image {
             width: 100%;
             max-width: 520px;
-            height: 350px;
+            height: 650px;
             object-fit: cover;
             border-radius: 18px;
             box-shadow: 0 18px 50px rgba(0,0,0,0.35);
@@ -78,7 +78,7 @@
         }
 
         .details-title {
-            font-size: 58px;
+            font-size: 38px;
             line-height: 1.1;
             font-weight: 800;
             color: #0f172a;
@@ -93,8 +93,8 @@
         }
 
         .details-description {
-            font-size: 18px;
-            line-height: 1.9;
+            font-size: 12px;
+            line-height: 1.6;
             color: #475569;
             margin: 0;
             font-style: italic;
