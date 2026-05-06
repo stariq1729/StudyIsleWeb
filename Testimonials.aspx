@@ -9,9 +9,9 @@
 }
 
 .testimonial-hero {
-    padding: 80px 0;
+    padding: 40px 0;
     text-align: center;
-    background-color: #ffffff;
+    background-color: #f8f9fb;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -24,43 +24,43 @@
     color: var(--primary-purple);
     padding: 8px 16px;
     border-radius: 50px;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 10px;
+    font-weight: 500;
 }
 
 /* Typography */
 .hero-title {
-    font-size: 3.5rem;
-    font-weight: 800;
+    font-size: 2.2rem;
+    font-weight: 700;
     color: var(--text-dark);
     line-height: 1.1;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }
 .highlight-text {
     color: var(--primary-purple);
 }
 .hero-description {
     max-width: 600px;
-    margin: 0 auto 40px;
+    margin: 0 auto 30px;
     color: var(--text-muted);
-    font-size: 1.1rem;
-    line-height: 1.6;
+    font-size: 1rem;
+    line-height: 1.2;
 }
 
 /* Buttons */
 .hero-btns {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    margin-bottom: 60px;
+    gap: 10px;
+    margin-bottom: 40px;
 }
 .btn-primary-pill {
     background-color: var(--primary-purple);
     color: white;
-    padding: 14px 28px;
+    padding: 12px 24px;
     border-radius: 50px;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 400;
     transition: 0.3s;
 }
 .btn-primary-pill:hover {
@@ -71,11 +71,11 @@
 .btn-outline-pill {
     background-color: white;
     color: var(--text-muted);
-    padding: 14px 28px;
+    padding: 12px 24px;
     border-radius: 50px;
     border: 1px solid #e3e8ee;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 400;
     transition: 0.3s;
 }
 .btn-outline-pill:hover {
@@ -88,24 +88,24 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 40px;
-    margin-top: 20px;
+    gap: 30px;
+    margin-top: 16px;
 }
 .stat-item {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 }
 .stat-icon {
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     border: 1px solid #e3e8ee;
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--primary-purple);
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 .stat-text {
     text-align: left;
@@ -114,14 +114,14 @@
     display: block;
     font-weight: 700;
     color: var(--text-dark);
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 .stat-label {
     display: block;
     font-size: 0.75rem;
     color: #a3acb9;
     letter-spacing: 1px;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 /* Responsive */
