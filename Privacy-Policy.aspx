@@ -3,37 +3,33 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <style>
-        @media (min-width: 1200px) {
-    .container {
-        max-width: 1100px;
-    }
-}
         /* Smooth Scrolling and Layout */
         html { scroll-behavior: smooth; }
         body { background-color: #fcfcfc; }
 
         .privacy-container {
             display: flex;
-             padding: 10px 0;
-            max-width: 1060px;
+            padding: 20px;
+            max-width: 1200px;
             margin: 40px auto;
-            gap: 40px;
+            gap: 50px;
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             align-items: flex-start;
         }
 
         /* Sticky Sidebar */
         .privacy-nav {
-            flex: 0 0 240px;
+            flex: 0 0 260px;
             position: sticky;
-            top: 40px;
+            top: 100px; /* Adjusted for header clearance */
+            padding-top: 10px;
         }
 
         .nav-title {
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 700;
             color: #9ca3af;
-            letter-spacing: 1.2px;
+            letter-spacing: 1.5px;
             margin-bottom: 25px;
             text-transform: uppercase;
         }
@@ -48,6 +44,7 @@
             color: #4b5563;
             font-size: 15px;
             transition: all 0.2s ease;
+            border-bottom: 1px solid transparent;
         }
 
         .privacy-nav li a i { 
@@ -58,7 +55,7 @@
             font-size: 16px;
         }
 
-        .privacy-nav li a:hover { color: #16a34a; }
+        .privacy-nav li a:hover { color: #16a34a; transform: translateX(5px); }
         .privacy-nav li a:hover i { color: #16a34a; }
 
         /* Content Card */
@@ -67,7 +64,7 @@
             background: #ffffff;
             border: 1px solid #f0f0f0;
             border-radius: 30px;
-            padding: 40px;
+            padding: 50px;
             box-shadow: 0 10px 25px -5px rgba(0,0,0,0.02);
         }
 
@@ -76,78 +73,85 @@
             align-items: center;
             background: #f0fdf4;
             color: #16a34a;
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 700;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
             border: 1px solid #dcfce7;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        h1 { font-size: 28px; color: #111827; margin: 0 0 10px 0; font-weight: 600; }
-        .last-updated { color: #6b7280; font-size: 12px; margin-bottom: 18px; }
+        h1 { font-size: 32px; color: #111827; margin: 0 0 12px 0; font-weight: 700; }
+        .last-updated { color: #6b7280; font-size: 13px; margin-bottom: 25px; border-bottom: 1px solid #f3f4f6; padding-bottom: 15px; }
 
-        section { padding: 25px 0; }
+        section { padding: 30px 0; border-bottom: 1px solid #f9fafb; }
+        section:last-of-type { border-bottom: none; }
 
-        .section-header { display: flex; align-items: center; gap: 18px; margin-bottom: 22px; }
+        .section-header { display: flex; align-items: center; gap: 18px; margin-bottom: 25px; }
         .icon-box {
-            width: 42px; height: 42px;
+            width: 46px; height: 46px;
             background: #f0fdf4;
             color: #16a34a;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 12px;
-            font-size: 18px;
+            border-radius: 14px;
+            font-size: 20px;
         }
 
         h2 { font-size: 24px; color: #111827; margin: 0; font-weight: 600; }
-        p { color: #4b5563; line-height: 1.7; font-size: 15px; margin-bottom: 12px; }
+        p { color: #4b5563; line-height: 1.8; font-size: 15px; margin-bottom: 15px; }
         
-        .sub-label { display: block; font-weight: 700; color: #111827; margin: 20px 0 10px 0; font-size: 15px; }
+        .sub-label { display: block; font-weight: 700; color: #111827; margin: 25px 0 12px 0; font-size: 15px; }
         
         ul.policy-list { padding-left: 20px; list-style-type: disc; }
-        ul.policy-list li { color: #4b5563; line-height: 1.7; font-size: 15px; margin-bottom: 12px; padding-left: 5px; }
-        ul.policy-list li b, ul.policy-list li i { color: #111827; }
+        ul.policy-list li { color: #4b5563; line-height: 1.8; font-size: 15px; margin-bottom: 12px; padding-left: 5px; }
+        ul.policy-list li b { color: #111827; }
 
-        /* Special UI Components */
+        /* Custom Components */
         .no-sell-banner {
             background: #f0fdf4;
             border: 1px solid #dcfce7;
             color: #15803d;
-            padding: 18px;
-            border-radius: 12px;
+            padding: 20px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 600;
-            margin: 15px 0;
+            margin: 25px 0;
         }
 
         .alert-warning {
             background: #fffbeb;
             border: 1px solid #fef3c7;
             color: #92400e;
-            padding: 20px;
-            border-radius: 14px;
+            padding: 22px;
+            border-radius: 16px;
             display: flex;
             gap: 15px;
-            margin: 15px 0;
+            margin: 20px 0;
             font-size: 14px;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
-        /* Contact Grid */
-        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 25px; }
-        .contact-card { background: #f9fafb; padding: 25px; border-radius: 18px; border: 1px solid #f3f4f6; }
-        .contact-label { font-size: 11px; font-weight: 700; color: #9ca3af; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.5px; }
-        .contact-detail { display: flex; align-items: center; gap: 12px; font-size: 16px; font-weight: 600; color: #111827; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; }
+        .contact-card { background: #f9fafb; padding: 25px; border-radius: 20px; border: 1px solid #f3f4f6; }
+        .contact-label { font-size: 11px; font-weight: 700; color: #9ca3af; text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.8px; }
+        .contact-detail { display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 600; color: #111827; }
 
-        .office-card { background: #f9fafb; padding: 25px; border-radius: 18px; border: 1px solid #f3f4f6; margin-top: 10px; }
+        .office-card { background: #f9fafb; padding: 25px; border-radius: 20px; border: 1px solid #f3f4f6; margin-top: 20px; }
         
-        .footer-note { text-align: center; color: #9ca3af; font-size: 13px; margin-top: 30px; padding-top: 30px; border-top: 1px solid #f3f4f6; }
+        .footer-note { text-align: center; color: #9ca3af; font-size: 13px; margin-top: 40px; padding-top: 30px; border-top: 1px solid #f3f4f6; }
+
+        @media (max-width: 992px) {
+            .privacy-container { flex-direction: column; padding: 20px; }
+            .privacy-nav { position: relative; top: 0; flex: 1; width: 100%; margin-bottom: 30px; }
+            .privacy-card { padding: 30px; }
+            .contact-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </asp:Content>
 
@@ -157,21 +161,21 @@
         <nav class="privacy-nav">
             <div class="nav-title">Privacy Guide</div>
             <ul>
-                <li><a href="#overview"><i class="far fa-circle-info"></i> Overview</a></li>
-                <li><a href="#collect"><i class="far fa-database"></i> What We Collect</a></li>
-                <li><a href="#use"><i class="far fa-user-plus"></i> How We Use It</a></li>
-                <li><a href="#sharing"><i class="far fa-share-nodes"></i> Sharing Your Data</a></li>
-                <li><a href="#cookies"><i class="far fa-cookie-bite"></i> Cookies</a></li>
-                <li><a href="#security"><i class="far fa-lock"></i> Security</a></li>
-                <li><a href="#rights"><i class="far fa-eye"></i> Your Rights</a></li>
-                <li><a href="#children"><i class="far fa-shield-alt"></i> Children's Privacy</a></li>
-                <li><a href="#contact"><i class="far fa-envelope"></i> Contact Us</a></li>
+                <li><a href="#overview"><i class="fas fa-info-circle"></i> Overview</a></li>
+                <li><a href="#collect"><i class="fas fa-database"></i> What We Collect</a></li>
+                <li><a href="#use"><i class="fas fa-user-check"></i> How We Use It</a></li>
+                <li><a href="#sharing"><i class="fas fa-share-alt"></i> Sharing Your Data</a></li>
+                <li><a href="#cookies"><i class="fas fa-cookie"></i> Cookies</a></li>
+                <li><a href="#security"><i class="fas fa-lock"></i> Security</a></li>
+                <li><a href="#rights"><i class="fas fa-user-shield"></i> Your Rights</a></li>
+                <li><a href="#children"><i class="fas fa-child"></i> Children's Privacy</a></li>
+                <li><a href="#contact"><i class="fas fa-envelope"></i> Contact Us</a></li>
             </ul>
         </nav>
 
         <!-- Main Content Card -->
         <div class="privacy-card">
-            <div class="badge-trusted"><i class="fas fa-shield-check" style="margin-right:8px;"></i> Trusted Security</div>
+            <div class="badge-trusted"><i class="fas fa-shield-alt" style="margin-right:8px;"></i> Trusted Security</div>
             <h1>Privacy Policy</h1>
             <div class="last-updated">Last updated: May 5, 2026</div>
 
@@ -217,7 +221,7 @@
             <!-- How We Use It -->
             <section id="use">
                 <div class="section-header">
-                    <div class="icon-box"><i class="fas fa-user-plus"></i></div>
+                    <div class="icon-box"><i class="fas fa-user-cog"></i></div>
                     <h2>How We Use It</h2>
                 </div>
                 <p>We use your personal data only for the following purposes:</p>
@@ -259,9 +263,9 @@
                 </div>
                 <p>We use cookies to make our website work properly and to understand how visitors use it.</p>
                 <ul class="policy-list">
-                    <li><i>Essential cookies:</i> Required for the website to function — login, form submissions, session management.</li>
-                    <li><i>Analytics cookies:</i> Help us understand traffic patterns (e.g. Google Analytics). Data is anonymised.</li>
-                    <li><i>Preference cookies:</i> Remember your settings and preferences across visits.</li>
+                    <li><b>Essential cookies:</b> Required for the website to function — login, form submissions, session management.</li>
+                    <li><b>Analytics cookies:</b> Help us understand traffic patterns (e.g. Google Analytics). Data is anonymised.</li>
+                    <li><b>Preference cookies:</b> Remember your settings and preferences across visits.</li>
                 </ul>
                 <p style="font-size: 14px; color: #9ca3af;">You can disable cookies in your browser settings. Note that some features may not work correctly if cookies are disabled.</p>
             </section>
@@ -269,13 +273,13 @@
             <!-- Data Storage & Security -->
             <section id="security">
                 <div class="section-header">
-                    <div class="icon-box"><i class="fas fa-lock"></i></div>
+                    <div class="icon-box"><i class="fas fa-shield-halved"></i></div>
                     <h2>Data Storage & Security</h2>
                 </div>
                 <p>Your data is stored on secure servers located in India. We use industry-standard encryption (SSL/TLS) for all data transmitted between your browser and our servers.</p>
                 <p>We retain your personal data for as long as your account is active or as needed to provide services. You may request deletion at any time.</p>
                 <div class="alert-warning">
-                    <i class="fas fa-circle-exclamation" style="font-size: 20px; margin-top: 2px;"></i>
+                    <i class="fas fa-exclamation-triangle" style="font-size: 20px; margin-top: 2px;"></i>
                     <span>No method of transmission over the internet is 100% secure. While we take every precaution, we cannot guarantee absolute security of your data.</span>
                 </div>
             </section>
@@ -300,7 +304,7 @@
             <!-- Children's Privacy -->
             <section id="children">
                 <div class="section-header">
-                    <div class="icon-box"><i class="fas fa-shield-check"></i></div>
+                    <div class="icon-box"><i class="fas fa-user-shield"></i></div>
                     <h2>Children's Privacy</h2>
                 </div>
                 <p>StudyIsle serves students including those under 18. Where a student is a minor, we require a parent or guardian to provide consent before we collect or process their personal data.</p>
@@ -310,7 +314,7 @@
             <!-- Contact Us -->
             <section id="contact">
                 <div class="section-header">
-                    <div class="icon-box"><i class="fas fa-envelope"></i></div>
+                    <div class="icon-box"><i class="fas fa-envelope-open-text"></i></div>
                     <h2>Contact Us</h2>
                 </div>
                 <div class="contact-grid">
