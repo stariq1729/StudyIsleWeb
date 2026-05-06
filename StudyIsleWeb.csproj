@@ -180,6 +180,7 @@
     <Content Include="Student\Student_Logout.aspx" />
     <Content Include="SubCatDetails.aspx" />
     <Content Include="SubjectDetails.aspx" />
+    <Content Include="TermsAndConditions.aspx" />
     <Content Include="Testimonials.aspx" />
     <Content Include="Uploads\blog\Deault_Random_boy.png" />
     <Content Include="Uploads\ProfileImages\Deault_Random_boy.png" />
@@ -697,6 +698,13 @@
     </Compile>
     <Compile Include="SubjectDetails.aspx.designer.cs">
       <DependentUpon>SubjectDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TermsAndConditions.aspx.cs">
+      <DependentUpon>TermsAndConditions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TermsAndConditions.aspx.designer.cs">
+      <DependentUpon>TermsAndConditions.aspx</DependentUpon>
     </Compile>
     <Compile Include="Testimonials.aspx.cs">
       <DependentUpon>Testimonials.aspx</DependentUpon>
