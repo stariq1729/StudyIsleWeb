@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutUs.aspx" />
+    <Content Include="Admin\AddGallery.aspx" />
     <Content Include="Admin\Blogs\AddBlogs.aspx" />
     <Content Include="Admin\Blogs\AddCategory.aspx" />
     <Content Include="Admin\Blogs\EditBlogContent.aspx" />
@@ -190,6 +191,13 @@
     </Compile>
     <Compile Include="AboutUs.aspx.designer.cs">
       <DependentUpon>AboutUs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AddGallery.aspx.cs">
+      <DependentUpon>AddGallery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddGallery.aspx.designer.cs">
+      <DependentUpon>AddGallery.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Admin.Master.cs">
       <DependentUpon>Admin.Master</DependentUpon>
@@ -701,8 +709,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Admin\NewFolder1\" />
     <Folder Include="Uploads\Flashcards\" />
+    <Folder Include="Uploads\Gallery\" />
     <Folder Include="Uploads\Resumes\" />
   </ItemGroup>
   <PropertyGroup>
