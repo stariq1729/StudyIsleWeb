@@ -214,6 +214,59 @@
     bottom: 20px; left: 20px; right: 20px;
     z-index: 5;
 }
+
+ /* voice section*/
+
+.voices-section { padding: 60px 0; background-color: #fcfcfd; }
+
+.section-header-centered { text-align: center; margin-bottom: 50px; }
+.title-underline { 
+    width: 50px; height: 3px; background: #635bff; 
+    margin: 10px auto; border-radius: 2px; 
+}
+
+/* The Masonry Magic */
+.masonry-wrapper {
+    column-count: 3; /* 3 columns on desktop */
+    column-gap: 20px;
+    width: 100%;
+}
+
+.testimonial-card {
+    background: #fff;
+    border: 1px solid #e3e8ee;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px; /* Space between stacked cards */
+    display: inline-block; /* Essential for column layout */
+    width: 100%;
+    box-sizing: border-box;
+    transition: 0.3s ease;
+}
+
+.testimonial-card:hover { transform: translateY(-5px); border-color: #635bff; }
+
+/* Card Components */
+.card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+.user-profile { display: flex; align-items: center; gap: 10px; }
+.avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+.user-name { display: block; font-weight: 700; font-size: 14px; color: #1a1f36; }
+.user-label { font-size: 11px; color: #697386; }
+.rating-stars { color: #635bff; font-size: 12px; }
+
+.card-img { 
+    width: 100%; border-radius: 12px; margin-bottom: 15px; 
+    object-fit: cover; display: block; 
+}
+
+.card-quote { 
+    font-size: 14px; line-height: 1.6; color: #4f566b; 
+    font-style: italic; margin: 0; 
+}
+
+/* Responsive Columns */
+@media (max-width: 992px) { .masonry-wrapper { column-count: 2; } }
+@media (max-width: 600px) { .masonry-wrapper { column-count: 1; } }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -341,6 +394,79 @@
         </div>
     </div>
 </div>
+    <section class="voices-section">
+    <div class="container">
+        <div class="section-header-centered">
+            <h2 class="section-title">Voices of Success</h2>
+            <div class="title-underline"></div>
+        </div>
+
+        <div class="masonry-wrapper">
+            <!-- Card 1: Image + Text -->
+            <div class="testimonial-card">
+                <div class="card-header">
+                    <div class="user-profile">
+                        
+                        <img src="\assets\tutorimg\Pranav.jpg" alt="David" class="avatar">
+                        <div class="user-meta">
+                            <span class="user-name">David Chen</span>
+                            <span class="user-label">Full Stack Graduate</span>
+                        </div>
+                    </div>
+                    <div class="rating-stars">★★★★★</div>
+                </div>
+                <img src="\assets\tutorimg\Pranav.jpg" class="card-img" alt="Project">
+                <p class="card-quote">"The practical projects are what sets this course apart. You build real-world applications that employers actually care about."</p>
+            </div>
+
+            <!-- Card 2: Text Only -->
+            <div class="testimonial-card">
+                <div class="card-header">
+                    <div class="user-profile">
+                        <img src="\assets\tutorimg\Pranav.jpg" alt="Elena" class="avatar">
+                        <div class="user-meta">
+                            <span class="user-name">Elena Rodriguez</span>
+                            <span class="user-label">Data Science Enthusiast</span>
+                        </div>
+                    </div>
+                    <div class="rating-stars">★★★★☆</div>
+                </div>
+                <p class="card-quote">"I never thought I could understand complex algorithms, but the breakdown of concepts here is so intuitive. Efficient and engaging learning."</p>
+            </div>
+
+            <!-- Card 3: Image + Text -->
+            <div class="testimonial-card">
+                <div class="card-header">
+                    <div class="user-profile">
+                        <img src="\assets\tutorimg\Pranav.jpg" alt="Maria" class="avatar">
+                        <div class="user-meta">
+                            <span class="user-name">Maria Garcia</span>
+                            <span class="user-label">Marketing Specialist</span>
+                        </div>
+                    </div>
+                    <div class="rating-stars">★★★★★</div>
+                </div>
+                <img src="\assets\tutorimg\Pranav.jpg" class="card-img" alt="Landscape">
+                <p class="card-quote">"The curriculum is always up to date with industry trends. I improved my ROI by 40% after implementing what I learned."</p>
+            </div>
+
+            <!-- Card 4: Text Only -->
+            <div class="testimonial-card">
+                <div class="card-header">
+                    <div class="user-profile">
+                        <img src="\assets\tutorimg\Pranav.jpg" alt="Kevin" class="avatar">
+                        <div class="user-meta">
+                            <span class="user-name">Kevin Park</span>
+                            <span class="user-label">Cloud Architect</span>
+                        </div>
+                    </div>
+                    <div class="rating-stars">★★★★★</div>
+                </div>
+                <p class="card-quote">"The certification prep matches the official exams perfectly. Passed on my first try thanks to the practice modules."</p>
+            </div>
+        </div>
+    </div>
+</section>
     <script>
         function openStory(name, role, videoSrc) {
             const modal = document.getElementById('storyModal');
