@@ -130,17 +130,17 @@
     .stats-row { flex-direction: column; align-items: center; gap: 25px; }
 }
 /* Section Layout */
-.stories-section { padding: 60px 0; background: #fff; }
-.stories-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; }
-.section-title { font-size: 28px; font-weight: 700; margin: 0; color: #1a1f36; }
+.stories-section { padding: 50px 0; background: #fff; }
+.stories-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; }
+.section-title { font-size: 22px; font-weight: 600; margin: 0; color: #1a1f36; }
 .section-subtitle { color: #4f566b; margin: 5px 0 0; }
-.view-all { color: #635bff; text-decoration: none; font-weight: 600; font-size: 14px; }
+.view-all { color: #635bff; text-decoration: none; font-weight: 600; font-size: 12px; }
 
 /* Grid & Cards */
 .stories-grid { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 10px; }
 .story-card {
-    min-width: 220px;
-    height: 380px;
+    min-width: 216px;
+    height: 360px;
     background: #111; /* Fallback */
     border-radius: 16px;
     position: relative;
