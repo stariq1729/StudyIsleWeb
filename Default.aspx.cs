@@ -20,25 +20,25 @@ namespace StudyIsleWeb
         {
             if (!IsPostBack)
             {
-                LoadCategories();
+                //LoadCategories();
                 LoadBlogs(); // default = latest
             }
         }
         // 🔹 Load Categories (Tabs)
-        private void LoadCategories()
-        {
-            using (SqlConnection con = new SqlConnection(cs))
-            {
-                string query = "SELECT CategoryId, CategoryName FROM BlogCategories WHERE IsActive=1";
+        //private void LoadCategories()
+        //{
+        //    using (SqlConnection con = new SqlConnection(cs))
+        //    {
+        //        string query = "SELECT CategoryId, CategoryName FROM BlogCategories WHERE IsActive=1";
 
-                SqlDataAdapter da = new SqlDataAdapter(query, con);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
+        //        SqlDataAdapter da = new SqlDataAdapter(query, con);
+        //        DataTable dt = new DataTable();
+        //        da.Fill(dt);
 
-                rptCategories.DataSource = dt;
-                rptCategories.DataBind();
-            }
-        }
+        //        rptCategories.DataSource = dt;
+        //        rptCategories.DataBind();
+        //    }
+        //}
 
         // 🔹 Load Blogs (UPDATED - CORE CHANGE)
         private void LoadBlogs(int? categoryId = null)
@@ -108,17 +108,17 @@ namespace StudyIsleWeb
         }
 
         // 🔹 Latest Button
-        protected void btnLatest_Click(object sender, EventArgs e)
-        {
-            LoadBlogs();
-        }
+        //protected void btnLatest_Click(object sender, EventArgs e)
+        //{
+        //    LoadBlogs();
+        //}
 
         // 🔹 Category Click
-        protected void Category_Click(object sender, System.Web.UI.WebControls.CommandEventArgs e)
-        {
-            int categoryId = Convert.ToInt32(e.CommandArgument);
-            LoadBlogs(categoryId);
-        }
+        //protected void Category_Click(object sender, System.Web.UI.WebControls.CommandEventArgs e)
+        //{
+        //    int categoryId = Convert.ToInt32(e.CommandArgument);
+        //    LoadBlogs(categoryId);
+        //}
 
 
         //this button belongs to enquiry form

@@ -775,7 +775,7 @@ Live Leaderboards That Keep You Sharp</h6>
                     <p class="featured-author">— Mother of AIR 45, JEE Advanced 2024</p>
                 </div>
                 <div class="col-lg-4 col-12 text-center text-lg-end mt-3 mt-lg-0">
-                    <a href="#" class="watch-btn">Watch Testimonial</a>
+                    <a href="Testimonials.aspx" class="watch-btn">Watch Testimonial</a>
                 </div>
             </div>
         </div>
@@ -1436,7 +1436,7 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
         </p>
     </div>
 
-    <!-- 🔷 CATEGORY TABS -->
+    <%--<!-- 🔷 CATEGORY TABS -->
     <div class="text-center mb-4">
 
         <!-- Latest -->
@@ -1455,7 +1455,7 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
             </ItemTemplate>
         </asp:Repeater>
 
-    </div>
+    </div>--%>
 
     <!-- 🔷 BLOG CARDS -->
     <div class="row">
@@ -1518,10 +1518,10 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
 
                     <!-- Actions -->
                     <div>
-                        <i class="fa fa-bookmark me-2" 
+                        <%--<i class="fa fa-bookmark me-2" 
                            style="cursor:pointer;"
                            onclick="event.preventDefault(); event.stopPropagation();">
-                        </i>
+                        </i>--%>
 
                         <i class="fa fa-share" 
                            style="cursor:pointer;"

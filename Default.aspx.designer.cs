@@ -96,24 +96,6 @@ namespace StudyIsleWeb
         protected global::System.Web.UI.WebControls.Button btnSubmit;
 
         /// <summary>
-        /// btnLatest control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnLatest;
-
-        /// <summary>
-        /// rptCategories control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptCategories;
-
-        /// <summary>
         /// rptBlogs control.
         /// </summary>
         /// <remarks>

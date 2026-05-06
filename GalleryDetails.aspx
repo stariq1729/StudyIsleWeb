@@ -17,7 +17,7 @@
 
         .details-hero-section {
             background: #020617;
-            border-radius: 0 0 40px 40px;
+           /* border-radius: 0 0 40px 40px;*/
             padding: 10px 0;
             margin-bottom: 30px;
             overflow: hidden;
