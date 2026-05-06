@@ -139,14 +139,24 @@
 
 </ItemTemplate>
 </asp:Repeater>
-        <div class="text-center mt-4">
-    <asp:Button ID="btnPrev" runat="server" Text="Previous"
-        OnClick="btnPrev_Click"
-        CssClass="btn btn-outline-secondary me-2" />
+        <!-- PAGINATION -->
+<div class="text-center mt-4">
 
-    <asp:Button ID="btnNext" runat="server" Text="Next"
-        OnClick="btnNext_Click"
-        CssClass="btn btn-primary" />
+    <asp:Repeater ID="rptPagination" runat="server">
+        <ItemTemplate>
+
+            <asp:LinkButton
+                ID="lnkPage"
+                runat="server"
+                Text='<%# Eval("PageNumber") %>'
+                CommandArgument='<%# Eval("PageNumber") %>'
+                OnCommand="Page_Changed"
+                CssClass='page-number-btn'>
+            </asp:LinkButton>
+
+        </ItemTemplate>
+    </asp:Repeater>
+
 </div>
     </div>
 
