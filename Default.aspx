@@ -421,7 +421,10 @@ Feel Like
 
                 <!-- Feature Item 1 -->
                 <div class="feature-item">
-                    <div class="feature-icon">🎥</div>
+                    <div class="feature-icon">
+                        <i class="bi bi-camera-video-fill"></i>
+
+                    </div>
                     <div>
                         <h6>Two-Way Audio/Video Interaction</h6>
                         <p>Ask questions live. Your teacher responds directly — no waiting, no muting.</p>
@@ -430,7 +433,9 @@ Feel Like
 
                 <!-- Feature Item 2 -->
                 <div class="feature-item">
-                    <div class="feature-icon">💬</div>
+                   <div class="feature-icon">
+        <i class="bi bi-chat-dots-fill"></i>
+    </div>
                     <div>
                         <h6>Dedicated Doubt-Solving Teacher in Every Class</h6>
                         <p>A second teacher in every class clears doubts from chat in real time.</p>
@@ -439,14 +444,17 @@ Feel Like
 
                 <!-- Feature Item 3 -->
                 <div class="feature-item">
-                    <div class="feature-icon">⚡</div>
+                    <div class="feature-icon">
+        <i class="bi bi-lightning-charge-fill"></i>
+    </div>
                     <div>
                         <h6>
 Live Leaderboards That Keep You Sharp</h6>
                         <p>In-class quizzes and live rankings against 10k+ students keep every session sharp.</p>
                     </div>
                 </div>
-
+                <button class="btn btn-primary btn-lg mt-4">
+                    Join a Free Class → </button> 
             </div>
 
         </div>
