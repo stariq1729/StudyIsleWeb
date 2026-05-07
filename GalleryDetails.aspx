@@ -8,20 +8,24 @@
         ========================================= */
 
         .gallery-details-page {
-            background: #f7f8fc;
-            
-            padding-bottom: 40px;
-        }
+    background: #f7f8fc;
+    height: 100vh;
+    overflow: hidden;
+}
 
         /* TOP IMAGE SECTION */
 
         .details-hero-section {
-            background: #020617;
-           /* border-radius: 0 0 40px 40px;*/
-            padding: 10px 0;
-            margin-bottom: 30px;
-            overflow: hidden;
-        }
+    background: #020617;
+    height: 58vh;
+    min-height: 420px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+}
 
         .details-image-wrap {
             display: flex;
@@ -46,7 +50,42 @@
             gap: 45px;
             align-items: start;
         }
+        /* SCROLLABLE LOWER SECTION */
 
+.details-scroll-section {
+
+    height: 42vh;
+
+    overflow-y: auto;
+
+    background: #f7f8fc;
+
+    border-radius: 40px 40px 0 0;
+
+    margin-top: -20px;
+
+    position: relative;
+
+    z-index: 10;
+
+    padding-top: 45px;
+    padding-bottom: 50px;
+}
+
+/* CUSTOM SCROLLBAR */
+
+.details-scroll-section::-webkit-scrollbar {
+    width: 8px;
+}
+
+.details-scroll-section::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 20px;
+}
+
+.details-scroll-section::-webkit-scrollbar-track {
+    background: transparent;
+}
         /* LEFT */
 
         .details-left {
@@ -261,7 +300,7 @@
         </div>
 
         <!-- CONTENT -->
-
+        <div class="details-scroll-section">
         <div class="container">
 
             <div class="details-content-grid">
@@ -381,5 +420,5 @@
         </div>
 
     </div>
-
+        </div>
 </asp:Content>
