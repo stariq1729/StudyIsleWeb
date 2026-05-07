@@ -10,6 +10,9 @@ h2.fw-bold {
     letter-spacing: -1px;
     color: #1a1a1a;
 }
+p.text-muted {
+    padding-bottom: 18px !important;
+}
 
 /* 🔷 Category Pills (Floating Look) */
 .category-pills {
