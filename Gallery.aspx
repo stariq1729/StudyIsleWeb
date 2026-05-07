@@ -398,6 +398,92 @@
         font-size: 24px;
     }
 }
+/* =========================================
+   STATS COUNTER SECTION - EXACT UI
+========================================= */
+
+.stats-section {
+    padding: 20px 0;
+    background: #fdfdff; /* White background to pop the soft gray shadows */
+}
+
+.stats-grid {
+    display: grid;
+    /* PC: 4 boxes in a row */
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.stat-card {
+    background: #ffffff;
+    padding: 36px 16px;
+    border-radius: 36px;
+    text-align: center;
+    /* Soft, large spread shadow to match image */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.04);
+    border: 1.5px solid rgba(0, 0, 0, 0.01);
+    transition: transform 0.3s ease;
+}
+
+/* ICON WRAPPERS - Rounded squares from image */
+.stat-icon-box {
+    width: 55px;
+    height: 35px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    font-size: 20px;
+}
+
+/* Exact Color Palette from Image */
+.bg-light-blue { background-color: #f0f3ff; color: #5c67f2; }
+.bg-light-orange { background-color: #fff5ed; color: #e67e22; }
+.bg-light-green { background-color: #f0fdf9; color: #27ae60; }
+.bg-solid-purple { 
+    background-color: #5c67f2; 
+    color: #ffffff; 
+    box-shadow: 0 10px 20px rgba(92, 103, 242, 0.3); 
+}
+
+.stat-number {
+    display: block;
+    font-size: 40px;
+    font-weight: 800;
+    color: #1a1a1a;
+    letter-spacing: -1px;
+    margin-bottom: 2px;
+}
+
+.stat-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #8c94a3;
+}
+
+/* RESPONSIVE LOGIC */
+@media(max-width: 1024px) {
+    /* Tablet & Mobile: 2 boxes in a row */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0 20px;
+    }
+}
+
+@media(max-width: 480px) {
+    .stat-card {
+        padding: 35px 15px;
+    }
+    .stat-number {
+        font-size: 32px;
+    }
+}
     </style>
 
 </asp:Content>
@@ -560,5 +646,46 @@
 
     </div>
 
+</div>
+
+
+   <div class="stats-section">
+    <div class="container">
+        <div class="stats-grid">
+
+            <div class="stat-card">
+                <div class="stat-icon-box bg-light-blue">
+                    <span style="font-size: 30px;">👥</span>
+                </div>
+                <span class="stat-number">5,000+</span>
+                <span class="stat-label">Students Enrolled</span>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon-box bg-light-orange">
+                    <span style="font-size: 30px;">🏅</span>
+                </div>
+                <span class="stat-number">120+</span>
+                <span class="stat-label">Gold Medalists</span>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon-box bg-light-green">
+                    <span style="font-size: 30px;">🎓</span>
+                </div>
+                <span class="stat-number">98%</span>
+                <span class="stat-label">Success Rate</span>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon-box bg-solid-purple">
+                    <span style="font-size: 30px;">⭐</span>
+                </div>
+                <span class="stat-number">12+</span>
+                <span class="stat-label">Years of Excellence</span>
+            </div>
+
+        </div>
+    </div>
 </div>
 </asp:Content>
