@@ -484,6 +484,140 @@
         font-size: 32px;
     }
 }
+
+/* =========================================
+   EMPOWERING LEADERS - PIXEL PERFECT
+========================================= */
+
+.empower-section {
+    padding: 100px 0;
+    background: #ffffff;
+}
+
+.empower-container {
+    display: flex;
+    align-items: flex-start; /* Aligns left text and right grid at the top */
+    justify-content: space-between;
+    gap: 50px;
+}
+
+/* LEFT SIDE */
+.empower-left {
+    flex: 0 0 45%; /* Precise width for text area */
+    padding-top: 20px;
+}
+
+.empower-title {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.1;
+    color: #0f172a;
+    margin-bottom: 40px;
+    letter-spacing: -1.5px;
+}
+
+.empower-title span { color: #6366f1; }
+
+.feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    margin-bottom: 22px;
+}
+
+.feature-icon-circle {
+    width: 40px;
+    height: 40px;
+    background: #111827;
+    border-radius: 12px; /* Slightly squircle as per image */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex-shrink: 0;
+    font-size: 12px;
+}
+.feature-text h5{
+    color:#0f172a;
+}
+/* RIGHT SIDE GRID - THE FIX */
+.empower-right {
+    flex: 0 0 50%;
+    display: grid;
+    /* 2 main columns with a specific gap */
+    grid-template-columns: 1fr 1fr; 
+    column-gap: 20px;
+    align-items: start;
+}
+
+/* Column 1: Top Image and White Card */
+.grid-col-1 {
+    margin-top:30px;
+    display: flex;
+   /* width:230px;*/
+    flex-direction: column;
+    gap:20px; /* Precise vertical gap between img and card */
+}
+
+/* Column 2: Dark Card and Tall Image */
+.grid-col-2 {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: -60px; /* Pushes the whole right column down to match UI offset */
+}
+
+        .grid-img {
+            width: 100%;
+            border-radius: 32px;
+            object-fit: cover;
+            display: block;
+            border: 2px solid #F8FAFC;
+        }
+
+/* CARDS */
+.ui-card {
+    border-radius: 32px;
+    padding: 25px 18px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+}
+
+.card-dark {
+    background: #0f172a;
+    color: #ffffff;
+}
+
+.card-white {
+    background: #ffffff;
+    border: 1px solid #f1f5f9;
+}
+
+.ui-card i, .ui-card span.icon {
+    font-size: 28px;
+    color: #6366f1;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.ui-card h5 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.ui-card p {
+    font-size: 12px;
+    color: #94a3b8;
+    line-height: 1.2;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1100px) {
+    .empower-container { flex-direction: column; }
+    .empower-left, .empower-right { flex: 0 0 100%; width: 100%; }
+    .empower-title { font-size: 40px; }
+}
+
     </style>
 
 </asp:Content>
@@ -688,4 +822,72 @@
         </div>
     </div>
 </div>
+    <section class="empower-section">
+    <div class="container empower-container">
+        
+        <div class="empower-left">
+            <h2 class="empower-title">
+                Empowering the<br />
+                <span>Next Generation</span> of<br />
+                Leaders
+            </h2>
+
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-icon-circle">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h5 style="font-weight:600; margin-bottom:4px;">Expert Faculty</h5>
+                        <p style="color:#64748b; font-size:14px;">Decades of combined teaching experience from top academic backgrounds.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon-circle">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h5 style="font-weight:600; margin-bottom:4px;">Modern Facilities</h5>
+                        <p style="color:#64748b; font-size:14px;">Equipped with high-tech labs and expansive libraries for all subjects.</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon-circle">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="feature-text">
+                        <h5 style="font-weight:600; margin-bottom:4px;">Personalized Care</h5>
+                        <p style="color:#64748b; font-size:14px;">Small batch sizes to ensure every student gets individual attention.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="empower-right">
+            
+            <div class="grid-col-1">
+                <img src="assets/img/DummImg.png" class="grid-img" style="height: 260px; " alt="Faculty" />
+                
+                <div class="ui-card card-white">
+                    <span class="icon">📖</span>
+                    <h5>Focus on Concepts</h5>
+                </div>
+            </div>
+
+            <div class="grid-col-2">
+                <div class="ui-card card-dark">
+                    <span class="icon" style="color: #818cf8;">✦</span>
+                    <h5>Daily Assessments</h5>
+                    <p>Track progress every single day.</p>
+                </div>
+
+                <img src="assets/img/DummImg.png"  class="grid-img" style="height: 320px;" alt="Students" />
+            </div>
+
+        </div>
+
+    </div>
+</section>
 </asp:Content>
