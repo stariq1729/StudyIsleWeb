@@ -1014,7 +1014,7 @@ Time Management Analysis</h6>
                         <img src="..\assets\tutorimg\Pranav.jpg"
                              class="tutor-img"
                              alt="Pranav Maheshwari">
-                        <span class="verify-badge">✓</span>
+                        <%--<span class="verify-badge">✓</span>--%>
                     </div>
 
                     <h6 class="tutor-name">Pranav Maheshwari</h6>
@@ -1032,7 +1032,7 @@ Time Management Analysis</h6>
                         <img src="..\assets\tutorimg\Ambar.jpg"
                              class="tutor-img"
                              alt="MD Ambar">
-                        <span class="verify-badge">✓</span>
+                        <%--<span class="verify-badge">✓</span>--%>
                     </div>
 
                     <h6 class="tutor-name">MD Ambar</h6>
