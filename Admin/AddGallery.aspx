@@ -271,6 +271,11 @@
                     runat="server"
                     Visible="false">
                 </asp:Label>
+                <asp:HiddenField ID="hfGalleryId"
+    runat="server" />
+
+<asp:HiddenField ID="hfOldImagePath"
+    runat="server" />
 
                 <div class="gallery-flex">
 
@@ -287,7 +292,9 @@
                                 ClientIDMode="Static" />
 
                             <!-- PLACEHOLDER -->
-                            <div class="upload-content" id="uploadContent">
+                           <div class="upload-content"
+    id="uploadContent"
+    runat="server">
 
                                 <div class="upload-icon">
                                     🖼

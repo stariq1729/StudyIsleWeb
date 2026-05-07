@@ -24,6 +24,24 @@ namespace StudyIsleWeb.Admin
         protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
+        /// hfGalleryId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfGalleryId;
+
+        /// <summary>
+        /// hfOldImagePath control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfOldImagePath;
+
+        /// <summary>
         /// imgPreview control.
         /// </summary>
         /// <remarks>
@@ -31,6 +49,15 @@ namespace StudyIsleWeb.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image imgPreview;
+
+        /// <summary>
+        /// uploadContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl uploadContent;
 
         /// <summary>
         /// fuGalleryImage control.
