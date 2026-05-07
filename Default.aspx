@@ -1437,7 +1437,7 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
 
     <!-- 🔷 HEADER -->
     <div class="text-center mb-4">
-        <h2 class="fw-bold">Student Success Hub</h2>
+        <h2 class="fw-bold ">Student Success Hub</h2>
         <p class="text-muted">
             High-impact strategies, resources, and expert tips to ace 
             <b>CBSE</b>, <b>JEE</b>, and <b>NEET</b> exams.

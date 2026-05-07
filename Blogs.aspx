@@ -31,7 +31,7 @@
 <div class="container mt-4">
 
     <!-- 🔷 HEADER -->
-    <div class="text-center mb-4">
+    <div class="text-center mb-4 H-title">
         <h2 class="fw-bold">Student Success Hub</h2>
         <p class="text-muted">
             High-impact strategies, resources, and expert tips to ace 
@@ -40,32 +40,15 @@
     </div>
 
 <!-- 🔷 CATEGORY TABS -->
-<div class="text-center mb-4">
-
-    <!-- Latest -->
-    <a href="Blogs.aspx"
-       class='<%= Request.QueryString["category"] == null
-            ? "btn btn-secondary me-2 active"
-            : "btn btn-outline-secondary me-2" %>'>
-
-        Latest
-
-    </a>
-
-    <!-- Dynamic Categories -->
+<div class="category-pills mb-5">
+    <a href="Blogs.aspx" class='<%= Request.QueryString["category"] == null ? "nav-pill active" : "nav-pill" %>'>Latest Updates</a>
     <asp:Repeater ID="rptCategories" runat="server">
         <ItemTemplate>
-
-            <a href='Blogs.aspx?category=<%# Eval("CategoryId") %>'
-               class='<%# GetCategoryClass(Eval("CategoryId")) %>'>
-
+            <a href='Blogs.aspx?category=<%# Eval("CategoryId") %>' class='<%# GetCategoryClass(Eval("CategoryId")) %> nav-pill'>
                 <%# Eval("CategoryName") %>
-
             </a>
-
         </ItemTemplate>
     </asp:Repeater>
-
 </div>
 
     <!-- 🔷 BLOG CARDS -->
