@@ -572,7 +572,7 @@
             border-radius: 32px;
             object-fit: cover;
             display: block;
-            border: 2px solid #F8FAFC;
+            border: 4px solid #F9F9F9;
         }
 
 /* CARDS */
@@ -617,7 +617,178 @@
     .empower-left, .empower-right { flex: 0 0 100%; width: 100%; }
     .empower-title { font-size: 40px; }
 }
+/* =========================================
+   TESTIMONIALS SECTION
+========================================= */
+.testimonials-section {
+    padding: 80px 0;
+    text-align: center;
+    background: #ffffff;
+}
 
+.section-header h2 {
+    font-size: 36px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 10px;
+}
+
+.section-header p {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 50px;
+}
+
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto 80px;
+}
+
+.testimonial-card {
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 40px;
+    text-align: left;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f1f5f9;
+}
+
+.stars { color: #f97316; font-size: 14px; margin-bottom: 20px; }
+
+.quote-icon {
+    position: absolute;
+    top: 30px;
+    right: 35px;
+    font-size: 40px;
+    color: #f1f5f9;
+    font-family: serif;
+    font-weight: bold;
+}
+
+.testimonial-text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #475569;
+    font-style: italic;
+    margin-bottom: 30px;
+    min-height: 100px;
+}
+
+.testimonial-footer {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 20px;
+}
+
+.user-avatar {
+    width: 45px;
+    height: 45px;
+    background: #f8fafc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+}
+
+.user-info h5 {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0;
+    color: #0f172a;
+}
+
+.user-info span {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #6366f1;
+    letter-spacing: 0.5px;
+}
+
+/* =========================================
+   SUCCESS STORY CTA BANNER
+========================================= */
+.cta-banner {
+    background: #5c67f2;
+    padding: 60px 30px;
+    border-radius: 50px;
+    color: white;
+    text-align: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    box-shadow: 0 30px 60px rgba(92, 103, 242, 0.3);
+}
+
+.cta-banner h2 {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 18px;
+}
+
+.cta-banner h2 span {
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 8px;
+}
+
+.cta-banner p {
+    font-size: 16px;
+    max-width: 600px;
+    margin: 0 auto 40px;
+    opacity: 0.9;
+    line-height: 1.4;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+}
+
+.btn-white {
+    background: white;
+    color: #5c67f2;
+    padding: 16px 35px;
+    border-radius: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.3s;
+}
+
+.btn-outline {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 16px 35px;
+    border-radius: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: 0.3s;
+}
+
+.btn-white:hover { transform: translateY(-3px); }
+
+/* RESPONSIVE */
+@media (max-width: 991px) {
+    .testimonial-grid { grid-template-columns: repeat(2, 1fr); }
+    .cta-banner h2 { font-size: 34px; }
+}
+
+@media (max-width: 768px) {
+    .testimonial-grid { grid-template-columns: 1fr; }
+    .cta-buttons { flex-direction: column; align-items: center; }
+}
     </style>
 
 </asp:Content>
@@ -888,6 +1059,64 @@
 
         </div>
 
+    </div>
+</section>
+    <section class="testimonials-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Trusted by 1000+ Parents</h2>
+            <p>Hear what they say about their child's journey with us.</p>
+        </div>
+
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <div class="quote-icon">”</div>
+                <p class="testimonial-text">"The growth I've seen in my daughter's confidence and problem-solving skills is truly remarkable. The teachers are mentors."</p>
+                <div class="testimonial-footer">
+                    <div class="user-avatar">👤</div>
+                    <div class="user-info">
+                        <h5>Mrs. Anjali Sharma</h5>
+                        <span>Parent of Grade 10 Topper</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <div class="quote-icon">”</div>
+                <p class="testimonial-text">"Structured curriculum and consistent feedback helped my son secure a top rank. The focus on basics is what makes them different."</p>
+                <div class="testimonial-footer">
+                    <div class="user-avatar">👤</div>
+                    <div class="user-info">
+                        <h5>Mr. Rajive Gupta</h5>
+                        <span>IIT Aspirant Parent</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <div class="quote-icon">”</div>
+                <p class="testimonial-text">"The daily updates in the gallery keep us connected to the institute. Highly professional and result-oriented approach."</p>
+                <div class="testimonial-footer">
+                    <div class="user-avatar">👤</div>
+                    <div class="user-info">
+                        <h5>Dr. Sunita Varma</h5>
+                        <span>Medical Parent</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-banner">
+            <h2>Ready to start your<br /><span>Success Story?</span></h2>
+            <p>Join Elite Institute today and take the first step towards your dream career with expert guidance and a community that cares.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn-white">Enroll Now ↗</a>
+                <a href="#" class="btn-outline">Download Brochure</a>
+            </div>
+        </div>
     </div>
 </section>
 </asp:Content>
