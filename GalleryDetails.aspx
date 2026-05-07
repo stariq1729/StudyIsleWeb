@@ -30,9 +30,9 @@
         }
 
         .details-main-image {
-            width: 100%;
-            max-width: 520px;
-            height: 650px;
+           /* width: 100%;*/
+            max-width: 620px;
+            height: 400px;
             object-fit: cover;
             border-radius: 18px;
             box-shadow: 0 18px 50px rgba(0,0,0,0.35);
