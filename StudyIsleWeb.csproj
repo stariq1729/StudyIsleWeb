@@ -100,6 +100,7 @@
     <Content Include="Admin\Dashboard.aspx" />
     <Content Include="Admin\Flashcards\AddFlashcards.aspx" />
     <Content Include="Admin\Flashcards\ManageFlashcards.aspx" />
+    <Content Include="Admin\ManageGallery.aspx" />
     <Content Include="Admin\Quiz\AddQuestion.aspx" />
     <Content Include="Admin\Quiz\AddQuiz.aspx" />
     <Content Include="Admin\Quiz\ManageQuiz.aspx" />
@@ -344,6 +345,13 @@
     </Compile>
     <Compile Include="Admin\Flashcards\ManageFlashcards.aspx.designer.cs">
       <DependentUpon>ManageFlashcards.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManageGallery.aspx.cs">
+      <DependentUpon>ManageGallery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageGallery.aspx.designer.cs">
+      <DependentUpon>ManageGallery.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Quiz\AddQuestion.aspx.cs">
       <DependentUpon>AddQuestion.aspx</DependentUpon>
