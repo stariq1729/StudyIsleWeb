@@ -36,10 +36,56 @@ namespace StudyIsleWeb
             if (!IsPostBack)
             {
                 LoadCategories();
-                LoadBlogs();
+
+                int? categoryId = null;
+
+                if (Request.QueryString["category"] != null)
+                {
+                    categoryId = Convert.ToInt32(Request.QueryString["category"]);
+                }
+
+                // ✅ PAGE QUERY STRING
+                if (Request.QueryString["page"] != null)
+                {
+                    PageIndex = Convert.ToInt32(Request.QueryString["page"]);
+                }
+                else
+                {
+                    PageIndex = 1;
+                }
+
+                LoadBlogs(categoryId);
             }
         }
+        //this section is For the active state of category and page buttons
+        protected string GetCategoryClass(object categoryId)
+        {
+            string activeCategory = Request.QueryString["category"];
 
+            if (activeCategory == categoryId.ToString())
+            {
+                return "btn btn-secondary me-2 active";
+            }
+
+            return "btn btn-outline-secondary me-2";
+        }
+        //this function for pagination actuve class
+        protected string GetPageClass(object pageNumber)
+        {
+            int currentPage = 1;
+
+            if (Request.QueryString["page"] != null)
+            {
+                currentPage = Convert.ToInt32(Request.QueryString["page"]);
+            }
+
+            if (currentPage == Convert.ToInt32(pageNumber))
+            {
+                return "page-number-btn active";
+            }
+
+            return "page-number-btn";
+        }
         // 🔹 Load Categories
         private void LoadCategories()
         {
@@ -166,11 +212,11 @@ namespace StudyIsleWeb
         }
 
         // ✅ PAGE CLICK EVENT
-        protected void Page_Changed(object sender, System.Web.UI.WebControls.CommandEventArgs e)
-        {
-            PageIndex = Convert.ToInt32(e.CommandArgument);
-            LoadBlogs();
-        }
+        //protected void Page_Changed(object sender, System.Web.UI.WebControls.CommandEventArgs e)
+        //{
+        //    PageIndex = Convert.ToInt32(e.CommandArgument);
+        //    LoadBlogs();
+        //}
 
         // 🔹 Latest Button
         protected void btnLatest_Click(object sender, EventArgs e)

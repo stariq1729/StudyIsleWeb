@@ -39,26 +39,34 @@
         </p>
     </div>
 
-    <!-- 🔷 CATEGORY TABS -->
-    <div class="text-center mb-4">
+<!-- 🔷 CATEGORY TABS -->
+<div class="text-center mb-4">
 
-        <!-- Latest -->
-        <asp:LinkButton ID="btnLatest" runat="server" CssClass="btn btn-outline-secondary me-2"
-            OnClick="btnLatest_Click">Latest</asp:LinkButton>
+    <!-- Latest -->
+    <a href="Blogs.aspx"
+       class='<%= Request.QueryString["category"] == null
+            ? "btn btn-secondary me-2 active"
+            : "btn btn-outline-secondary me-2" %>'>
 
-        <!-- Dynamic Categories -->
-        <asp:Repeater ID="rptCategories" runat="server">
-            <ItemTemplate>
-                <asp:LinkButton runat="server"
-                    CssClass="btn btn-outline-secondary me-2"
-                    CommandArgument='<%# Eval("CategoryId") %>'
-                    OnCommand="Category_Click">
-                    <%# Eval("CategoryName") %>
-                </asp:LinkButton>
-            </ItemTemplate>
-        </asp:Repeater>
+        Latest
 
-    </div>
+    </a>
+
+    <!-- Dynamic Categories -->
+    <asp:Repeater ID="rptCategories" runat="server">
+        <ItemTemplate>
+
+            <a href='Blogs.aspx?category=<%# Eval("CategoryId") %>'
+               class='<%# GetCategoryClass(Eval("CategoryId")) %>'>
+
+                <%# Eval("CategoryName") %>
+
+            </a>
+
+        </ItemTemplate>
+    </asp:Repeater>
+
+</div>
 
     <!-- 🔷 BLOG CARDS -->
     <div class="row">
@@ -143,19 +151,17 @@
 <div class="text-center mt-4">
 
     <asp:Repeater ID="rptPagination" runat="server">
-        <ItemTemplate>
+    <ItemTemplate>
 
-            <asp:LinkButton
-                ID="lnkPage"
-                runat="server"
-                Text='<%# Eval("PageNumber") %>'
-                CommandArgument='<%# Eval("PageNumber") %>'
-                OnCommand="Page_Changed"
-                CssClass='page-number-btn'>
-            </asp:LinkButton>
+        <a href='Blogs.aspx?page=<%# Eval("PageNumber") %><%# Request.QueryString["category"] != null ? "&category=" + Request.QueryString["category"] : "" %>'
+           class='<%# GetPageClass(Eval("PageNumber")) %>'>
 
-        </ItemTemplate>
-    </asp:Repeater>
+            <%# Eval("PageNumber") %>
+
+        </a>
+
+    </ItemTemplate>
+</asp:Repeater>
 
 </div>
     </div>
@@ -163,19 +169,19 @@
 </div>
 
 <script>
-function shareBlog(slug) {
-    let url = window.location.origin + "/BlogDetails.aspx?slug=" + slug;
+    function shareBlog(slug) {
+        let url = window.location.origin + "/BlogDetails.aspx?slug=" + slug;
 
-    if (navigator.share) {
-        navigator.share({
-            title: 'Check this blog',
-            url: url
-        });
-    } else {
-        navigator.clipboard.writeText(url);
-        alert("Link copied!");
+        if (navigator.share) {
+            navigator.share({
+                title: 'Check this blog',
+                url: url
+            });
+        } else {
+            navigator.clipboard.writeText(url);
+            alert("Link copied!");
+        }
     }
-}
 </script>
 
 </asp:Content>
