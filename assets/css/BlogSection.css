@@ -34,12 +34,14 @@ p.text-muted {
 }
 
     .nav-pill.active {
+       
         background: #5b5ce2; /* The purple-blue in your image */
         color: #fff !important;
         box-shadow: 0 4px 15px rgba(91, 92, 226, 0.3);
     }
 
     .nav-pill:hover:not(.active) {
+        border: 1px solid black;
         color: #5b5ce2;
     }
 
