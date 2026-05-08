@@ -170,7 +170,7 @@
     </asp:LinkButton>
 
     <!-- Bookmark Button -->
-    <asp:LinkButton
+    <%--<asp:LinkButton
         ID="btnBookmark"
         runat="server"
         CssClass="btn btn-outline-warning"
@@ -181,7 +181,7 @@
             ? "fas fa-bookmark text-warning" 
             : "far fa-bookmark" %>'></i>
 
-    </asp:LinkButton>
+    </asp:LinkButton>--%>
 
 </div>
                 </div>
