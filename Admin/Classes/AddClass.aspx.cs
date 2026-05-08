@@ -21,27 +21,52 @@ namespace StudyIsleWeb.Admin.Classes
                 BindDDL("SELECT BoardId, BoardName FROM Boards WHERE IsActive=1", ddlBoard, "BoardName", "BoardId", "-- Select Board --");
             }
         }
-
         protected void ddlBoard_SelectedIndexChanged(object sender, EventArgs e)
         {
-            phResourceType.Visible = phSubCategory.Visible = false;
-            if (ddlBoard.SelectedValue != "0")
-            {
-                phResourceType.Visible = true;
-                BindDDL("SELECT ResourceTypeId, TypeName FROM ResourceTypes", ddlResourceType, "TypeName", "ResourceTypeId", "-- Select Resource Type --");
-            }
+            RefreshResourceTypes();
         }
-
         protected void ddlResourceType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlResourceType.SelectedValue != "0")
-            {
-                phSubCategory.Visible = true;
-                int boardId = int.Parse(ddlBoard.SelectedValue);
-                // Only show subcategories belonging to this board
-                BindDDL($"SELECT SubCategoryId, SubCategoryName FROM SubCategories WHERE BoardId={boardId}", ddlSubCategory, "SubCategoryName", "SubCategoryId", "-- No Sub-Category (Optional) --");
-            }
+            RefreshSubCategories();
         }
+        //protected void ddlBoard_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    phResourceType.Visible = phSubCategory.Visible = false;
+        //    if (ddlBoard.SelectedValue != "0")
+        //    {
+        //        phResourceType.Visible = true;
+        //        BindDDL($@"
+        //            SELECT rt.ResourceTypeId, rt.TypeName
+        //            FROM ResourceTypes rt
+        //            INNER JOIN BoardResourceMapping brm
+        //                ON rt.ResourceTypeId = brm.ResourceTypeId
+        //            WHERE brm.BoardId = {ddlBoard.SelectedValue}
+        //            AND rt.IsActive = 1",
+        //             ddlResourceType,
+        //             "TypeName",
+        //             "ResourceTypeId",
+        //             "-- Select Resource Type --");
+        //    }   
+        //}
+
+        //    protected void ddlResourceType_SelectedIndexChanged(object sender, EventArgs e)
+        //    {
+        //        if (ddlResourceType.SelectedValue != "0")
+        //        {
+        //            phSubCategory.Visible = true;
+        //            int boardId = int.Parse(ddlBoard.SelectedValue);
+        //            // Only show subcategories belonging to this board
+        //            BindDDL($@"
+        //SELECT SubCategoryId, SubCategoryName
+        //FROM SubCategories
+        //WHERE BoardId = {ddlBoard.SelectedValue}
+        //AND ResourceTypeId = {ddlResourceType.SelectedValue}",
+        //ddlSubCategory,
+        //"SubCategoryName",
+        //"SubCategoryId",
+        //"-- No Sub-Category (Optional) --");
+        //        }
+        //    }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
@@ -92,7 +117,95 @@ VALUES (@BID, @RTID, @SCID, @Name, @Slug, @Order, 1, @Title, @Subtitle, GETDATE(
                 ddl.Items.Insert(0, new ListItem(defaultText, "0"));
             }
         }
+        private void ResetDDL(DropDownList ddl, string defaultText)
+        {
+            ddl.Items.Clear();
+            ddl.Items.Insert(0, new ListItem(defaultText, "0"));
+        }
+        private void RefreshResourceTypes()
+        {
+            // Reset lower hierarchy first
+            ResetDDL(ddlResourceType, "-- Select Resource Type --");
+            ResetDDL(ddlSubCategory, "-- No Sub-Category (Optional) --");
 
+            phResourceType.Visible = false;
+            phSubCategory.Visible = false;
+
+            // Stop if no board selected
+            if (ddlBoard.SelectedValue == "0")
+                return;
+
+            phResourceType.Visible = true;
+
+            string query = @"
+        SELECT DISTINCT rt.ResourceTypeId, rt.TypeName
+        FROM ResourceTypes rt
+        INNER JOIN BoardResourceMapping brm
+            ON rt.ResourceTypeId = brm.ResourceTypeId
+        WHERE brm.BoardId = @BoardId
+        AND rt.IsActive = 1";
+
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlDataAdapter da = new SqlDataAdapter(query, con);
+                da.SelectCommand.Parameters.AddWithValue("@BoardId", ddlBoard.SelectedValue);
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                ddlResourceType.DataSource = dt;
+                ddlResourceType.DataTextField = "TypeName";
+                ddlResourceType.DataValueField = "ResourceTypeId";
+                ddlResourceType.DataBind();
+
+                ddlResourceType.Items.Insert(0,
+                    new ListItem("-- Select Resource Type --", "0"));
+            }
+        }
+        private void RefreshSubCategories()
+        {
+            // Always reset first
+            ResetDDL(ddlSubCategory, "-- No Sub-Category (Optional) --");
+
+            phSubCategory.Visible = false;
+
+            // Stop if resource type not selected
+            if (ddlResourceType.SelectedValue == "0")
+                return;
+
+            string query = @"
+        SELECT SubCategoryId, SubCategoryName
+        FROM SubCategories
+        WHERE BoardId = @BoardId
+        AND ResourceTypeId = @ResourceTypeId
+        AND IsActive = 1";
+
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlDataAdapter da = new SqlDataAdapter(query, con);
+
+                da.SelectCommand.Parameters.AddWithValue("@BoardId", ddlBoard.SelectedValue);
+                da.SelectCommand.Parameters.AddWithValue("@ResourceTypeId", ddlResourceType.SelectedValue);
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                // IMPORTANT:
+                // Only show subcategory section if records exist
+                if (dt.Rows.Count > 0)
+                {
+                    phSubCategory.Visible = true;
+
+                    ddlSubCategory.DataSource = dt;
+                    ddlSubCategory.DataTextField = "SubCategoryName";
+                    ddlSubCategory.DataValueField = "SubCategoryId";
+                    ddlSubCategory.DataBind();
+
+                    ddlSubCategory.Items.Insert(0,
+                        new ListItem("-- No Sub-Category (Optional) --", "0"));
+                }
+            }
+        }
         protected void txtClassName_TextChanged(object sender, EventArgs e)
         {
             txtSlug.Text = Regex.Replace(txtClassName.Text.ToLower(), @"[^a-z0-9]", "-").Trim('-');
