@@ -35,13 +35,58 @@ namespace StudyIsleWeb.Admin.SubCat
                 ddlBoards.Items.Insert(0, new ListItem("-- Select Board --", "0"));
 
                 // Bind Resource Types
-                SqlDataAdapter daR = new SqlDataAdapter("SELECT ResourceTypeId, TypeName FROM ResourceTypes WHERE IsActive = 1", con);
-                DataTable dtR = new DataTable();
-                daR.Fill(dtR);
-                ddlResourceTypes.DataSource = dtR;
-                ddlResourceTypes.DataBind();
+                // Initially empty until board selected
+                ddlResourceTypes.Items.Clear();
                 ddlResourceTypes.Items.Insert(0, new ListItem("-- Select Resource Type (Optional) --", "0"));
+                //SqlDataAdapter daR = new SqlDataAdapter("SELECT ResourceTypeId, TypeName FROM ResourceTypes WHERE IsActive = 1", con);
+                //DataTable dtR = new DataTable();
+                //daR.Fill(dtR);
+                //ddlResourceTypes.DataSource = dtR;
+                //ddlResourceTypes.DataBind();
+                //ddlResourceTypes.Items.Insert(0, new ListItem("-- Select Resource Type (Optional) --", "0"));
             }
+        }
+        private void RefreshResourceTypes()
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                int boardId = Convert.ToInt32(ddlBoards.SelectedValue);
+
+                // If no board selected
+                if (boardId == 0)
+                {
+                    ddlResourceTypes.Items.Clear();
+                    ddlResourceTypes.Items.Insert(0,
+                        new ListItem("-- Select Resource Type (Optional) --", "0"));
+                    return;
+                }
+
+                string query = @"
+            SELECT rt.ResourceTypeId, rt.TypeName
+            FROM ResourceTypes rt
+            INNER JOIN BoardResourceMapping brm
+                ON rt.ResourceTypeId = brm.ResourceTypeId
+            WHERE brm.BoardId = @BoardId
+            AND rt.IsActive = 1";
+
+                SqlDataAdapter da = new SqlDataAdapter(query, con);
+                da.SelectCommand.Parameters.AddWithValue("@BoardId", boardId);
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                ddlResourceTypes.DataSource = dt;
+                ddlResourceTypes.DataTextField = "TypeName";
+                ddlResourceTypes.DataValueField = "ResourceTypeId";
+                ddlResourceTypes.DataBind();
+
+                ddlResourceTypes.Items.Insert(0,
+                    new ListItem("-- Select Resource Type (Optional) --", "0"));
+            }
+        }
+        protected void ddlBoards_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshResourceTypes();
         }
 
         protected void txtName_TextChanged(object sender, EventArgs e)

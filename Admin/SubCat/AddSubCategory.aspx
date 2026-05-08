@@ -24,11 +24,17 @@
 
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">Target Board</label>
-                                <asp:DropDownList ID="ddlBoards" runat="server" CssClass="form-select" DataTextField="BoardName" DataValueField="BoardId">
-                                </asp:DropDownList>
+                                <asp:DropDownList ID="ddlBoards"
+    runat="server"
+    CssClass="form-select"
+    DataTextField="BoardName"
+    DataValueField="BoardId"
+    AutoPostBack="true"
+    OnSelectedIndexChanged="ddlBoards_SelectedIndexChanged">
+</asp:DropDownList>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label fw-bold">Resource Type (Optional)</label>
+                                <label class="form-label fw-bold">Resource Type</label>
                                 <asp:DropDownList ID="ddlResourceTypes" runat="server" CssClass="form-select" DataTextField="TypeName" DataValueField="ResourceTypeId">
                                 </asp:DropDownList>
                             </div>
