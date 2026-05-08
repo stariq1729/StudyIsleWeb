@@ -28,12 +28,12 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label class="form-label small fw-bold">Class (Optional for Competitive)</label>
+                        <label class="form-label small fw-bold">Class (Not Allowed for Competitive)</label>
                         <asp:DropDownList ID="ddlClass" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlClass_SelectedIndexChanged"></asp:DropDownList>
                     </div>
 
                     <div class="col-md-6">
-                        <label class="form-label small fw-bold">Subject (Optional for Competitive)</label>
+                        <label class="form-label small fw-bold">Subject</label>
                         <asp:DropDownList ID="ddlSubject" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlSubject_SelectedIndexChanged"></asp:DropDownList>
                     </div>
 
