@@ -43,7 +43,12 @@
                                 <asp:PlaceHolder ID="phSubCategory" runat="server" Visible="false">
                                     <div class="col-md-6">
                                         <label class="form-label fw-bold small">3. Sub-Category (Optional)</label>
-                                        <asp:DropDownList ID="ddlSubCategory" runat="server" CssClass="form-select shadow-none"></asp:DropDownList>
+                                       <asp:DropDownList ID="ddlSubCategory"
+    runat="server"
+    CssClass="form-select shadow-none"
+    AutoPostBack="true"
+    OnSelectedIndexChanged="ddlSubCategory_SelectedIndexChanged">
+</asp:DropDownList>
                                     </div>
                                 </asp:PlaceHolder>
 
