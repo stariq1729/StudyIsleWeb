@@ -106,8 +106,8 @@
     text-align: left;
 }
 
-.content-left { flex: 1; min-width: 300px; max-width: 600px; }
-.content-right { flex: 1; min-width: 350px; max-width: 500px; }
+.content-left { flex: 1.1; min-width: 300px; max-width: 600px; }
+.content-right { flex: 0.9; min-width: 350px; max-width: 400px; }
 
 .who-we-are-badge {
     background: #f0f2ff;
@@ -121,9 +121,9 @@
     margin-bottom: 20px;
 }
 
-.story-title { font-size: 2.2rem; font-weight: 700; line-height: 1.1; margin-bottom: 20px; color: #0a0b1e; }
+.story-title { font-size: 2rem; font-weight: 700; line-height: 1.2; margin-bottom: 20px; color: #0a0b1e; }
 .story-title span.italic-blue { color: #646cff; font-style: italic; }
-.story-description { color: #666; font-size: 1.1rem; line-height: 1.1; margin-bottom: 16px; }
+.story-description { color: #666; font-size: 1rem; line-height: 1.4; margin-bottom: 14px; }
 
 /* Features Hover Cards */
 .feature-card-mini {
@@ -167,7 +167,7 @@
     display: flex;
     justify-content: center;
     align-items: stretch; /* This makes the dark card match the left height */
-    gap: 60px;
+    gap: 40px;
     flex-wrap: wrap;
     max-width: 1300px;
     margin: 0 auto;
@@ -177,7 +177,7 @@
 .dark-story-card {
     background: #0a0b1e;
     border-radius: 40px;
-    padding: 60px; /* Increased padding to match the reference image */
+    padding: 30px 20px;/* Increased padding to match the reference image */
     color: white;
     height: 100%; /* Ensures it fills the stretched container */
     display: flex;
@@ -191,7 +191,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr; /* Two cards side-by-side */
     gap: 20px;
-    margin-top: 30px;
+    margin-top: 18px;
 }
 
 /* Ensure mini cards take full width of their grid cell */
@@ -207,14 +207,17 @@
 }
 .founded-badge {
     background: rgba(255,255,255,0.1);
-    padding: 5px 12px;
-    border-radius: 4px;
+    padding: 3px 6px;
+    border-radius: 12px;
+    width:90px;
     font-size: 9px;
     letter-spacing: 1px;
+    color:mediumpurple;
+    font-weight:800;
 }
 
-.dark-card-title { font-size: 2.2rem; margin: 20px 0; }
-.dark-card-text { font-size: 0.9rem; line-height: 1.7; color: #b0b0d0; }
+.dark-card-title { font-size: 2.1rem; margin: 18px 0; }
+.dark-card-text { font-size: 0.9rem; line-height: 1.6; color: #b0b0d0; }
 .dark-card-text b { color: white; border-bottom: 2px solid #646cff; }
 
 .tag-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
@@ -241,7 +244,7 @@
     color: #646cff;
     padding: 4px 14px;
     border-radius: 50px;
-    font-size: 11px;
+    font-size: 8px;
     font-weight: 700;
     text-transform: uppercase;
     display: inline-block;
