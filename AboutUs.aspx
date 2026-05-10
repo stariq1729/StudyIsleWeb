@@ -5,11 +5,11 @@
     /* Main Section Container */
     .about-hero-section {
         background-color: #0a0b1e; 
-        padding: 80px 20px;
+        padding: 40px 20px;
         text-align: center;
         color: #ffffff;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        min-height: 80vh;
+        min-height: 44vh;
     }
 
     .location-badge {
@@ -61,7 +61,7 @@
         background: rgba(255, 255, 255, 0.03);
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 20px;
-        padding: 40px 20px;
+        padding: 32px 16px;
         width: 260px; /* Fixed width prevents them from moving to the side */
         transition: transform 0.3s ease, border-color 0.3s ease;
         outline: none;
@@ -81,8 +81,8 @@
     .stat-icon {
         background: rgba(124, 131, 255, 0.1);
         color: #7c83ff;
-        width: 45px;
-        height: 45px;
+        width: 35px;
+        height: 35px;
         border-radius: 12px;
         display: flex;
         align-items: center;
