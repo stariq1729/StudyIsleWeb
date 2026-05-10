@@ -264,12 +264,12 @@
                 <ul class="footer-links">
                     <li><a href="AboutUs.aspx">About Us</a></li>
                     <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Career Counselling</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Student Inquiry Form</a></li>
-                    <li><a href="#">Join As A Tutor</a></li>
-                    <li><a href="#">Terms & Conditions</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="CareerCouncelling.aspx">Career Counselling</a></li>
+                    <li><a href="Blogs.aspx">Blog</a></li>
+                    <li><a href="CareerGuidance.aspx">Student Inquiry Form</a></li>
+                    <li><a href="JoinTutor.aspx">Join As A Tutor</a></li>
+                    <li><a href="TermsAndConditions.aspx">Terms & Conditions</a></li>
+                    <li><a href="Privacy-Policy.aspx">Privacy Policy</a></li>
                 </ul>
                 
                 <div class="notice-box">
