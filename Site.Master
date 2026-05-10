@@ -183,57 +183,152 @@
     <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
 </main>
 
-<footer class="bg-light pt-5 mt-5">
+<footer class="main-footer">
     <div class="container">
         <div class="row">
-
-            <div class="col-md-4 mb-4">
-                <h5 class="fw-bold">StudyIsle</h5>
-                <p class="text-muted">
-                    Empowering students with world-class education,
-                    mentorship, and career guidance.
-                </p>
-
-                <div class="d-flex gap-3 mt-3">
-                    <a href="#" class="text-muted fs-5"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="text-muted fs-5"><i class="bi bi-twitter-x"></i></a>
-                    <a href="#" class="text-muted fs-5"><i class="bi bi-instagram"></i></a>
-                    <a href="#" class="text-muted fs-5"><i class="bi bi-youtube"></i></a>
-                    <a href="#" class="text-muted fs-5"><i class="bi bi-linkedin"></i></a>
-                </div>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <h6 class="fw-bold text-uppercase">Company</h6>
-                <ul class="list-unstyled">
-                    <li><a href="AboutUs.aspx" class="text-muted text-decoration-none">About Us</a></li>
-                    <li><a href="#" class="text-muted text-decoration-none">Our Faculty</a></li>
-                    <li><a href="#" class="text-muted text-decoration-none">Careers</a></li>
-                    <li><a href="#" class="text-muted text-decoration-none">News & PR</a></li>
+            <div class="col-lg-2 col-md-4 mb-4">
+                <h6 class="footer-title">CBSE Universe</h6>
+                <ul class="footer-links">
+                    <li><a href="#">CBSE Books</a></li>
+                    <li><a href="#">Syllabus</a></li>
+                    <li><a href="#">PYQ's Year Wise</a></li>
+                    <li><a href="#">PYQ's Chapter Wise</a></li>
+                    <li><a href="#">Sample Paper</a></li>
+                    <li><a href="#">Notes</a></li>
+                    <li><a href="#">Question Bank</a></li>
+                    <li><a href="#">MCQ'S Test</a></li>
+                    <li><a href="#">Flash Card</a></li>
+                    <li><a href="#">Mind Map</a></li>
+                    <li><a href="#">Important Question</a></li>
+                    <li><a href="#">Formula Sheet</a></li>
+                    <li><a href="#">Case Study</a></li>
+                    <li><a href="#">Assertion & Reason</a></li>
+                    <li><a href="#">Test Paper</a></li>
+                    <li><a href="#">School Paper</a></li>
+                    <li><a href="#">CBSE Practice Qs</a></li>
+                    <li><a href="#">Lab Manual</a></li>
+                    <li><a href="#">Toppers Sheet</a></li>
                 </ul>
             </div>
 
-            <div class="col-md-4 mb-4">
-                <h6 class="fw-bold text-uppercase">Contact</h6>
-                <p class="text-muted mb-1">
-                    <i class="bi bi-envelope"></i> support@studyisle.com
-                </p>
-                <p class="text-muted mb-1">
-                    <i class="bi bi-telephone"></i> +91 90000 00000
-                </p>
-                <p class="text-muted">
-                    <i class="bi bi-geo-alt"></i> India
-                </p>
+            <div class="col-lg-2 col-md-4 mb-4">
+                <div class="footer-section-group">
+                    <h6 class="footer-title">Jee Prep</h6>
+                    <ul class="footer-links">
+                        <li><a href="#">Important Information</a></li>
+                        <li><a href="#">Physics</a></li>
+                        <li><a href="#">Chemistry</a></li>
+                        <li><a href="#">Maths</a></li>
+                        <li><a href="#">JEE Previous Year</a></li>
+                        <li><a href="#">JEE Sample Paper</a></li>
+                        <li><a href="#">Mind Map</a></li>
+                        <li><a href="#">Flash Cards</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section-group">
+                    <h6 class="footer-title">Foundation (6-10)</h6>
+                    <ul class="footer-links">
+                        <li><a href="#">NTSE Exam</a></li>
+                        <li><a href="#">Olympiads</a></li>
+                        <li><a href="#">Bridge Prep</a></li>
+                        <li><a href="#">Foundation PYQ</a></li>
+                    </ul>
+                </div>
             </div>
 
+            <div class="col-lg-2 col-md-4 mb-4">
+                <div class="footer-section-group">
+                    <h6 class="footer-title">Video Lectures</h6>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="bi bi-play-circle"></i> Isle Shorts</a></li>
+                        <li><a href="#"><i class="bi bi-play-circle"></i> Isle Story</a></li>
+                        <li><a href="#"><i class="bi bi-play-circle"></i> One Shot Lectures</a></li>
+                        <li><a href="#"><i class="bi bi-play-circle"></i> Concept Capsules</a></li>
+                        <li><a href="#"><i class="bi bi-play-circle"></i> Animated Series</a></li>
+                        <li><a href="#"><i class="bi bi-play-circle"></i> Live Stream Archive</a></li>
+                        <li><a href="#"><i class="bi bi-play-circle"></i> Formula Revision Videos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section-group">
+                    <h6 class="footer-title">Experience</h6>
+                    <ul class="footer-links">
+                        <li><a href="#">Testimonials</a></li>
+                        <li><a href="#">Gallery</a></li>
+                        <li><a href="#">Social Media</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h6 class="footer-title">Information</h6>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Career Counselling</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Student Inquiry Form</a></li>
+                    <li><a href="#">Join As A Tutor</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+                
+                <div class="notice-box">
+                    <span class="tag">Notice Board</span>
+                    <p class="small fw-bold mt-2 mb-1">National Scholarship Exam (NSE) Dates Announced.</p>
+                    <a href="#" class="text-white opacity-50 x-small text-decoration-underline" style="font-size: 11px;">Check Schedule</a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h6 class="footer-title">Get In Touch</h6>
+                <div class="contact-block">
+                    <span class="contact-label">Support Email</span>
+                    <div class="contact-value"><i class="bi bi-envelope"></i> supportstudyisle@gmail.com</div>
+                </div>
+                <div class="contact-block">
+                    <span class="contact-label">Whatsapp Line</span>
+                    <div class="contact-value"><i class="bi bi-chat-dots"></i> +9588234841</div>
+                </div>
+
+                <div class="mt-4">
+                    <span class="contact-label mb-3">Official Channels</span>
+                    <div class="d-flex">
+                        <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-youtube"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <div class="telegram-card">
+                    <p class="small fw-bold mb-1">STUDY ISLE HUB</p>
+                    <p class="small opacity-75 mb-4">Exclusive access to PDF notes and daily quizzes.</p>
+                    <button type="button" class="btn btn-join">Join Telegram</button>
+                </div>
+            </div>
         </div>
 
-        <hr />
-
-        <div class="text-center text-muted pb-3">
-            © 2026 StudyIsle. All rights reserved.
+        <div class="footer-bottom-bar">
+            <div class="row align-items-center">
+                <div class="col-md-7">
+                    <div class="d-flex align-items-center gap-3">
+                         <img src="~/assets/img/logo-white.png" runat="server" height="40" alt="Logo" />
+                         <span class="fs-4 fw-bold">StudyIsle</span>
+                    </div>
+                    <p style="color: #808080;" class="small mt-3 pe-md-5" >
+                        Leading the digital education revolution for Class 6-12, JEE & NEET preparation. 
+                        Designed and Maintained by StudyIsle Tech. &copy; 2024 StudyIsle Edutech Pvt. Ltd.
+                    </p>
+                </div>
+                <div class="col-md-5 text-md-end mt-4 mt-md-0">
+                    <div class="legal-links">
+                        
+                        <a href="#">Support</a>
+                    </div>
+                </div>
+            </div>
         </div>
-
     </div>
 </footer>
 
