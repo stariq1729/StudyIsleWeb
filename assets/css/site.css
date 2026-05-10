@@ -215,11 +215,11 @@ section {
 
 /* Column Header Titles */
 .footer-title {
-    font-size: 0.65rem; /* Precise small caps look */
+    font-size: 0.75rem; /* Precise small caps look */
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    margin-bottom: 30px; /* Precise gap from title to list */
+    margin-bottom: 25px; /* Precise gap from title to list */
     display: flex;
     align-items: center;
 }
@@ -249,7 +249,7 @@ section {
 
     .footer-links a {
         color: #9499ad; /* Exact muted blue-grey */
-        font-size: 0.82rem;
+        font-size: 0.72rem;
         text-decoration: none;
         transition: 0.2s ease-in-out;
         display: flex;
