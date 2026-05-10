@@ -242,9 +242,9 @@
 .offer-badge {
     background: #f0f2ff;
     color: #646cff;
-    padding: 4px 14px;
+    padding: 6px 18px;
     border-radius: 50px;
-    font-size: 8px;
+    font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
     display: inline-block;
@@ -280,7 +280,7 @@
     background: #ffffff;
     border: 1px solid #eef0f7;
     border-radius: 24px;
-    padding: 45px 35px;
+    padding: 30px 26px;
     flex: 1;
     min-width: 300px;
     max-width: 360px;
@@ -329,7 +329,7 @@
     color: #667;
     font-size: 0.95rem;
     line-height: 1.6;
-    margin-bottom: 35px;
+    margin-bottom: 25px;
 }
 
 .learn-more-btn {
@@ -385,9 +385,9 @@
 }
 
 .founder-card {
-    background: #ffffff;
+    background: #fbfcfd;
     border: 1px solid #f0f2f8;
-    border-radius: 40px;
+    border-radius: 30px;
     padding: 30px;
     flex: 1;
     min-width: 400px;
@@ -451,7 +451,7 @@
 
 .founder-name { font-size: 1.4rem; font-weight: 800; color: #0a0b1e; margin: 0; }
 .founder-role { font-size: 0.8rem; color: #a0a0c0; font-weight: 500; margin-bottom: 12px; display: block; letter-spacing: 1px; }
-.founder-bio { font-size: 0.7rem; color: #667; line-height: 1.2; margin-bottom: 18px; }
+.founder-bio { font-size: 0.7rem; color: #667; line-height: 1.8; margin-bottom: 18px; }
 
 /* Mini Tags */
 .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -482,7 +482,7 @@
 .cta-container {
     background: #0a0b1e;
     border-radius: 50px;
-    padding: 70px 35px;
+    padding: 50px 30px;
     text-align: center;
     color: #ffffff;
     max-width: 1100px;
@@ -494,7 +494,7 @@
     font-size: 2.1rem;
     font-weight: 700;
     margin-bottom: 18px;
-    line-height: 1;
+    line-height: 1.3;
 }
 
 .cta-title span.italic-blue {
@@ -766,8 +766,8 @@
         </p>
         
         <div class="cta-buttons">
-            <a href="Resources.aspx" class="btn-primary-cta">Start Free Learning</a>
-            <a href="Contact.aspx" class="btn-secondary-cta">Book Free Session</a>
+            <a href="CareerGuidance.aspx" class="btn-primary-cta">Book Free Session</a>
+            
         </div>
     </div>
 </section>
