@@ -155,12 +155,276 @@ Your
 </div>
 
 
+    <!-- =========================
+     COURSE PATH SECTION it's css is inside AI-section
+========================= -->
+
+<section class="course-path-section">
+
+    <div class="container">
+
+        <!-- TOP HEADER -->
+        <div class="course-top">
+
+            <div class="course-heading">
+                <span class="course-badge">
+                    OUR ACADEMIC UNIVERSE
+                </span>
+
+                <h2>
+                    Explore Our
+                    <span>Specialized</span>
+                    Course Paths
+                </h2>
+
+                <p>
+                    "Every goal requires a different roadmap.
+                    We've built the best ones for you."
+                </p>
+            </div>
+
+            <div class="course-stats">
+
+                <div class="stat-box">
+                    <h3>500+</h3>
+                    <span>MODULES LIVE</span>
+                </div>
+
+                <div class="stat-box">
+                    <h3>98%</h3>
+                    <span>SUCCESS RATE</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- COURSE GRID -->
+
+        <div class="row g-4">
+
+            <!-- CARD 1 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="course-card active-card">
+
+                    <div class="icon-wrap purple">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+
+                    <h4>CBSE BOARDS</h4>
+
+                    <small>CLASS 6 - 12</small>
+
+                    <p>
+                        NCERT aligned syllabus for top board results.
+                    </p>
+
+                    <a href="#">
+                        Get Started
+                        <i class="fa-solid fa-angle-right"></i>
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="course-card">
+
+                    <div class="icon-wrap blue">
+                        <i class="fa-solid fa-chart-column"></i>
+                    </div>
+
+                    <h4>ICSE / ISC</h4>
+
+                    <small>CLASS 9 - 12</small>
+
+                    <p>
+                        Comprehensive coverage for CISCE curriculum.
+                    </p>
+
+                    <a href="#">
+                        Get Started
+                        <i class="fa-solid fa-angle-right"></i>
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- CARD 3 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="course-card">
+
+                    <div class="icon-wrap pink">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+
+                    <h4>JEE MAIN</h4>
+
+                    <small>B.TECH ENTRANCE</small>
+
+                    <p>
+                        Focused preparation to crack 99+ percentile.
+                    </p>
+
+                    <a href="#">
+                        Get Started
+                        <i class="fa-solid fa-angle-right"></i>
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- CARD 4 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="course-card">
+
+                    <div class="icon-wrap orange">
+                        <i class="fa-solid fa-rocket"></i>
+                    </div>
+
+                    <h4>JEE ADVANCED</h4>
+
+                    <small>IIT SPECIALIZATION</small>
+
+                    <p>
+                        Advanced problem solving for the elite IIT seats.
+                    </p>
+
+                    <a href="#">
+                        Get Started
+                        <i class="fa-solid fa-angle-right"></i>
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- CARD 5 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="course-card">
+
+                    <div class="icon-wrap green">
+                        <i class="fa-solid fa-stethoscope"></i>
+                    </div>
+
+                    <h4>NEET UG</h4>
+
+                    <small>MEDICAL ENTRANCE</small>
+
+                    <p>
+                        Biology-centric prep for premier medical colleges.
+                    </p>
+
+                    <a href="#">
+                        Get Started
+                        <i class="fa-solid fa-angle-right"></i>
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- CARD 6 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="course-card">
+
+                    <div class="icon-wrap cyan">
+                        <i class="fa-regular fa-compass"></i>
+                    </div>
+
+                    <h4>CUET (UG)</h4>
+
+                    <small>CUCET PREP</small>
+
+                    <p>
+                        NTA pattern coaching for central universities.
+                    </p>
+
+                    <a href="#">
+                        Get Started
+                        <i class="fa-solid fa-angle-right"></i>
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- CARD 7 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="course-card">
+
+                    <div class="icon-wrap violet">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+
+                    <h4>FOUNDATION</h4>
+
+                    <small>OLYMPIAD / NTSE</small>
+
+                    <p>
+                        Building logic and reasoning for early achievers.
+                    </p>
+
+                    <a href="#">
+                        Get Started
+                        <i class="fa-solid fa-angle-right"></i>
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- CARD 8 -->
+            <div class="col-lg-3 col-md-6">
+                <div class="course-card">
+
+                    <div class="icon-wrap gray">
+                        <i class="fa-regular fa-star"></i>
+                    </div>
+
+                    <h4>SKILL LAB</h4>
+
+                    <small>BEYOND ACADEMIC</small>
+
+                    <p>
+                        Coding, communication, and real-world skills.
+                    </p>
+
+                    <a href="#">
+                        Get Started
+                        <i class="fa-solid fa-angle-right"></i>
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- CTA BOX -->
+
+        <div class="course-cta">
+
+            <h2>Want a Customized Learning Plan?</h2>
+
+            <p>
+                Our academic experts can help you choose the right category
+                based on your target college and career goals.
+            </p>
+
+            <a href="#" class="cta-btn">
+                TALK TO ACADEMIC EXPERT
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
         <%--============Career Guidance section start from here========--%>
     <!-- =========================
    <!-- ======================================
    CAREER GUIDANCE SECTION
 ====================================== -->
-<section class="career-section">
+<%--<section class="career-section">
     <div class="container">
         <div class="career-wrapper">
             <div class="row align-items-center">
@@ -275,7 +539,7 @@ Subject or College to
             </div>
         </div>
     </div>
-</section>
+</section>--%>
 
 
        <%-- == Books section start from here==--%>
