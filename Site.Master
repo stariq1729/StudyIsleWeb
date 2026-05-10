@@ -252,9 +252,9 @@
                 <div class="footer-section-group">
                     <h6 class="footer-title">Experience</h6>
                     <ul class="footer-links">
-                        <li><a href="#">Testimonials</a></li>
-                        <li><a href="#">Gallery</a></li>
-                        <li><a href="#">Social Media</a></li>
+                        <li><a href="Testimonials.aspx">Testimonials</a></li>
+                        <li><a href="Gallery.aspx">Gallery</a></li>
+                        <li><a href="SocialMedia.aspx">Social Media</a></li>
                     </ul>
                 </div>
             </div>
