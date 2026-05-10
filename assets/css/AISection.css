@@ -190,7 +190,7 @@
 ========================= */
 
 .course-path-section {
-    padding: 100px 0;
+    padding: 80px 0;
     background: #f8f9fc;
 }
 
@@ -200,7 +200,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 60px;
+    margin-bottom: 10px;
     gap: 40px;
 }
 
@@ -217,8 +217,8 @@
 }
 
 .course-heading h2 {
-    font-size: 54px;
-    line-height: 1.1;
+    font-size: 34px;
+    line-height: 1;
     font-weight: 700;
     max-width: 760px;
 }
@@ -228,8 +228,8 @@
     }
 
 .course-heading p {
-    margin-top: 20px;
-    font-size: 24px;
+    margin-top: 18px;
+    font-size: 18px;
     color: #667085;
     font-style: italic;
 }
@@ -238,12 +238,12 @@
 
 .course-stats {
     display: flex;
-    gap: 60px;
-    margin-top: 80px;
+    gap: 20px;
+    margin-top: 20px;
 }
 
 .stat-box h3 {
-    font-size: 52px;
+    font-size: 22px;
     font-weight: 700;
     margin-bottom: 5px;
 }
@@ -261,8 +261,8 @@
 .course-card {
     background: #fff;
     border: 1px solid #edf0f5;
-    border-radius: 28px;
-    padding: 25px 20px;
+    border-radius: 20px;
+    padding: 22px 16px;
     height: 100%;
     transition: all 0.3s ease;
 }
@@ -272,9 +272,11 @@
         box-shadow: 0 25px 60px rgba(15, 23, 42, 0.08);
     }
 
-.active-card {
-    border-bottom: 3px solid #5b5ce6;
-}
+    .course-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 25px 60px rgba(15, 23, 42, 0.08);
+        border-bottom: 3px solid #5b5ce6;
+    }
 
 /* ICONS */
 
@@ -285,8 +287,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 30px;
-    font-size: 22px;
+    margin-bottom: 22px;
+    font-size: 20px;
 }
 
 .purple {
@@ -332,15 +334,15 @@
 /* CARD TEXT */
 
 .course-card h4 {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .course-card small {
     display: inline-block;
-    margin-bottom: 18px;
-    font-size: 12px;
+    margin-bottom: 14px;
+    font-size: 10px;
     font-weight: 700;
     letter-spacing: 1px;
     color: #5b5ce6;
@@ -348,8 +350,9 @@
 
 .course-card p {
     color: #7c8595;
-    line-height: 1.7;
-    margin-bottom: 30px;
+    font-size:14px;
+    line-height: 1.4;
+    margin-bottom: 20px;
 }
 
 .course-card a {
@@ -360,18 +363,18 @@
 
     .course-card a i {
         margin-left: 6px;
-        font-size: 13px;
+        font-size: 8px;
     }
 
 /* =========================
    CTA SECTION
 ========================= */
 
-.course-cta {
-    margin-top: 90px;
+/*.course-cta {
+    margin-top: 40px;
     background: linear-gradient(90deg, #07112b, #081534);
     border-radius: 40px;
-    padding: 80px 20px;
+    padding: 50px 18px;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -382,21 +385,21 @@
         position: absolute;
         inset: 0;
         background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
-        background-size: 80px 80px;
+        background-size: 60px 80px;
     }
 
     .course-cta h2 {
         color: #fff;
-        font-size: 44px;
+        font-size: 30px;
         font-weight: 700;
         position: relative;
     }
 
     .course-cta p {
         color: #98a2b3;
-        max-width: 700px;
+        max-width: 600px;
         margin: 20px auto 40px;
-        line-height: 1.8;
+        line-height: 1.4;
         position: relative;
     }
 
@@ -404,13 +407,13 @@
     display: inline-block;
     background: linear-gradient(135deg, #5b5ce6, #7c4dff);
     color: #fff;
-    padding: 18px 42px;
+    padding: 12px 30px;
     border-radius: 18px;
     text-decoration: none;
     font-weight: 700;
     box-shadow: 0 20px 40px rgba(91,92,230,0.35);
     position: relative;
-}
+}*/
 
 /* =========================
    RESPONSIVE
