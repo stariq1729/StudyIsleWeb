@@ -6,7 +6,7 @@
         /* Audience Section */
 .audience-section {
     padding: 60px 0;
-    background-color: #ffffff;
+    background-color: #f9fafb;
 }
 
 .section-header .sub-title {
@@ -79,8 +79,8 @@
 
 .card-text {
     color: #64748b;
-    line-height: 1.5;
-    font-size: 14px;
+    line-height: 1.4;
+    font-size: 12px;
     margin-bottom: 0;
 }
 
@@ -205,7 +205,7 @@
 .timeline-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
 }
 
 .timeline-item {
@@ -275,6 +275,7 @@
 }
 
 .process-icon {
+    font-size:28px;
     width: 80px;
     height: 80px;
     background: #fff;
@@ -289,7 +290,7 @@
 }
 
 .process-icon i {
-    font-size: 28px;
+    font-size: 48px;
     color: #64748b;
 }
 
@@ -343,17 +344,19 @@
         .assessment-grid-section .sub-title {
             color: #6366f1;
             font-weight: 600;
-            font-size: 10px;
+            font-size: 14px;
             letter-spacing: 1.2px;
             text-transform: uppercase;
+            margin-bottom:20px;
             
         }
 
 .assessment-grid-section .main-title {
-    font-size: 28px;
+    margin-top:10px;
+    font-size: 32px;
     font-weight: 700;
     color: #1e293b;
-    line-height: 1.1;
+    line-height: 1.2;
 }
 
 .assessment-grid-section .main-title span {
@@ -362,7 +365,7 @@
 
 .assessment-description p {
     color: #64748b;
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1.1;
 }
 
@@ -990,7 +993,7 @@ Subject or College to
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="process-item">
                         <div class="process-icon">
-                            <i class="bi bi-pencil-square"></i>
+                            📝
                         </div>
                         <h4>Fill the Form</h4>
                         <p>Share your details and what you need help with.</p>
@@ -999,9 +1002,9 @@ Subject or College to
 
                 <!-- Step 2 -->
                 <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="process-item active-step">
+                    <div class="process-item">
                         <div class="process-icon">
-                            <i class="bi bi-lightbulb"></i>
+                            🧠
                         </div>
                         <h4>Take Assessment</h4>
                         <p>Complete a quick psychometric test online — free.</p>
@@ -1012,7 +1015,7 @@ Subject or College to
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="process-item">
                         <div class="process-icon">
-                            <i class="bi bi-telephone-outbound"></i>
+                           📞
                         </div>
                         <h4>1-on-1 Session</h4>
                         <p>45-minute private video call with Pranav.</p>
@@ -1023,7 +1026,7 @@ Subject or College to
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="process-item">
                         <div class="process-icon">
-                            <i class="bi bi-map"></i>
+                           🗺️
                         </div>
                         <h4>Get Your Plan</h4>
                         <p>Receive your written roadmap and next steps.</p>
