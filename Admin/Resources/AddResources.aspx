@@ -22,15 +22,29 @@
                         <asp:DropDownList ID="ddlResourceType" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlResourceType_SelectedIndexChanged"></asp:DropDownList>
                     </div>
 
-                    <div class="col-md-4">
-                        <label class="form-label fw-bold">Sub-Category</label>
-                        <asp:DropDownList ID="ddlSubCategory" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlSubCategory_SelectedIndexChanged"></asp:DropDownList>
-                    </div>
+                    <asp:PlaceHolder ID="phSubCategory" runat="server" Visible="false">
+    <div class="col-md-4">
+        <label class="form-label fw-bold">Sub-Category</label>
+        <asp:DropDownList ID="ddlSubCategory"
+            runat="server"
+            CssClass="form-select"
+            AutoPostBack="true"
+            OnSelectedIndexChanged="ddlSubCategory_SelectedIndexChanged">
+        </asp:DropDownList>
+    </div>
+</asp:PlaceHolder>
 
-                    <div class="col-md-6">
-                        <label class="form-label small fw-bold">Class (Not Allowed for Competitive)</label>
-                        <asp:DropDownList ID="ddlClass" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlClass_SelectedIndexChanged"></asp:DropDownList>
-                    </div>
+                    <asp:PlaceHolder ID="phClass" runat="server" Visible="false">
+    <div class="col-md-6">
+        <label class="form-label small fw-bold">Class (Optional)</label>
+        <asp:DropDownList ID="ddlClass"
+            runat="server"
+            CssClass="form-select"
+            AutoPostBack="true"
+            OnSelectedIndexChanged="ddlClass_SelectedIndexChanged">
+        </asp:DropDownList>
+    </div>
+</asp:PlaceHolder>
 
                     <div class="col-md-6">
                         <label class="form-label small fw-bold">Subject</label>

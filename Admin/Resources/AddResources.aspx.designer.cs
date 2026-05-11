@@ -42,6 +42,15 @@ namespace StudyIsleWeb.Admin.Resources
         protected global::System.Web.UI.WebControls.DropDownList ddlResourceType;
 
         /// <summary>
+        /// phSubCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phSubCategory;
+
+        /// <summary>
         /// ddlSubCategory control.
         /// </summary>
         /// <remarks>
@@ -49,6 +58,15 @@ namespace StudyIsleWeb.Admin.Resources
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSubCategory;
+
+        /// <summary>
+        /// phClass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder phClass;
 
         /// <summary>
         /// ddlClass control.

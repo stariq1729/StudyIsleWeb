@@ -102,55 +102,383 @@ namespace StudyIsleWeb.Admin.Resources
 
         private void RefreshSubCategories()
         {
+            ResetDDL(ddlSubCategory, "-- Optional --");
+
+            phSubCategory.Visible = false;
+
             int boardId = GetSelVal(ddlBoard);
             int typeId = GetSelVal(ddlResourceType);
-            string sql = $"SELECT SubCategoryId, SubCategoryName FROM SubCategories WHERE BoardId={boardId}";
-            if (typeId > 0) sql += $" AND ResourceTypeId={typeId}";
-            BindDDL(sql, ddlSubCategory, "SubCategoryName", "SubCategoryId");
+
+            if (boardId == 0 || typeId == 0)
+                return;
+
+            string sql = @"
+        SELECT SubCategoryId, SubCategoryName
+        FROM SubCategories
+        WHERE BoardId = @BoardId
+        AND ResourceTypeId = @TypeId
+        AND IsActive = 1";
+
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlDataAdapter da = new SqlDataAdapter(sql, con);
+
+                da.SelectCommand.Parameters.AddWithValue("@BoardId", boardId);
+                da.SelectCommand.Parameters.AddWithValue("@TypeId", typeId);
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                // Optional hierarchy visibility
+                if (dt.Rows.Count > 0)
+                {
+                    phSubCategory.Visible = true;
+
+                    ddlSubCategory.DataSource = dt;
+                    ddlSubCategory.DataTextField = "SubCategoryName";
+                    ddlSubCategory.DataValueField = "SubCategoryId";
+                    ddlSubCategory.DataBind();
+
+                    ddlSubCategory.Items.Insert(0,
+                        new ListItem("-- Optional --", "0"));
+                }
+            }
         }
 
         private void RefreshClasses()
         {
+            ResetDDL(ddlClass, "-- Optional --");
+
+            phClass.Visible = false;
+
             int boardId = GetSelVal(ddlBoard);
+            int typeId = GetSelVal(ddlResourceType);
             int subCatId = GetSelVal(ddlSubCategory);
-            string sql = $"SELECT ClassId, ClassName FROM Classes WHERE BoardId={boardId}";
-            if (subCatId > 0) sql += $" AND SubCategoryId={subCatId}";
-            BindDDL(sql, ddlClass, "ClassName", "ClassId");
+
+            if (boardId == 0 || typeId == 0)
+                return;
+
+            string sql = @"
+        SELECT ClassId, ClassName
+        FROM Classes
+        WHERE BoardId = @BoardId
+        AND ResourceTypeId = @TypeId";
+
+            // Optional SubCategory hierarchy
+            if (subCatId > 0)
+            {
+                sql += " AND SubCategoryId = @SubCatId";
+            }
+            else
+            {
+                sql += " AND SubCategoryId IS NULL";
+            }
+
+            sql += " AND IsActive = 1";
+
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlDataAdapter da = new SqlDataAdapter(sql, con);
+
+                da.SelectCommand.Parameters.AddWithValue("@BoardId", boardId);
+                da.SelectCommand.Parameters.AddWithValue("@TypeId", typeId);
+
+                if (subCatId > 0)
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@SubCatId", subCatId);
+                }
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                // Optional hierarchy visibility
+                if (dt.Rows.Count > 0)
+                {
+                    phClass.Visible = true;
+
+                    ddlClass.DataSource = dt;
+                    ddlClass.DataTextField = "ClassName";
+                    ddlClass.DataValueField = "ClassId";
+                    ddlClass.DataBind();
+
+                    ddlClass.Items.Insert(0,
+                        new ListItem("-- Optional --", "0"));
+                }
+            }
         }
 
         private void RefreshSubjects()
         {
+            ResetDDL(ddlSubject, "-- Optional --");
+
             int boardId = GetSelVal(ddlBoard);
+            int typeId = GetSelVal(ddlResourceType);
             int subCatId = GetSelVal(ddlSubCategory);
             int classId = GetSelVal(ddlClass);
-            string sql = $"SELECT SubjectId, SubjectName FROM Subjects WHERE BoardId={boardId}";
-            if (subCatId > 0) sql += $" AND SubCategoryId={subCatId}";
-            if (classId > 0) sql += $" AND ClassId={classId}";
-            BindDDL(sql, ddlSubject, "SubjectName", "SubjectId");
+
+            if (boardId == 0 || typeId == 0)
+                return;
+
+            string sql = @"
+        SELECT SubjectId, SubjectName
+        FROM Subjects
+        WHERE BoardId = @BoardId
+        AND ResourceTypeId = @TypeId";
+
+            // Optional SubCategory hierarchy
+            if (subCatId > 0)
+            {
+                sql += " AND SubCategoryId = @SubCatId";
+            }
+            else
+            {
+                sql += " AND SubCategoryId IS NULL";
+            }
+
+            // Optional Class hierarchy
+            if (classId > 0)
+            {
+                sql += " AND ClassId = @ClassId";
+            }
+            else
+            {
+                sql += " AND ClassId IS NULL";
+            }
+
+            sql += " AND IsActive = 1";
+
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlDataAdapter da = new SqlDataAdapter(sql, con);
+
+                da.SelectCommand.Parameters.AddWithValue("@BoardId", boardId);
+                da.SelectCommand.Parameters.AddWithValue("@TypeId", typeId);
+
+                if (subCatId > 0)
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@SubCatId", subCatId);
+                }
+
+                if (classId > 0)
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@ClassId", classId);
+                }
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                ddlSubject.DataSource = dt;
+                ddlSubject.DataTextField = "SubjectName";
+                ddlSubject.DataValueField = "SubjectId";
+                ddlSubject.DataBind();
+
+                ddlSubject.Items.Insert(0,
+                    new ListItem("-- Optional --", "0"));
+            }
         }
 
         private void RefreshChapters()
         {
+            ResetDDL(ddlChapter, "-- Optional --");
+
             int boardId = GetSelVal(ddlBoard);
+            int typeId = GetSelVal(ddlResourceType);
             int subCatId = GetSelVal(ddlSubCategory);
             int classId = GetSelVal(ddlClass);
             int subjectId = GetSelVal(ddlSubject);
-            string sql = $"SELECT ChapterId, ChapterName FROM Chapters WHERE BoardId={boardId}";
-            if (subCatId > 0) sql += $" AND SubCategoryId={subCatId}";
-            if (classId > 0) sql += $" AND ClassId={classId}";
-            if (subjectId > 0) sql += $" AND SubjectId={subjectId}";
-            BindDDL(sql, ddlChapter, "ChapterName", "ChapterId");
+
+            if (boardId == 0 || typeId == 0)
+                return;
+
+            string sql = @"
+        SELECT ChapterId, ChapterName
+        FROM Chapters
+        WHERE BoardId = @BoardId
+        AND ResourceTypeId = @TypeId";
+
+            // Optional SubCategory hierarchy
+            if (subCatId > 0)
+            {
+                sql += " AND SubCategoryId = @SubCatId";
+            }
+            else
+            {
+                sql += " AND SubCategoryId IS NULL";
+            }
+
+            // Optional Class hierarchy
+            if (classId > 0)
+            {
+                sql += " AND ClassId = @ClassId";
+            }
+            else
+            {
+                sql += " AND ClassId IS NULL";
+            }
+
+            // Optional Subject hierarchy
+            if (subjectId > 0)
+            {
+                sql += " AND SubjectId = @SubjectId";
+            }
+            else
+            {
+                sql += " AND SubjectId IS NULL";
+            }
+
+            sql += " AND IsActive = 1";
+
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlDataAdapter da = new SqlDataAdapter(sql, con);
+
+                da.SelectCommand.Parameters.AddWithValue("@BoardId", boardId);
+                da.SelectCommand.Parameters.AddWithValue("@TypeId", typeId);
+
+                if (subCatId > 0)
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@SubCatId", subCatId);
+                }
+
+                if (classId > 0)
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@ClassId", classId);
+                }
+
+                if (subjectId > 0)
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@SubjectId", subjectId);
+                }
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                ddlChapter.DataSource = dt;
+                ddlChapter.DataTextField = "ChapterName";
+                ddlChapter.DataValueField = "ChapterId";
+                ddlChapter.DataBind();
+
+                ddlChapter.Items.Insert(0,
+                    new ListItem("-- Optional --", "0"));
+            }
         }
 
         private void RefreshSets()
         {
+            ResetDDL(ddlSet, "-- Optional --");
+
             int boardId = GetSelVal(ddlBoard);
+            int typeId = GetSelVal(ddlResourceType);
+            int subCatId = GetSelVal(ddlSubCategory);
+            int classId = GetSelVal(ddlClass);
             int subjectId = GetSelVal(ddlSubject);
+            int chapterId = GetSelVal(ddlChapter);
             int yearId = GetSelVal(ddlYear);
-            string sql = $"SELECT SetId, SetName FROM Sets WHERE BoardId={boardId}";
-            if (subjectId > 0) sql += $" AND SubjectId={subjectId}";
-            if (yearId > 0) sql += $" AND YearId={yearId}";
-            BindDDL(sql, ddlSet, "SetName", "SetId");
+
+            if (boardId == 0 || typeId == 0)
+                return;
+
+            string sql = @"
+        SELECT SetId, SetName
+        FROM Sets
+        WHERE BoardId = @BoardId
+        AND ResourceTypeId = @TypeId";
+
+            // Optional SubCategory hierarchy
+            if (subCatId > 0)
+            {
+                sql += " AND SubCategoryId = @SubCatId";
+            }
+            else
+            {
+                sql += " AND SubCategoryId IS NULL";
+            }
+
+            // Optional Class hierarchy
+            if (classId > 0)
+            {
+                sql += " AND ClassId = @ClassId";
+            }
+            else
+            {
+                sql += " AND ClassId IS NULL";
+            }
+
+            // Optional Subject hierarchy
+            if (subjectId > 0)
+            {
+                sql += " AND SubjectId = @SubjectId";
+            }
+            else
+            {
+                sql += " AND SubjectId IS NULL";
+            }
+
+            // Optional Chapter hierarchy
+            if (chapterId > 0)
+            {
+                sql += " AND ChapterId = @ChapterId";
+            }
+            else
+            {
+                sql += " AND ChapterId IS NULL";
+            }
+
+            // Optional Year hierarchy
+            if (yearId > 0)
+            {
+                sql += " AND YearId = @YearId";
+            }
+            else
+            {
+                sql += " AND YearId IS NULL";
+            }
+
+            sql += " AND IsActive = 1";
+
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlDataAdapter da = new SqlDataAdapter(sql, con);
+
+                da.SelectCommand.Parameters.AddWithValue("@BoardId", boardId);
+                da.SelectCommand.Parameters.AddWithValue("@TypeId", typeId);
+
+                if (subCatId > 0)
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@SubCatId", subCatId);
+                }
+
+                if (classId > 0)
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@ClassId", classId);
+                }
+
+                if (subjectId > 0)
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@SubjectId", subjectId);
+                }
+
+                if (chapterId > 0)
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@ChapterId", chapterId);
+                }
+
+                if (yearId > 0)
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@YearId", yearId);
+                }
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                ddlSet.DataSource = dt;
+                ddlSet.DataTextField = "SetName";
+                ddlSet.DataValueField = "SetId";
+                ddlSet.DataBind();
+
+                ddlSet.Items.Insert(0,
+                    new ListItem("-- Optional --", "0"));
+            }
         }
 
         // --- Save Operation ---
