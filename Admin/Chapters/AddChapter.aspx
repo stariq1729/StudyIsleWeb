@@ -21,8 +21,12 @@
 
                     <div class="col-md-6">
                         <label class="form-label fw-bold">2. Resource Type</label>
-                        <asp:DropDownList ID="ddlResourceType" runat="server" CssClass="form-select">
-                        </asp:DropDownList>
+                       <asp:DropDownList ID="ddlResourceType"
+    runat="server"
+    CssClass="form-select"
+    AutoPostBack="true"
+    OnSelectedIndexChanged="ddlResourceType_SelectedIndexChanged">
+</asp:DropDownList>
                     </div>
 
                     <%-- Path A: School Boards --%>

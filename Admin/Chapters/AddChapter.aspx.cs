@@ -23,52 +23,33 @@ namespace StudyIsleWeb.Admin.Chapters
             }
         }
 
-        // ✅ UPDATED: Always show BOTH Class + SubCategory
         protected void ddlBoard_SelectedIndexChanged(object sender, EventArgs e)
         {
-            phClass.Visible = false;
-            phSubCategory.Visible = false;
-            ddlSubject.Items.Clear();
-
-            if (ddlBoard.SelectedValue != "0")
-            {
-                int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
-
-                // ✅ ALWAYS show Class
-                phClass.Visible = true;
-                BindDDL($"SELECT ClassId, ClassName FROM Classes WHERE BoardId={boardId}",
-                    ddlLevel, "ClassName", "ClassId", "-- Select Class --");
-
-                // ✅ ALWAYS show SubCategory
-                phSubCategory.Visible = true;
-                BindDDL($"SELECT SubCategoryId, SubCategoryName FROM SubCategories WHERE BoardId={boardId}",
-                    ddlSubCategory, "SubCategoryName", "SubCategoryId", "-- Select Sub-Category --");
-            }
+            RefreshResourceTypes();
         }
-
-        // ✅ UPDATED: Subject loads from Class
-        protected void ddlLevel_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ddlResourceType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ddlSubject.Items.Clear();
+            RefreshSubCategories();
 
-            if (ddlLevel.SelectedValue != "0")
-            {
-                BindDDL($"SELECT SubjectId, SubjectName FROM Subjects WHERE ClassId={ddlLevel.SelectedValue}",
-                    ddlSubject, "SubjectName", "SubjectId", "-- Select Subject (Optional) --");
-            }
+            // IMPORTANT:
+            // If no subcategories exist,
+            // classes may still exist directly
+            RefreshClasses();
+
+            RefreshSubjects();
         }
-
-        // ✅ UPDATED: Subject loads from SubCategory
         protected void ddlSubCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ddlSubject.Items.Clear();
+            RefreshClasses();
 
-            if (ddlSubCategory.SelectedValue != "0")
-            {
-                BindDDL($"SELECT SubjectId, SubjectName FROM Subjects WHERE SubCategoryId={ddlSubCategory.SelectedValue}",
-                    ddlSubject, "SubjectName", "SubjectId", "-- Select Subject (Optional) --");
-            }
+            RefreshSubjects();
         }
+        protected void ddlLevel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshSubjects();
+        }
+
+
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
@@ -164,6 +145,239 @@ namespace StudyIsleWeb.Admin.Chapters
                 ddl.DataBind();
 
                 ddl.Items.Insert(0, new ListItem(defaultText, "0"));
+            }
+        }
+        private void ResetDDL(DropDownList ddl, string defaultText)
+        {
+            ddl.Items.Clear();
+            ddl.Items.Insert(0, new ListItem(defaultText, "0"));
+        }
+        private void RefreshResourceTypes()
+        {
+            // Reset everything below Board
+            ResetDDL(ddlResourceType, "-- Select Resource Type --");
+
+            ResetDDL(ddlSubCategory, "-- Select Sub-Category --");
+            ResetDDL(ddlLevel, "-- Select Class --");
+            ResetDDL(ddlSubject, "-- Select Subject (Optional) --");
+
+            // Hide optional hierarchy initially
+            phSubCategory.Visible = false;
+            phClass.Visible = false;
+
+            // Stop if no board selected
+            if (ddlBoard.SelectedValue == "0")
+                return;
+
+            string query = @"
+        SELECT DISTINCT rt.ResourceTypeId, rt.TypeName
+        FROM ResourceTypes rt
+        INNER JOIN BoardResourceMapping brm
+            ON rt.ResourceTypeId = brm.ResourceTypeId
+        WHERE brm.BoardId = @BoardId
+        AND rt.IsActive = 1";
+
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlDataAdapter da = new SqlDataAdapter(query, con);
+
+                da.SelectCommand.Parameters.AddWithValue("@BoardId",
+                    ddlBoard.SelectedValue);
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                ddlResourceType.DataSource = dt;
+                ddlResourceType.DataTextField = "TypeName";
+                ddlResourceType.DataValueField = "ResourceTypeId";
+                ddlResourceType.DataBind();
+
+                ddlResourceType.Items.Insert(0,
+                    new ListItem("-- Select Resource Type --", "0"));
+            }
+        }
+        private void RefreshSubCategories()
+        {
+            // Reset lower hierarchy first
+            ResetDDL(ddlSubCategory, "-- Select Sub-Category --");
+            ResetDDL(ddlSubject, "-- Select Subject (Optional) --");
+
+            phSubCategory.Visible = false;
+
+            // Stop if no resource type selected
+            if (ddlResourceType.SelectedValue == "0")
+                return;
+
+            string query = @"
+        SELECT SubCategoryId, SubCategoryName
+        FROM SubCategories
+        WHERE BoardId = @BoardId
+        AND ResourceTypeId = @ResourceTypeId
+        AND IsActive = 1";
+
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlDataAdapter da = new SqlDataAdapter(query, con);
+
+                da.SelectCommand.Parameters.AddWithValue("@BoardId",
+                    ddlBoard.SelectedValue);
+
+                da.SelectCommand.Parameters.AddWithValue("@ResourceTypeId",
+                    ddlResourceType.SelectedValue);
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                // Show hierarchy only if records exist
+                if (dt.Rows.Count > 0)
+                {
+                    phSubCategory.Visible = true;
+
+                    ddlSubCategory.DataSource = dt;
+                    ddlSubCategory.DataTextField = "SubCategoryName";
+                    ddlSubCategory.DataValueField = "SubCategoryId";
+                    ddlSubCategory.DataBind();
+
+                    ddlSubCategory.Items.Insert(0,
+                        new ListItem("-- Select Sub-Category --", "0"));
+                }
+            }
+        }
+        private void RefreshClasses()
+        {
+            // Reset lower hierarchy
+            ResetDDL(ddlLevel, "-- Select Class --");
+            ResetDDL(ddlSubject, "-- Select Subject (Optional) --");
+
+            phClass.Visible = false;
+
+            // Stop if no resource type selected
+            if (ddlResourceType.SelectedValue == "0")
+                return;
+
+            string query = @"
+        SELECT ClassId, ClassName
+        FROM Classes
+        WHERE BoardId = @BoardId
+        AND ResourceTypeId = @ResourceTypeId";
+
+            // Handle optional SubCategory hierarchy
+            if (ddlSubCategory.SelectedValue != "0")
+            {
+                query += " AND SubCategoryId = @SubCategoryId";
+            }
+            else
+            {
+                query += " AND SubCategoryId IS NULL";
+            }
+
+            query += " AND IsActive = 1";
+
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlDataAdapter da = new SqlDataAdapter(query, con);
+
+                da.SelectCommand.Parameters.AddWithValue("@BoardId",
+                    ddlBoard.SelectedValue);
+
+                da.SelectCommand.Parameters.AddWithValue("@ResourceTypeId",
+                    ddlResourceType.SelectedValue);
+
+                // Only add parameter if subcategory selected
+                if (ddlSubCategory.SelectedValue != "0")
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@SubCategoryId",
+                        ddlSubCategory.SelectedValue);
+                }
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                // Show hierarchy only if records exist
+                if (dt.Rows.Count > 0)
+                {
+                    phClass.Visible = true;
+
+                    ddlLevel.DataSource = dt;
+                    ddlLevel.DataTextField = "ClassName";
+                    ddlLevel.DataValueField = "ClassId";
+                    ddlLevel.DataBind();
+
+                    ddlLevel.Items.Insert(0,
+                        new ListItem("-- Select Class --", "0"));
+                }
+            }
+        }
+        private void RefreshSubjects()
+        {
+            ResetDDL(ddlSubject, "-- Select Subject (Optional) --");
+
+            // Stop if no resource type selected
+            if (ddlResourceType.SelectedValue == "0")
+                return;
+
+            string query = @"
+        SELECT SubjectId, SubjectName
+        FROM Subjects
+        WHERE BoardId = @BoardId
+        AND ResourceTypeId = @ResourceTypeId";
+
+            // Handle optional SubCategory
+            if (ddlSubCategory.SelectedValue != "0")
+            {
+                query += " AND SubCategoryId = @SubCategoryId";
+            }
+            else
+            {
+                query += " AND SubCategoryId IS NULL";
+            }
+
+            // Handle optional Class
+            if (ddlLevel.SelectedValue != "0")
+            {
+                query += " AND ClassId = @ClassId";
+            }
+            else
+            {
+                query += " AND ClassId IS NULL";
+            }
+
+            query += " AND IsActive = 1";
+
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlDataAdapter da = new SqlDataAdapter(query, con);
+
+                da.SelectCommand.Parameters.AddWithValue("@BoardId",
+                    ddlBoard.SelectedValue);
+
+                da.SelectCommand.Parameters.AddWithValue("@ResourceTypeId",
+                    ddlResourceType.SelectedValue);
+
+                // Optional SubCategory parameter
+                if (ddlSubCategory.SelectedValue != "0")
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@SubCategoryId",
+                        ddlSubCategory.SelectedValue);
+                }
+
+                // Optional Class parameter
+                if (ddlLevel.SelectedValue != "0")
+                {
+                    da.SelectCommand.Parameters.AddWithValue("@ClassId",
+                        ddlLevel.SelectedValue);
+                }
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                ddlSubject.DataSource = dt;
+                ddlSubject.DataTextField = "SubjectName";
+                ddlSubject.DataValueField = "SubjectId";
+                ddlSubject.DataBind();
+
+                ddlSubject.Items.Insert(0,
+                    new ListItem("-- Select Subject (Optional) --", "0"));
             }
         }
 
