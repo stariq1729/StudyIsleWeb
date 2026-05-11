@@ -6,7 +6,7 @@
 
         .subjects-section {
     padding: 80px 0;
-    background-color: #ffffff;
+    background-color: #fff;
 }
 
 /* Header Styles */
@@ -45,8 +45,8 @@
 /* Card Styles */
 .subject-card {
     background-color: #f9fafb; /* Light grey base */
-    border-radius: 30px;
-    padding: 40px 30px;
+    border-radius: 18px;
+    padding: 24px 30px;
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     height: 100%;
     border: 1px solid transparent;
@@ -64,7 +64,7 @@
 .subject-icon {
     width: 50px;
     height: 50px;
-    margin-bottom: 25px;
+    margin-bottom: 18px;
 }
 
 .subject-icon img {
@@ -83,7 +83,7 @@
 .subject-desc {
     font-size: 14px;
     color: #9ca3af;
-    margin-bottom: 25px;
+    margin-bottom: 18px;
 }
 
 /* Tags Styles */
@@ -138,7 +138,7 @@
 
 /* Ensure the card background actually gets brighter */
 .subject-card {
-    background-color: #f8f9fa; /* Slightly off-white */
+    background-color: #ffffff; /* Slightly off-white */
     border: 1px solid transparent;
     transition: all 0.3s ease;
 }
@@ -326,7 +326,7 @@
 
         /* FAQ Section Adjustments */
 .faq-section {
-    padding: 100px 0;
+    padding: 60px 0;
     background-color: #f8fafc; /* Very light blue/grey background */
 }
 
@@ -425,11 +425,11 @@
 
 /* Primary Gradient Button (Book Free Demo) */
 .btn-cta-primary {
-    background: linear-gradient(135deg, #e0d7ff 0%, #a855f7 100%);
+    background: #7162f2;
     color: white;
     font-weight: 700;
     padding: 18px 35px;
-    border-radius: 20px;
+    border-radius: 16px;
     text-decoration: none;
     font-size: 18px;
     transition: all 0.3s ease;
@@ -709,7 +709,7 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
     <!-- Mathematics -->
     <div class="col-lg-3 col-md-6">
         <div class="subject-card">
-            <div class="subject-icon icon-purple"><i class="bi bi-rulers"></i></div>
+            <div class="subject-icon icon-purple">📐</div>
             <h5 class="subject-name">Mathematics</h5>
             <p class="subject-desc">AA/AI HL & SL - Extended & Core</p>
             <div class="tag-container">
@@ -723,7 +723,7 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
     <!-- Physics -->
     <div class="col-lg-3 col-md-6">
         <div class="subject-card">
-            <div class="subject-icon icon-indigo"><i class="bi bi-atom"></i></div>
+            <div class="subject-icon icon-indigo">⚛️</div>
             <h5 class="subject-name">Physics</h5>
             <p class="subject-desc">HL & SL - Paper 1, 2 & 3 focus</p>
             <div class="tag-container">
@@ -737,7 +737,7 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
     <!-- Chemistry -->
     <div class="col-lg-3 col-md-6">
         <div class="subject-card">
-            <div class="subject-icon icon-green"><i class="bi bi-bezier2"></i></div>
+            <div class="subject-icon icon-green">🧪</div>
             <h5 class="subject-name">Chemistry</h5>
             <p class="subject-desc">Organic, Inorganic & Physical</p>
             <div class="tag-container">
@@ -751,7 +751,7 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
     <!-- Biology -->
     <div class="col-lg-3 col-md-6">
         <div class="subject-card">
-            <div class="subject-icon icon-pink"><i class="bi bi-dna"></i></div>
+            <div class="subject-icon icon-pink">🧬</div>
             <h5 class="subject-name">Biology</h5>
             <p class="subject-desc">HL & SL - IA guidance included</p>
             <div class="tag-container">
@@ -765,7 +765,7 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
     <!-- Economics -->
     <div class="col-lg-3 col-md-6">
         <div class="subject-card">
-            <div class="subject-icon icon-emerald"><i class="bi bi-graph-up-arrow"></i></div>
+            <div class="subject-icon icon-emerald">💹</div>
             <h5 class="subject-name">Economics</h5>
             <p class="subject-desc">Micro, Macro & IA Commentary</p>
             <div class="tag-container">
@@ -779,7 +779,7 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
     <!-- Business -->
     <div class="col-lg-3 col-md-6">
         <div class="subject-card">
-            <div class="subject-icon icon-blue"><i class="bi bi-bar-chart-steps"></i></div>
+            <div class="subject-icon icon-blue">📊</div>
             <h5 class="subject-name">Business Studies</h5>
             <p class="subject-desc">Case study & exam technique</p>
             <div class="tag-container">
@@ -792,7 +792,7 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
     <!-- English -->
     <div class="col-lg-3 col-md-6">
         <div class="subject-card">
-            <div class="subject-icon icon-orange"><i class="bi bi-file-earmark-text"></i></div>
+            <div class="subject-icon icon-orange">📝</div>
             <h5 class="subject-name">English Lang & Lit</h5>
             <p class="subject-desc">Paper 1, Paper 2 & IO prep</p>
             <div class="tag-container">
@@ -806,7 +806,7 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
     <!-- Computer Science -->
     <div class="col-lg-3 col-md-6">
         <div class="subject-card">
-            <div class="subject-icon icon-cyan"><i class="bi bi-display"></i></div>
+            <div class="subject-icon icon-cyan">💻</div>
             <h5 class="subject-name">Computer Science</h5>
             <p class="subject-desc">Java, Python & IA projects</p>
             <div class="tag-container">
