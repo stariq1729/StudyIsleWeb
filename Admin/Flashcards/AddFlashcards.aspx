@@ -40,8 +40,11 @@
 
     <div class="col-md-4 mb-3">
         <label>Resource Type</label>
-        <asp:DropDownList ID="ddlResourceType" runat="server"
-            CssClass="form-control" />
+       <asp:DropDownList ID="ddlResourceType"
+    runat="server"
+    CssClass="form-control"
+    AutoPostBack="true"
+    OnSelectedIndexChanged="ddlResourceType_SelectedIndexChanged" />
     </div>
 
     <asp:PlaceHolder ID="phClass" runat="server" Visible="false">
