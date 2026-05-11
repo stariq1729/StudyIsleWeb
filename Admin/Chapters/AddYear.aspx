@@ -30,7 +30,12 @@
                         <div class="section-header">Step 2: Resource Type & Path</div>
                         <div class="col-md-12 mb-2">
                             <label class="form-label fw-bold small">Resource Type</label>
-                            <asp:DropDownList ID="ddlResourceType" runat="server" CssClass="form-select shadow-none"></asp:DropDownList>
+                           <asp:DropDownList ID="ddlResourceType"
+    runat="server"
+    CssClass="form-select shadow-none"
+    AutoPostBack="true"
+    OnSelectedIndexChanged="ddlResourceType_SelectedIndexChanged">
+</asp:DropDownList>
                         </div>
 
                         <%-- Path A: School (CBSE/ICSE) --%>
