@@ -23,7 +23,11 @@
                     <!-- Resource Type -->
                     <div class="col-md-6">
                         <label class="form-label fw-bold">2. Resource Type</label>
-                        <asp:DropDownList ID="ddlResourceType" runat="server" CssClass="form-select" />
+                       <asp:DropDownList ID="ddlResourceType"
+    runat="server"
+    CssClass="form-select"
+    AutoPostBack="true"
+    OnSelectedIndexChanged="ddlResourceType_SelectedIndexChanged" />
                     </div>
 
                     <!-- Class -->
