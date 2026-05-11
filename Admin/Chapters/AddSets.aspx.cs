@@ -18,55 +18,37 @@ namespace StudyIsleWeb.Admin.Chapters
                 BindDropDown("SELECT ResourceTypeId, TypeName FROM ResourceTypes", ddlResourceType, "TypeName", "ResourceTypeId");
             }
         }
-
         protected void ddlBoard_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
-            if (boardId == 0) return;
-
-            bool isComp = CheckIfCompetitive(boardId);
-            phComp.Visible = isComp;
-            phSchool.Visible = !isComp;
-
-            if (isComp)
-                BindDropDown("SELECT SubCategoryId, SubCategoryName FROM SubCategories WHERE BoardId=" + boardId, ddlSubCategory, "SubCategoryName", "SubCategoryId");
-            else
-                BindDropDown("SELECT ClassId, ClassName FROM Classes WHERE BoardId=" + boardId, ddlClass, "ClassName", "ClassId");
-
-            // Load chapters immediately for this board (catches chapters with NULL subjects)
-            LoadChapters();
-            FilterYears();
+            RefreshResourceTypes();
         }
-
-        protected void ddlResourceType_SelectedIndexChanged(object sender, EventArgs e) { FilterYears(); }
-
-        // --- Path A: School Logic ---
+        protected void ddlResourceType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshHierarchyPaths();
+        }
         protected void ddlClass_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BindDropDown("SELECT SubjectId, SubjectName FROM Subjects WHERE ClassId=" + ddlClass.SelectedValue, ddlSubject, "SubjectName", "SubjectId");
-            LoadChapters();
-            FilterYears();
+            RefreshSchoolSubjects();
         }
-
         protected void ddlSubject_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadChapters();
             FilterYears();
         }
-
-        // --- Path B: Competitive Logic ---
         protected void ddlSubCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BindDropDown("SELECT SubjectId, SubjectName FROM Subjects WHERE SubCategoryId=" + ddlSubCategory.SelectedValue, ddlCompSubject, "SubjectName", "SubjectId");
-            LoadChapters();
-            FilterYears();
+            RefreshCompSubjects();
         }
-
         protected void ddlCompSubject_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadChapters();
             FilterYears();
         }
+
+
+
+
+
 
         // --- Core Logic: Load Chapters (Subject is Optional) ---
         private void LoadChapters()
@@ -198,6 +180,268 @@ namespace StudyIsleWeb.Admin.Chapters
                 ddl.DataSource = dt; ddl.DataTextField = text; ddl.DataValueField = value; ddl.DataBind();
                 ddl.Items.Insert(0, new ListItem("-- Select --", "0"));
             }
+        }
+        private void ResetDDL(DropDownList ddl)
+        {
+            ddl.Items.Clear();
+            ddl.Items.Insert(0, new ListItem("-- Select --", "0"));
+        }
+        private void RefreshResourceTypes()
+        {
+            // Reset everything below Board
+            ResetDDL(ddlResourceType);
+
+            ResetDDL(ddlClass);
+            ResetDDL(ddlSubject);
+
+            ResetDDL(ddlSubCategory);
+            ResetDDL(ddlCompSubject);
+
+            ResetDDL(ddlYear);
+            ResetDDL(ddlChapter);
+
+            // Hide both paths initially
+            phSchool.Visible = false;
+            phComp.Visible = false;
+
+            // Stop if no board selected
+            if (ddlBoard.SelectedValue == "0")
+                return;
+
+            string query = @"
+        SELECT DISTINCT rt.ResourceTypeId, rt.TypeName
+        FROM ResourceTypes rt
+        INNER JOIN BoardResourceMapping brm
+            ON rt.ResourceTypeId = brm.ResourceTypeId
+        WHERE brm.BoardId = @BoardId
+        AND rt.IsActive = 1";
+
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlDataAdapter da = new SqlDataAdapter(query, con);
+
+                da.SelectCommand.Parameters.AddWithValue("@BoardId",
+                    ddlBoard.SelectedValue);
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                ddlResourceType.DataSource = dt;
+                ddlResourceType.DataTextField = "TypeName";
+                ddlResourceType.DataValueField = "ResourceTypeId";
+                ddlResourceType.DataBind();
+
+                ddlResourceType.Items.Insert(0,
+                    new ListItem("-- Select --", "0"));
+            }
+        }
+        private void RefreshHierarchyPaths()
+        {
+            // Reset lower hierarchy first
+            ResetDDL(ddlClass);
+            ResetDDL(ddlSubject);
+
+            ResetDDL(ddlSubCategory);
+            ResetDDL(ddlCompSubject);
+
+            ResetDDL(ddlYear);
+            ResetDDL(ddlChapter);
+
+            phSchool.Visible = false;
+            phComp.Visible = false;
+
+            // Stop if no resource type selected
+            if (ddlResourceType.SelectedValue == "0")
+                return;
+
+            int boardId = Convert.ToInt32(ddlBoard.SelectedValue);
+
+            bool isComp = CheckIfCompetitive(boardId);
+
+            // =========================
+            // COMPETITIVE FLOW
+            // =========================
+            if (isComp)
+            {
+                string subQuery = @"
+            SELECT SubCategoryId, SubCategoryName
+            FROM SubCategories
+            WHERE BoardId = @BoardId
+            AND ResourceTypeId = @ResourceTypeId
+            AND IsActive = 1";
+
+                using (SqlConnection con = new SqlConnection(cs))
+                {
+                    SqlDataAdapter da = new SqlDataAdapter(subQuery, con);
+
+                    da.SelectCommand.Parameters.AddWithValue("@BoardId",
+                        ddlBoard.SelectedValue);
+
+                    da.SelectCommand.Parameters.AddWithValue("@ResourceTypeId",
+                        ddlResourceType.SelectedValue);
+
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    // Optional hierarchy visibility
+                    if (dt.Rows.Count > 0)
+                    {
+                        phComp.Visible = true;
+
+                        ddlSubCategory.DataSource = dt;
+                        ddlSubCategory.DataTextField = "SubCategoryName";
+                        ddlSubCategory.DataValueField = "SubCategoryId";
+                        ddlSubCategory.DataBind();
+
+                        ddlSubCategory.Items.Insert(0,
+                            new ListItem("-- Select --", "0"));
+                    }
+                }
+            }
+
+            // =========================
+            // SCHOOL FLOW
+            // =========================
+            else
+            {
+                string classQuery = @"
+            SELECT ClassId, ClassName
+            FROM Classes
+            WHERE BoardId = @BoardId
+            AND ResourceTypeId = @ResourceTypeId
+            AND IsActive = 1";
+
+                using (SqlConnection con = new SqlConnection(cs))
+                {
+                    SqlDataAdapter da = new SqlDataAdapter(classQuery, con);
+
+                    da.SelectCommand.Parameters.AddWithValue("@BoardId",
+                        ddlBoard.SelectedValue);
+
+                    da.SelectCommand.Parameters.AddWithValue("@ResourceTypeId",
+                        ddlResourceType.SelectedValue);
+
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    // Optional hierarchy visibility
+                    if (dt.Rows.Count > 0)
+                    {
+                        phSchool.Visible = true;
+
+                        ddlClass.DataSource = dt;
+                        ddlClass.DataTextField = "ClassName";
+                        ddlClass.DataValueField = "ClassId";
+                        ddlClass.DataBind();
+
+                        ddlClass.Items.Insert(0,
+                            new ListItem("-- Select --", "0"));
+                    }
+                }
+            }
+
+            // IMPORTANT:
+            // Load fallback content immediately
+            LoadChapters();
+            FilterYears();
+        }
+        private void RefreshSchoolSubjects()
+        {
+            ResetDDL(ddlSubject);
+
+            // Stop if no class selected
+            if (ddlClass.SelectedValue == "0")
+            {
+                LoadChapters();
+                FilterYears();
+                return;
+            }
+
+            string query = @"
+        SELECT SubjectId, SubjectName
+        FROM Subjects
+        WHERE BoardId = @BoardId
+        AND ResourceTypeId = @ResourceTypeId
+        AND ClassId = @ClassId
+        AND IsActive = 1";
+
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlDataAdapter da = new SqlDataAdapter(query, con);
+
+                da.SelectCommand.Parameters.AddWithValue("@BoardId",
+                    ddlBoard.SelectedValue);
+
+                da.SelectCommand.Parameters.AddWithValue("@ResourceTypeId",
+                    ddlResourceType.SelectedValue);
+
+                da.SelectCommand.Parameters.AddWithValue("@ClassId",
+                    ddlClass.SelectedValue);
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                ddlSubject.DataSource = dt;
+                ddlSubject.DataTextField = "SubjectName";
+                ddlSubject.DataValueField = "SubjectId";
+                ddlSubject.DataBind();
+
+                ddlSubject.Items.Insert(0,
+                    new ListItem("-- Select --", "0"));
+            }
+
+            // Preserve fallback resolution behavior
+            LoadChapters();
+            FilterYears();
+        }
+        private void RefreshCompSubjects()
+        {
+            ResetDDL(ddlCompSubject);
+
+            // Stop if no subcategory selected
+            if (ddlSubCategory.SelectedValue == "0")
+            {
+                LoadChapters();
+                FilterYears();
+                return;
+            }
+
+            string query = @"
+        SELECT SubjectId, SubjectName
+        FROM Subjects
+        WHERE BoardId = @BoardId
+        AND ResourceTypeId = @ResourceTypeId
+        AND SubCategoryId = @SubCategoryId
+        AND IsActive = 1";
+
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                SqlDataAdapter da = new SqlDataAdapter(query, con);
+
+                da.SelectCommand.Parameters.AddWithValue("@BoardId",
+                    ddlBoard.SelectedValue);
+
+                da.SelectCommand.Parameters.AddWithValue("@ResourceTypeId",
+                    ddlResourceType.SelectedValue);
+
+                da.SelectCommand.Parameters.AddWithValue("@SubCategoryId",
+                    ddlSubCategory.SelectedValue);
+
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                ddlCompSubject.DataSource = dt;
+                ddlCompSubject.DataTextField = "SubjectName";
+                ddlCompSubject.DataValueField = "SubjectId";
+                ddlCompSubject.DataBind();
+
+                ddlCompSubject.Items.Insert(0,
+                    new ListItem("-- Select --", "0"));
+            }
+
+            // Preserve fallback resolution behavior
+            LoadChapters();
+            FilterYears();
         }
     }
 }
