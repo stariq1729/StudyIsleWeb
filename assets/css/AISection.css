@@ -368,9 +368,9 @@
 
 /* =========================
    CTA SECTION
-========================= */
-
-/*.course-cta {
+========================= 
+*/
+.course-cta {
     margin-top: 40px;
     background: linear-gradient(90deg, #07112b, #081534);
     border-radius: 40px;
@@ -413,12 +413,12 @@
     font-weight: 700;
     box-shadow: 0 20px 40px rgba(91,92,230,0.35);
     position: relative;
-}*/
+}
 
-/* =========================
+ /*=========================
    RESPONSIVE
-========================= */
-
+========================= 
+*/
 @media (max-width: 992px) {
 
     .course-top {

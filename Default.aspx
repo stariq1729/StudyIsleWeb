@@ -523,22 +523,7 @@ Subject or College to
 
         </div>
 
-        <!-- CTA BOX -->
 
-      <%--  <div class="course-cta">
-
-            <h2>Want a Customized Learning Plan?</h2>
-
-            <p>
-                Our academic experts can help you choose the right category
-                based on your target college and career goals.
-            </p>
-
-            <a href="#" class="cta-btn">
-                TALK TO ACADEMIC EXPERT
-            </a>
-
-        </div>--%>
 
     </div>
 
