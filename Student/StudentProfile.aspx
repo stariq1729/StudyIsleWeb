@@ -25,7 +25,7 @@ body { background-color: var(--bg-body); }
 .bento-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05); }
 
 /* Identity Section */
-.hero-text { color: var(--text-dark); line-height: 1; }
+.hero-text { color: var(--text-dark); line-height: 1.2; }
 .hero-name { color: var(--accent-purple); }
 
 .profile-main-card { border-radius: 35px !important; }
@@ -116,9 +116,9 @@ body { background-color: var(--bg-body); }
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 <div class="container py-5 px-lg-5">
-    <div class="row g-5">
+    <div class="row g-6">
         <div class="col-lg-5">
-            <div class="mb-5">
+            <div class="mb-4">
                 <span class="badge rounded-pill bg-white text-muted border px-3 py-2 mb-4 shadow-sm">
                     <i class="fas fa-circle text-success me-2 small"></i>ACADEMIC YEAR 2024-25
                 </span>
@@ -200,14 +200,14 @@ body { background-color: var(--bg-body); }
                     </div>
                 </div>
 
-                <div class="col-12 mt-4">
-                    <div class="ai-card p-5 shadow-lg">
+                <div class="col-12 mt-6">
+                    <div class="ai-card p-6 shadow-lg">
                         <span class="badge bg-white bg-opacity-10 text-white rounded-pill px-3 py-2 mb-4 fw-bold">AI INSIGHT</span>
                         <h2 class="fw-bold mb-4">Ready to accelerate your <asp:Label ID="lblExamInsight" runat="server" /> preparation?</h2>
                         <p class="text-secondary fs-5 mb-5 opacity-75">
                             Our algorithm has mapped out your next 4 weeks. Complete your profile details to unlock the full curriculum analysis.
                         </p>
-                        <div class="d-flex gap-3">
+                        <div class="d-flex gap-4">
                             <button type="button" class="btn btn-white bg-white text-dark fw-bold px-4 py-3 rounded-pill" onclick="openModal()">COMPLETE PROFILE</button>
                             <button type="button" class="btn btn-outline-light px-4 py-3 rounded-pill opacity-50" onclick="alert('Analysis skipped')">SKIP FOR NOW</button>
                         </div>
