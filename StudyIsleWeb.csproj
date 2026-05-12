@@ -91,7 +91,8 @@
     <Content Include="Admin\Boards\EditBoard.aspx" />
     <Content Include="Admin\Boards\ManageBoards.aspx" />
     <Content Include="Admin\Chapters\AddChapter.aspx" />
-    <Content Include="Admin\Chapters\AddSets.aspx" />
+    <Content Include="Admin\Sets\AddSets.aspx" />
+    <Content Include="Admin\Sets\ManageSets.aspx" />
     <Content Include="Admin\Years\AddYear.aspx" />
     <Content Include="Admin\Chapters\ManageChapters.aspx" />
     <Content Include="Admin\Classes\AddClass.aspx" />
@@ -285,12 +286,19 @@
     <Compile Include="Admin\Chapters\AddChapter.aspx.designer.cs">
       <DependentUpon>AddChapter.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Admin\Chapters\AddSets.aspx.cs">
+    <Compile Include="Admin\Sets\AddSets.aspx.cs">
       <DependentUpon>AddSets.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Admin\Chapters\AddSets.aspx.designer.cs">
+    <Compile Include="Admin\Sets\AddSets.aspx.designer.cs">
       <DependentUpon>AddSets.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Sets\ManageSets.aspx.cs">
+      <DependentUpon>ManageSets.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Sets\ManageSets.aspx.designer.cs">
+      <DependentUpon>ManageSets.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Years\AddYear.aspx.cs">
       <DependentUpon>AddYear.aspx</DependentUpon>
