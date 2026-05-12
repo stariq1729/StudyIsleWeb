@@ -101,6 +101,7 @@
                 <a href="/Admin/Years/ManageYears.aspx" class="small-link">Years</a>
                 <a href="/Admin/Chapters/ManageChapters.aspx" class="small-link">Chapters</a>
                 <a href="/Admin/Sets/ManageSets.aspx" class="small-link">Sets/Years</a>
+                <hr />
                 <a href="/Admin/Quiz/ManageQuiz.aspx" class="small-link">Quiz</a>
                 <a href="/Admin/Flashcards/ManageFlashcards.aspx" class="small-link">Flash</a>
                 <a href="/Admin/Resources/ManageResources.aspx" class="small-link">Resources</a>
