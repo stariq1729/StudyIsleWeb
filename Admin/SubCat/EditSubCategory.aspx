@@ -95,8 +95,7 @@
                                 <asp:TextBox ID="txtName"
                                     runat="server"
                                     CssClass="form-control"
-                                    AutoPostBack="true"
-                                    OnTextChanged="txtName_TextChanged">
+                                    >
                                 </asp:TextBox>
 
                             </div>
@@ -144,20 +143,41 @@
                             </div>
 
                             <!-- DESCRIPTION -->
-                            <div class="col-12">
+                            <!-- DESCRIPTION -->
+<div class="col-12">
 
-                                <label class="form-label fw-bold">
-                                    Description
-                                </label>
+    <label class="form-label fw-bold">
+        Description
+    </label>
 
-                                <asp:TextBox ID="txtDescription"
-                                    runat="server"
-                                    CssClass="form-control"
-                                    TextMode="MultiLine"
-                                    Rows="4">
-                                </asp:TextBox>
+    <asp:TextBox ID="txtDescription"
+        runat="server"
+        CssClass="form-control"
+        TextMode="MultiLine"
+        Rows="4">
+    </asp:TextBox>
 
-                            </div>
+</div>
+
+<!-- STATUS -->
+<div class="col-12">
+
+    <div class="form-check form-switch mt-2">
+
+        <asp:CheckBox ID="chkIsActive"
+            runat="server"
+            CssClass="form-check-input" />
+
+        <label class="form-check-label fw-bold"
+            for="<%= chkIsActive.ClientID %>">
+
+            Is Active
+
+        </label>
+
+    </div>
+
+</div>
 
                             <!-- BUTTON -->
                             <div class="col-12 pt-3">
