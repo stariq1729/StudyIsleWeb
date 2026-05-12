@@ -23,7 +23,7 @@
 
 .contact-top {
     text-align: center;
-    margin-bottom: 55px;
+    margin-bottom: 45px;
 }
 
 .mini-badge {
@@ -36,22 +36,22 @@
     border-radius: 50px;
     font-size: 12px;
     font-weight: 700;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
 }
 
 .contact-top h1 {
-    font-size: 62px;
+    font-size: 42px;
     font-weight: 800;
     color: #0f172a;
-    margin-bottom: 18px;
+    margin-bottom: 14px;
 }
 
 .contact-top p {
-    max-width: 720px;
+    max-width: 620px;
     margin: auto;
     color: #64748b;
-    font-size: 18px;
-    line-height: 1.8;
+    font-size: 14px;
+    line-height: 1.4;
 }
 
 /* ========================================
@@ -60,7 +60,7 @@
 
 .contact-info-wrapper {
     display: flex;
-    gap: 30px;
+    gap: 25px;
     margin-bottom: 50px;
 }
 
@@ -69,7 +69,7 @@
     background: #fff;
     border: 1px solid #e2e8f0;
     border-radius: 22px;
-    padding: 45px 25px;
+    padding: 40px 22px;
     text-align: center;
     transition: 0.3s;
 }
@@ -80,15 +80,15 @@
 }
 
 .contact-icon {
-    width: 62px;
-    height: 62px;
+    width: 52px;
+    height: 52px;
     margin: auto;
     border-radius: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    margin-bottom: 22px;
+    font-size: 20px;
+    margin-bottom: 20px;
 }
 
 .blue-icon {
@@ -108,21 +108,21 @@
 
 .contact-card h4 {
     color: #94a3b8;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
 }
 
 .contact-card h3 {
-    font-size: 24px;
+    font-size: 18px;
     color: #0f172a;
-    margin-bottom: 10px;
-    font-weight: 700;
+    margin-bottom: 8px;
+    font-weight: 600;
 }
 
 .contact-card p {
     color: #64748b;
-    font-size: 15px;
+    font-size: 12px;
 }
 
 /* ========================================
@@ -144,13 +144,13 @@
     background: #fff;
     border: 1px solid #e2e8f0;
     border-radius: 24px;
-    padding: 40px;
+    padding: 32px;
 }
 
 .contact-form-box h2 {
-    font-size: 38px;
+    font-size: 25px;
     font-weight: 700;
-    margin-bottom: 35px;
+    margin-bottom: 25px;
     color: #0f172a;
 }
 
@@ -160,11 +160,11 @@
 
 .form-row {
     display: flex;
-    gap: 20px;
+    gap: 16px;
 }
 
 .form-group {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .form-group.half {
@@ -207,12 +207,12 @@
 
 .submit-btn {
     width: 100%;
-    height: 60px;
+    height: 50px;
     border: none;
     border-radius: 14px;
     background: linear-gradient(90deg, #4f46e5, #4338ca);
     color: #fff;
-    font-size: 17px;
+    font-size: 14px;
     font-weight: 700;
     cursor: pointer;
     transition: 0.3s;
@@ -232,9 +232,9 @@
 }
 
 .contact-right-content h2 {
-    font-size: 40px;
+    font-size: 30px;
     font-weight: 700;
-    margin-bottom: 35px;
+    margin-bottom: 25px;
     color: #0f172a;
 }
 
@@ -244,8 +244,8 @@
 
 .why-item {
     display: flex;
-    gap: 18px;
-    margin-bottom: 28px;
+    gap: 12px;
+    margin-bottom: 10px;
 }
 
 .why-icon {
@@ -262,31 +262,32 @@
 }
 
 .why-content h4 {
-    font-size: 22px;
-    margin-bottom: 8px;
+    font-size: 16px;
+    margin-bottom: 4px;
     color: #0f172a;
 }
 
-.why-content p {
-    color: #64748b;
-    line-height: 1.7;
-}
+       .why-content p {
+           color: #64748b;
+           line-height: 1.2;
+           font-size: 14px;
+       }
 
 /* ========================================
    CTA
 ======================================== */
 
 .contact-cta {
-    margin-top: 45px;
+    margin-top: 40px;
     background: linear-gradient(135deg, #4338ca, #312e81);
     border-radius: 24px;
-    padding: 45px;
+    padding: 40px;
     color: #fff;
 }
 
 .contact-cta h3 {
-    font-size: 34px;
-    margin-bottom: 18px;
+    font-size: 30px;
+    margin-bottom: 12px;
 }
 
 .contact-cta p {
