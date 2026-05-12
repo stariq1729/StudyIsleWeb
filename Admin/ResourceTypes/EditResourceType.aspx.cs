@@ -34,8 +34,8 @@ namespace StudyIsleWeb.Admin.ResourceTypes
                 SqlDataAdapter da = new SqlDataAdapter("SELECT BoardId, BoardName FROM Boards", con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
-                cblBoards.DataSource = dt;
-                cblBoards.DataBind();
+                rblBoard.DataSource = dt;
+                rblBoard.DataBind();
             }
         }
 
@@ -73,8 +73,12 @@ namespace StudyIsleWeb.Admin.ResourceTypes
                     while (rdrMap.Read())
                     {
                         string bID = rdrMap["BoardId"].ToString();
-                        ListItem li = cblBoards.Items.FindByValue(bID);
-                        if (li != null) li.Selected = true;
+                        ListItem li = rblBoard.Items.FindByValue(bID);
+
+                        if (li != null)
+                        {
+                            li.Selected = true;
+                        }
                     }
                 }
             }
@@ -118,15 +122,17 @@ namespace StudyIsleWeb.Admin.ResourceTypes
 
                     // 2. Update Mappings: Delete existing and add new
                     new SqlCommand("DELETE FROM BoardResourceMapping WHERE ResourceTypeId=" + rtId, con, trans).ExecuteNonQuery();
-                    foreach (ListItem item in cblBoards.Items)
+                    if (!string.IsNullOrEmpty(rblBoard.SelectedValue))
                     {
-                        if (item.Selected)
-                        {
-                            SqlCommand mapCmd = new SqlCommand("INSERT INTO BoardResourceMapping (BoardId, ResourceTypeId) VALUES (@BID, @RID)", con, trans);
-                            mapCmd.Parameters.AddWithValue("@BID", item.Value);
-                            mapCmd.Parameters.AddWithValue("@RID", rtId);
-                            mapCmd.ExecuteNonQuery();
-                        }
+                        SqlCommand mapCmd = new SqlCommand(
+                            "INSERT INTO BoardResourceMapping (BoardId, ResourceTypeId) VALUES (@BID, @RID)",
+                            con,
+                            trans);
+
+                        mapCmd.Parameters.AddWithValue("@BID", rblBoard.SelectedValue);
+                        mapCmd.Parameters.AddWithValue("@RID", rtId);
+
+                        mapCmd.ExecuteNonQuery();
                     }
 
                     trans.Commit();

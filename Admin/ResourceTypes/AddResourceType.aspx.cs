@@ -24,27 +24,72 @@ namespace StudyIsleWeb.Admin.ResourceTypes
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                // We show whether it's Competitive or Standard in the list for admin clarity
-                string query = "SELECT BoardId, BoardName + (CASE WHEN IsCompetitive = 1 THEN ' (Competitive)' ELSE ' (Standard)' END) as BoardName FROM Boards ORDER BY IsCompetitive, BoardName ASC";
+                string query = @"SELECT BoardId,
+                          BoardName +
+                          (CASE WHEN IsCompetitive = 1
+                          THEN ' (Competitive)'
+                          ELSE ' (Standard)'
+                          END) as BoardName
+                          FROM Boards
+                          ORDER BY IsCompetitive, BoardName ASC";
+
                 SqlDataAdapter da = new SqlDataAdapter(query, con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
 
-                cblBoards.DataSource = dt;
-                cblBoards.DataBind();
+                rblBoard.DataSource = dt;
+                rblBoard.DataBind();
             }
         }
+        protected void rblBoard_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtName.Text))
+            {
+                using (SqlConnection con = new SqlConnection(cs))
+                {
+                    string query = "SELECT Slug FROM Boards WHERE BoardId=@BoardId";
 
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@BoardId", rblBoard.SelectedValue);
+
+                    con.Open();
+
+                    object result = cmd.ExecuteScalar();
+
+                    string boardSlug = result != null ? result.ToString() : "board";
+
+                    txtSlug.Text = GenerateSlug(boardSlug + "-" + txtName.Text.Trim());
+                }
+            }
+        }
         protected void txtName_TextChanged(object sender, EventArgs e)
         {
-            txtSlug.Text = GenerateSlug(txtName.Text);
+            if (string.IsNullOrEmpty(rblBoard.SelectedValue))
+            {
+                txtSlug.Text = GenerateSlug(txtName.Text);
+                return;
+            }
+
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                string query = "SELECT Slug FROM Boards WHERE BoardId=@BoardId";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@BoardId", rblBoard.SelectedValue);
+
+                con.Open();
+                object result = cmd.ExecuteScalar();
+
+                string boardSlug = result != null ? result.ToString() : "board";
+
+                txtSlug.Text = GenerateSlug(boardSlug + "-" + txtName.Text.Trim());
+            }
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtName.Text))
+            if (string.IsNullOrEmpty(rblBoard.SelectedValue))
             {
-                lblMessage.Text = "Resource Type Name is required.";
+                lblMessage.Text = "Please select a board.";
                 return;
             }
 
@@ -92,17 +137,17 @@ namespace StudyIsleWeb.Admin.ResourceTypes
                     int newResourceTypeId = Convert.ToInt32(cmd.ExecuteScalar());
 
                     // 2. Map this Resource Type to selected Boards
-                    foreach (ListItem item in cblBoards.Items)
+                    if (string.IsNullOrEmpty(rblBoard.SelectedValue))
                     {
-                        if (item.Selected)
-                        {
-                            string mapQuery = "INSERT INTO BoardResourceMapping (BoardId, ResourceTypeId) VALUES (@BID, @RID)";
-                            SqlCommand cmdMap = new SqlCommand(mapQuery, con, trans);
-                            cmdMap.Parameters.AddWithValue("@BID", item.Value);
-                            cmdMap.Parameters.AddWithValue("@RID", newResourceTypeId);
-                            cmdMap.ExecuteNonQuery();
-                        }
+                        lblMessage.Text = "Please select a board.";
+                        return;
                     }
+
+                    string mapQuery = "INSERT INTO BoardResourceMapping (BoardId, ResourceTypeId) VALUES (@BID, @RID)";
+                    SqlCommand cmdMap = new SqlCommand(mapQuery, con, trans);
+                    cmdMap.Parameters.AddWithValue("@BID", rblBoard.SelectedValue);
+                    cmdMap.Parameters.AddWithValue("@RID", newResourceTypeId);
+                    cmdMap.ExecuteNonQuery();
 
                     trans.Commit();
                     Response.Redirect("ManageResourceTypes.aspx");

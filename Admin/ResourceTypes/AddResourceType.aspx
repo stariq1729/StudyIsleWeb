@@ -62,14 +62,22 @@
 
             <div class="col-md-5">
                 <div class="card shadow-sm p-3 border-info">
-                    <h6 class="mb-3 border-bottom pb-2 text-info">Assign to Boards</h6>
-                    <p class="small text-muted"><strong>Standard Flow:</strong> Board → ResourceType<br />
-                       <strong>Competitive Flow:</strong> Board → SubCategory (Resource Type appears later)</p>
-                    
-                    <div class="board-selector-box">
-                        <asp:CheckBoxList ID="cblBoards" runat="server" CssClass="custom-cbl" DataTextField="BoardName" DataValueField="BoardId">
-                        </asp:CheckBoxList>
-                    </div>
+                    <h6 class="mb-3 border-bottom pb-2 text-info">Assign to Board</h6>
+<p class="small text-muted">
+    Each resource type configuration now belongs to one board.
+    <br />
+    Create separate entries if flow logic differs.
+</p>
+
+<div class="board-selector-box">
+    <asp:RadioButtonList ID="rblBoard" runat="server"
+    CssClass="custom-cbl"
+    DataTextField="BoardName"
+    DataValueField="BoardId"
+    AutoPostBack="true"
+    OnSelectedIndexChanged="rblBoard_SelectedIndexChanged">
+</asp:RadioButtonList>
+</div>
                 </div>
             </div>
         </div>

@@ -48,8 +48,11 @@
                 <div class="card shadow-sm p-3 border-info">
                     <h6 class="mb-3 border-bottom pb-2 text-info">Associated Boards</h6>
                     <div style="max-height: 450px; overflow-y: auto;" class="p-2 border rounded bg-light">
-                        <asp:CheckBoxList ID="cblBoards" runat="server" CssClass="custom-cbl" DataTextField="BoardName" DataValueField="BoardId">
-                        </asp:CheckBoxList>
+                        <asp:RadioButtonList ID="rblBoard" runat="server"
+    CssClass="custom-cbl"
+    DataTextField="BoardName"
+    DataValueField="BoardId">
+</asp:RadioButtonList>
                     </div>
                 </div>
             </div>
