@@ -232,7 +232,7 @@
 }
 
 .contact-right-content h2 {
-    font-size: 30px;
+    font-size: 24px;
     font-weight: 700;
     margin-bottom: 25px;
     color: #0f172a;
