@@ -10,7 +10,7 @@
 .gallery-hero-section {
     padding-top: 40px;
     padding-bottom: 60px;
-    background: #f7f8fc;
+    background: #fdfdff;
 }
 
 /* TOP LABEL */
@@ -202,7 +202,7 @@
 
 .institute-feed-section {
     padding-bottom: 60px;
-    background: #f7f8fc;
+    background: #fdfdff;
 }
 
 /* HEADER */
@@ -419,7 +419,7 @@
 .stat-card {
     background: #ffffff;
     padding: 36px 16px;
-    border-radius: 36px;
+    border-radius: 22px;
     text-align: center;
     /* Soft, large spread shadow to match image */
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.04);
@@ -435,7 +435,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 25px;
+    margin: 0 auto 12px;
     font-size: 20px;
 }
 
@@ -451,8 +451,8 @@
 
 .stat-number {
     display: block;
-    font-size: 40px;
-    font-weight: 800;
+    font-size: 38px;
+    font-weight: 600;
     color: #1a1a1a;
     letter-spacing: -1px;
     margin-bottom: 2px;
@@ -490,8 +490,8 @@
 ========================================= */
 
 .empower-section {
-    padding: 100px 0;
-    background: #ffffff;
+    padding: 20px 0;
+    background: #fdfdff;
 }
 
 .empower-container {
@@ -508,8 +508,8 @@
 }
 
 .empower-title {
-    font-size: 36px;
-    font-weight: 800;
+    font-size: 42px;
+    font-weight: 700;
     line-height: 1.1;
     color: #0f172a;
     margin-bottom: 40px;
@@ -526,8 +526,8 @@
 }
 
 .feature-icon-circle {
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
     background: #111827;
     border-radius: 12px; /* Slightly squircle as per image */
     display: flex;
@@ -535,7 +535,7 @@
     justify-content: center;
     color: #fff;
     flex-shrink: 0;
-    font-size: 12px;
+    font-size: 14px;
 }
 .feature-text h5{
     color:#0f172a;
@@ -623,7 +623,7 @@
 .testimonials-section {
     padding: 80px 0;
     text-align: center;
-    background: #ffffff;
+    background: #fdfdff;
 }
 
 .section-header h2 {
@@ -716,9 +716,9 @@
    SUCCESS STORY CTA BANNER
 ========================================= */
 .cta-banner {
-    background: #5c67f2;
-    padding: 60px 30px;
-    border-radius: 50px;
+    background: #5d5ced;
+    padding: 40px 20px;
+    border-radius: 30px;
     color: white;
     text-align: center;
     max-width: 1100px;
@@ -1063,7 +1063,7 @@
 </section>
     <section class="testimonials-section">
     <div class="container">
-        <div class="section-header">
+        <%--<div class="section-header">
             <h2>Trusted by 1000+ Parents</h2>
             <p>Hear what they say about their child's journey with us.</p>
         </div>
@@ -1107,14 +1107,14 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>--%>
 
         <div class="cta-banner">
             <h2>Ready to start your<br /><span>Success Story?</span></h2>
             <p>Join Elite Institute today and take the first step towards your dream career with expert guidance and a community that cares.</p>
             <div class="cta-buttons">
-                <a href="#" class="btn-white">Enroll Now ↗</a>
-                <a href="#" class="btn-outline">Download Brochure</a>
+                <a href="CareerGuidance.aspx" class="btn-white">Enroll Now ↗</a>
+               
             </div>
         </div>
     </div>
