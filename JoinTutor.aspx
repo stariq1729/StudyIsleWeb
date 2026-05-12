@@ -12,7 +12,7 @@
         .join-section { padding: 60px 0; }
         .join-header h2 { font-weight: 700; margin-bottom: 5px; }
         .join-header p { color: #6c757d; font-size: 14px; }
-        .join-card { background: #fff; padding: 35px 40px; border-radius: 16px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); margin-top: 0px; }
+        .join-card { background: #fff; padding: 35px 40px; border-radius: 8px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); margin-top: 0px; }
         .section-title { font-weight: 600; font-size: 18px; color: #4f46e5; margin-bottom: 15px; }
         label { font-weight: 500; font-size: 12px; }
         .form-control, .form-select { border-radius: 8px; font-size: 12px; padding: 8px 12px; }
@@ -353,7 +353,7 @@
 
         /* FAQ Section Adjustments */
 .faq-section {
-    padding: 100px 0;
+    padding: 40px 0;
     background-color: #f8fafc; /* Very light blue/grey background */
 }
 
@@ -462,16 +462,16 @@
     background: linear-gradient(135deg, #6d5dfc, #4f46e5);
     color: #fff;
     padding: 12px 28px;
-    border-radius: 12px;
+    border-radius: 8px;
     font-weight: 600;
     border: none;
     transition: 0.3s ease;
 }
 
 .cta-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(109, 93, 252, 0.4);
-    color: #fff;
+    /*transform: translateY(-2px);*/
+    box-shadow: 0 10px 25px #1a1a2e;
+    color: #6c757d;
 }
 
 /* CHAT LINK */
@@ -698,7 +698,7 @@
         <div class="text-center mt-5">
             <asp:Button ID="btnSubmit" runat="server"
                 Text="Submit Application"
-                CssClass="btn btn-primary w-100 py-3 rounded-pill fw-bold"
+                CssClass="btn btn-primary w-100 py-3 fw-bold"
                 style="background:#6366f1; border:none; box-shadow: 0 10px 20px rgba(99,102,241,0.2);"
                 OnClick="btnSubmit_Click" />
         </div>
@@ -965,12 +965,12 @@
             </p>
 
             <div class="cta-actions">
-                <a href="#join-form" class="btn cta-btn">
+                <a href="#" class="btn cta-btn">
                     Apply Now →
                 </a>
 
-                <a href="#" class="chat-link">
-                    💬 Chat With Us
+                <a href="ContactUs.aspx" class="btn cta-btn">
+                   Contact Us
                 </a>
             </div>
 
