@@ -14,8 +14,31 @@ namespace StudyIsleWeb.Admin.Chapters
         {
             if (!IsPostBack)
             {
-                BindDropDown("SELECT BoardId, BoardName FROM Boards WHERE IsActive=1", ddlBoard, "BoardName", "BoardId");
-                BindDropDown("SELECT ResourceTypeId, TypeName FROM ResourceTypes", ddlResourceType, "TypeName", "ResourceTypeId");
+                BindDropDown(
+                    "SELECT BoardId, BoardName FROM Boards WHERE IsActive=1",
+                    ddlBoard,
+                    "BoardName",
+                    "BoardId");
+
+                BindDropDown(
+                    "SELECT ResourceTypeId, TypeName FROM ResourceTypes",
+                    ddlResourceType,
+                    "TypeName",
+                    "ResourceTypeId");
+
+                // EDIT MODE
+
+                if (Request.QueryString["id"] != null)
+                {
+                    hfSetId.Value =
+                        Request.QueryString["id"];
+
+                    btnSave.Text =
+                        "Update Set";
+
+                    LoadSetForEdit(
+                        Convert.ToInt32(hfSetId.Value));
+                }
             }
         }
         protected void ddlBoard_SelectedIndexChanged(object sender, EventArgs e)
@@ -46,7 +69,141 @@ namespace StudyIsleWeb.Admin.Chapters
         }
 
 
+        private void LoadSetForEdit(int setId)
+        {
+            using (SqlConnection con =
+                new SqlConnection(cs))
+            {
+                string query =
+                    "SELECT * FROM Sets WHERE SetId=@ID";
 
+                SqlCommand cmd =
+                    new SqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@ID", setId);
+
+                con.Open();
+
+                string boardId = "";
+                string rtId = "";
+                string classId = "";
+                string subjectId = "";
+                string subCatId = "";
+                string chapterId = "";
+                string yearId = "";
+
+                using (SqlDataReader rdr =
+                    cmd.ExecuteReader())
+                {
+                    if (rdr.Read())
+                    {
+                        boardId =
+                            rdr["BoardId"].ToString();
+
+                        if (rdr["ResourceTypeId"] != DBNull.Value)
+                            rtId =
+                                rdr["ResourceTypeId"].ToString();
+
+                        if (rdr["ClassId"] != DBNull.Value)
+                            classId =
+                                rdr["ClassId"].ToString();
+
+                        if (rdr["SubjectId"] != DBNull.Value)
+                            subjectId =
+                                rdr["SubjectId"].ToString();
+
+                        if (rdr["SubCategoryId"] != DBNull.Value)
+                            subCatId =
+                                rdr["SubCategoryId"].ToString();
+
+                        if (rdr["ChapterId"] != DBNull.Value)
+                            chapterId =
+                                rdr["ChapterId"].ToString();
+
+                        if (rdr["YearId"] != DBNull.Value)
+                            yearId =
+                                rdr["YearId"].ToString();
+
+                        txtSetName.Text =
+                            rdr["SetName"].ToString();
+
+                        txtDisplayOrder.Text =
+                            rdr["DisplayOrder"].ToString();
+                    }
+                }
+
+                // BOARD
+
+                ddlBoard.SelectedValue = boardId;
+
+                RefreshResourceTypes();
+
+                // RESOURCE TYPE
+
+                if (!string.IsNullOrEmpty(rtId))
+                {
+                    ddlResourceType.SelectedValue = rtId;
+                }
+
+                RefreshHierarchyPaths();
+
+                // SCHOOL FLOW
+
+                if (phSchool.Visible)
+                {
+                    if (!string.IsNullOrEmpty(classId))
+                    {
+                        ddlClass.SelectedValue = classId;
+
+                        RefreshSchoolSubjects();
+                    }
+
+                    if (!string.IsNullOrEmpty(subjectId))
+                    {
+                        ddlSubject.SelectedValue = subjectId;
+
+                        LoadChapters();
+                        FilterYears();
+                    }
+                }
+
+                // COMP FLOW
+
+                if (phComp.Visible)
+                {
+                    if (!string.IsNullOrEmpty(subCatId))
+                    {
+                        ddlSubCategory.SelectedValue = subCatId;
+
+                        RefreshCompSubjects();
+                    }
+
+                    if (!string.IsNullOrEmpty(subjectId))
+                    {
+                        ddlCompSubject.SelectedValue = subjectId;
+
+                        LoadChapters();
+                        FilterYears();
+                    }
+                }
+
+                // YEAR
+
+                if (!string.IsNullOrEmpty(yearId)
+                    && ddlYear.Items.FindByValue(yearId) != null)
+                {
+                    ddlYear.SelectedValue = yearId;
+                }
+
+                // CHAPTER
+
+                if (!string.IsNullOrEmpty(chapterId)
+                    && ddlChapter.Items.FindByValue(chapterId) != null)
+                {
+                    ddlChapter.SelectedValue = chapterId;
+                }
+            }
+        }
 
 
 
@@ -118,8 +275,56 @@ namespace StudyIsleWeb.Admin.Chapters
             {
                 using (SqlConnection con = new SqlConnection(cs))
                 {
-                    string sql = @"INSERT INTO Sets (BoardId, ResourceTypeId, ClassId, SubjectId, SubCategoryId, ChapterId, YearId, SetName, DisplayOrder, IsActive)
-                                   VALUES (@BID, @RTID, @CID, @SID, @SCID, @CHID, @YID, @Name, @Order, 1)";
+                    bool isEditMode =
+    !string.IsNullOrEmpty(hfSetId.Value);
+                    string sql = "";
+
+                    if (isEditMode)
+                    {
+                        sql = @"
+        UPDATE Sets
+        SET
+            BoardId = @BID,
+            ResourceTypeId = @RTID,
+            ClassId = @CID,
+            SubjectId = @SID,
+            SubCategoryId = @SCID,
+            ChapterId = @CHID,
+            YearId = @YID,
+            SetName = @Name,
+            DisplayOrder = @Order
+        WHERE SetId = @ID";
+                    }
+                    else
+                    {
+                        sql = @"
+        INSERT INTO Sets
+        (
+            BoardId,
+            ResourceTypeId,
+            ClassId,
+            SubjectId,
+            SubCategoryId,
+            ChapterId,
+            YearId,
+            SetName,
+            DisplayOrder,
+            IsActive
+        )
+        VALUES
+        (
+            @BID,
+            @RTID,
+            @CID,
+            @SID,
+            @SCID,
+            @CHID,
+            @YID,
+            @Name,
+            @Order,
+            1
+        )";
+                    }
 
                     SqlCommand cmd = new SqlCommand(sql, con);
                     cmd.Parameters.AddWithValue("@BID", ddlBoard.SelectedValue);
@@ -144,10 +349,19 @@ namespace StudyIsleWeb.Admin.Chapters
 
                     cmd.Parameters.AddWithValue("@Name", txtSetName.Text.Trim());
                     cmd.Parameters.AddWithValue("@Order", string.IsNullOrEmpty(txtDisplayOrder.Text) ? "0" : txtDisplayOrder.Text);
+                    if (isEditMode)
+                    {
+                        cmd.Parameters.AddWithValue(
+                            "@ID",
+                            hfSetId.Value);
+                    }
 
                     con.Open();
                     cmd.ExecuteNonQuery();
-                    lblMsg.Text = "✅ Set added successfully!";
+                    lblMsg.Text =
+    isEditMode
+    ? "✅ Set updated successfully!"
+    : "✅ Set added successfully!";
                     lblMsg.CssClass = "alert alert-success";
                 }
             }
