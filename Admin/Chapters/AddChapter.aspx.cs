@@ -15,11 +15,31 @@ namespace StudyIsleWeb.Admin.Chapters
         {
             if (!IsPostBack)
             {
-                BindDDL("SELECT BoardId, BoardName FROM Boards WHERE IsActive=1",
-                    ddlBoard, "BoardName", "BoardId", "-- Select Board --");
+                BindDDL(
+                    "SELECT BoardId, BoardName FROM Boards WHERE IsActive=1",
+                    ddlBoard,
+                    "BoardName",
+                    "BoardId",
+                    "-- Select Board --");
 
-                BindDDL("SELECT ResourceTypeId, TypeName FROM ResourceTypes",
-                    ddlResourceType, "TypeName", "ResourceTypeId", "-- Select Resource Type --");
+                BindDDL(
+                    "SELECT ResourceTypeId, TypeName FROM ResourceTypes",
+                    ddlResourceType,
+                    "TypeName",
+                    "ResourceTypeId",
+                    "-- Select Resource Type --");
+
+                // EDIT MODE
+                if (Request.QueryString["id"] != null)
+                {
+                    hfChapterId.Value =
+                        Request.QueryString["id"];
+
+                    btnSave.Text = "Update Chapter";
+
+                    LoadChapterForEdit(
+                        Convert.ToInt32(hfChapterId.Value));
+                }
             }
         }
 
@@ -49,7 +69,100 @@ namespace StudyIsleWeb.Admin.Chapters
             RefreshSubjects();
         }
 
+        private void LoadChapterForEdit(int chapterId)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                string query =
+                    "SELECT * FROM Chapters WHERE ChapterId=@ID";
 
+                SqlCommand cmd =
+                    new SqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@ID", chapterId);
+
+                con.Open();
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                if (rdr.Read())
+                {
+                    // BOARD
+
+                    ddlBoard.SelectedValue =
+                        rdr["BoardId"].ToString();
+
+                    RefreshResourceTypes();
+
+                    // RESOURCE TYPE
+
+                    if (rdr["ResourceTypeId"] != DBNull.Value)
+                    {
+                        ddlResourceType.SelectedValue =
+                            rdr["ResourceTypeId"].ToString();
+                    }
+
+                    // SUBCATEGORY
+
+                    RefreshSubCategories();
+
+                    if (rdr["SubCategoryId"] != DBNull.Value)
+                    {
+                        phSubCategory.Visible = true;
+
+                        ddlSubCategory.SelectedValue =
+                            rdr["SubCategoryId"].ToString();
+                    }
+
+                    // CLASS
+
+                    RefreshClasses();
+
+                    if (rdr["ClassId"] != DBNull.Value)
+                    {
+                        phClass.Visible = true;
+
+                        ddlLevel.SelectedValue =
+                            rdr["ClassId"].ToString();
+                    }
+
+                    // SUBJECT
+
+                    RefreshSubjects();
+
+                    if (rdr["SubjectId"] != DBNull.Value)
+                    {
+                        ddlSubject.SelectedValue =
+                            rdr["SubjectId"].ToString();
+                    }
+
+                    // CHAPTER DATA
+
+                    txtChapterName.Text =
+                        rdr["ChapterName"].ToString();
+
+                    txtSlug.Text =
+                        rdr["Slug"].ToString();
+
+                    txtDisplayOrder.Text =
+                        rdr["DisplayOrder"].ToString();
+
+                    chkIsActive.Checked =
+                        rdr["IsActive"] != DBNull.Value &&
+                        Convert.ToBoolean(rdr["IsActive"]);
+
+                    chkIsQuizEnabled.Checked =
+                        rdr["IsQuizEnabled"] != DBNull.Value &&
+                        Convert.ToBoolean(rdr["IsQuizEnabled"]);
+
+                    chkIsFlashcardEnabled.Checked =
+                        rdr["IsFlashcardEnabled"] != DBNull.Value &&
+                        Convert.ToBoolean(rdr["IsFlashcardEnabled"]);
+                }
+
+                rdr.Close();
+            }
+        }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
@@ -73,10 +186,71 @@ namespace StudyIsleWeb.Admin.Chapters
                 using (SqlConnection con = new SqlConnection(cs))
                 {
                     // ✅ UPDATED: Added ClassId
-                    string sql = @"INSERT INTO Chapters 
-                    (BoardId, ResourceTypeId, SubCategoryId, ClassId, SubjectId, ChapterName, Slug, DisplayOrder, IsActive, IsQuizEnabled, IsFlashcardEnabled, CreatedAt) 
-                    VALUES 
-                    (@BID, @RTID, @SCID, @ClassId, @SID, @Name, @Slug, @Order, @Active, @IsQuiz, @IsFlash, GETDATE())";
+                    bool isEditMode =
+    !string.IsNullOrEmpty(hfChapterId.Value);
+                    string sql = "";
+
+                    if (isEditMode)
+                    {
+                        sql = @"
+        UPDATE Chapters
+        SET
+            BoardId = @BID,
+            ResourceTypeId = @RTID,
+            SubCategoryId = @SCID,
+            ClassId = @ClassId,
+            SubjectId = @SID,
+
+            ChapterName = @Name,
+            Slug = @Slug,
+            DisplayOrder = @Order,
+
+            IsActive = @Active,
+            IsQuizEnabled = @IsQuiz,
+            IsFlashcardEnabled = @IsFlash
+
+        WHERE ChapterId = @ID";
+                    }
+                    else
+                    {
+                        sql = @"
+        INSERT INTO Chapters
+        (
+            BoardId,
+            ResourceTypeId,
+            SubCategoryId,
+            ClassId,
+            SubjectId,
+
+            ChapterName,
+            Slug,
+            DisplayOrder,
+
+            IsActive,
+            IsQuizEnabled,
+            IsFlashcardEnabled,
+
+            CreatedAt
+        )
+        VALUES
+        (
+            @BID,
+            @RTID,
+            @SCID,
+            @ClassId,
+            @SID,
+
+            @Name,
+            @Slug,
+            @Order,
+
+            @Active,
+            @IsQuiz,
+            @IsFlash,
+
+            GETDATE()
+        )";
+                    }
 
                     SqlCommand cmd = new SqlCommand(sql, con);
 
@@ -115,11 +289,19 @@ namespace StudyIsleWeb.Admin.Chapters
 
                     cmd.Parameters.AddWithValue("@IsQuiz", chkIsQuizEnabled.Checked);
                     cmd.Parameters.AddWithValue("@IsFlash", chkIsFlashcardEnabled.Checked);
-
+                    if (isEditMode)
+                    {
+                        cmd.Parameters.AddWithValue(
+                            "@ID",
+                            hfChapterId.Value);
+                    }
                     con.Open();
                     cmd.ExecuteNonQuery();
 
-                    lblMessage.Text = "✅ Chapter added successfully!";
+                    lblMessage.Text =
+     isEditMode
+     ? "✅ Chapter updated successfully!"
+     : "✅ Chapter added successfully!";
                     lblMessage.ForeColor = System.Drawing.Color.Green;
                 }
             }

@@ -99,6 +99,7 @@
                     <div class="col-12 mt-4 border-top pt-3">
                         <asp:Button ID="btnSave" runat="server" Text="Create Chapter" CssClass="btn btn-success px-5" OnClick="btnSave_Click" />
                         <asp:Label ID="lblMessage" runat="server" CssClass="ms-3"></asp:Label>
+                        <asp:HiddenField ID="hfChapterId" runat="server" />
                     </div>
                 </div>
             </div>
