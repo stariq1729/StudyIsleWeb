@@ -15,67 +15,94 @@ namespace StudyIsleWeb.Student
     {
 
         /// <summary>
-        /// imgAvatar control.
+        /// litFirstName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgAvatar;
+        protected global::System.Web.UI.WebControls.Literal litFirstName;
 
         /// <summary>
-        /// lblName control.
+        /// lblExamHeader control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblName;
+        protected global::System.Web.UI.WebControls.Label lblExamHeader;
 
         /// <summary>
-        /// lblClass control.
+        /// imgMainAvatar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblClass;
+        protected global::System.Web.UI.WebControls.Image imgMainAvatar;
 
         /// <summary>
-        /// lblExam control.
+        /// lblNameFull control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblExam;
+        protected global::System.Web.UI.WebControls.Label lblNameFull;
 
         /// <summary>
-        /// lblBoard control.
+        /// lblClassBadge control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBoard;
+        protected global::System.Web.UI.WebControls.Label lblClassBadge;
 
         /// <summary>
-        /// lblCity control.
+        /// lblClassStat control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCity;
+        protected global::System.Web.UI.WebControls.Label lblClassStat;
 
         /// <summary>
-        /// rptResources control.
+        /// lblExamStat control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptResources;
+        protected global::System.Web.UI.WebControls.Label lblExamStat;
+
+        /// <summary>
+        /// lblBoardStat control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBoardStat;
+
+        /// <summary>
+        /// lblCityStat control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCityStat;
+
+        /// <summary>
+        /// lblExamInsight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblExamInsight;
 
         /// <summary>
         /// imgModalAvatar control.

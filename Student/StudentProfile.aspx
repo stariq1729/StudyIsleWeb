@@ -3,8 +3,54 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <style>
-        :root { --primary-purple: #6366f1; --bg-light: #f8fafc; --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); }
-        body { background-color: #f4f7fe; font-family: 'Inter', sans-serif; }
+        /* Update your existing <style> section or add this */
+:root {
+    --bg-body: #f8fafc;
+    --card-bg: #ffffff;
+    --accent-purple: #6366f1;
+    --text-dark: #0f172a;
+}
+
+body { background-color: var(--bg-body); }
+
+/* Bento Card Styling */
+.bento-card {
+    background: var(--card-bg);
+    border-radius: 28px;
+    border: 1px solid rgba(226, 232, 240, 0.6);
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+.bento-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05); }
+
+/* Identity Section */
+.hero-text { color: var(--text-dark); line-height: 1; }
+.hero-name { color: var(--accent-purple); }
+
+.profile-main-card { border-radius: 35px !important; }
+.avatar-frame {
+    padding: 8px;
+    border: 3px solid var(--accent-purple);
+    border-radius: 22px;
+    display: inline-block;
+}
+
+/* AI Insight Section */
+.ai-card {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border-radius: 35px;
+    color: white;
+}
+
+.btn-manage {
+    background: #f1f5f9;
+    color: #64748b;
+    border-radius: 14px;
+    transition: 0.2s;
+}
+
+.btn-manage:hover { background: #e2e8f0; color: #0f172a; }
 
         /* Sidebar UI */
         .sidebar-card { background: #fff; border-radius: 24px; overflow: hidden; border: none; }
@@ -69,87 +115,104 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-<div class="container-fluid py-5 px-lg-5">
-    <div class="row">
-        <div class="col-lg-3 col-md-4 mb-4">
-            <div class="sidebar-card shadow-sm text-center pb-4">
-                <div class="sidebar-header">
-                    <button type="button" class="btn btn-sm text-white position-absolute" style="top:15px; right:15px; background: rgba(255,255,255,0.2); border-radius: 10px;" onclick="openModal()">
-                        <i class="fas fa-cog"></i>
-                    </button>
-                </div>
-                <div class="avatar-container">
-                    <asp:Image ID="imgAvatar" runat="server" CssClass="profile-img" />
-                    <div class="status-indicator"></div>
-                </div>
-                
-                <h3 class="fw-bold mt-2 mb-0"><asp:Label ID="lblName" runat="server" /></h3>
-                <span class="text-primary fw-bold small text-uppercase"><asp:Label ID="lblClass" runat="server" /></span>
+<div class="container py-5 px-lg-5">
+    <div class="row g-5">
+        <div class="col-lg-5">
+            <div class="mb-5">
+                <span class="badge rounded-pill bg-white text-muted border px-3 py-2 mb-4 shadow-sm">
+                    <i class="fas fa-circle text-success me-2 small"></i>ACADEMIC YEAR 2024-25
+                </span>
+                <h1 class="display-4 fw-bold hero-text">
+                    Perspective is <br />
+                    <span class="hero-name">everything, <asp:Literal ID="litFirstName" runat="server" />.</span>
+                </h1>
+                <p class="text-muted fs-5 mt-4">
+                    Your roadmap for <strong><asp:Label ID="lblExamHeader" runat="server" /></strong> is dynamically updating based on your progress.
+                </p>
+            </div>
 
-                <div class="px-4 mt-4">
-                    <div class="info-pill">
-                        <i class="fas fa-bullseye"></i>
-                        <div><small class="text-muted d-block">TARGET EXAM</small><strong><asp:Label ID="lblExam" runat="server" /></strong></div>
+            <div class="bento-card profile-main-card shadow-sm text-center p-4">
+                <div class="avatar-frame mb-3 mt-2">
+                    <asp:Image ID="imgMainAvatar" runat="server" CssClass="rounded-4" style="width: 100px; height: 100px; object-fit: cover;" />
+                </div>
+                <h2 class="fw-bold mb-1"><asp:Label ID="lblNameFull" runat="server" /></h2>
+                <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2 text-uppercase fw-bold mb-4" style="font-size: 11px;">
+                    <asp:Label ID="lblClassBadge" runat="server" /> STUDENT
+                </span>
+
+                <div class="d-flex justify-content-between align-items-center bg-light p-3 rounded-4 mb-3 mx-2">
+                    <div class="d-flex align-items-center">
+                        <div class="bg-white p-2 rounded-3 shadow-sm me-3"><i class="fas fa-bolt text-warning"></i></div>
+                        <span class="text-muted fw-bold small text-uppercase">Account Tier</span>
                     </div>
-                    <div class="info-pill">
-                        <i class="fas fa-chalkboard"></i>
-                        <div><small class="text-muted d-block">BOARD</small><strong><asp:Label ID="lblBoard" runat="server" /></strong></div>
-                    </div>
-                    <div class="info-pill">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div><small class="text-muted d-block">CITY</small><strong><asp:Label ID="lblCity" runat="server" /></strong></div>
-                    </div>
+                    <span class="fw-bold">PRO PLAN</span>
                 </div>
 
-                <div class="d-flex justify-content-between align-items-center px-4 mt-4">
-                    <div class="text-start">
-                        <small class="text-muted d-block mb-1">ONBOARDING</small>
-                        <div class="step-dot active"></div><div class="step-dot active"></div><div class="step-dot"></div>
-                    </div>
-                    <div class="badge bg-primary bg-opacity-10 text-primary p-2 px-3 rounded-pill">
-                        <i class="fas fa-bolt me-1"></i> PRO MEMBER
-                    </div>
-                </div>
+                <button type="button" class="btn btn-manage w-100 py-3 fw-bold border-0 mt-2" onclick="openModal()">
+                    <i class="fas fa-cog me-2"></i>MANAGE ACCOUNT
+                </button>
             </div>
         </div>
 
-        <div class="col-lg-9 col-md-8">
-            <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
-                <h2 class="fw-bold m-0">Resource Library</h2>
-                <div class="d-flex mt-2 mt-lg-0">
-                    <div class="filter-tab active">All</div>
-                    <div class="filter-tab">MCQ</div>
-                    <div class="filter-tab">PDF</div>
-                    <div class="filter-tab">Blog</div>
-                    <div class="filter-tab">Video</div>
-                </div>
-            </div>
-
-            <div class="row">
-               <asp:Repeater ID="rptResources" runat="server">
-    <ItemTemplate>
-        <div class="col-md-6 mb-4">
-            <div class="res-card p-4 shadow-sm">
-                <div class="d-flex justify-content-between align-items-start mb-3">
-                    <div class="res-icon" style='<%# GetCategoryStyle(Eval("ItemType").ToString()) %>'>
-                        <i class='<%# GetIconClass(Eval("ItemType").ToString()) %>'></i>
+        <div class="col-lg-7">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="bento-card h-100 shadow-sm">
+                        <div class="bg-primary bg-opacity-10 rounded-3 p-2 d-inline-block mb-3">
+                            <i class="fas fa-gem text-primary"></i>
+                        </div>
+                        <p class="text-muted fw-bold small text-uppercase mb-1">Academic Standing</p>
+                        <h4 class="fw-bold"><asp:Label ID="lblClassStat" runat="server" /></h4>
+                        <small class="text-muted">Currently enrolled</small>
                     </div>
-                    <asp:LinkButton runat="server" ID="btnDelete" CommandArgument='<%# Eval("BookmarkId") %>' CssClass="text-muted">
-                        <i class="far fa-trash-alt"></i>
-                    </asp:LinkButton>
                 </div>
-                <div class="mb-3">
-                    <span class="badge bg-primary bg-opacity-10 text-primary small"><%# Eval("ItemType") %></span>
-                    <h5 class="fw-bold mt-2"><%# Eval("DisplayTitle") %></h5>
+
+                <div class="col-md-6">
+                    <div class="bento-card h-100 shadow-sm">
+                        <div class="bg-danger bg-opacity-10 rounded-3 p-2 d-inline-block mb-3">
+                            <i class="fas fa-bullseye text-danger"></i>
+                        </div>
+                        <p class="text-muted fw-bold small text-uppercase mb-1">Target Focus</p>
+                        <h4 class="fw-bold"><asp:Label ID="lblExamStat" runat="server" /></h4>
+                        <small class="text-muted">Primary objective</small>
+                    </div>
                 </div>
-                <div class="d-flex justify-content-between align-items-center mt-4">
-                    <small class="text-muted">Added <%# Eval("CreatedAt", "{0:MMM dd, yyyy}") %></small>
-                    <a href="#" class="launch-btn">Launch <i class="fas fa-external-link-alt ms-1"></i></a>
+
+                <div class="col-md-6">
+                    <div class="bento-card h-100 shadow-sm">
+                        <div class="bg-warning bg-opacity-10 rounded-3 p-2 d-inline-block mb-3">
+                            <i class="fas fa-layer-group text-warning"></i>
+                        </div>
+                        <p class="text-muted fw-bold small text-uppercase mb-1">Preparation Board</p>
+                        <h4 class="fw-bold"><asp:Label ID="lblBoardStat" runat="server" /></h4>
+                        <small class="text-muted">Curriculum style</small>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </ItemTemplate>
-</asp:Repeater>
+
+                <div class="col-md-6">
+                    <div class="bento-card h-100 shadow-sm">
+                        <div class="bg-success bg-opacity-10 rounded-3 p-2 d-inline-block mb-3">
+                            <i class="fas fa-map-marker-alt text-success"></i>
+                        </div>
+                        <p class="text-muted fw-bold small text-uppercase mb-1">Regional Sector</p>
+                        <h4 class="fw-bold"><asp:Label ID="lblCityStat" runat="server" /></h4>
+                        <small class="text-muted">Location verified</small>
+                    </div>
+                </div>
+
+                <div class="col-12 mt-4">
+                    <div class="ai-card p-5 shadow-lg">
+                        <span class="badge bg-white bg-opacity-10 text-white rounded-pill px-3 py-2 mb-4 fw-bold">AI INSIGHT</span>
+                        <h2 class="fw-bold mb-4">Ready to accelerate your <asp:Label ID="lblExamInsight" runat="server" /> preparation?</h2>
+                        <p class="text-secondary fs-5 mb-5 opacity-75">
+                            Our algorithm has mapped out your next 4 weeks. Complete your profile details to unlock the full curriculum analysis.
+                        </p>
+                        <div class="d-flex gap-3">
+                            <button type="button" class="btn btn-white bg-white text-dark fw-bold px-4 py-3 rounded-pill" onclick="openModal()">COMPLETE PROFILE</button>
+                            <button type="button" class="btn btn-outline-light px-4 py-3 rounded-pill opacity-50" onclick="alert('Analysis skipped')">SKIP FOR NOW</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
