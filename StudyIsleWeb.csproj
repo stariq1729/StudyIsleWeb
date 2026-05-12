@@ -92,7 +92,7 @@
     <Content Include="Admin\Boards\ManageBoards.aspx" />
     <Content Include="Admin\Chapters\AddChapter.aspx" />
     <Content Include="Admin\Chapters\AddSets.aspx" />
-    <Content Include="Admin\Chapters\AddYear.aspx" />
+    <Content Include="Admin\Years\AddYear.aspx" />
     <Content Include="Admin\Chapters\ManageChapters.aspx" />
     <Content Include="Admin\Classes\AddClass.aspx" />
     <Content Include="Admin\Classes\EditClass.aspx" />
@@ -116,6 +116,7 @@
     <Content Include="Admin\Subjects\AddSubject.aspx" />
     <Content Include="Admin\Subjects\EditSubject.aspx" />
     <Content Include="Admin\Subjects\ManageSubjects.aspx" />
+    <Content Include="Admin\Years\ManageYears.aspx" />
     <Content Include="assets\css\AISection.css" />
     <Content Include="assets\css\BlogSection.css" />
     <Content Include="assets\css\Blogspage.css" />
@@ -291,11 +292,11 @@
     <Compile Include="Admin\Chapters\AddSets.aspx.designer.cs">
       <DependentUpon>AddSets.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Admin\Chapters\AddYear.aspx.cs">
+    <Compile Include="Admin\Years\AddYear.aspx.cs">
       <DependentUpon>AddYear.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Admin\Chapters\AddYear.aspx.designer.cs">
+    <Compile Include="Admin\Years\AddYear.aspx.designer.cs">
       <DependentUpon>AddYear.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Chapters\ManageChapters.aspx.cs">
@@ -458,6 +459,13 @@
     </Compile>
     <Compile Include="Admin\Subjects\ManageSubjects.aspx.designer.cs">
       <DependentUpon>ManageSubjects.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Years\ManageYears.aspx.cs">
+      <DependentUpon>ManageYears.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Years\ManageYears.aspx.designer.cs">
+      <DependentUpon>ManageYears.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BlogDetails.aspx.cs">
