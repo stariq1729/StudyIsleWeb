@@ -15,6 +15,19 @@ namespace StudyIsleWeb.Admin.Chapters
             if (!IsPostBack)
             {
                 LoadMasterData();
+
+                // EDIT MODE
+                if (Request.QueryString["id"] != null)
+                {
+                    hfMappingId.Value =
+                        Request.QueryString["id"];
+
+                    btnSaveMapping.Text =
+                        "Update Mapping";
+
+                    LoadMappingForEdit(
+                        Convert.ToInt32(hfMappingId.Value));
+                }
             }
         }
         protected void ddlBoard_SelectedIndexChanged(object sender, EventArgs e)
@@ -44,10 +57,106 @@ namespace StudyIsleWeb.Admin.Chapters
             rptMasterYears.DataBind();
         }
 
-       
 
-        
-        
+        private void LoadMappingForEdit(int mappingId)
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                string query =
+                    "SELECT * FROM YearMappings WHERE MappingId=@ID";
+
+                SqlCommand cmd =
+                    new SqlCommand(query, con);
+
+                cmd.Parameters.AddWithValue("@ID", mappingId);
+
+                con.Open();
+
+                string yearId = "";
+                string boardId = "";
+                string rtId = "";
+                string classId = "";
+                string subjectId = "";
+                string subCatId = "";
+
+                using (SqlDataReader rdr = cmd.ExecuteReader())
+                {
+                    if (rdr.Read())
+                    {
+                        yearId = rdr["YearId"].ToString();
+
+                        boardId = rdr["BoardId"].ToString();
+
+                        if (rdr["ResourceTypeId"] != DBNull.Value)
+                            rtId = rdr["ResourceTypeId"].ToString();
+
+                        if (rdr["ClassId"] != DBNull.Value)
+                            classId = rdr["ClassId"].ToString();
+
+                        if (rdr["SubjectId"] != DBNull.Value)
+                            subjectId = rdr["SubjectId"].ToString();
+
+                        if (rdr["SubCategoryId"] != DBNull.Value)
+                            subCatId = rdr["SubCategoryId"].ToString();
+                    }
+                }
+
+                // YEAR
+
+                ddlYear.SelectedValue = yearId;
+
+                // BOARD
+
+                ddlBoard.SelectedValue = boardId;
+
+                RefreshResourceTypes();
+
+                // RESOURCE TYPE
+
+                if (!string.IsNullOrEmpty(rtId))
+                {
+                    ddlResourceType.SelectedValue = rtId;
+                }
+
+                RefreshPathHierarchy();
+
+                // SCHOOL FLOW
+
+                if (phSchoolPath.Visible)
+                {
+                    if (!string.IsNullOrEmpty(classId))
+                    {
+                        ddlClass.SelectedValue = classId;
+
+                        RefreshSchoolSubjects();
+                    }
+
+                    if (!string.IsNullOrEmpty(subjectId))
+                    {
+                        ddlSubject.SelectedValue = subjectId;
+                    }
+                }
+
+                // COMP FLOW
+
+                if (phCompPath.Visible)
+                {
+                    if (!string.IsNullOrEmpty(subCatId))
+                    {
+                        ddlSubCategory.SelectedValue = subCatId;
+
+                        RefreshCompSubjects();
+                    }
+
+                    if (!string.IsNullOrEmpty(subjectId))
+                    {
+                        ddlCompSubject.SelectedValue = subjectId;
+                    }
+                }
+            }
+        }
+
+
 
         protected void btnSaveMapping_Click(object sender, EventArgs e)
         {
@@ -55,8 +164,45 @@ namespace StudyIsleWeb.Admin.Chapters
             {
                 using (SqlConnection con = new SqlConnection(cs))
                 {
-                    string sql = @"INSERT INTO YearMappings (YearId, BoardId, ResourceTypeId, ClassId, SubjectId, SubCategoryId) 
-                                   VALUES (@YID, @BID, @RTID, @CID, @SID, @SCID)";
+                    bool isEditMode =
+    !string.IsNullOrEmpty(hfMappingId.Value);
+                    string sql = "";
+
+                    if (isEditMode)
+                    {
+                        sql = @"
+        UPDATE YearMappings
+        SET
+            YearId = @YID,
+            BoardId = @BID,
+            ResourceTypeId = @RTID,
+            ClassId = @CID,
+            SubjectId = @SID,
+            SubCategoryId = @SCID
+        WHERE MappingId = @MID";
+                    }
+                    else
+                    {
+                        sql = @"
+        INSERT INTO YearMappings
+        (
+            YearId,
+            BoardId,
+            ResourceTypeId,
+            ClassId,
+            SubjectId,
+            SubCategoryId
+        )
+        VALUES
+        (
+            @YID,
+            @BID,
+            @RTID,
+            @CID,
+            @SID,
+            @SCID
+        )";
+                    }
 
                     SqlCommand cmd = new SqlCommand(sql, con);
                     cmd.Parameters.AddWithValue("@YID", ddlYear.SelectedValue);
@@ -77,10 +223,18 @@ namespace StudyIsleWeb.Admin.Chapters
 
                     // Path B: Competitive Logic
                     cmd.Parameters.AddWithValue("@SCID", phCompPath.Visible ? (object)ddlSubCategory.SelectedValue : DBNull.Value);
-
+                    if (isEditMode)
+                    {
+                        cmd.Parameters.AddWithValue(
+                            "@MID",
+                            hfMappingId.Value);
+                    }
                     con.Open();
                     cmd.ExecuteNonQuery();
-                    lblMsg.Text = "Year linked successfully with Subject mapping!";
+                    lblMsg.Text =
+    isEditMode
+    ? "Year mapping updated successfully!"
+    : "Year linked successfully with Subject mapping!";
                     lblMsg.CssClass = "alert alert-success d-block";
                 }
             }

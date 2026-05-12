@@ -15,7 +15,7 @@
                 <div class="form-card shadow-sm">
                     <h4 class="fw-bold text-primary mb-4">Link Year to Course Flow</h4>
                     <asp:Label ID="lblMsg" runat="server" CssClass="d-block mb-3"></asp:Label>
-
+                    <asp:HiddenField ID="hfMappingId" runat="server" />
                     <div class="row g-3">
                         <div class="section-header">Step 1: Select Year & Board</div>
                         <div class="col-md-6">
