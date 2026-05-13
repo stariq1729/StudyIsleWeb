@@ -8,7 +8,7 @@
     <link href="Content/css/join-tutor.css" rel="stylesheet" />
 
     <style>
-  
+        
         .join-section { padding: 60px 0; }
         .join-header h2 { font-weight: 700; margin-bottom: 5px; }
         .join-header p { color: #6c757d; font-size: 14px; }
@@ -25,7 +25,12 @@
     font-size: 38px;
     line-height: 1.1;
 }
-
+        .custom-badge{
+    position: static !important;
+    background:#eef2ff;
+    color:#4f46e5;
+    padding:8px 16px;
+}
 .feature-box {
     display: flex;
     flex-direction: column;
@@ -497,9 +502,9 @@
             
             <!-- LEFT PANEL (Sticky) -->
             <div class="col-lg-5 left-panel">
-                <span class="badge rounded-pill mb-3" style="background:#eef2ff; color:#4f46e5; padding: 8px 16px;">
-                    ★ TOP RATED PLATFORM
-                </span>
+                <span class="badge rounded-pill mb-3 custom-badge">
+    ★ TOP RATED PLATFORM
+</span>
 
                 <h1 class="display-4 fw-bold mb-4" style="color:#1a1a1a;">
                     Empower the next <br />
