@@ -4,53 +4,62 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <style>
         /* Update your existing <style> section or add this */
-:root {
-    --bg-body: #f8fafc;
-    --card-bg: #ffffff;
-    --accent-purple: #6366f1;
-    --text-dark: #0f172a;
-}
+/* 1. Bento Card Skin */
+    .bento-card {
+        background: #ffffff;
+        border-radius: 28px;
+        /* Subtle border as per reference */
+        border: 1px solid rgba(226, 232, 240, 0.7);
+        /* Subtle drop shadow */
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.04);
+        padding: 28px;
+    }
 
-body { background-color: var(--bg-body); }
+    /* 2. AI Insight Card (Dark Mode) */
+    .ai-card {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        border-radius: 32px;
+        padding: 40px;
+        box-shadow: 0px 10px 30px rgba(15, 23, 42, 0.2);
+    }
 
-/* Bento Card Styling */
-.bento-card {
-    background: var(--card-bg);
-    border-radius: 28px;
-    border: 1px solid rgba(226, 232, 240, 0.6);
-    padding: 1rem;
-    transition: all 0.3s ease;
-}
+    /* 3. Typography & Spacing */
+    .hero-name {
+        font-weight: 800;
+        letter-spacing: -1px;
+    }
 
-.bento-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05); }
+    /* Avatar Frame */
+    .avatar-frame {
+        padding: 6px;
+        border: 3px solid #6366f1;
+        border-radius: 26px;
+        display: inline-block;
+        background: #fff;
+    }
 
-/* Identity Section */
-.hero-text { color: var(--text-dark); line-height: 1.2; }
-.hero-name { color: var(--accent-purple); }
+    /* Icon Backgrounds (Square-Rounded) */
+    .icon-box {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
 
-.profile-main-card { border-radius: 35px !important; }
-.avatar-frame {
-    padding: 8px;
-    border: 3px solid var(--accent-purple);
-    border-radius: 22px;
-    display: inline-block;
-}
+    /* Buttons */
+    .btn-custom {
+        border-radius: 16px !important;
+        font-weight: 600;
+        padding: 12px 24px;
+        border: none;
+    }
 
-/* AI Insight Section */
-.ai-card {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-    border-radius: 35px;
-    color: white;
-}
-
-.btn-manage {
-    background: #f1f5f9;
-    color: #64748b;
-    border-radius: 14px;
-    transition: 0.2s;
-}
-
-.btn-manage:hover { background: #e2e8f0; color: #0f172a; }
+    /* Smooth transitions */
+    .bento-card, .ai-card { transition: transform 0.2s ease-out; }
+    .bento-card:hover { transform: translateY(-3px); }
 
         /* Sidebar UI */
         .sidebar-card { background: #fff; border-radius: 24px; overflow: hidden; border: none; }
