@@ -111,7 +111,7 @@
 
         <!-- Forgot -->
         <div class="text-end mb-3">
-            <a href="~/ForgetPassword.aspx" class="text-decoration-none small">
+            <a href="ForgotPassword.aspx" class="text-decoration-none small">
                 Forgot password?
             </a>
         </div>
