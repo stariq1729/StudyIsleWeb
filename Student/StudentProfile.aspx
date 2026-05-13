@@ -12,26 +12,29 @@
         border: 1px solid rgba(226, 232, 240, 0.7);
         /* Subtle drop shadow */
         box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.04);
-        padding: 28px;
+        padding: 20px;
     }
 
     /* 2. AI Insight Card (Dark Mode) */
-    .ai-card {
-        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-        border-radius: 32px;
-        padding: 40px;
-        box-shadow: 0px 10px 30px rgba(15, 23, 42, 0.2);
-    }
+        .ai-card {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-radius: 22px;
+            padding: 32px;
+            font-size: 1rem;
+            color: #e0e7ff;
+            box-shadow: 0px 10px 30px rgba(15, 23, 42, 0.2);
+        }
+           
 
     /* 3. Typography & Spacing */
     .hero-name {
-        font-weight: 800;
+        font-weight: 700;
         letter-spacing: -1px;
     }
 
     /* Avatar Frame */
     .avatar-frame {
-        padding: 6px;
+        padding: 5px;
         border: 3px solid #6366f1;
         border-radius: 26px;
         display: inline-block;
@@ -40,20 +43,20 @@
 
     /* Icon Backgrounds (Square-Rounded) */
     .icon-box {
-        width: 48px;
-        height: 48px;
-        border-radius: 14px;
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 20px;
+        margin-bottom: 14px;
     }
 
     /* Buttons */
     .btn-custom {
-        border-radius: 16px !important;
+        border-radius: 12px !important;
         font-weight: 600;
-        padding: 12px 24px;
+        padding: 10px 20px;
         border: none;
     }
 
@@ -125,7 +128,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 <div class="container py-5 px-lg-5">
-    <div class="row g-6">
+    <div class="row gx-6 gy-4">
         <div class="col-lg-5">
             <div class="mb-4">
                 <span class="badge rounded-pill bg-white text-muted border px-3 py-2 mb-4 shadow-sm">
@@ -210,15 +213,15 @@
                 </div>
 
                 <div class="col-12 mt-6">
-                    <div class="ai-card p-6 shadow-lg">
+                    <div class="ai-card p-8 shadow-lg">
                         <span class="badge bg-white bg-opacity-10 text-white rounded-pill px-3 py-2 mb-4 fw-bold">AI INSIGHT</span>
                         <h2 class="fw-bold mb-4">Ready to accelerate your <asp:Label ID="lblExamInsight" runat="server" /> preparation?</h2>
                         <p class="text-secondary fs-5 mb-5 opacity-75">
                             Our algorithm has mapped out your next 4 weeks. Complete your profile details to unlock the full curriculum analysis.
                         </p>
                         <div class="d-flex gap-4">
-                            <button type="button" class="btn btn-white bg-white text-dark fw-bold px-4 py-3 rounded-pill" onclick="openModal()">COMPLETE PROFILE</button>
-                            <button type="button" class="btn btn-outline-light px-4 py-3 rounded-pill opacity-50" onclick="alert('Analysis skipped')">SKIP FOR NOW</button>
+                            <button type="button" class="btn btn-white bg-white text-dark fw-bold px-3 py-2 rounded-pill" onclick="openModal()">COMPLETE PROFILE</button>
+                            <button type="button" class="btn btn-outline-light px-3 py-2 rounded-pill opacity-40" onclick="alert('Analysis skipped')">SKIP FOR NOW</button>
                         </div>
                     </div>
                 </div>
