@@ -57,10 +57,12 @@ namespace StudyIsleWeb
                     };
 
                     var content = new FormUrlEncodedContent(values);
+
                     var response = await client.PostAsync(
                         "https://oauth2.googleapis.com/token", content);
 
                     var responseString = await response.Content.ReadAsStringAsync();
+
                     var tokenData = JObject.Parse(responseString);
 
                     string idToken = tokenData["id_token"]?.ToString();
@@ -71,69 +73,117 @@ namespace StudyIsleWeb
                         return;
                     }
 
-                    // Validate ID Token
+                    // Validate Google Token
                     var payload = await GoogleJsonWebSignature.ValidateAsync(idToken);
 
                     string email = payload.Email;
                     string fullName = payload.Name;
 
-                    // Store or update user in database
+                    int userId = 0;
+                    bool isNewUser = false;
+
                     using (SqlConnection con = new SqlConnection(cs))
                     {
                         con.Open();
 
-                        // Check if user exists
-                        string checkQuery = "SELECT COUNT(*) FROM Users WHERE Email=@Email";
+                        // 🔹 Check if user already exists
+                        string checkQuery = @"
+                            SELECT UserId, Role 
+                            FROM Users 
+                            WHERE Email=@Email";
+
                         using (SqlCommand checkCmd = new SqlCommand(checkQuery, con))
                         {
                             checkCmd.Parameters.AddWithValue("@Email", email);
-                            int userCount = (int)checkCmd.ExecuteScalar();
 
-                            if (userCount == 0)
+                            SqlDataReader reader = checkCmd.ExecuteReader();
+
+                            if (reader.Read())
                             {
-                                // Insert new user
-                                string insertQuery = @"
-                                    INSERT INTO Users
-                                    (FullName, Email, LoginProvider, Role, CreatedAt, LastLoginAt)
-                                    VALUES
-                                    (@FullName, @Email, 'Google', 'Student', GETDATE(), GETDATE())";
+                                // =========================
+                                // EXISTING USER
+                                // =========================
 
-                                using (SqlCommand insertCmd = new SqlCommand(insertQuery, con))
+                                userId = Convert.ToInt32(reader["UserId"]);
+                                role = reader["Role"].ToString();
+
+                                reader.Close();
+
+                                // Update last login
+                                string updateQuery = @"
+                                    UPDATE Users
+                                    SET LastLoginAt = GETDATE()
+                                    WHERE UserId=@UserId";
+
+                                using (SqlCommand updateCmd =
+                                    new SqlCommand(updateQuery, con))
                                 {
-                                    insertCmd.Parameters.AddWithValue("@FullName", fullName);
-                                    insertCmd.Parameters.AddWithValue("@Email", email);
-                                    insertCmd.ExecuteNonQuery();
+                                    updateCmd.Parameters.AddWithValue("@UserId", userId);
+                                    updateCmd.ExecuteNonQuery();
                                 }
                             }
                             else
                             {
-                                // Update last login
-                                string updateQuery = @"
-                                    UPDATE Users 
-                                    SET LastLoginAt = GETDATE() 
-                                    WHERE Email=@Email";
+                                reader.Close();
 
-                                using (SqlCommand updateCmd = new SqlCommand(updateQuery, con))
+                                // =========================
+                                // NEW GOOGLE USER
+                                // =========================
+
+                                isNewUser = true;
+
+                                string insertQuery = @"
+                                    INSERT INTO Users
+                                    (
+                                        FullName,
+                                        Email,
+                                        LoginProvider,
+                                        Role,
+                                        CreatedAt,
+                                        LastLoginAt
+                                    )
+                                    VALUES
+                                    (
+                                        @FullName,
+                                        @Email,
+                                        'Google',
+                                        'Student',
+                                        GETDATE(),
+                                        GETDATE()
+                                    );
+
+                                    SELECT CAST(SCOPE_IDENTITY() AS INT);
+                                ";
+
+                                using (SqlCommand insertCmd =
+                                    new SqlCommand(insertQuery, con))
                                 {
-                                    updateCmd.Parameters.AddWithValue("@Email", email);
-                                    updateCmd.ExecuteNonQuery();
-                                }
-                            }
-                        }
+                                    insertCmd.Parameters.AddWithValue("@FullName", fullName);
+                                    insertCmd.Parameters.AddWithValue("@Email", email);
 
-                        // Fetch user role
-                        string roleQuery = "SELECT Role FROM Users WHERE Email=@Email";
-                        using (SqlCommand roleCmd = new SqlCommand(roleQuery, con))
-                        {
-                            roleCmd.Parameters.AddWithValue("@Email", email);
-                            role = Convert.ToString(roleCmd.ExecuteScalar());
+                                    userId = Convert.ToInt32(
+                                        insertCmd.ExecuteScalar());
+                                }
+
+                                role = "Student";
+                            }
                         }
                     }
 
-                    // Create user session
+                    // =========================
+                    // CREATE SESSION
+                    // =========================
+
+                    Session["UserId"] = userId;
                     Session["UserEmail"] = email;
                     Session["UserName"] = fullName;
                     Session["UserRole"] = role;
+
+                    // 🔹 New user needs profile setup
+                    if (isNewUser)
+                    {
+                        Session["IsProfileSetupPending"] = true;
+                    }
 
                     // Retrieve ReturnUrl from OAuth state parameter
                     string returnUrl = Request.QueryString["state"];
@@ -146,8 +196,20 @@ namespace StudyIsleWeb
                         return;
                     }
 
-                    // Role-based fallback redirection
-                    RedirectUserByRole(role);
+                    // =========================
+                    // FINAL REDIRECTION
+                    // =========================
+
+                    if (isNewUser)
+                    {
+                        Response.Redirect("~/Student/StudentRegister.aspx", false);
+                    }
+                    else
+                    {
+                        RedirectUserByRole(role);
+                    }
+
+                    Context.ApplicationInstance.CompleteRequest();
                 }
             }
             catch (Exception ex)
@@ -157,19 +219,21 @@ namespace StudyIsleWeb
         }
 
         /// <summary>
-        /// Ensures the URL is local to prevent open redirect vulnerabilities.
+        /// Prevent Open Redirect Attack
         /// </summary>
         private bool IsLocalUrl(string url)
         {
             if (string.IsNullOrEmpty(url))
                 return false;
 
-            return ((url.StartsWith("/") && !url.StartsWith("//") && !url.StartsWith("/\\"))
-                    || url.StartsWith("~/"));
+            return ((url.StartsWith("/") &&
+                    !url.StartsWith("//") &&
+                    !url.StartsWith("/\\")) ||
+                    url.StartsWith("~/"));
         }
 
         /// <summary>
-        /// Redirects users based on their role.
+        /// Redirect users based on role
         /// </summary>
         private void RedirectUserByRole(string role)
         {
@@ -179,7 +243,7 @@ namespace StudyIsleWeb
             }
             else if (role == "Student")
             {
-                Response.Redirect("~/Student/StudentRegister.aspx", false);
+                Response.Redirect("~/Student/StudentProfile.aspx", false);
             }
             else
             {
