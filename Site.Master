@@ -160,11 +160,11 @@
             <i class="bi bi-person me-2"></i> Your Profile
         </a>
 
-        <a class="dropdown-item" href="/Student/AccountSettings.aspx">
+        <%--<a class="dropdown-item" href="/Student/AccountSettings.aspx">
             <i class="bi bi-gear me-2"></i> Account Settings
-        </a>
+        </a>--%>
 
-        <a class="dropdown-item" href="#">
+        <a class="dropdown-item" runat="server" href="~/ContactUs.aspx">
             <i class="bi bi-life-preserver me-2"></i> Support Center
         </a>
 
@@ -191,25 +191,25 @@
             <div class="col-lg-2 col-md-4 mb-4">
                 <h6 class="footer-title">CBSE Universe</h6>
                 <ul class="footer-links">
-                    <li><a href="#">CBSE Books</a></li>
-                    <li><a href="#">Syllabus</a></li>
-                    <li><a href="#">PYQ's Year Wise</a></li>
-                    <li><a href="#">PYQ's Chapter Wise</a></li>
-                    <li><a href="#">Sample Paper</a></li>
-                    <li><a href="#">Notes</a></li>
-                    <li><a href="#">Question Bank</a></li>
-                    <li><a href="#">MCQ'S Test</a></li>
-                    <li><a href="#">Flash Card</a></li>
-                    <li><a href="#">Mind Map</a></li>
-                    <li><a href="#">Important Question</a></li>
-                    <li><a href="#">Formula Sheet</a></li>
-                    <li><a href="#">Case Study</a></li>
-                    <li><a href="#">Assertion & Reason</a></li>
-                    <li><a href="#">Test Paper</a></li>
-                    <li><a href="#">School Paper</a></li>
-                    <li><a href="#">CBSE Practice Qs</a></li>
-                    <li><a href="#">Lab Manual</a></li>
-                    <li><a href="#">Toppers Sheet</a></li>
+                    <li><a runat="server" href="#">CBSE Books</a></li>
+                    <li><a runat="server" href="#">Syllabus</a></li>
+                    <li><a runat="server" href="#">PYQ's Year Wise</a></li>
+                    <li><a runat="server" href="#">PYQ's Chapter Wise</a></li>
+                    <li><a runat="server" href="#">Sample Paper</a></li>
+                    <li><a runat="server" href="#">Notes</a></li>
+                    <li><a runat="server" href="#">Question Bank</a></li>
+                    <li><a runat="server" href="#">MCQ'S Test</a></li>
+                    <li><a runat="server" href="#">Flash Card</a></li>
+                    <li><a runat="server" href="#">Mind Map</a></li>
+                    <li><a runat="server" href="#">Important Question</a></li>
+                    <li><a runat="server" href="#">Formula Sheet</a></li>
+                    <li><a runat="server" href="#">Case Study</a></li>
+                    <li><a runat="server" href="#">Assertion & Reason</a></li>
+                    <li><a runat="server" href="#">Test Paper</a></li>
+                    <li><a runat="server" href="#">School Paper</a></li>
+                    <li><a runat="server" href="#">CBSE Practice Qs</a></li>
+                    <li><a runat="server" href="#">Lab Manual</a></li>
+                    <li><a runat="server" href="#">Toppers Sheet</a></li>
                 </ul>
             </div>
 
@@ -217,23 +217,23 @@
                 <div class="footer-section-group">
                     <h6 class="footer-title">Jee Prep</h6>
                     <ul class="footer-links">
-                        <li><a href="#">Important Information</a></li>
-                        <li><a href="#">Physics</a></li>
-                        <li><a href="#">Chemistry</a></li>
-                        <li><a href="#">Maths</a></li>
-                        <li><a href="#">JEE Previous Year</a></li>
-                        <li><a href="#">JEE Sample Paper</a></li>
-                        <li><a href="#">Mind Map</a></li>
-                        <li><a href="#">Flash Cards</a></li>
+                        <li><a runat="server" href="#">Important Information</a></li>
+                        <li><a runat="server" href="#">Physics</a></li>
+                        <li><a runat="server" href="#">Chemistry</a></li>
+                        <li><a runat="server" href="#">Maths</a></li>
+                        <li><a runat="server" href="#">JEE Previous Year</a></li>
+                        <li><a runat="server" href="#">JEE Sample Paper</a></li>
+                        <li><a runat="server" href="#">Mind Map</a></li>
+                        <li><a runat="server" href="#">Flash Cards</a></li>
                     </ul>
                 </div>
                 <div class="footer-section-group">
                     <h6 class="footer-title">Foundation (6-10)</h6>
                     <ul class="footer-links">
-                        <li><a href="#">NTSE Exam</a></li>
-                        <li><a href="#">Olympiads</a></li>
-                        <li><a href="#">Bridge Prep</a></li>
-                        <li><a href="#">Foundation PYQ</a></li>
+                        <li><a runat="server" href="#">NTSE Exam</a></li>
+                        <li><a runat="server" href="#">Olympiads</a></li>
+                        <li><a runat="server" href="#">Bridge Prep</a></li>
+                        <li><a runat="server" href="#">Foundation PYQ</a></li>
                     </ul>
                 </div>
             </div>
@@ -242,21 +242,21 @@
                 <div class="footer-section-group">
                     <h6 class="footer-title">Video Lectures</h6>
                     <ul class="footer-links">
-                        <li><a href="#"><i class="bi bi-play-circle"></i> Isle Shorts</a></li>
-                        <li><a href="#"><i class="bi bi-play-circle"></i> Isle Story</a></li>
-                        <li><a href="#"><i class="bi bi-play-circle"></i> One Shot Lectures</a></li>
-                        <li><a href="#"><i class="bi bi-play-circle"></i> Concept Capsules</a></li>
-                        <li><a href="#"><i class="bi bi-play-circle"></i> Animated Series</a></li>
-                        <li><a href="#"><i class="bi bi-play-circle"></i> Live Stream Archive</a></li>
-                        <li><a href="#"><i class="bi bi-play-circle"></i> Formula Revision Videos</a></li>
+                        <li><a runat="server" href="#"><i class="bi bi-play-circle"></i> Isle Shorts</a></li>
+                        <li><a runat="server" href="#"><i class="bi bi-play-circle"></i> Isle Story</a></li>
+                        <li><a runat="server" href="#"><i class="bi bi-play-circle"></i> One Shot Lectures</a></li>
+                        <li><a runat="server" href="#"><i class="bi bi-play-circle"></i> Concept Capsules</a></li>
+                        <li><a runat="server" href="#"><i class="bi bi-play-circle"></i> Animated Series</a></li>
+                        <li><a runat="server" href="#"><i class="bi bi-play-circle"></i> Live Stream Archive</a></li>
+                        <li><a runat="server" href="#"><i class="bi bi-play-circle"></i> Formula Revision Videos</a></li>
                     </ul>
                 </div>
                 <div class="footer-section-group">
                     <h6 class="footer-title">Experience</h6>
                     <ul class="footer-links">
-                        <li><a href="Testimonials.aspx">Testimonials</a></li>
-                        <li><a href="Gallery.aspx">Gallery</a></li>
-                        <li><a href="SocialMedia.aspx">Social Media</a></li>
+                        <li><a runat="server" href="Testimonials.aspx">Testimonials</a></li>
+                        <li><a runat="server" href="Gallery.aspx">Gallery</a></li>
+                        <li><a runat="server" href="SocialMedia.aspx">Social Media</a></li>
                     </ul>
                 </div>
             </div>
@@ -264,20 +264,20 @@
             <div class="col-lg-3 col-md-6 mb-4">
                 <h6 class="footer-title">Information</h6>
                 <ul class="footer-links">
-                    <li><a href="AboutUs.aspx">About Us</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="CareerCouncelling.aspx">Career Counselling</a></li>
-                    <li><a href="Blogs.aspx">Blog</a></li>
-                    <li><a href="CareerGuidance.aspx">Student Inquiry Form</a></li>
-                    <li><a href="JoinTutor.aspx">Join As A Tutor</a></li>
-                    <li><a href="TermsAndConditions.aspx">Terms & Conditions</a></li>
-                    <li><a href="Privacy-Policy.aspx">Privacy Policy</a></li>
+                    <li><a runat="server" href="AboutUs.aspx">About Us</a></li>
+                    <li><a runat="server" href="#">Contact Us</a></li>
+                    <li><a runat="server" href="CareerCouncelling.aspx">Career Counselling</a></li>
+                    <li><a runat="server" href="Blogs.aspx">Blog</a></li>
+                    <li><a runat="server" href="CareerGuidance.aspx">Student Inquiry Form</a></li>
+                    <li><a runat="server" href="JoinTutor.aspx">Join As A Tutor</a></li>
+                    <li><a runat="server" href="TermsAndConditions.aspx">Terms & Conditions</a></li>
+                    <li><a runat="server" href="Privacy-Policy.aspx">Privacy Policy</a></li>
                 </ul>
                 
                 <div class="notice-box">
                     <span class="tag">Notice Board</span>
                     <p class="small fw-bold mt-2 mb-1">National Scholarship Exam (NSE) Dates Announced.</p>
-                    <a href="#" class="text-white opacity-50 x-small text-decoration-underline" style="font-size: 11px;">Check Schedule</a>
+                    <a runat="server" href="#" class="text-white opacity-50 x-small text-decoration-underline" style="font-size: 11px;">Check Schedule</a>
                 </div>
             </div>
 
@@ -295,11 +295,11 @@
                 <div class="mt-4">
                     <span class="contact-label mb-3">Official Channels</span>
                     <div class="d-flex">
-                        <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="social-icon"><i class="bi bi-twitter-x"></i></a>
-                        <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
-                        <a href="#" class="social-icon"><i class="bi bi-youtube"></i></a>
-                        <a href="#" class="social-icon"><i class="bi bi-linkedin"></i></a>
+                        <a runat="server" href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                        <a runat="server" href="#" class="social-icon"><i class="bi bi-twitter-x"></i></a>
+                        <a runat="server" href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                        <a runat="server" href="#" class="social-icon"><i class="bi bi-youtube"></i></a>
+                        <a runat="server" href="#" class="social-icon"><i class="bi bi-linkedin"></i></a>
                     </div>
                 </div>
 
@@ -326,7 +326,7 @@
                 <div class="col-md-5 text-md-end mt-4 mt-md-0">
                     <div class="legal-links">
                         
-                        <a href="#">Support</a>
+                        <a runat="server" href="#">Support</a>
                     </div>
                 </div>
             </div>
