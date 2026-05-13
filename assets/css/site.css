@@ -184,6 +184,7 @@ section {
 }
 
 .dropdown-menu .badge {
+    position: static !important;
     font-size: 0.65rem;
     padding: 0.35em 0.6em;
 }
