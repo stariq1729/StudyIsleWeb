@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace StudyIsleWeb
 {
@@ -20,6 +21,18 @@ namespace StudyIsleWeb
             {
                 lblMessage.Text =
                     "All fields are required.";
+
+                return;
+            }
+
+            // 🔹 Password Validation
+            string passwordPattern =
+                @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$";
+
+            if (!Regex.IsMatch(newPassword, passwordPattern))
+            {
+                lblMessage.Text =
+                    "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, and one number.";
 
                 return;
             }

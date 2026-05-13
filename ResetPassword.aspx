@@ -44,6 +44,10 @@
         .btn-reset:hover {
             background: #4338ca;
         }
+        .instruction {
+            font-size: 0.70rem;
+            color: #6b7280;
+        }
     </style>
 
 </asp:Content>
@@ -79,6 +83,8 @@
                     placeholder="Enter new password">
                 </asp:TextBox>
 
+                
+
             </div>
 
             <!-- Confirm Password -->
@@ -94,7 +100,10 @@
                     TextMode="Password"
                     placeholder="Confirm new password">
                 </asp:TextBox>
-
+                <small class="text-muted instruction">
+    Password must be at least 8 characters and include uppercase,
+    lowercase, and a number.
+</small>
             </div>
 
             <!-- Button -->
