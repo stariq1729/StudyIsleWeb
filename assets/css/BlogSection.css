@@ -80,17 +80,18 @@ p.text-muted {
 
 /* Typography */
 .card-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    line-height: 1.4;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.2;
     color: #1a202c;
-    margin-bottom: 12px;
+    margin-bottom: 6px;
 }
 
 .card-text {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     color: #718096;
-    line-height: 1.6;
+    line-height: 1.4;
+    font-weight:450;
 }
 
 /* Author Section */

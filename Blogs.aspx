@@ -24,6 +24,10 @@
 .card-text {
     min-height: 60px;
 }
+.Author-name{
+    font-size:0.85rem;
+    font-weight:700;
+}
 </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -88,7 +92,7 @@
                         <!-- Author + Date -->
 <small class="text-muted d-flex align-items-center flex-wrap">
 
-    <span>
+    <span class="Author-name">
         <%# Eval("AuthorName") %>
     </span>
 
