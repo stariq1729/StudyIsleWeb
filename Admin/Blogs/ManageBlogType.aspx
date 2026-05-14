@@ -23,7 +23,7 @@
 
             <asp:BoundField DataField="BlogId" HeaderText="ID" />
 
-            <asp:BoundField DataField="Title" HeaderText="Title" />
+          <%--  <asp:BoundField DataField="Title" HeaderText="Title" />--%>
 
             <asp:BoundField DataField="CategoryName" HeaderText="Category" />
 
