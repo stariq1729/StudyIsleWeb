@@ -48,11 +48,12 @@ namespace StudyIsleWeb
                 string query = @"
                  SELECT TOP 3  
                     b.BlogId,
-                    b.Slug,
-                    b.AuthorName,
-                    b.AuthorImage,
-                    b.ReadTime,
-                    c.CategoryName,
+    b.Slug,
+    b.AuthorName,
+    b.AuthorImage,
+    b.ReadTime,
+    b.CreatedDate,
+    c.CategoryName,
 
                     -- Title from blocks (H1)
                     ISNULL((

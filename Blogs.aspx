@@ -17,50 +17,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
-.card-title {
-    min-height: 48px;
-}
 
-.card-text {
-    min-height: 60px;
-}
-.Author-name{
-    font-size:0.85rem;
-    font-weight:700;
-}
-.Read-time{
-        font-size: 0.75rem;
-    line-height: 1rem;
-    font-weight: 500;
-}
-.footer-color{
-    background-color:#ffffff;
-}
-.card-resize{
-    border-radius:16px;
-}
-.badge-resize{
-    border-radius:30px;
-}
-.blog-title{
-    padding:8px;
-            font-size: 3rem;
-        line-height: 1;
-        margin-bottom: 10px;
-}
-.text-lg{
-        font-size: 1.125rem;
-    line-height: 1.75rem;
-    --tw-text-opacity: 1;
-    color: rgb(107 114 128 / var(--tw-text-opacity, 1));
-    font-weight:600;
-    margin-bottom: 48px;
-}
-.text-indigo-600 {
-    --tw-text-opacity: 1;
-    color:#4f46e5;
-    font-weight:550;
-}
 </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">

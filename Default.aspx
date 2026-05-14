@@ -1682,39 +1682,18 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
 
     <%--==================blog sectio start from here ==================--%>
 
+    <section class="blog-section">
 
+<div class="container">
 
-<div class="container mt-4 blogs-section">
-
-    <!-- 🔷 HEADER -->
-    <div class="text-center mb-4">
-        <h2 class="fw-bold ">Student Success Hub</h2>
-        <p class="text-muted">
-            High-impact strategies, resources, and expert tips to ace 
-            <b>CBSE</b>, <b>JEE</b>, and <b>NEET</b> exams.
-        </p>
-    </div>
-
-    <%--<!-- 🔷 CATEGORY TABS -->
-    <div class="text-center mb-4">
-
-        <!-- Latest -->
-        <asp:LinkButton ID="btnLatest" runat="server" CssClass="btn btn-primary me-2"
-            OnClick="btnLatest_Click">Latest</asp:LinkButton>
-
-        <!-- Dynamic Categories -->
-        <asp:Repeater ID="rptCategories" runat="server">
-            <ItemTemplate>
-                <asp:LinkButton runat="server"
-                    CssClass="btn btn-outline-secondary me-2"
-                    CommandArgument='<%# Eval("CategoryId") %>'
-                    OnCommand="Category_Click">
-                    <%# Eval("CategoryName") %>
-                </asp:LinkButton>
-            </ItemTemplate>
-        </asp:Repeater>
-
-    </div>--%>
+<div class="text-center mb-4 H-title">
+<div class="text-center mb-4 H-title">
+    <h2 class="fw-bold blog-title">Student Success Hub</h2>
+    <p class="text-lg text-gray-500 max-w-2xl mx-auto">
+        High-impact strategies, resources, and expert tips to ace 
+        <span class="text-indigo-600 font-bold">CBSE</span>, <span class="text-indigo-600 font-bold">JEE</span>, and <br /> <span class="text-indigo-600 font-bold">NEET</span> exams.
+    </p>
+</div>
 
     <!-- 🔷 BLOG CARDS -->
     <div class="row">
@@ -1728,7 +1707,7 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
         <a href='BlogDetails.aspx?slug=<%# Eval("Slug") %>' 
            style="text-decoration:none; color:inherit; display:block;">
 
-            <div class="card h-100 shadow-sm">
+            <div class="card card-resize h-100 shadow-sm">
 
                 <!-- Image -->
                 <img src='<%# Eval("CoverImage") %>' 
@@ -1738,7 +1717,7 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
                 <div class="card-body">
 
                     <!-- Category Tag -->
-                    <span class="badge bg-primary mb-2">
+                    <span class="badge badge-resize bg-primary mb-2">
                         <%# Eval("CategoryName") %>
                     </span>
 
@@ -1750,9 +1729,20 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
      style="width:30px; height:30px; border-radius:50%; object-fit:cover; margin-right:8px;" />
 
                         <!-- Author Name -->
-                        <small class="text-muted">
-                            <%# Eval("AuthorName") %>
-                        </small>
+                        <!-- Author + Date -->
+<small class="text-muted d-flex align-items-center flex-wrap">
+
+    <span class="Author-name">
+        <%# Eval("AuthorName") %>
+    </span>
+
+    <span class="mx-2">•</span>
+
+    <span>
+        <%# Convert.ToDateTime(Eval("CreatedDate")).ToString("MMM dd, yyyy") %>
+    </span>
+
+</small>
 
                     </div>
 
@@ -1768,19 +1758,16 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
 
                 </div>
 
-                <div class="card-footer d-flex justify-content-between align-items-center">
+                <div class="card-footer footer-color d-flex justify-content-between align-items-center">
 
                     <!-- 🔥 Dynamic Read Time -->
-                    <small class="text-muted">
+                    <small class="text-muted Read-time">
                         <%# Eval("ReadTime") %> min read
                     </small>
 
                     <!-- Actions -->
                     <div>
-                        <%--<i class="fa fa-bookmark me-2" 
-                           style="cursor:pointer;"
-                           onclick="event.preventDefault(); event.stopPropagation();">
-                        </i>--%>
+                        
 
                         <i class="fa fa-share" 
                            style="cursor:pointer;"
@@ -1798,10 +1785,11 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
 
 </ItemTemplate>
 </asp:Repeater>
-    </div>
+        </div>
 
 </div>
 
+</section>
     <script>
 function shareBlog(slug) {
     let url = window.location.origin + "/BlogDetails.aspx?slug=" + slug;
