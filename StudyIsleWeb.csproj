@@ -192,6 +192,11 @@
     <Content Include="Testimonials.aspx" />
     <Content Include="Uploads\blog\Deault_Random_boy.png" />
     <Content Include="Uploads\ProfileImages\Deault_Random_boy.png" />
+    <Content Include="Uploads\Students\ToppersClass10\1. Sagarika Singh.jpeg" />
+    <Content Include="Uploads\Students\ToppersClass10\2.Navya Chaudhary.jpeg" />
+    <Content Include="Uploads\Students\ToppersClass10\3.Ansh Grover.jpeg" />
+    <Content Include="Uploads\Students\ToppersClass10\4.Arushi Mittal.jpeg" />
+    <Content Include="Uploads\Students\ToppersClass10\5.Dhairya Sarin.jpeg" />
     <Content Include="VerifyOtp.aspx" />
     <Content Include="VerifyResetOtp.aspx" />
     <Content Include="ViewResource.aspx" />
@@ -814,6 +819,8 @@
     <Folder Include="Uploads\Flashcards\" />
     <Folder Include="Uploads\Gallery\" />
     <Folder Include="Uploads\Resumes\" />
+    <Folder Include="Uploads\Students\Testimonials\" />
+    <Folder Include="Uploads\Students\ToppersClass12\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
