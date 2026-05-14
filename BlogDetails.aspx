@@ -26,18 +26,25 @@
 }
 
 /* TOC */
+.toc-header{
+    font-size:20px;
+    font-weight:300;
+}
 .toc-box {
     position: sticky;
     top: 100px;
-    font-size: 10px;
+                font-size: 0.975rem;
+    line-height: 1.30rem;
+font-weight:400;
     color: #777;
 }
 
 .toc-box a {
-    display: block;
-    margin-bottom: 10px;
+    display: flex;
+    margin-bottom: 6px;
     text-decoration: none;
     color: #444;
+            
 }
 
 /* CONTENT */
@@ -182,13 +189,13 @@
     <div class="row">
 
         <!-- 🔷 LEFT SIDE (TOC) -->
-        <div class="col-md-3">
+        <div class="col-md-3 toc">
             <div style="position:sticky; top:100px;">
-                <h6 class="text-muted">TABLE OF CONTENTS</h6>
+                <h6 class="text-muted toc-header">TABLE OF CONTENTS</h6>
 
                 <asp:Repeater ID="rptTOC" runat="server">
                     <ItemTemplate>
-                        <div class="mb-2">
+                        <div class="mb-2 toc-box">
                           • <a href="#<%# Eval("Id") %>" class="toc-link">
     <%# Eval("Text") %>
   </a>
