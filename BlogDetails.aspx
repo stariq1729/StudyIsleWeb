@@ -37,11 +37,12 @@
     line-height: 1.30rem;
 font-weight:400;
     color: #777;
+     margin: 8px;
 }
 
 .toc-box a {
     display: flex;
-    margin-bottom: 6px;
+   
     text-decoration: none;
     color: #444;
             
