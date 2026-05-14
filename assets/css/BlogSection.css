@@ -164,10 +164,12 @@ p.text-muted {
 
 .card-title {
     min-height: 48px;
+    text-align:left;
 }
 
 .card-text {
     min-height: 60px;
+    text-align: left;
 }
 
 .Author-name {
