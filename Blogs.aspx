@@ -85,9 +85,20 @@
      style="width:30px; height:30px; border-radius:50%; object-fit:cover; margin-right:8px;" />
 
                         <!-- Author Name -->
-                        <small class="text-muted">
-                            <%# Eval("AuthorName") %>
-                        </small>
+                        <!-- Author + Date -->
+<small class="text-muted d-flex align-items-center flex-wrap">
+
+    <span>
+        <%# Eval("AuthorName") %>
+    </span>
+
+    <span class="mx-2">•</span>
+
+    <span>
+        <%# Convert.ToDateTime(Eval("CreatedDate")).ToString("MMM dd, yyyy") %>
+    </span>
+
+</small>
 
                     </div>
 

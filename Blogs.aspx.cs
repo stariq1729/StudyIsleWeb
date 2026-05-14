@@ -132,13 +132,15 @@ namespace StudyIsleWeb
 
                 // 🔹 MAIN BLOG QUERY
                 string query = @"
-                SELECT
-                    b.BlogId,
-                    b.Slug,
-                    b.AuthorName,
-                    b.AuthorImage,
-                    b.ReadTime,
-                    c.CategoryName,
+               
+                   SELECT
+    b.BlogId,
+    b.Slug,
+    b.AuthorName,
+    b.AuthorImage,
+    b.ReadTime,
+    b.CreatedDate,
+    c.CategoryName,
 
                     ISNULL((
                         SELECT TOP 1 Content
