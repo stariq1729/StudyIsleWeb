@@ -28,6 +28,24 @@
     font-size:0.85rem;
     font-weight:700;
 }
+.Read-time{
+        font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 500;
+}
+.footer-color{
+    background-color:#ffffff;
+}
+.card-resize{
+    border-radius:16px;
+}
+.badge-resize{
+    border-radius:30px;
+}
+.blog-title{
+            font-size: 3rem;
+        line-height: 1;
+}
 </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -36,7 +54,7 @@
 
     <!-- 🔷 HEADER -->
     <div class="text-center mb-4 H-title">
-        <h2 class="fw-bold">Student Success Hub</h2>
+        <h2 class="fw-bold blog-title">Student Success Hub</h2>
         <p class="text-muted">
             High-impact strategies, resources, and expert tips to ace 
             <b>CBSE</b>, <b>JEE</b>, and <b>NEET</b> exams.
@@ -67,7 +85,7 @@
         <a href='BlogDetails.aspx?slug=<%# Eval("Slug") %>' 
            style="text-decoration:none; color:inherit; display:block;">
 
-            <div class="card h-100 shadow-sm">
+            <div class="card card-resize h-100 shadow-sm">
 
                 <!-- Image -->
                 <img src='<%# Eval("CoverImage") %>' 
@@ -77,7 +95,7 @@
                 <div class="card-body">
 
                     <!-- Category Tag -->
-                    <span class="badge bg-primary mb-2">
+                    <span class="badge badge-resize bg-primary mb-2">
                         <%# Eval("CategoryName") %>
                     </span>
 
@@ -118,10 +136,10 @@
 
                 </div>
 
-                <div class="card-footer d-flex justify-content-between align-items-center">
+                <div class="card-footer footer-color d-flex justify-content-between align-items-center">
 
                     <!-- 🔥 Dynamic Read Time -->
-                    <small class="text-muted">
+                    <small class="text-muted Read-time">
                         <%# Eval("ReadTime") %> min read
                     </small>
 
