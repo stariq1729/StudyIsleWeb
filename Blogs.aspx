@@ -43,8 +43,23 @@
     border-radius:30px;
 }
 .blog-title{
+    padding:8px;
             font-size: 3rem;
         line-height: 1;
+        margin-bottom: 10px;
+}
+.text-lg{
+        font-size: 1.125rem;
+    line-height: 1.75rem;
+    --tw-text-opacity: 1;
+    color: rgb(107 114 128 / var(--tw-text-opacity, 1));
+    font-weight:600;
+    margin-bottom: 48px;
+}
+.text-indigo-600 {
+    --tw-text-opacity: 1;
+    color:#4f46e5;
+    font-weight:550;
 }
 </style>
 </asp:Content>
@@ -55,9 +70,9 @@
     <!-- 🔷 HEADER -->
     <div class="text-center mb-4 H-title">
         <h2 class="fw-bold blog-title">Student Success Hub</h2>
-        <p class="text-muted">
+        <p class="text-lg text-gray-500 max-w-2xl mx-auto">
             High-impact strategies, resources, and expert tips to ace 
-            <b>CBSE</b>, <b>JEE</b>, and <b>NEET</b> exams.
+            <span class="text-indigo-600 font-bold">CBSE</span>, <span class="text-indigo-600 font-bold">JEE</span>, and <br /> <span class="text-indigo-600 font-bold">NEET</span> exams.
         </p>
     </div>
 
