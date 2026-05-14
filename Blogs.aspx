@@ -17,7 +17,12 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
-
+.Pagination{
+    margin-bottom:20px;
+}
+.Pagination a{
+    border-radius:25px;
+}
 </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -136,7 +141,7 @@
 </ItemTemplate>
 </asp:Repeater>
         <!-- PAGINATION -->
-<div class="text-center mt-4">
+<div class="text-center Pagination mt-4">
 
     <asp:Repeater ID="rptPagination" runat="server">
     <ItemTemplate>

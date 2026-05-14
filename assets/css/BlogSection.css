@@ -140,7 +140,7 @@ p.text-muted {
 
 .page-number-btn {
     display: inline-block;
-    padding: 8px 14px;
+    padding: 8px 16px;
     margin: 0 5px;
     border: 1px solid #6c757d;
     border-radius: 12px;
@@ -151,15 +151,15 @@ p.text-muted {
 
     /* Hover */
     .page-number-btn:hover {
-        background: #6c757d;
+        background: #5b5ce2;
         color: #fff;
     }
 
     /* Active Page */
     .page-number-btn.active {
-        background: #6c757d;
+        background: #5b5ce2;
         color: #fff !important;
-        border-color: #6c757d;
+        border-color: #5b5ce2;
     }
 
 .card-title {
