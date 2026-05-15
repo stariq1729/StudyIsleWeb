@@ -196,6 +196,9 @@
 
 .user-avatar-small { width: 32px; height: 32px; border-radius: 50%; border: 2px solid #635bff; }
 .user-name { display: block; font-weight: 600; font-size: 13px; }
+.user-name-text{
+    display: block; font-weight: 700; font-size: 14px; color: black;
+}
 .user-role { font-size: 11px; opacity: 0.8; }
 
 /* Apply Card */
@@ -754,13 +757,13 @@
 
         <div class="masonry-wrapper">
             <!-- Card 1: Image + Text -->
-            <div class="testimonial-card">
+            <%--<div class="testimonial-card">
                 <div class="card-header">
                     <div class="user-profile">
                         
                         <img src="\assets\tutorimg\Pranav.jpg" alt="David" class="avatar">
                         <div class="user-meta">
-                            <span class="user-name">David Chen</span>
+                            <span class="user-name-text">David Chen</span>
                             <span class="user-label">Full Stack Graduate</span>
                         </div>
                     </div>
@@ -768,30 +771,65 @@
                 </div>
                 <img src="\assets\tutorimg\Pranav.jpg" class="card-img" alt="Project">
                 <p class="card-quote">"The practical projects are what sets this course apart. You build real-world applications that employers actually care about."</p>
-            </div>
+            </div>--%>
 
             <!-- Card 2: Text Only -->
             <div class="testimonial-card">
                 <div class="card-header">
                     <div class="user-profile">
-                        <img src="\assets\tutorimg\Pranav.jpg" alt="Elena" class="avatar">
+                        <img src="Uploads/Students/Testimonials/Chahel.PNG" alt="Chahel" class="avatar">
                         <div class="user-meta">
-                            <span class="user-name">Elena Rodriguez</span>
+                            <span class="user-name-text">Chahel Sanghi</span>
                             <span class="user-label">Data Science Enthusiast</span>
                         </div>
                     </div>
                     <div class="rating-stars">★★★★☆</div>
                 </div>
-                <p class="card-quote">"I never thought I could understand complex algorithms, but the breakdown of concepts here is so intuitive. Efficient and engaging learning."</p>
+                <p class="card-quote">"Study Isle is an instituite where students not only enhances their academic performance but also interaction skills, team work that results in the overall development of an individual.
+
+Their spontaneous reaction to problem solving is excellent. To us the new normal ( online classes) were first introduced by Study Isle.
+
+Doubt solving, crash courses and test series are worth appreciable.
+
+Never realised that I have completed my 3 years with Study Isle and not a single instituite in our surroundings can give us such an experience."</p>
+            </div>
+                        <!-- Card 3: Text Only -->
+            <div class="testimonial-card">
+                <div class="card-header">
+                    <div class="user-profile">
+                        <img src="Uploads/Students/Testimonials/Brishti.PNG" alt="Brishti" class="avatar">
+                        <div class="user-meta">
+                            <span class="user-name-text">Brishti</span>
+                            <span class="user-label">Data Science Enthusiast</span>
+                        </div>
+                    </div>
+                    <div class="rating-stars">★★★★☆</div>
+                </div>
+                <p class="card-quote">"Pranav sir and Ambar sir have definitely been my biggest supporters throughout the whole year. apart from the academics they really really take care of the mental well being of their students aswell. extremely grateful to have been a part of study isle. the constant check ins, revision tests, the healthy environment. everything is perfect."</p>
+            </div>
+                       
+                        <!-- Card 5: Text Only -->
+            <div class="testimonial-card">
+                <div class="card-header">
+                    <div class="user-profile">
+                        <img src="Uploads/Students/Testimonials/Mehak.PNG" alt="Mehak" class="avatar">
+                        <div class="user-meta">
+                            <span class="user-name-text">Mehak Verma</span>
+                            <span class="user-label">Data Science Enthusiast</span>
+                        </div>
+                    </div>
+                    <div class="rating-stars">★★★★☆</div>
+                </div>
+                <p class="card-quote">"Had an amazing time learning and making good memories sir was really supportive throughout would recommend it to anyone who might be seeking help in physics or maths I joined study isle in 12th only for physics and would definitely say I got better at it thank you sir for the constant support."</p>
             </div>
 
             <!-- Card 3: Image + Text -->
-            <div class="testimonial-card">
+            <%--<div class="testimonial-card">
                 <div class="card-header">
                     <div class="user-profile">
                         <img src="\assets\tutorimg\Pranav.jpg" alt="Maria" class="avatar">
                         <div class="user-meta">
-                            <span class="user-name">Maria Garcia</span>
+                            <span class="user-name-text">Maria Garcia</span>
                             <span class="user-label">Marketing Specialist</span>
                         </div>
                     </div>
@@ -799,21 +837,55 @@
                 </div>
                 <img src="\assets\tutorimg\Pranav.jpg" class="card-img" alt="Landscape">
                 <p class="card-quote">"The curriculum is always up to date with industry trends. I improved my ROI by 40% after implementing what I learned."</p>
-            </div>
+            </div>--%>
 
-            <!-- Card 4: Text Only -->
+            <!-- Card 6: Text Only -->
             <div class="testimonial-card">
                 <div class="card-header">
                     <div class="user-profile">
-                        <img src="\assets\tutorimg\Pranav.jpg" alt="Kevin" class="avatar">
+                         
+                        <img src="Uploads/Students/Testimonials/Rudra.PNG" alt="Rudra" class="avatar">
                         <div class="user-meta">
-                            <span class="user-name">Kevin Park</span>
+                            <span class="user-name-text">Rudra Raghav</span>
                             <span class="user-label">Cloud Architect</span>
                         </div>
                     </div>
                     <div class="rating-stars">★★★★★</div>
                 </div>
-                <p class="card-quote">"The certification prep matches the official exams perfectly. Passed on my first try thanks to the practice modules."</p>
+                <p class="card-quote">"I've been studying here for 3 years now
+And it won't be wrong if I say that study
+isle is the only reason that i was able to
+score a 95+ in my 10th boards in both
+science and maths.
+The teachers are really brilliant and the
+classes are very interactive and
+enjoyable as well."</p>
+            </div>
+                                    <!-- Card 4: Text Only -->
+            <div class="testimonial-card">
+                <div class="card-header">
+                    <div class="user-profile">
+                        <%--<img src="Uploads/Students/Testimonials/Rudra.PNG" alt="Sumedha" class="avatar">--%>
+                        <div class="user-meta">
+                            <span class="user-name-text">SUMEDHA RAWAT</span>
+                            <span class="user-label">Data Science Enthusiast</span>
+                        </div>
+                    </div>
+                    <div class="rating-stars">★★★★☆</div>
+                </div>
+                <p class="card-quote">"STUDY ISLE is an excellent coaching institute.
+Pranav sir and Ambar sir are not just educators,they
+are mentors who genuinely care about their students
+well-being. They helped me improve my understanding of
+subjects I once found difficult. Beyond academics,
+they instilled confidence, discipline, and a positive
+mindset in me, which helped me alot.
+I cannot express enough gratitude for STUDY ISLE. At a
+time when I was struggling both academically and
+emotionally, this institute became more than just a
+place of learning, it became a source of guidance,
+motivation, and unwavering support.
+Thank you STUDY ISLE! 😊 ."</p>
             </div>
         </div>
     </div>
