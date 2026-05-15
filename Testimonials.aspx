@@ -163,9 +163,23 @@
     transition: transform 0.3s ease;
     overflow: hidden;
 }
-.story-card:hover { transform: translateY(-5px); }
+.story-preview-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
-/* Card Content */
+.story-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.75),
+        rgba(0,0,0,0.1)
+    );
+}
+
 .story-overlay {
     position: absolute;
     bottom: 20px;
@@ -174,7 +188,12 @@
     align-items: center;
     gap: 10px;
     color: white;
+    z-index: 2;
 }
+.story-card:hover { transform: translateY(-5px); }
+
+/* Card Content */
+
 .user-avatar-small { width: 32px; height: 32px; border-radius: 50%; border: 2px solid #635bff; }
 .user-name { display: block; font-weight: 600; font-size: 13px; }
 .user-role { font-size: 11px; opacity: 0.8; }
@@ -203,8 +222,8 @@
     align-items: center;
 }
 .modal-content {
-    width: 350px;
-    height: 600px;
+    width: 607.5px;
+    height: 1080px;
     background: #111;
     border-radius: 20px;
     position: relative;
@@ -265,7 +284,7 @@
 .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
 .user-profile { display: flex; align-items: center; gap: 10px; }
 .avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
-.user-name { display: block; font-weight: 700; font-size: 14px; color: #1a1f36; }
+.user-name { display: block; font-weight: 700; font-size: 14px; color: #ffff; }
 .user-label { font-size: 11px; color: #697386; }
 .rating-stars { color: #635bff; font-size: 12px; }
 
@@ -456,29 +475,239 @@
             </div>
             <a href="#" class="view-all">View all</a>
         </div>
+        
+<div class="stories-grid">
 
-        <div class="stories-grid">
-            <!-- Video Card 1 -->
-            <div class="story-card" onclick="openStory('Sarah Jenkins', 'UX Design Student', 'video1.mp4')">
-                <div class="story-overlay">
-                    <img src="path/to/sarah-thumb.jpg" alt="Sarah" class="user-avatar-small">
-                    <div class="user-info">
-                        <span class="user-name">Sarah Jenkins</span>
-                        <span class="user-role">UX Design Student</span>
-                    </div>
-                </div>
+    <!-- Video Card 1 -->
+    <div class="story-card"
+        onclick="openStory(
+            'Sonam Khan',
+            'StudyIsle',
+            '/Uploads/Videos/4fc8963b-3258-4b83-a47e-093f78a82191.mp4'
+        )">
+
+        <video class="story-preview-video"
+               muted
+               
+               loop
+               playsinline>
+
+            <source src="/Uploads/Videos/4fc8963b-3258-4b83-a47e-093f78a82191.mp4"
+                    type="video/mp4">
+
+        </video>
+
+        <div class="story-overlay">
+
+            <img src="/Uploads/Students/Testimonials/sonam-khan.PNG"
+                 alt="Sonam"
+                 class="user-avatar-small">
+
+            <div class="user-info">
+                <span class="user-name">Sonam Khan</span>
+                <span class="user-role">StudyIsle</span>
             </div>
 
-            <!-- Video Card 2 -->
-            <div class="story-card" onclick="openStory('James Wilson', 'Python Developer', 'video2.mp4')">
-                <div class="story-overlay">
-                    <img src="path/to/james-thumb.jpg" alt="James" class="user-avatar-small">
-                    <div class="user-info">
-                        <span class="user-name">James Wilson</span>
-                        <span class="user-role">Python Developer</span>
-                    </div>
-                </div>
+        </div>
+    </div>
+
+    <!-- Video Card 2 -->
+    <div class="story-card"
+        onclick="openStory(
+            'Pranjul Kalika',
+            'StudyIsle',
+            '/Uploads/Videos/5cbdcda4-4463-47b9-9b14-d34f8937a837.mp4'
+        )">
+
+        <video class="story-preview-video"
+               muted
+               
+               loop
+               playsinline>
+
+            <source src="/Uploads/Videos/5cbdcda4-4463-47b9-9b14-d34f8937a837.mp4"
+                    type="video/mp4">
+
+        </video>
+
+        <div class="story-overlay">
+
+            <img src="/Uploads/Students/Testimonials/pranjul.PNG"
+                 alt="Pranjul"
+                 class="user-avatar-small">
+
+            <div class="user-info">
+                <span class="user-name">Pranjul Kalika</span>
+                <span class="user-role">StudyIsle</span>
             </div>
+
+        </div>
+    </div>
+
+    <!-- Video Card 3 -->
+    <div class="story-card"
+        onclick="openStory(
+            'Chahal Sanghi',
+            'StudyIsle',
+            '/Uploads/Videos/65ac9208-bb02-42dd-a727-ffe8eea72932.mp4'
+        )">
+
+        <video class="story-preview-video"
+               muted
+               
+               loop
+               playsinline>
+
+            <source src="/Uploads/Videos/65ac9208-bb02-42dd-a727-ffe8eea72932.mp4"
+                    type="video/mp4">
+
+        </video>
+
+        <div class="story-overlay">
+
+            <img src="/Uploads/Students/Testimonials/chahal%20sanghi.PNG"
+                 alt="Chahal"
+                 class="user-avatar-small">
+
+            <div class="user-info">
+                <span class="user-name">Chahal Sanghi</span>
+                <span class="user-role">StudyIsle</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Video Card 4 -->
+    <div class="story-card"
+        onclick="openStory(
+            'Parav Sharma',
+            'StudyIsle',
+            '/Uploads/Videos/7b146a70-802e-4bd6-b7a0-1acdf6b9aed5.mp4'
+        )">
+
+        <video class="story-preview-video"
+               muted
+               
+               loop
+               playsinline>
+
+            <source src="/Uploads/Videos/7b146a70-802e-4bd6-b7a0-1acdf6b9aed5.mp4"
+                    type="video/mp4">
+
+        </video>
+
+        <div class="story-overlay">
+
+            <img src="/Uploads/Students/Testimonials/Parav%20Sharma.PNG"
+                 alt="Parav"
+                 class="user-avatar-small">
+
+            <div class="user-info">
+                <span class="user-name">Parav Sharma</span>
+                <span class="user-role">StudyIsle</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Video Card 5 -->
+    <div class="story-card"
+        onclick="openStory(
+            'Jahnavi Sinha',
+            'StudyIsle',
+            '/Uploads/Videos/Jahnavi%20Sinha.mp4'
+        )">
+
+        <video class="story-preview-video"
+               muted
+               
+               loop
+               playsinline>
+
+            <source src="/Uploads/Videos/Jahnavi%20Sinha.mp4"
+                    type="video/mp4">
+
+        </video>
+
+        <div class="story-overlay">
+
+            <img src="/Uploads/Students/Testimonials/Jahnavi.PNG"
+                 alt="Jahnavi"
+                 class="user-avatar-small">
+
+            <div class="user-info">
+                <span class="user-name">Jahnavi Sinha</span>
+                <span class="user-role">StudyIsle</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Video Card 6 -->
+    <div class="story-card"
+        onclick="openStory(
+            'Sagarika Singh',
+            'StudyIsle',
+            '/Uploads/Videos/Sagarika%20Singh.mp4'
+        )">
+
+        <video class="story-preview-video"
+               muted
+               
+               loop
+               playsinline>
+
+            <source src="/Uploads/Videos/Sagarika%20Singh.mp4"
+                    type="video/mp4">
+
+        </video>
+
+        <div class="story-overlay">
+
+            <img src="/Uploads/Students/Testimonials/Sagarika.PNG"
+                 alt="Sagarika"
+                 class="user-avatar-small">
+
+            <div class="user-info">
+                <span class="user-name">Sagarika Singh</span>
+                <span class="user-role">StudyIsle</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Video Card 7 -->
+    <div class="story-card"
+        onclick="openStory(
+            'Sambhavi Sinha',
+            'StudyIsle',
+            '/Uploads/Videos/Sambhavi%20Sinha.mp4'
+        )">
+
+        <video class="story-preview-video"
+               muted
+               
+               loop
+               playsinline>
+
+            <source src="/Uploads/Videos/Sambhavi%20Sinha.mp4"
+                    type="video/mp4">
+
+        </video>
+
+        <div class="story-overlay">
+
+            <img src="/Uploads/Students/Testimonials/Sambhavi.PNG"
+                 alt="Sambhavi"
+                 class="user-avatar-small">
+
+            <div class="user-info">
+                <span class="user-name">Sambhavi Sinha</span>
+                <span class="user-role">StudyIsle</span>
+            </div>
+
+        </div>
+    </div>
 
             <!-- Apply Today Card -->
             <div class="story-card apply-card">
@@ -497,19 +726,22 @@
     <div class="modal-content">
         <span class="close-story" onclick="closeStory()">&times;</span>
         <div class="modal-header">
-             <img src="" id="modalAvatar" class="user-avatar-small">
+             <%--<img src="" id="modalAvatar" class="user-avatar-small">--%>
              <div class="user-info-modal">
                  <h4 id="modalName" style="margin:0; font-size:14px;"></h4>
                  <p id="modalRole" style="margin:0; font-size:12px; opacity:0.8;"></p>
              </div>
         </div>
-        <video id="storyVideo" controls autoplay>
-            <source src="" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+        <video id="storyVideo"
+       controls
+       autoplay
+       controlsList="nodownload"
+       playsinline>
+    Your browser does not support the video tag.
+</video>
         <div class="modal-footer">
             <i class="fas fa-quote-left"></i>
-            <p id="modalQuote">The mentor support here is unparalleled. I went from knowing nothing to landing a junior role in 6 months.</p>
+            <p id="modalQuote">.</p>
         </div>
     </div>
 </div>
