@@ -191,6 +191,12 @@
     <Content Include="TermsAndConditions.aspx" />
     <Content Include="Testimonials.aspx" />
     <Content Include="Uploads\blog\Deault_Random_boy.png" />
+    <Content Include="Uploads\HeroBanners\1.jpeg" />
+    <Content Include="Uploads\HeroBanners\2.jpeg" />
+    <Content Include="Uploads\HeroBanners\3.jpeg" />
+    <Content Include="Uploads\HeroBanners\4.jpeg" />
+    <Content Include="Uploads\HeroBanners\g1.jpeg" />
+    <Content Include="Uploads\HeroBanners\g2.jpeg" />
     <Content Include="Uploads\ProfileImages\Deault_Random_boy.png" />
     <Content Include="Uploads\Students\ToppersClass10\1. Sagarika Singh.jpeg" />
     <Content Include="Uploads\Students\ToppersClass10\2.Navya Chaudhary.jpeg" />

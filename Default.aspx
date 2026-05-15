@@ -73,21 +73,28 @@ Your
             
             <!-- Image 1 -->
             <div class="carousel-item active" data-bs-interval="3000">
-                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" 
+                <img src="Uploads/HeroBanners/1.jpeg" 
                      class="d-block w-100" alt="Live Learning 1" />
             </div>
 
             <!-- Image 2 -->
             <div class="carousel-item" data-bs-interval="3000">
-                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644" 
+                 
+                <img src="Uploads/HeroBanners/2.jpeg"
                      class="d-block w-100" alt="Live Learning 2" />
             </div>
+        
 
             <!-- Image 3 -->
             <div class="carousel-item" data-bs-interval="3000">
-                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3" 
+                <img src="Uploads/HeroBanners/3.jpeg"
                      class="d-block w-100" alt="Live Learning 3" />
             </div>
+        <!-- Image 4 -->
+<div class="carousel-item" data-bs-interval="3000">
+    <img src="Uploads/HeroBanners/4.jpeg"
+         class="d-block w-100" alt="Live Learning 4" />
+</div>
 
         </div>
         <!-- Navigation Buttons -->
