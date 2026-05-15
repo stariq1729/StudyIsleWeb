@@ -57,8 +57,10 @@ namespace StudyIsleWeb
                 }
                 else
                 {
-                    // Optional: Display error message
-                    // lblError.Text = "Invalid email or password.";
+                    // This sends a JavaScript alert to the browser if the login fails
+                    string message = "Invalid Email or Password. Please try again.";
+                    string script = $"alert('{message}');";
+                    ClientScript.RegisterStartupScript(this.GetType(), "LoginError", script, true);
                 }
             }
         }

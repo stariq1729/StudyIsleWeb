@@ -16,10 +16,10 @@
 body {
     background-color: #f8fafc;
     background-image: 
-        linear-gradient(30deg, #e2e8f0 12%, transparent 52.5%, transparent 87%, #e2e8f0 87.5%, #e2e8f0),
-        linear-gradient(150deg, #e2e8f0 12%, transparent 52.5%, transparent 87%, #e2e8f0 87.5%, #e2e8f0),
-        linear-gradient(30deg, #e2e8f0 12%, transparent 52.5%, transparent 87%, #e2e8f0 87.5%, #e2e8f0),
-        linear-gradient(150deg, #e2e8f0 12%, transparent 52.5%, transparent 87%, #e2e8f0 87.5%, #e2e8f0),
+        linear-gradient(30deg, #e2e8f0 12%, transparent 72.5%, transparent 87%, #e2e8f0 87.5%, #e2e8f0),
+        linear-gradient(150deg, #e2e8f0 12%, transparent 72.5%, transparent 87%, #e2e8f0 87.5%, #e2e8f0),
+        linear-gradient(30deg, #e2e8f0 12%, transparent 72.5%, transparent 87%, #e2e8f0 87.5%, #e2e8f0),
+        linear-gradient(150deg, #e2e8f0 12%, transparent 72.5%, transparent 87%, #e2e8f0 87.5%, #e2e8f0),
         linear-gradient(60deg, #cbd5e1 25%, transparent 25.5%, transparent 75%, #cbd5e1 75%, #cbd5e1),
         linear-gradient(60deg, #cbd5e1 25%, transparent 25.5%, transparent 75%, #cbd5e1 75%, #cbd5e1);
     background-size: 80px 140px;
@@ -259,4 +259,30 @@ body {
 
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function WebForm_OnSubmit() {
+        if (typeof (ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) {
+            $(".form-control-custom").each(function () {
+                var controlId = $(this).attr("id");
+                var isValid = true;
+                for (var i = 0; i < Page_Validators.length; i++) {
+                    if (Page_Validators[i].controltovalidate == controlId && !Page_Validators[i].isvalid) {
+                        isValid = false;
+                        break;
+                    }
+                }
+                if (!isValid) {
+                    // Change this line in your script:
+                    $(this).addClass("is-invalid");
+                } else {
+                    $(this).removeClass("input-error");
+                }
+            });
+            return false;
+        }
+        return true;
+    }
+</script>
 </asp:Content>
