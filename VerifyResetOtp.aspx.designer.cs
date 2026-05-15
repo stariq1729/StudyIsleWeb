@@ -24,13 +24,22 @@ namespace StudyIsleWeb
         protected global::System.Web.UI.WebControls.TextBox txtOtp;
 
         /// <summary>
+        /// rfvOtp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvOtp;
+
+        /// <summary>
         /// btnVerifyOtp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnVerifyOtp;
+        protected global::System.Web.UI.WebControls.LinkButton btnVerifyOtp;
 
         /// <summary>
         /// lblMessage control.
