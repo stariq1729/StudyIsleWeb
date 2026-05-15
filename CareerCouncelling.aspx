@@ -754,9 +754,12 @@ Subject or College to
                     </div>
 
                     <div class="career-cta-area">
-                        <a href="https://studyisle.edumilestones.com/" class="career-cta">
-                            Schedule 1:1 Call →
-                        </a>
+                       <a href="https://studyisle.edumilestones.com/" 
+   target="_blank" 
+   rel="noopener noreferrer"
+   class="career-cta">
+    Schedule 1:1 Call →
+</a>
                         <div class="online-status">
                             <span class="dot"></span>
                             <span class="dot"></span>
@@ -1053,7 +1056,12 @@ Subject or College to
                 </div>
 
                 <div class="mt-5">
-                    <a href="#" class="btn-assessment">Take Free Assessment →</a>
+                   <a href="https://studyisle.edumilestones.com/" 
+   target="_blank" 
+   rel="noopener noreferrer"
+   class="btn-assessment">
+    Take Free Assessment →
+</a>
                 </div>
             </div>
 
@@ -1163,7 +1171,12 @@ Subject or College to
                 </ul>
 
                 <div class="mt-5">
-    <button type="button" href="#" class="btn-book-session">Book a Free Session with Pranav →</button>
+   <a href="https://studyisle.edumilestones.com/" 
+   target="_blank"
+   rel="noopener noreferrer"
+   class="btn-book-session">
+    Book a Free Session with Pranav →
+</a>
 </div>
             </div>
         </div>
@@ -1289,7 +1302,12 @@ Subject or College to
 
         <!-- Glowing Button -->
         <div class="mb-5">
-            <button type="button" class="btn-glow-primary">Schedule Free 1-on-1 Call →</button>
+            <a href="https://studyisle.edumilestones.com/" 
+   target="_blank"
+   rel="noopener noreferrer"
+   class="btn-glow-primary">
+    Schedule Free 1-on-1 Call →
+</a>
         </div>
 
         <hr class="cta-divider">
