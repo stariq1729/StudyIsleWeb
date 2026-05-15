@@ -39,7 +39,7 @@ namespace StudyIsleWeb
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLogin;
+        protected global::System.Web.UI.WebControls.LinkButton btnLogin;
 
         /// <summary>
         /// btnGoogleLogin control.
@@ -48,6 +48,6 @@ namespace StudyIsleWeb
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGoogleLogin;
+        protected global::System.Web.UI.WebControls.LinkButton btnGoogleLogin;
     }
 }
