@@ -6,41 +6,76 @@
         /* =========================================
            GALLERY DETAILS PAGE
         ========================================= */
+/* =========================================
+    REPLACEMENT CSS FOR FIXED TOP / SCROLL BOTTOM
+========================================= */
 
-        .gallery-details-page {
+.gallery-details-page {
     background: #f7f8fc;
-    height: 100vh;
-    overflow: hidden;
+    /* Lock the viewport height to exactly the screen size */
+    height: 100vh; 
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
 }
 
-        /* TOP IMAGE SECTION */
-
-        .details-hero-section {
+/* TOP IMAGE SECTION (FIXED) */
+.details-hero-section {
     background: #020617;
-    height: 58vh;
+    height: 58vh; /* Fixed height for the dark area */
     min-height: 420px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    overflow: hidden;
+    flex-shrink: 0; /* Prevents this section from shrinking */
+    position: relative;
+    z-index: 5;
 }
 
+.details-main-image {
+    max-width: 620px;
+    width: 90%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+/* CONTENT AREA (SCROLLABLE) */
+.details-scroll-section {
+    flex-grow: 1; /* Takes up the remaining 42vh */
+    overflow-y: auto; /* This enables the scrollbar here only */
+    background: #ffffff; /* Changed to white to match your image */
+    border-radius: 30px 30px 0 0;
+    margin-top: -30px; /* Pulls the white section up over the dark background */
+    position: relative;
+    z-index: 10;
+    padding-top: 50px;
+    padding-bottom: 80px;
+}
+
+/* Ensure the container inside the scroll section is centered */
+.details-scroll-section .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* CUSTOM SCROLLBAR (To keep it looking clean) */
+.details-scroll-section::-webkit-scrollbar {
+    width: 6px;
+}
+.details-scroll-section::-webkit-scrollbar-thumb {
+    background: #e2e8f0;
+    border-radius: 10px;
+}
         .details-image-wrap {
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .details-main-image {
-           /* width: 100%;*/
-            max-width: 620px;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 18px;
-            box-shadow: 0 18px 50px rgba(0,0,0,0.35);
-        }
+       
 
         /* CONTENT AREA */
 
@@ -52,25 +87,6 @@
         }
         /* SCROLLABLE LOWER SECTION */
 
-.details-scroll-section {
-
-    height: 42vh;
-
-    overflow-y: auto;
-
-    background: #f7f8fc;
-
-    border-radius: 40px 40px 0 0;
-
-    margin-top: -20px;
-
-    position: relative;
-
-    z-index: 10;
-
-    padding-top: 45px;
-    padding-bottom: 50px;
-}
 
 /* CUSTOM SCROLLBAR */
 
