@@ -20,7 +20,7 @@
     display: grid;
     grid-template-columns: 400px 1fr;
     gap: 40px; /* Increased gap between left and right side */
-    padding: 40px 0; /* Vertical padding only */
+    padding: 80px 20px; /* Vertical padding only */
     max-width: 1100px; /* Adjust this to match your Navbar container width */
     margin: 0 auto; /* Centers the whole dashboard */
     font-family: 'Inter', sans-serif;
