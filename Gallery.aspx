@@ -1039,7 +1039,7 @@
         <div class="empower-right">
             
             <div class="grid-col-1">
-                <img src="assets/img/DummImg.png" class="grid-img" style="height: 260px; " alt="Faculty" />
+                <img src="Uploads/HeroBanners/g1.jpeg" class="grid-img" style="height: 260px; " alt="Faculty" />
                 
                 <div class="ui-card card-white">
                     <span class="icon">📖</span>
@@ -1054,7 +1054,7 @@
                     <p>Track progress every single day.</p>
                 </div>
 
-                <img src="assets/img/DummImg.png"  class="grid-img" style="height: 320px;" alt="Students" />
+                <img src="Uploads/HeroBanners/g2.jpeg"  class="grid-img" style="height: 320px;" alt="Students" />
             </div>
 
         </div>
