@@ -12,12 +12,33 @@
         --border-color: #e2e8f0;
     }
 
-    body {
-        background-color: #f3f4f6;
-        /* Subtle geometric pattern background */
-        background-image: radial-gradient(#d1d5db 0.5px, transparent 0.5px);
-        background-size: 20px 20px;
-    }
+   /* Update the body background for a true hexagonal/isometric look */
+body {
+    background-color: #f8fafc;
+    background-image: 
+        linear-gradient(30deg, #e2e8f0 12%, transparent 52.5%, transparent 87%, #e2e8f0 87.5%, #e2e8f0),
+        linear-gradient(150deg, #e2e8f0 12%, transparent 52.5%, transparent 87%, #e2e8f0 87.5%, #e2e8f0),
+        linear-gradient(30deg, #e2e8f0 12%, transparent 52.5%, transparent 87%, #e2e8f0 87.5%, #e2e8f0),
+        linear-gradient(150deg, #e2e8f0 12%, transparent 52.5%, transparent 87%, #e2e8f0 87.5%, #e2e8f0),
+        linear-gradient(60deg, #cbd5e1 25%, transparent 25.5%, transparent 75%, #cbd5e1 75%, #cbd5e1),
+        linear-gradient(60deg, #cbd5e1 25%, transparent 25.5%, transparent 75%, #cbd5e1 75%, #cbd5e1);
+    background-size: 80px 140px;
+    background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+}
+
+/* Style for validation errors */
+.error-message {
+    color: #ef4444;
+    font-size: 11px;
+    margin-top: 4px;
+    display: block;
+}
+
+/* This makes the textbox red when validation fails */
+.form-control-custom.is-invalid {
+    border-color: #ef4444 !important;
+    background-color: #fef2f2 !important;
+}
 
     .login-wrapper {
         min-height: 90vh;
@@ -183,31 +204,37 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Email Address</label>
-                <div class="input-group-custom">
-                    <i class="fa-regular fa-envelope input-icon"></i>
-                    <asp:TextBox ID="txtEmail" runat="server" 
-                        CssClass="form-control-custom" 
-                        TextMode="Email" 
-                        placeholder="name@example.com">
-                    </asp:TextBox>
-                </div>
-            </div>
+    <label class="form-label">Email Address</label>
+    <div class="input-group-custom">
+        <i class="fa-regular fa-envelope input-icon"></i>
+        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control-custom" TextMode="Email" placeholder="name@example.com"></asp:TextBox>
+    </div>
+    <asp:RequiredFieldValidator ID="rfvEmail" runat="server" 
+        ControlToValidate="txtEmail" 
+        ErrorMessage="Email is required" 
+        Display="Dynamic" 
+        CssClass="error-text"
+        ValidationGroup="LoginGroup">
+    </asp:RequiredFieldValidator>
+</div>
 
-            <div class="mb-3">
-                <div class="form-label">
-                    <span>Password</span>
-                    <a href="ForgotPassword.aspx" class="text-decoration-none" style="font-size: 10px;">FORGOT?</a>
-                </div>
-                <div class="input-group-custom">
-                    <i class="fa-solid fa-lock input-icon"></i>
-                    <asp:TextBox ID="txtPassword" runat="server" 
-                        CssClass="form-control-custom" 
-                        TextMode="Password" 
-                        placeholder="••••••••">
-                    </asp:TextBox>
-                </div>
-            </div>
+           <div class="mb-3">
+    <div class="form-label">
+        <span>Password</span>
+        <a href="ForgotPassword.aspx" class="text-decoration-none" style="font-size: 10px;">FORGOT?</a>
+    </div>
+    <div class="input-group-custom">
+        <i class="fa-solid fa-lock input-icon"></i>
+        <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control-custom" TextMode="Password" placeholder="••••••••"></asp:TextBox>
+    </div>
+    <asp:RequiredFieldValidator ID="rfvPassword" runat="server" 
+        ControlToValidate="txtPassword" 
+        ErrorMessage="Password is required" 
+        Display="Dynamic" 
+        CssClass="error-text"
+        ValidationGroup="LoginGroup">
+    </asp:RequiredFieldValidator>
+</div>
 
             <div class="mt-4">
                 <asp:LinkButton ID="btnLogin" runat="server" OnClick="btnLogin_Click" CssClass="btn-login">
