@@ -975,8 +975,10 @@ Live Leaderboards That Keep You Sharp</h6>
                     <!-- Card 1 -->
                     <div class="col-xl-2 col-lg-4 col-md-6">
                         <div class="result-card">
-                            <span class="topper-badge">TOPPER</span>
-                            <img src="https://randomuser.me/api/portraits/men/45.jpg" class="student-img" alt="Student" />
+                            <span class="topper-badge">TOPPER</span> 
+                           <img src="Uploads/Students/ToppersClass10/1.%20Sagarika%20Singh.jpeg"
+     class="student-img"
+     alt="Sagarika Singh" />
                             <h6 class="student-name">Sagarika Singh</h6>
                             <div class="student-rank">99.6%</div>
                             <small class="exam-label">CBSE X</small>
@@ -984,9 +986,9 @@ Live Leaderboards That Keep You Sharp</h6>
                     </div>
                     <!-- Card 2 -->
                     <div class="col-xl-2 col-lg-4 col-md-6">
-                        <div class="result-card">
+                        <div class="result-card">                          
                             <span class="topper-badge">TOPPER</span>
-                            <img src="https://randomuser.me/api/portraits/women/11.jpg" class="student-img" alt="Student" />
+                            <img src="Uploads/Students/ToppersClass10/2.Navya%20Chaudhary.jpeg" class="student-img" alt="Student" />
                             <h6 class="student-name">Navya Chaudhary</h6>
                             <div class="student-rank">99%</div>
                             <small class="exam-label">CBSE X</small>
@@ -996,8 +998,9 @@ Live Leaderboards That Keep You Sharp</h6>
                     <div class="col-xl-2 col-lg-4 col-md-6">
                         <div class="result-card">
                             <span class="topper-badge">TOPPER</span>
-                            <img src="https://randomuser.me/api/portraits/men/20.jpg" class="student-img" alt="Student" />
+                            <img src="Uploads/Students/ToppersClass10/3.Ansh%20Grover.jpeg" class="student-img" alt="Student" />
                             <h6 class="student-name">Ansh Grover.</h6>
+                             
                             <div class="student-rank">96.4% </div>
                             <small class="exam-label">CBSE X</small>
                         </div>
@@ -1006,7 +1009,7 @@ Live Leaderboards That Keep You Sharp</h6>
                     <div class="col-xl-2 col-lg-4 col-md-6">
                         <div class="result-card">
                             <span class="topper-badge">TOPPER</span>
-                            <img src="https://randomuser.me/api/portraits/women/5.jpg" class="student-img" alt="Student" />
+                            <img src="Uploads/Students/ToppersClass10/4.Arushi%20Mittal.jpeg" class="student-img" alt="Student" /> 
                             <h6 class="student-name">Aarushi Mittla</h6>
                             <div class="student-rank">96.4% </div>
                             <small class="exam-label">CBSE X</small>
@@ -1016,7 +1019,7 @@ Live Leaderboards That Keep You Sharp</h6>
                     <div class="col-xl-2 col-lg-4 col-md-6">
                         <div class="result-card">
                             <span class="topper-badge">TOPPER</span>
-                            <img src="https://randomuser.me/api/portraits/men/15.jpg" class="student-img" alt="Student" />
+                            <img src="Uploads/Students/ToppersClass10/5.Dhairya%20Sarin.jpeg" class="student-img" alt="Student" /> 
                             <h6 class="student-name">Dhairya Sarin</h6>
                             <div class="student-rank">96.2% </div>
                             <small class="exam-label">CBSE </small>
