@@ -3,89 +3,146 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <style>
-        /* Update your existing <style> section or add this */
-/* 1. Bento Card Skin */
-    .bento-card {
-        background: #ffffff;
-        border-radius: 28px;
-        /* Subtle border as per reference */
-        border: 1px solid rgba(226, 232, 240, 0.7);
-        /* Subtle drop shadow */
-        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.04);
-        padding: 20px;
+    :root {
+        --primary: #6366f1;
+        --bg-body: #fafbff;
+        --card-bg: #ffffff;
+        --text-main: #0f172a;
+        --text-muted: #64748b;
+        --radius: 24px;
+        --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+    }
+    body{
+        background-color: #fafbff !important;
+    }
+    /* Main Grid Layout */
+    .dashboard-container {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 40px; /* Increased gap between left and right side */
+    padding: 40px 0; /* Vertical padding only */
+    max-width: 1100px; /* Adjust this to match your Navbar container width */
+    margin: 0 auto; /* Centers the whole dashboard */
+    font-family: 'Inter', sans-serif;
+    align-items: start;
+}
+
+    /* Left Column: Hero & Profile Card */
+    .left-col { display: flex; flex-direction: column; gap: 30px; }
+    /* The Badge at the top */
+.ai-badge-top { 
+    display: inline-block;
+    margin-bottom: 12px; /* Increased gap between badge and H1 */
+    color: #64748b; 
+    border: 1px solid #e2e8f0;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* The H1 Heading */
+.Profile-hero-section h1 { 
+    font-size: 3rem !important; /* Forces the size */
+    font-weight: 800 !important; /* Maximum thickness */
+    color: #0f172a; 
+    line-height: 1.0; /* Tighter line spacing for that modern look */
+    margin-bottom: 22px;
+    letter-spacing: -2px; /* Pulls letters closer like the reference */
+}
+   
+    .hero-name { color: var(--primary); }
+
+    .profile-card {
+        background: var(--card-bg);
+        border-radius: var(--radius);
+        padding: 40px;
+        text-align: center;
+        box-shadow: var(--shadow);
+        border: 1px solid #f1f5f9;
     }
 
-    /* 2. AI Insight Card (Dark Mode) */
-        .ai-card {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            border-radius: 22px;
-            padding: 32px;
-            font-size: 1rem;
-            color: #e0e7ff;
-            box-shadow: 0px 10px 30px rgba(15, 23, 42, 0.2);
-        }
-           
-
-    /* 3. Typography & Spacing */
-    .hero-name {
-        font-weight: 700;
-        letter-spacing: -1px;
-    }
-
-    /* Avatar Frame */
-    .avatar-frame {
-        padding: 5px;
-        border: 3px solid #6366f1;
-        border-radius: 26px;
+    .avatar-wrapper {
+        position: relative;
         display: inline-block;
-        background: #fff;
+        margin-bottom: 20px;
     }
 
-    /* Icon Backgrounds (Square-Rounded) */
-    .icon-box {
-        width: 42px;
-        height: 42px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 14px;
+    .avatar-ring {
+        padding: 8px;
+        border: 4px solid var(--primary);
+        border-radius: 35%; /* Squircle look from image */
+        display: block;
     }
 
+    .status-dot {
+        width: 18px; height: 18px;
+        background: #22c55e;
+        border: 3px solid #fff;
+        border-radius: 50%;
+        position: absolute;
+        bottom: 8px; right: 8px;
+    }
+
+    /* Right Column: Stats Grid & AI Card */
+    .right-col { display: flex; flex-direction: column; gap: 30px; }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+    }
+
+    /* Make right cards more compact */
+.stat-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 20px 25px; /* Reduced vertical padding */
+    border: 1px solid #f1f5f9;
+    height: fit-content; /* Card only grows to fit content */
+}
+
+/* Shrink the AI Card height */
+.ai-card {
+    background: #0f172a;
+    border-radius: 24px;
+    padding: 30px 40px; /* Reduced padding to shrink height */
+    color: white;
+    margin-top: 10px; /* Slight gap from cards above */
+}
+
+.ai-card h2 {
+    font-size: 2rem;
+    margin: 15px 0;
+}
+
+    .stat-card:hover { transform: translateY(-5px); }
+    .stat-label { font-size: 10px; font-weight: 700; margin-bottom:0.25rem; color: var(--text-muted); text-uppercase: uppercase; letter-spacing: 0.5px; }
+    .stat-value { display: block; font-size: 1.125rem; line-height:1,75rem; font-weight: 700; color: var(--text-main); margin: 5px 0; }
+    .stat-sub { font-size: 12px; color: var(--text-muted); }
+
+    /* AI Insight Card */
+    /*.ai-card {
+        background: #0f172a;
+        border-radius: var(--radius);
+        padding: 40px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+*/
+    .ai-badge { background: rgba(255,255,255,0.1); padding: 5px 12px; border-radius: 20px; font-size: 10px; font-weight: 800; 
+                padding-bottom:12px;
+
+    }
+    
     /* Buttons */
-    .btn-custom {
-        border-radius: 12px !important;
-        font-weight: 600;
-        padding: 10px 20px;
-        border: none;
-    }
+    .btn-manage { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px; font-size: 12px; font-weight: 700; cursor: pointer; width: 100%; transition: 0.3s; }
+    .btn-manage:hover { background: #f1f5f9; }
 
-    /* Smooth transitions */
-    .bento-card, .ai-card { transition: transform 0.2s ease-out; }
-    .bento-card:hover { transform: translateY(-3px); }
+    .btn-white { background: white; color: black; border-radius: 12px; padding: 12px 25px; border: none; font-weight: 700; }
+    .btn-outline { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 12px; padding: 12px 25px; font-weight: 600; margin-left: 10px; }
 
-        /* Sidebar UI */
-        .sidebar-card { background: #fff; border-radius: 24px; overflow: hidden; border: none; }
-        .sidebar-header { background: #6366f1; height: 100px; position: relative; border-radius: 0 0 20px 20px; }
-        .avatar-container { position: relative; margin-top: -60px; display: inline-block; }
-        .profile-img { width: 110px; height: 110px; border-radius: 50%; border: 5px solid #fff; background: #fff; object-fit: cover; }
-        .status-indicator { width: 15px; height: 15px; background: #22c55e; border: 3px solid #fff; border-radius: 50%; position: absolute; bottom: 10px; right: 10px; }
-        
-        .info-pill { background: #f8fafc; border-radius: 16px; padding: 12px 16px; margin-bottom: 12px; display: flex; align-items: center; text-align: left; }
-        .info-pill i { width: 36px; height: 36px; background: #fff; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-right: 12px; color: #6366f1; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-
-        /* Stepper UI */
-        .step-dot { height: 6px; width: 25px; background: #e2e8f0; border-radius: 10px; display: inline-block; margin: 0 2px; }
-        .step-dot.active { background: #6366f1; }
-
-        /* Resource Cards */
-        .filter-tab { background: #fff; border-radius: 12px; padding: 8px 20px; color: #64748b; border: 1px solid #e2e8f0; margin-left: 8px; cursor: pointer; transition: 0.3s; }
-        .filter-tab.active { background: #6366f1; color: #fff; border-color: #6366f1; }
-        
-        .res-card { background: #fff; border-radius: 20px; border: 1px solid #f1f5f9; transition: 0.3s; }
-        .res-card:hover { transform: translateY(-5px); box-shadow: var(--card-shadow); }
-        .res-icon { width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
-        .launch-btn { color: #6366f1; font-weight: 600; text-decoration: none; font-size: 14px; }
 
         /* Full Screen Modal */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(8px); display: none; z-index: 9999; align-items: center; justify-content: center; }
@@ -127,104 +184,77 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-<div class="container py-5 px-lg-5">
-    <div class="row gx-6 gy-4">
-        <div class="col-lg-5">
-            <div class="mb-4">
-                <span class="badge rounded-pill bg-white text-muted border px-3 py-2 mb-4 shadow-sm">
-                    <i class="fas fa-circle text-success me-2 small"></i>ACADEMIC YEAR 2024-25
-                </span>
-                <h1 class="display-4 fw-bold hero-text">
-                    Perspective is <br />
-                    <span class="hero-name">everything, <asp:Literal ID="litFirstName" runat="server" />.</span>
-                </h1>
-                <p class="text-muted fs-5 mt-4">
-                    Your roadmap for <strong><asp:Label ID="lblExamHeader" runat="server" /></strong> is dynamically updating based on your progress.
-                </p>
+<div class="dashboard-container">
+    
+    <div class="left-col">
+        <div class="Profile-hero-section">
+            <span class="ai-badge-top" style="color: #64748b; border: 1px solid #e2e8f0;">● ACADEMIC YEAR 2024-25</span>
+            <h1>Perspective is everything,<br/> <span class="hero-name"><asp:Literal ID="litFirstName" runat="server" />.</span></h1>
+            <p style="color: var(--text-muted); line-height: 1.75; font-size:1.125rem; font-weight:500;">
+                Your roadmap for <strong><asp:Label ID="lblExamHeader" runat="server" /></strong> is dynamically updating based on your progress.
+            </p>
+        </div>
+
+        <div class="profile-card">
+            <div class="avatar-wrapper">
+                <div class="avatar-ring">
+                    <asp:Image ID="imgMainAvatar" runat="server" style="width: 100px; height: 100px; border-radius: 28%; object-fit: cover;" />
+                </div>
+                <div class="status-dot"></div>
+            </div>
+            <h2 style="font-weight: 800; margin-bottom: 5px;"><asp:Label ID="lblNameFull" runat="server" /></h2>
+            <p class="stat-label" style="color: var(--primary); margin-bottom: 25px;">
+                <asp:Label ID="lblClassBadge" runat="server" /> STUDENT
+            </p>
+
+            <div style="background: #f8fafc; border-radius: 16px; padding: 15px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <span class="stat-label"><i class="fas fa-bolt text-warning me-2"></i>Account Tier</span>
+                <span style="font-weight: 800; font-size: 12px;">PRO PLAN</span>
             </div>
 
-            <div class="bento-card profile-main-card shadow-sm text-center p-4">
-                <div class="avatar-frame mb-3 mt-2">
-                    <asp:Image ID="imgMainAvatar" runat="server" CssClass="rounded-4" style="width: 100px; height: 100px; object-fit: cover;" />
-                </div>
-                <h2 class="fw-bold mb-1"><asp:Label ID="lblNameFull" runat="server" /></h2>
-                <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2 text-uppercase fw-bold mb-4" style="font-size: 11px;">
-                    <asp:Label ID="lblClassBadge" runat="server" /> STUDENT
-                </span>
+            <button type="button" class="btn-manage" onclick="openModal()">
+                <i class="fas fa-cog me-2"></i> MANAGE ACCOUNT
+            </button>
+        </div>
+    </div>
 
-                <div class="d-flex justify-content-between align-items-center bg-light p-3 rounded-4 mb-3 mx-2">
-                    <div class="d-flex align-items-center">
-                        <div class="bg-white p-2 rounded-3 shadow-sm me-3"><i class="fas fa-bolt text-warning"></i></div>
-                        <span class="text-muted fw-bold small text-uppercase">Account Tier</span>
-                    </div>
-                    <span class="fw-bold">PRO PLAN</span>
-                </div>
-
-                <button type="button" class="btn btn-manage w-100 py-3 fw-bold border-0 mt-2" onclick="openModal()">
-                    <i class="fas fa-cog me-2"></i>MANAGE ACCOUNT
-                </button>
+    <div class="right-col">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div style="color: #3b82f6; margin-bottom: 15px;"><i class="fas fa-gem"></i></div>
+                <span class="stat-label">Academic Standing</span>
+                <span class="stat-value"><asp:Label ID="lblClassStat" runat="server" /></span>
+                <span class="stat-sub">Currently enrolled</span>
+            </div>
+            <div class="stat-card">
+                <div style="color: #ef4444; margin-bottom: 15px;"><i class="fas fa-bullseye"></i></div>
+                <span class="stat-label">Target Focus</span>
+                <span class="stat-value"><asp:Label ID="lblExamStat" runat="server" /></span>
+                <span class="stat-sub">Primary objective</span>
+            </div>
+            <div class="stat-card">
+                <div style="color: #8b5cf6; margin-bottom: 15px;"><i class="fas fa-layer-group"></i></div>
+                <span class="stat-label">Preparation Board</span>
+                <span class="stat-value"><asp:Label ID="lblBoardStat" runat="server" /></span>
+                <span class="stat-sub">Curriculum style</span>
+            </div>
+            <div class="stat-card">
+                <div style="color: #ec4899; margin-bottom: 15px;"><i class="fas fa-map-marker-alt"></i></div>
+                <span class="stat-label">Regional Sector</span>
+                <span class="stat-value"><asp:Label ID="lblCityStat" runat="server" /></span>
+                <span class="stat-sub">Location verified</span>
             </div>
         </div>
 
-        <div class="col-lg-7">
-            <div class="row g-4">
-                <div class="col-md-6">
-                    <div class="bento-card h-100 shadow-sm">
-                        <div class="bg-primary bg-opacity-10 rounded-3 p-2 d-inline-block mb-3">
-                            <i class="fas fa-gem text-primary"></i>
-                        </div>
-                        <p class="text-muted fw-bold small text-uppercase mb-1">Academic Standing</p>
-                        <h4 class="fw-bold"><asp:Label ID="lblClassStat" runat="server" /></h4>
-                        <small class="text-muted">Currently enrolled</small>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="bento-card h-100 shadow-sm">
-                        <div class="bg-danger bg-opacity-10 rounded-3 p-2 d-inline-block mb-3">
-                            <i class="fas fa-bullseye text-danger"></i>
-                        </div>
-                        <p class="text-muted fw-bold small text-uppercase mb-1">Target Focus</p>
-                        <h4 class="fw-bold"><asp:Label ID="lblExamStat" runat="server" /></h4>
-                        <small class="text-muted">Primary objective</small>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="bento-card h-100 shadow-sm">
-                        <div class="bg-warning bg-opacity-10 rounded-3 p-2 d-inline-block mb-3">
-                            <i class="fas fa-layer-group text-warning"></i>
-                        </div>
-                        <p class="text-muted fw-bold small text-uppercase mb-1">Preparation Board</p>
-                        <h4 class="fw-bold"><asp:Label ID="lblBoardStat" runat="server" /></h4>
-                        <small class="text-muted">Curriculum style</small>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="bento-card h-100 shadow-sm">
-                        <div class="bg-success bg-opacity-10 rounded-3 p-2 d-inline-block mb-3">
-                            <i class="fas fa-map-marker-alt text-success"></i>
-                        </div>
-                        <p class="text-muted fw-bold small text-uppercase mb-1">Regional Sector</p>
-                        <h4 class="fw-bold"><asp:Label ID="lblCityStat" runat="server" /></h4>
-                        <small class="text-muted">Location verified</small>
-                    </div>
-                </div>
-
-                <div class="col-12 mt-6">
-                    <div class="ai-card p-8 shadow-lg">
-                        <span class="badge bg-white bg-opacity-10 text-white rounded-pill px-3 py-2 mb-4 fw-bold">AI INSIGHT</span>
-                        <h2 class="fw-bold mb-4">Ready to accelerate your <asp:Label ID="lblExamInsight" runat="server" /> preparation?</h2>
-                        <p class="text-secondary fs-5 mb-5 opacity-75">
-                            Our algorithm has mapped out your next 4 weeks. Complete your profile details to unlock the full curriculum analysis.
-                        </p>
-                        <div class="d-flex gap-4">
-                            <button type="button" class="btn btn-white bg-white text-dark fw-bold px-3 py-2 rounded-pill" onclick="openModal()">COMPLETE PROFILE</button>
-                            <button type="button" class="btn btn-outline-light px-3 py-2 rounded-pill opacity-40" onclick="alert('Analysis skipped')">SKIP FOR NOW</button>
-                        </div>
-                    </div>
-                </div>
+        <div class="ai-card">
+            <span class="ai-badge">AI INSIGHT</span>
+            <h2 style="font-weight: 700; margin: 20px 0;">Ready to accelerate your <asp:Label ID="lblExamInsight" runat="server" /> preparation?</h2>
+            <p style="opacity: 0.7; margin-bottom: 30px; font-weight: 400;">
+                Our algorithm has mapped out your next 4 weeks. Complete your profile details to unlock the full curriculum analysis.
+            </p>
+            <div class="d-flex">
+                <button type="button" class="btn-white" onclick="openModal()">COMPLETE PROFILE</button>
+                <button type="button" class="btn-outline" onclick="alert('Analysis skipped')">SKIP FOR NOW</button>
             </div>
         </div>
     </div>
