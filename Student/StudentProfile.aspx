@@ -113,7 +113,7 @@
 
 .ai-card h2 {
     font-size: 2rem;
-    margin: 15px 0;
+    margin: 12px 0;
 }
 
     .stat-card:hover { transform: translateY(-5px); }
@@ -131,7 +131,7 @@
         overflow: hidden;
     }
 */
-    .ai-badge { background: rgba(255,255,255,0.1); padding: 5px 12px; border-radius: 20px; font-size: 10px; font-weight: 800; 
+    .ai-badge { background: rgba(255,255,255,0.1); padding: 6px 10px; border-radius: 20px; font-size: 10px; font-weight: 800; 
                 padding-bottom:12px;
 
     }
@@ -140,8 +140,8 @@
     .btn-manage { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px; font-size: 12px; font-weight: 700; cursor: pointer; width: 100%; transition: 0.3s; }
     .btn-manage:hover { background: #f1f5f9; }
 
-    .btn-white { background: white; color: black; border-radius: 12px; padding: 12px 25px; border: none; font-weight: 700; }
-    .btn-outline { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 12px; padding: 12px 25px; font-weight: 600; margin-left: 10px; }
+    .btn-white { background: white; color: black; border-radius: 16px; padding: 12px 24px; border: none; font-size:12px; font-weight: 700; }
+    .btn-outline { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 16px; padding: 12px 24px; font-weight: 600; font-size:12px; margin-left: 10px; }
 
 
         /* Full Screen Modal */
