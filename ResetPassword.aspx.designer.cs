@@ -24,6 +24,15 @@ namespace StudyIsleWeb
         protected global::System.Web.UI.WebControls.TextBox txtNewPassword;
 
         /// <summary>
+        /// rfvNewPass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvNewPass;
+
+        /// <summary>
         /// txtConfirmPassword control.
         /// </summary>
         /// <remarks>
@@ -33,13 +42,31 @@ namespace StudyIsleWeb
         protected global::System.Web.UI.WebControls.TextBox txtConfirmPassword;
 
         /// <summary>
+        /// rfvConfirmPass control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvConfirmPass;
+
+        /// <summary>
+        /// cvPasswords control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cvPasswords;
+
+        /// <summary>
         /// btnResetPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnResetPassword;
+        protected global::System.Web.UI.WebControls.LinkButton btnResetPassword;
 
         /// <summary>
         /// lblMessage control.
