@@ -673,7 +673,10 @@
             console.log("SAVE RESPONSE:", data);
 
             if (data.d === "success") {
-                alert("Content Saved!");
+
+                alert("Content Saved Successfully!");
+
+                window.location.href = "ManageBlogContent.aspx";
             } else {
                 alert("Error: " + data.d);
             }
