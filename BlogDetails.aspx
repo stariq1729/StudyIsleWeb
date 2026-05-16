@@ -5,10 +5,114 @@
 <style>
 
 .container-blog {
-    max-width: 1200px;
+    max-width: 1150px;
     margin: auto;
+    padding-left: 32px;
+    padding-right: 32px;
+}
+/* =========================
+   BLOG HEADER
+========================= */
+
+.blog-top-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
 }
 
+.blog-category {
+    background: #eef2ff;
+    color: #4f46e5;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+.meta-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #9ca3af;
+}
+
+.blog-readtime {
+    font-size: 12px;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+/* TITLE */
+
+.blog-main-title {
+    font-size: 3rem;
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: -2px;
+    color: #0f172a;
+    margin-bottom: 2rem;
+    max-width: 920px;
+}
+
+/* AUTHOR SECTION */
+
+.blog-author-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 1rem;
+}
+
+.author-left {
+    display: flex;
+    align-items: center;
+}
+
+.author-image {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.author-info {
+    margin-left: 14px;
+}
+
+.author-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.author-meta {
+    margin-top: 4px;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.share-button {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.25s ease;
+    color: #6b7280;
+}
+
+.share-button:hover {
+    background: #f8fafc;
+    color: #111827;
+}
 /* HEADER */
 .blog-header h1 {
     font-size: 30px;
@@ -55,10 +159,36 @@ font-weight:400;
 }
 
 /* IMAGE */
-.blog-image {
+/* =========================
+   COVER IMAGE
+========================= */
+
+.blog-cover-wrapper {
     width: 100%;
-    border-radius: 12px;
-    margin: 20px 0;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 24px;
+    margin-bottom: 40px;
+    background: #f3f4f6;
+}
+
+.blog-cover-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* =========================
+   CONTENT IMAGES
+========================= */
+
+.blog-content-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 18px;
+    margin: 30px 0;
+    display: block;
 }
 
 /* SECTION */
@@ -185,7 +315,7 @@ font-weight:400;
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-<div class="container mt-4">
+<div class="container-blog mt-5">
 
     <div class="row">
 
@@ -209,24 +339,73 @@ font-weight:400;
 
         <!-- 🔷 RIGHT SIDE (MAIN CONTENT) -->
         <div class="col-md-9">
+            <!-- 🔥 TOP META -->
+<div class="blog-top-meta">
 
+    <div class="blog-category">
+        <asp:Literal ID="litCategory" runat="server"></asp:Literal>
+    </div>
+
+    <div class="meta-dot"></div>
+
+    <div class="blog-readtime">
+        <asp:Literal ID="litReadTime" runat="server"></asp:Literal> min read
+    </div>
+
+</div>
             <!-- 🔥 TITLE -->
-            <h1 id="mainTitle" class="fw-bold mb-3">
+            <h1 id="mainTitle" class="blog-main-title">
     <asp:Literal ID="litTitle" runat="server"></asp:Literal>
 </h1>
 
             <!-- 🔥 AUTHOR -->
-           <div class="d-flex align-items-center mb-4">
+          <!-- 🔥 AUTHOR SECTION -->
+<div class="blog-author-row">
 
-    <!-- 🔥 AUTHOR IMAGE (UPDATED) -->
-    <img id="imgAuthor" runat="server"
-         style="width:40px; height:40px; border-radius:50%; object-fit:cover;" />
+    <!-- LEFT -->
+    <div class="author-left">
 
-    <div class="ms-2">
-        <strong><asp:Literal ID="litAuthor" runat="server"></asp:Literal></strong><br />
-        <small class="text-muted">
-            <asp:Literal ID="litDate" runat="server"></asp:Literal>
-        </small>
+        <!-- IMAGE -->
+        <img id="imgAuthor" runat="server"
+             class="author-image" />
+
+        <!-- INFO -->
+        <div class="author-info">
+
+            <div class="author-name">
+                <asp:Literal ID="litAuthor" runat="server"></asp:Literal>
+            </div>
+
+            <div class="author-meta">
+
+                <asp:Literal ID="litDate" runat="server"></asp:Literal>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT SHARE -->
+    <div class="share-button" onclick="shareBlog()">
+
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="20"
+             height="20"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+             viewBox="0 0 24 24">
+
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+
+            <path d="M8.59 13.51L15.42 17.49"></path>
+            <path d="M15.41 6.51L8.59 10.49"></path>
+
+        </svg>
+
     </div>
 
 </div>
@@ -268,6 +447,23 @@ font-weight:400;
             });
 
             el.classList.toggle("active");
+        }
+
+        function shareBlog() {
+
+            if (navigator.share) {
+
+                navigator.share({
+                    title: document.title,
+                    url: window.location.href
+                });
+
+            } else {
+
+                navigator.clipboard.writeText(window.location.href);
+                alert("Blog link copied!");
+
+            }
         }
     </script>
 </asp:Content>

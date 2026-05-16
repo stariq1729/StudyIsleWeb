@@ -72,7 +72,17 @@ namespace StudyIsleWeb
         {
             using (SqlConnection con = new SqlConnection(connStr))
             {
-                string query = "SELECT AuthorName, AuthorImage, CreatedDate FROM Blogs WHERE BlogId=@BlogId";
+                string query = @"
+SELECT 
+    b.AuthorName,
+    b.AuthorImage,
+    b.CreatedDate,
+    b.ReadTime,
+    c.CategoryName
+FROM Blogs b
+LEFT JOIN BlogCategories c 
+    ON b.CategoryId = c.CategoryId
+WHERE b.BlogId=@BlogId";
 
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@BlogId", blogId);
@@ -84,7 +94,8 @@ namespace StudyIsleWeb
                 {
                     litAuthor.Text = dr["AuthorName"].ToString();
                     litDate.Text = Convert.ToDateTime(dr["CreatedDate"]).ToString("MMM dd, yyyy");
-
+                    litCategory.Text = dr["CategoryName"].ToString();
+                    litReadTime.Text = dr["ReadTime"].ToString();
                     // 🔥 NEW: set author image
                     string authorImage = dr["AuthorImage"] == DBNull.Value ? "" : dr["AuthorImage"].ToString();
 
@@ -118,7 +129,7 @@ namespace StudyIsleWeb
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 int index = 0;
-
+                bool firstImageRendered = false;
                 while (dr.Read())
                 {
                     string type = dr["BlockType"].ToString().Trim().ToLower();
@@ -158,7 +169,25 @@ namespace StudyIsleWeb
                             break;
 
                         case "image":
-                            html += $"<img src='{content}' class='blog-image'/>";
+
+                            // 🔥 FIRST IMAGE = COVER IMAGE
+                            if (!firstImageRendered)
+                            {
+                                html += $@"
+        <div class='blog-cover-wrapper'>
+            <img src='{content}' class='blog-cover-image'/>
+        </div>";
+
+                                firstImageRendered = true;
+                            }
+
+                            // 🔹 NORMAL CONTENT IMAGES
+                            else
+                            {
+                                html += $@"
+        <img src='{content}' class='blog-content-image'/>";
+                            }
+
                             break;
 
                         case "divider":
