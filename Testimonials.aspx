@@ -480,6 +480,104 @@
         </div>
         
 <div class="stories-grid">
+     <!-- Video Card 5 -->
+ <div class="story-card"
+     onclick="openStory(
+         'Jahnavi Sinha',
+         'StudyIsle',
+         '/Uploads/Videos/Jahnavi%20Sinha.mp4'
+     )">
+
+     <video class="story-preview-video"
+            muted
+            
+            loop
+            playsinline>
+
+         <source src="/Uploads/Videos/Jahnavi%20Sinha.mp4"
+                 type="video/mp4">
+
+     </video>
+
+     <div class="story-overlay">
+
+         <img src="/Uploads/Students/Testimonials/Jahnavi.PNG"
+              alt="Jahnavi"
+              class="user-avatar-small">
+
+         <div class="user-info">
+             <span class="user-name">Jahnavi Sinha</span>
+             <span class="user-role">StudyIsle</span>
+         </div>
+
+     </div>
+ </div>
+
+ <!-- Video Card 6 -->
+ <div class="story-card"
+     onclick="openStory(
+         'Sagarika Singh',
+         'StudyIsle',
+         '/Uploads/Videos/Sagarika%20Singh.mp4'
+     )">
+
+     <video class="story-preview-video"
+            muted
+            
+            loop
+            playsinline>
+
+         <source src="/Uploads/Videos/Sagarika%20Singh.mp4"
+                 type="video/mp4">
+
+     </video>
+
+     <div class="story-overlay">
+
+         <img src="/Uploads/Students/Testimonials/Sagarika.PNG"
+              alt="Sagarika"
+              class="user-avatar-small">
+
+         <div class="user-info">
+             <span class="user-name">Sagarika Singh</span>
+             <span class="user-role">StudyIsle</span>
+         </div>
+
+     </div>
+ </div>
+
+ <!-- Video Card 7 -->
+ <div class="story-card"
+     onclick="openStory(
+         'Sambhavi Sinha',
+         'StudyIsle',
+         '/Uploads/Videos/Sambhavi%20Sinha.mp4'
+     )">
+
+     <video class="story-preview-video"
+            muted
+            
+            loop
+            playsinline>
+
+         <source src="/Uploads/Videos/Sambhavi%20Sinha.mp4"
+                 type="video/mp4">
+
+     </video>
+
+     <div class="story-overlay">
+
+         <img src="/Uploads/Students/Testimonials/Sambhavi.PNG"
+              alt="Sambhavi"
+              class="user-avatar-small">
+
+         <div class="user-info">
+             <span class="user-name">Sambhavi Sinha</span>
+             <span class="user-role">StudyIsle</span>
+         </div>
+
+     </div>
+ </div>
 
     <!-- Video Card 1 -->
     <div class="story-card"
@@ -613,104 +711,7 @@
         </div>
     </div>
 
-    <!-- Video Card 5 -->
-    <div class="story-card"
-        onclick="openStory(
-            'Jahnavi Sinha',
-            'StudyIsle',
-            '/Uploads/Videos/Jahnavi%20Sinha.mp4'
-        )">
-
-        <video class="story-preview-video"
-               muted
-               
-               loop
-               playsinline>
-
-            <source src="/Uploads/Videos/Jahnavi%20Sinha.mp4"
-                    type="video/mp4">
-
-        </video>
-
-        <div class="story-overlay">
-
-            <img src="/Uploads/Students/Testimonials/Jahnavi.PNG"
-                 alt="Jahnavi"
-                 class="user-avatar-small">
-
-            <div class="user-info">
-                <span class="user-name">Jahnavi Sinha</span>
-                <span class="user-role">StudyIsle</span>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Video Card 6 -->
-    <div class="story-card"
-        onclick="openStory(
-            'Sagarika Singh',
-            'StudyIsle',
-            '/Uploads/Videos/Sagarika%20Singh.mp4'
-        )">
-
-        <video class="story-preview-video"
-               muted
-               
-               loop
-               playsinline>
-
-            <source src="/Uploads/Videos/Sagarika%20Singh.mp4"
-                    type="video/mp4">
-
-        </video>
-
-        <div class="story-overlay">
-
-            <img src="/Uploads/Students/Testimonials/Sagarika.PNG"
-                 alt="Sagarika"
-                 class="user-avatar-small">
-
-            <div class="user-info">
-                <span class="user-name">Sagarika Singh</span>
-                <span class="user-role">StudyIsle</span>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Video Card 7 -->
-    <div class="story-card"
-        onclick="openStory(
-            'Sambhavi Sinha',
-            'StudyIsle',
-            '/Uploads/Videos/Sambhavi%20Sinha.mp4'
-        )">
-
-        <video class="story-preview-video"
-               muted
-               
-               loop
-               playsinline>
-
-            <source src="/Uploads/Videos/Sambhavi%20Sinha.mp4"
-                    type="video/mp4">
-
-        </video>
-
-        <div class="story-overlay">
-
-            <img src="/Uploads/Students/Testimonials/Sambhavi.PNG"
-                 alt="Sambhavi"
-                 class="user-avatar-small">
-
-            <div class="user-info">
-                <span class="user-name">Sambhavi Sinha</span>
-                <span class="user-role">StudyIsle</span>
-            </div>
-
-        </div>
-    </div>
+   
 
             <!-- Apply Today Card -->
             <div class="story-card apply-card">
