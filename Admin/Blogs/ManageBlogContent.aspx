@@ -29,6 +29,10 @@
             <asp:BoundField DataField="CategoryName" HeaderText="Category" />
 
             <asp:BoundField DataField="AuthorName" HeaderText="Author" />
+            <asp:BoundField 
+    DataField="CreatedDate" 
+    HeaderText="Created Date" 
+    DataFormatString="{0:dd MMM yyyy}" />
 
            <%-- Content Status -->--%>
             <asp:TemplateField HeaderText="Content">

@@ -23,19 +23,44 @@ namespace StudyIsleWeb.Admin.Blogs
             using (SqlConnection con = new SqlConnection(connStr))
             {
                 string query = @"
-                    SELECT 
-                        b.BlogId,
-                        b.Title,
-                        b.AuthorName,
-                        b.IsActive,
-                        c.CategoryName,
-                        COUNT(bb.BlockId) AS BlockCount
-                    FROM Blogs b
-                    INNER JOIN BlogCategories c ON b.CategoryId = c.CategoryId
-                    LEFT JOIN BlogBlocks bb ON b.BlogId = bb.BlogId
-                    GROUP BY 
-                        b.BlogId, b.Title, b.AuthorName, b.IsActive, c.CategoryName
-                    ORDER BY MAX(b.CreatedDate) DESC";
+SELECT 
+    b.BlogId,
+
+    ISNULL(
+    (
+        SELECT TOP 1 bb2.Content
+        FROM BlogBlocks bb2
+        WHERE bb2.BlogId = b.BlogId
+        AND bb2.BlockType = 'h1'
+        ORDER BY bb2.DisplayOrder
+    ),
+    'No Title'
+) AS Title,
+
+    b.AuthorName,
+    b.IsActive,
+    b.CreatedDate,
+
+    c.CategoryName,
+
+    COUNT(bb.BlockId) AS BlockCount
+
+FROM Blogs b
+
+INNER JOIN BlogCategories c 
+    ON b.CategoryId = c.CategoryId
+
+LEFT JOIN BlogBlocks bb 
+    ON b.BlogId = bb.BlogId
+
+GROUP BY 
+    b.BlogId,
+    b.AuthorName,
+    b.IsActive,
+    b.CreatedDate,
+    c.CategoryName
+
+ORDER BY b.CreatedDate DESC";
 
                 SqlDataAdapter da = new SqlDataAdapter(query, con);
                 DataTable dt = new DataTable();
