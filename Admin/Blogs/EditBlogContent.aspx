@@ -17,14 +17,27 @@
 
     <h3>Edit Blog Content</h3>
 
-    <!-- Add Block Button -->
-  <button type="button" onclick="openBlockMenu(event)" class="btn btn-primary">+ Add Block</button>
+    <!-- Sticky Action Bar -->
+    <div class="sticky-toolbar d-flex gap-2 mb-3">
+
+        <!-- Add Block -->
+        <button type="button"
+            onclick="openBlockMenu(event)"
+            class="btn btn-primary">
+            + Add Block
+        </button>
+
+        <!-- Save -->
+        <button type="button"
+            class="btn btn-success"
+            onclick="saveBlocks()">
+            Save Content
+        </button>
+
+    </div>
 
     <!-- Block Container -->
     <div id="blockContainer"></div>
-
-    <!-- Save -->
-    <button type="button" class="btn btn-success mt-3" onclick="saveBlocks()">Save Content</button>
 
 </div>
 
@@ -47,6 +60,13 @@
 .block-option { padding:8px; cursor:pointer; }
 .block-option:hover { background:#f1f1f1; }
 .block { border:1px solid #ddd; padding:15px; margin-bottom:10px; }
+.sticky-toolbar{
+    position: sticky;
+    top: 10px;
+    z-index: 999;
+    background: #47545f;
+    padding: 12px 6px;
+}
 </style>
 
 <script>
