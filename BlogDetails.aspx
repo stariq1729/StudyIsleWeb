@@ -204,7 +204,7 @@ font-weight:400;
 .section-block {
     background: #4f46e5;
     padding: 25px;
-    border-radius: 12px;
+    border-radius: 16px;
     margin: 30px 0;
     color: #fff;
 }
@@ -213,7 +213,7 @@ font-weight:400;
     background: #f5efe4;
     padding: 20px;
     border-radius: 12px;
-    margin: 25px 0;
+    margin: 35px 0;
     border-left: 4px solid #c89b3c;
 }
 
@@ -233,7 +233,7 @@ font-weight:400;
 }
 
 .note-desc {
-    font-size: 13px;
+    font-size: 12px;
     color: #444;
 }
 /* HTML BLOCK */
