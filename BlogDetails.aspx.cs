@@ -197,7 +197,7 @@ WHERE b.BlogId=@BlogId";
                         case "section":
                             html += $@"
                             <div class='section-block'>
-                                <h4 style='font-weight:600; margin-bottom:8px;'>{content}</h4>
+                                <h4 style='font-weight:600; font-color:#ffff; margin-bottom:8px;'>{content}</h4>
                                 <p style='margin:0;'>{extra}</p>
                             </div>";
                             break;

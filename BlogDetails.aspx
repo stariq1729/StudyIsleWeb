@@ -11,6 +11,13 @@
     padding-right: 32px;
 }
 /* =========================
+   CONTENT WIDTH CONTROL
+========================= */
+
+.blog-content-wrapper {
+    max-width: 860px;
+}
+/* =========================
    BLOG HEADER
 ========================= */
 
@@ -170,6 +177,7 @@ font-weight:400;
     border-radius: 24px;
     margin-bottom: 40px;
     background: #f3f4f6;
+    position: relative;
 }
 
 .blog-cover-image {
@@ -189,15 +197,16 @@ font-weight:400;
     border-radius: 18px;
     margin: 30px 0;
     display: block;
+    object-fit: contain;
 }
 
 /* SECTION */
 .section-block {
-    background: #f5f7fb;
+    background: #4f46e5;
     padding: 25px;
     border-radius: 12px;
     margin: 30px 0;
-    color: #6b7280;
+    color: #fff;
 }
 /* Note Section */
 .note-block {
@@ -338,7 +347,10 @@ font-weight:400;
         </div>
 
         <!-- 🔷 RIGHT SIDE (MAIN CONTENT) -->
-        <div class="col-md-9">
+        <!-- 🔷 RIGHT SIDE (MAIN CONTENT) -->
+<div class="col-md-9">
+
+    <div class="blog-content-wrapper">
             <!-- 🔥 TOP META -->
 <div class="blog-top-meta">
 
@@ -415,7 +427,9 @@ font-weight:400;
             <!-- 🔥 BLOG CONTENT -->
             <asp:PlaceHolder ID="phContent" runat="server"></asp:PlaceHolder>
 
-        </div>
+    </div>
+
+</div>
 
     </div>
 
