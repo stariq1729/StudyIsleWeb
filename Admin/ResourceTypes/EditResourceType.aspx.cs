@@ -54,6 +54,7 @@ namespace StudyIsleWeb.Admin.ResourceTypes
 
                         txtName.Text = rdr["TypeName"].ToString();
                         txtSlug.Text = rdr["Slug"].ToString();
+                        txtDescription.Text = rdr["Description"].ToString();
                         imgCurrentIcon.ImageUrl = "/Uploads/Icons/" + rdr["IconImage"].ToString();
                         // Use the 'as' keyword or a null check to safely cast
                         chkHasClass.Checked = (rdr["HasClass"] as bool?) ?? false;
@@ -104,13 +105,23 @@ namespace StudyIsleWeb.Admin.ResourceTypes
                     }
 
                     // 1. Update Resource Type
-                    string sql = $@"UPDATE ResourceTypes SET TypeName=@Name, Slug=@Slug, HasClass=@C, 
-                                   HasSubject=@S, HasChapter=@Ch, HasSubCategory=@Sc, HasYear=@Y, 
-                                   HasSets=@St {iconUpdateQuery} WHERE ResourceTypeId=@ID";
+                    string sql = $@"UPDATE ResourceTypes 
+                SET TypeName=@Name, 
+                    Slug=@Slug,
+                    Description=@Description,
+                    HasClass=@C, 
+                    HasSubject=@S, 
+                    HasChapter=@Ch, 
+                    HasSubCategory=@Sc, 
+                    HasYear=@Y, 
+                    HasSets=@St 
+                    {iconUpdateQuery}
+                WHERE ResourceTypeId=@ID";
 
                     SqlCommand cmd = new SqlCommand(sql, con, trans);
                     cmd.Parameters.AddWithValue("@Name", txtName.Text);
                     cmd.Parameters.AddWithValue("@Slug", txtSlug.Text);
+                    cmd.Parameters.AddWithValue("@Description", txtDescription.Text.Trim());
                     cmd.Parameters.AddWithValue("@C", chkHasClass.Checked);
                     cmd.Parameters.AddWithValue("@S", chkHasSubject.Checked);
                     cmd.Parameters.AddWithValue("@Ch", chkHasChapter.Checked);

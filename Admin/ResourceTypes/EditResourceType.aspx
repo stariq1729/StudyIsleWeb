@@ -19,6 +19,22 @@
                         <asp:TextBox ID="txtSlug" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                     <div class="mb-3">
+    <label class="form-label fw-bold">Description</label>
+
+    <asp:TextBox 
+        ID="txtDescription" 
+        runat="server" 
+        CssClass="form-control"
+        TextMode="MultiLine"
+        Rows="4"
+        placeholder="Enter resource type description">
+    </asp:TextBox>
+
+    <small class="text-muted">
+        Short explanation about this resource type.
+    </small>
+</div>
+                    <div class="mb-3">
                         <label class="form-label fw-bold">Current Icon</label>
                         <div class="d-flex align-items-center gap-3 bg-light p-2 rounded border">
                             <asp:Image ID="imgCurrentIcon" runat="server" Width="50px" Height="50px" CssClass="img-thumbnail" />
