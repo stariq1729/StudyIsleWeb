@@ -129,7 +129,7 @@
             display: block;
         }
 
-        .card-title { 
+        .resource-card-title { 
             font-size: 1.25rem; 
             font-weight: 700; 
             color: var(--text-title); 
@@ -191,7 +191,7 @@
                                 <div class="card-icon-wrap">
                                     <img src='<%# "/Uploads/ResourceIcons/" + Eval("IconImage") %>' alt="Resource Icon" />
                                 </div>
-                                <h3 class="card-title"><%# Eval("TypeName") %></h3>
+                                <h3 class="resource-card-title"><%# Eval("TypeName") %></h3>
                                 <p class="card-body-text"><%# Eval("Description") %></p>
                                 <div class="card-footer-link">
                                     Explore <%# Eval("TypeName") %> <i class="fas fa-arrow-right"></i>
