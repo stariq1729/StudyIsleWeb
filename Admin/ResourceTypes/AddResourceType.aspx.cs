@@ -113,16 +113,18 @@ namespace StudyIsleWeb.Admin.ResourceTypes
                 {
                     // 1. Insert the Resource Type with Flow Toggles
                     string resQuery = @"INSERT INTO ResourceTypes 
-                        (TypeName, Slug, IconImage, IsPremium, IsActive, DisplayOrder, 
-                         HasClass, HasSubject, HasChapter, HasSubCategory, HasYear, HasSets, CreatedAt) 
-                        VALUES 
-                        (@TypeName, @Slug, @IconImage, @IsPremium, @IsActive, @DisplayOrder, 
-                         @HasClass, @HasSubject, @HasChapter, @HasSubCategory, @HasYear, @HasSets, GETDATE());
-                        SELECT SCOPE_IDENTITY();";
+    (TypeName, Slug, Description, IconImage, IsPremium, IsActive, DisplayOrder, 
+     HasClass, HasSubject, HasChapter, HasSubCategory, HasYear, HasSets, CreatedAt) 
+    VALUES 
+    (@TypeName, @Slug, @Description, @IconImage, @IsPremium, @IsActive, @DisplayOrder, 
+     @HasClass, @HasSubject, @HasChapter, @HasSubCategory, @HasYear, @HasSets, GETDATE());
+
+    SELECT SCOPE_IDENTITY();";
 
                     SqlCommand cmd = new SqlCommand(resQuery, con, trans);
                     cmd.Parameters.AddWithValue("@TypeName", txtName.Text.Trim());
                     cmd.Parameters.AddWithValue("@Slug", txtSlug.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Description", txtDescription.Text.Trim());
                     cmd.Parameters.AddWithValue("@IconImage", iconFileName);
                     cmd.Parameters.AddWithValue("@IsPremium", chkIsPremium.Checked);
                     cmd.Parameters.AddWithValue("@IsActive", chkIsActive.Checked);

@@ -20,6 +20,21 @@
                         <asp:TextBox ID="txtSlug" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                     <div class="mb-3">
+    <label class="form-label fw-bold">Description</label>
+    <asp:TextBox 
+        ID="txtDescription" 
+        runat="server" 
+        CssClass="form-control"
+        TextMode="MultiLine"
+        Rows="4"
+        placeholder="Enter resource type description">
+    </asp:TextBox>
+
+    <small class="text-muted">
+        Short explanation about this resource type.
+    </small>
+</div>
+                    <div class="mb-3">
                         <label class="form-label fw-bold">Icon Image</label>
                         <asp:FileUpload ID="fuIcon" runat="server" CssClass="form-control mb-1" />
                         <small class="text-muted">Upload PNG/SVG for the frontend UI.</small>

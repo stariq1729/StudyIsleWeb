@@ -842,6 +842,7 @@
   <ItemGroup>
     <Folder Include="Uploads\Flashcards\" />
     <Folder Include="Uploads\Gallery\" />
+    <Folder Include="Uploads\NewFolder1\" />
     <Folder Include="Uploads\Resumes\" />
     <Folder Include="Uploads\Students\ToppersClass12\" />
   </ItemGroup>
