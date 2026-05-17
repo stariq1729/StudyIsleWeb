@@ -37,11 +37,20 @@
                             </asp:TemplateField>
 
                             <asp:TemplateField HeaderText="Resource Info">
-                                <ItemTemplate>
-                                    <div class="fw-bold text-dark"><%# Eval("TypeName") %></div>
-                                    <small class="text-muted"><%# Eval("Slug") %></small>
-                                </ItemTemplate>
-                            </asp:TemplateField>
+    <ItemTemplate>
+        <div class="fw-bold text-dark">
+            <%# Eval("TypeName") %>
+        </div>
+
+        <small class="text-muted d-block">
+            <%# Eval("Slug") %>
+        </small>
+
+        <small class="text-secondary d-block mt-1">
+            <%# Eval("Description") %>
+        </small>
+    </ItemTemplate>
+</asp:TemplateField>
 
                             <asp:TemplateField HeaderText="Linked Boards">
                                 <ItemTemplate>
