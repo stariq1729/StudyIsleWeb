@@ -152,7 +152,7 @@
             -webkit-line-clamp: 3; 
             -webkit-box-orient: vertical;  
             overflow: hidden;
-            height: 3.9em; /* Ensures fixed spacing even for short text */
+            height: 3.em; /* Ensures fixed spacing even for short text */
         }
 
         .card-footer-link { 
