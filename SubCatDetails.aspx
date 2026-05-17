@@ -117,6 +117,10 @@
     /* Theme 5 (Red) */
     .theme-5 .icon-box { background: #dc2626; }
     .theme-5::after { background: linear-gradient(135deg, rgba(220, 38, 38, 0.1) 0%, rgba(248, 113, 113, 0.05) 100%); }
+
+    .text-subtitle{
+        font : red !important;
+    }
 </style>
 </asp:Content>
 
@@ -124,7 +128,7 @@
     <div class="subcat-header">
         <div class="container">
             <h1 class="fw-bold"><asp:Literal ID="litTitle" runat="server" /></h1>
-            <p class="text-muted"><asp:Literal ID="litSubtitle" runat="server" /></p>
+            <p class="text-muted text-subtitle"><asp:Literal ID="litSubtitle" runat="server" /></p>
         </div>
     </div>
 
