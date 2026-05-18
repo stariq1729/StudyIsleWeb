@@ -8,22 +8,24 @@
     <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
 
     <style>
-        .resource-card {
+                .resource-card {
             background: #fff;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 16px;
-            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 18px 20px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            transition: 0.3s;
+            cursor: pointer;
         }
 
-        .resource-card:hover {
-            border-color: #6366f1;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
+.resource-card:hover {
+    border-color: #6366f1;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
 
         .icon-box {
             width: 50px;
@@ -39,72 +41,65 @@
         .bg-pdf { background: #fee2e2; color: #dc2626; }
         .bg-image { background: #fef9c3; color: #854d0e; }
         .bg-default { background: #f3f4f6; color: #374151; }
+        .resource-number {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: 12px;
+    background: #eef2ff;
+    color: #4f46e5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-right: 18px;
+}
 
+.resource-right-icon {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: 10px;
+    background: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+}
+
+.resource-card-inner {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.resource-left {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+}
+
+.res-info h5 {
+    margin: 0;
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 1rem;
+}
+
+.res-info p {
+    margin: 4px 0 0;
+    font-size: 0.87rem;
+    color: #64748b;
+}
         .res-info h5 { margin: 0; font-weight: 700; color: #111827; }
         .res-info p { margin: 0; font-size: 0.9rem; color: #6b7280; }
 
         /* Viewer Styles */
-        .viewer-container {
-            display: none;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 30px;
-        }
-
-        .viewer-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .viewer-frame {
-            width: 100%;
-            height: 600px;
-            border: none;
-            border-radius: 8px;
-            background: #f1f5f9;
-        }
-
-        .zoom-container {
-            width: 100%;
-            height: 600px;
-            overflow: hidden;
-            background: #000;
-            position: relative;
-            touch-action: none;
-        }
-
-        .zoom-container img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            max-width: none;
-            max-height: none;
-            transform-origin: 0 0;
-            user-select: none;
-            -webkit-user-drag: none;
-            cursor: grab;
-        }
-
-        .zoom-container img:active {
-            cursor: grabbing;
-        }
-        .viewer-container:fullscreen {
-    width: 100vw;
-    height: 100vh;
-    background: #000;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.viewer-container:fullscreen .viewer-frame,
-.viewer-container:fullscreen .zoom-container {
-    width: 100%;
-    height: 92vh;
-}
+        
 
 
         @media (max-width: 768px) {
@@ -114,103 +109,6 @@
             }
         }
     </style>
-
-    <script>
-        let panzoomInstance = null;
-
-        function getCleanFileName(path) {
-            let file = path.split('/').pop();
-            return file.substring(0, file.lastIndexOf('.')) || file;
-        }
-
-        function openResource(filePath, contentType) {
-            const viewer = document.getElementById("resourceViewer");
-            const pdfViewer = document.getElementById("pdfViewer");
-            const imageViewer = document.getElementById("imageViewer");
-            const zoomImage = document.getElementById("zoomImage");
-            const viewerTitle = document.getElementById("viewerTitle");
-
-            viewer.style.display = "block";
-            pdfViewer.style.display = "none";
-            imageViewer.style.display = "none";
-
-            pdfViewer.src = "";
-            zoomImage.src = "";
-
-            if (panzoomInstance) {
-                panzoomInstance.destroy();
-                panzoomInstance = null;
-            }
-
-            const type = contentType.toLowerCase();
-            viewerTitle.innerText = getCleanFileName(filePath);
-
-            if (type.includes("pdf")) {
-                pdfViewer.style.display = "block";
-                pdfViewer.src = filePath + "#toolbar=0&navpanes=0&scrollbar=0";
-            }
-            else if (type.includes("image") || type.includes("mindmap")) {
-                imageViewer.style.display = "block";
-                zoomImage.src = filePath;
-
-                zoomImage.onload = function () {
-                    panzoomInstance = Panzoom(zoomImage, {
-                        maxScale: 8,
-                        minScale: 0.3,
-                        contain: "outside",
-                        cursor: "grab"
-                    });
-
-                    imageViewer.addEventListener(
-                        "wheel",
-                        panzoomInstance.zoomWithWheel,
-                        { passive: false }
-                    );
-                };
-            }
-            else {
-                pdfViewer.style.display = "block";
-                pdfViewer.src = filePath;
-            }
-
-            viewer.scrollIntoView({ behavior: "smooth" });
-            return false;
-        }
-
-        function closeViewer() {
-            document.getElementById("resourceViewer").style.display = "none";
-            document.getElementById("pdfViewer").src = "";
-            document.getElementById("zoomImage").src = "";
-
-            if (panzoomInstance) {
-                panzoomInstance.destroy();
-                panzoomInstance = null;
-            }
-        }
-
-        function toggleFullscreen() {
-            const viewer = document.getElementById("resourceViewer");
-
-            if (!document.fullscreenElement) {
-                if (viewer.requestFullscreen) {
-                    viewer.requestFullscreen();
-                } else if (viewer.webkitRequestFullscreen) { // Safari
-                    viewer.webkitRequestFullscreen();
-                } else if (viewer.msRequestFullscreen) { // IE/Edge
-                    viewer.msRequestFullscreen();
-                }
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen();
-                }
-            }
-        }
-    </script>
-
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -221,49 +119,48 @@
 
                <asp:Repeater ID="rptResources" runat="server" OnItemCommand="rptResources_ItemCommand">
                     <ItemTemplate>
-                        <div class="resource-card">
-                            <div class="d-flex align-items-center">
-                                <div class='<%# "icon-box " + GetStatusClass(Eval("ContentType").ToString()) %>'>
-                                    <i class='<%# GetIcon(Eval("ContentType").ToString()) %>'></i>
-                                </div>
-                                <div class="res-info">
-                                    <h5><%# Eval("Title") %></h5>
-                                    <p><%# Eval("Description") %></p>
-                                    <small class="text-muted">
-                                        <%# Eval("CreatedAt", "{0:MMM dd, yyyy}") %>
-                                    </small>
-                                </div>
-                            </div>
-                            <div class="d-flex gap-2">
 
-    <!-- Open Button (UNCHANGED) -->
-    <a href="#"
-       class="btn btn-primary rounded-pill px-4"
-       onclick="return openResource('<%# ResolveUrl(Eval("FilePath").ToString()).Replace("'", "\\'") %>',
-       '<%# Eval("ContentType").ToString().Replace("'", "\\'") %>');">
-        <i class="fas fa-eye me-2"></i>Open
-    </a>
+<div class="resource-card"
+     onclick="window.location='ResourceViewer.aspx?id=<%# Eval("ResourceId") %>';">
 
-    <!-- Bookmark Button -->
-   <%-- <asp:LinkButton ID="btnBookmark"
-        runat="server"
-        CssClass="btn btn-outline-warning rounded-pill px-3"
-        CommandName="Bookmark"
-        CommandArgument='<%# Eval("ResourceId") %>'>
 
-        <i class='<%# Convert.ToInt32(Eval("IsBookmarked")) == 1 
-            ? "fas fa-bookmark text-warning" 
-            : "far fa-bookmark" %>'></i>
+    <div class="resource-card-inner">
 
-    </asp:LinkButton>--%>
+        <!-- LEFT -->
+        <div class="resource-left">
+
+            <!-- NUMBER -->
+            <div class="resource-number">
+                <%# Container.ItemIndex + 1 %>
+            </div>
+
+            <!-- CONTENT -->
+            <div class="res-info">
+
+                <h5><%# Eval("Title") %></h5>
+
+                <p><%# Eval("Description") %></p>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT ICON -->
+        <div class="resource-right-icon">
+
+            <i class='<%# GetIcon(Eval("ContentType").ToString()) %>'></i>
+
+        </div>
+
+    </div>
 
 </div>
-                        </div>
-                    </ItemTemplate>
+
+</ItemTemplate>
                 </asp:Repeater>
 
                 <!-- Viewer -->
-                <div id="resourceViewer" class="viewer-container">
+                <%--<div id="resourceViewer" class="viewer-container">
                     <div class="viewer-header">
                         <h5 id="viewerTitle">Resource Viewer</h5>
                         <div>
@@ -282,7 +179,7 @@
                     <div id="imageViewer" class="zoom-container" style="display:none;">
                         <img id="zoomImage" src="" alt="Resource Viewer" />
                     </div>
-                </div>
+                </div>--%>
 
                 <asp:PlaceHolder ID="phNoData" runat="server" Visible="false">
                     <div class="text-center py-5">
