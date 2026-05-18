@@ -34,58 +34,29 @@ namespace StudyIsleWeb
             {
                 // Notice the 'r.' prefix added to Title, Description, and CreatedAt
                 string sql = @"SELECT 
-        r.ResourceId,
-        r.Title, 
-        r.Description, 
-        r.FilePath, 
-        r.ContentType, 
-        r.CreatedAt,
-        CASE 
-            WHEN b.BookmarkId IS NOT NULL THEN 1 
-            ELSE 0 
-        END AS IsBookmarked
-       FROM Resources r 
-       LEFT JOIN Bookmarks b 
-            ON r.ResourceId = b.ItemId 
-            AND b.ItemType = 'Resource'
-            AND b.UserId = @uid
-       INNER JOIN ResourceTypes rt ON r.ResourceTypeId = rt.ResourceTypeId 
-       WHERE r.IsActive = 1";
+                        r.ResourceId,
+                        r.Title, 
+                        r.Description, 
+                        r.FilePath, 
+                        r.ContentType, 
+                        r.CreatedAt,
+                        CASE 
+                            WHEN b.BookmarkId IS NOT NULL THEN 1 
+                            ELSE 0 
+                        END AS IsBookmarked
+                       FROM Resources r 
+                       LEFT JOIN Bookmarks b 
+                            ON r.ResourceId = b.ItemId 
+                            AND b.ItemType = 'Resource'
+                            AND b.UserId = @uid
+                       INNER JOIN ResourceTypes rt ON r.ResourceTypeId = rt.ResourceTypeId 
+                       WHERE r.IsActive = 1";
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
                 cmd.Parameters.AddWithValue("@uid", Session["UserId"] ?? 0);
 
-                //========= this section is Added for filterring later for both boards =============
 
-
-                //// 2. Updated Path filtering logic
-                //if (!string.IsNullOrEmpty(cid))
-                //{
-                //    // Chapter Specific Flow (Standard/Notes)
-                //    sql += " AND r.ChapterId = @cid";
-                //    cmd.Parameters.AddWithValue("@cid", cid);
-                //}
-                //else if (!string.IsNullOrEmpty(setid))
-                //{
-                //    // Set/Paper Specific Flow (PYQ/Assignments)
-                //    sql += " AND r.SetId = @setid";
-                //    cmd.Parameters.AddWithValue("@setid", setid);
-                //}
-                //else if (!string.IsNullOrEmpty(scid))
-                //{
-                //    // General SubCategory Flow (Syllabus or "Skip" scenarios)
-                //    // This catches everything under a SubCat if more specific filters aren't used
-                //    sql += " AND r.SubCategoryId = @scid";
-                //    cmd.Parameters.AddWithValue("@scid", scid);
-                //}
-                //else if (!string.IsNullOrEmpty(sid))
-                //{
-                //    // Subject level fallback
-                //    sql += " AND r.SubjectId = @sid AND rt.Slug = @res";
-                //    cmd.Parameters.AddWithValue("@sid", sid);
-                //    cmd.Parameters.AddWithValue("@res", res);
-                //}
 
 
 
