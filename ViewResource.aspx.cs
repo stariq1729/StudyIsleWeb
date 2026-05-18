@@ -119,6 +119,21 @@ AND r.BoardId = @bid";
         }
         protected void rptResources_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
+            if (e.CommandName == "OpenResource")
+            {
+                // LOGIN CHECK
+                if (Session["UserId"] == null)
+                {
+                    Response.Redirect("Login.aspx");
+                    return;
+                }
+
+                int resourceId = Convert.ToInt32(e.CommandArgument);
+
+                Response.Redirect("ResourceViewer.aspx?id=" + resourceId);
+
+                return;
+            }
             if (e.CommandName == "Bookmark")
             {
                 if (Session["UserId"] == null)

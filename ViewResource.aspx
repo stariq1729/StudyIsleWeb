@@ -293,8 +293,11 @@
                <asp:Repeater ID="rptResources" runat="server" OnItemCommand="rptResources_ItemCommand">
                     <ItemTemplate>
 
-<div class="resource-card"
-     onclick="window.location='ResourceViewer.aspx?id=<%# Eval("ResourceId") %>';">
+<asp:LinkButton ID="lnkResource"
+    runat="server"
+    CssClass="resource-card text-decoration-none"
+    CommandName="OpenResource"
+    CommandArgument='<%# Eval("ResourceId") %>'>
 
     <div class="resource-card-inner">
 
@@ -321,7 +324,7 @@
 
     </div>
 
-</div>
+</asp:LinkButton>
 
 </ItemTemplate>
                 </asp:Repeater>
