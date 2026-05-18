@@ -16,10 +16,9 @@
         }
 
         .resource-page {
-            padding: 22px 0 40px;
-            min-height: 100vh;
-            width: 100%;
-        }
+    padding: 28px 0 40px;
+    min-height: 100vh;
+}
 
         /* =========================
            BREADCRUMB
