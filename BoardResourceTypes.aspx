@@ -189,7 +189,7 @@
                         <div class="col-xl-3 col-lg-4 col-md-6">
                             <a href='<%# GetNavigationUrl(Eval("Slug"), Eval("HasClass")) %>' class="resource-card">
                                 <div class="card-icon-wrap">
-                                    <img src='<%# "/Uploads/ResourceIcons/" + Eval("IconImage") %>' alt="Resource Icon" />
+                                    <img src='<%# "/Uploads/Icons/" + Eval("IconImage") %>' alt="Resource Icon" />
                                 </div>
                                 <h3 class="resource-card-title"><%# Eval("TypeName") %></h3>
                                 <p class="card-body-text"><%# Eval("Description") %></p>
