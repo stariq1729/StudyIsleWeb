@@ -259,7 +259,7 @@
     </a>
 
     <!-- 🔖 Bookmark Button (NEW) -->
-    <asp:LinkButton ID="btnBookmark"
+   <%-- <asp:LinkButton ID="btnBookmark"
     runat="server"
     CssClass="btn btn-outline-warning rounded-pill px-3"
     CommandName="Bookmark"
@@ -269,7 +269,7 @@
         ? "fas fa-bookmark text-warning" 
         : "far fa-bookmark" %>'></i>
 
-</asp:LinkButton>
+</asp:LinkButton>--%>
 
 </div>
                         </div>
