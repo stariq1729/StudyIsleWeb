@@ -18,22 +18,23 @@
         }
 
         .resource-card {
-            background: #fff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: 0.3s;
-        }
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: 0.3s;
+    cursor: pointer;
+}
 
-        .resource-card:hover {
-            border-color: #6366f1;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
+.resource-card:hover {
+    border-color: #6366f1;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
 
         .icon-box {
             width: 50px;
@@ -50,7 +51,60 @@
         .bg-img { background: #fef9c3; color: #854d0e; }
         .bg-vid { background: #dbeafe; color: #2563eb; }
         .bg-gen { background: #f1f5f9; color: #475569; }
+        .resource-number {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: 12px;
+    background: #eef2ff;
+    color: #4f46e5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-right: 18px;
+}
 
+.resource-right-icon {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: 10px;
+    background: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+}
+
+.resource-card-inner {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.resource-left {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+}
+
+.res-info h5 {
+    margin: 0;
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 1rem;
+}
+
+.res-info p {
+    margin: 4px 0 0;
+    font-size: 0.87rem;
+    color: #64748b;
+}
         .res-info h5 { margin: 0; font-weight: 700; color: #1e293b; }
         .res-info p { margin: 3px 0 0; font-size: 0.85rem; color: #64748b; }
 
@@ -238,42 +292,38 @@
 
                <asp:Repeater ID="rptResources" runat="server" OnItemCommand="rptResources_ItemCommand">
                     <ItemTemplate>
-                        <div class="resource-card">
-                            <div class="d-flex align-items-center">
-                                <div class='<%# "icon-box " + GetTheme(Eval("ContentType").ToString()) %>'>
-                                    <i class='<%# GetIcon(Eval("ContentType").ToString()) %>'></i>
-                                </div>
-                                <div class="res-info">
-                                    <h5><%# Eval("Title") %></h5>
-                                    <p><%# Eval("Description") %></p>
-                                </div>
-                            </div>
-                           <div class="d-flex gap-2">
-    
-    <!-- Open Button (UNCHANGED LOGIC) -->
-    <a href="#"
-       class="btn btn-primary rounded-pill px-4"
-       onclick="return openResource('<%# ResolveUrl(Eval("FilePath").ToString()).Replace("'", "\\'") %>',
-       '<%# Eval("ContentType").ToString().Replace("'", "\\'") %>');">
-        Open
-    </a>
 
-    <!-- 🔖 Bookmark Button (NEW) -->
-   <%-- <asp:LinkButton ID="btnBookmark"
-    runat="server"
-    CssClass="btn btn-outline-warning rounded-pill px-3"
-    CommandName="Bookmark"
-    CommandArgument='<%# Eval("ResourceId") %>'>
-    
-    <i class='<%# Convert.ToInt32(Eval("IsBookmarked")) == 1 
-        ? "fas fa-bookmark text-warning" 
-        : "far fa-bookmark" %>'></i>
+<div class="resource-card"
+     onclick="window.location='ResourceViewer.aspx?id=<%# Eval("ResourceId") %>';">
 
-</asp:LinkButton>--%>
+    <div class="resource-card-inner">
+
+        <!-- LEFT SECTION -->
+        <div class="resource-left">
+
+            <!-- NUMBER -->
+            <div class="resource-number">
+                <%# Container.ItemIndex + 1 %>
+            </div>
+
+            <!-- CONTENT -->
+            <div class="res-info">
+                <h5><%# Eval("Title") %></h5>
+                <p><%# Eval("Description") %></p>
+            </div>
+
+        </div>
+
+        <!-- RIGHT ICON -->
+        <div class="resource-right-icon">
+            <i class='<%# GetIcon(Eval("ContentType").ToString()) %>'></i>
+        </div>
+
+    </div>
 
 </div>
-                        </div>
-                    </ItemTemplate>
+
+</ItemTemplate>
                 </asp:Repeater>
 
                 <!-- Resource Viewer -->
