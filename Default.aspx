@@ -928,9 +928,9 @@ Live Leaderboards That Keep You Sharp</h6>
                         <div class="result-card">
                             <span class="topper-badge">TOPPER</span>
                             <img src="https://randomuser.me/api/portraits/women/44.jpg" class="student-img" alt="Student" />
-                            <h6 class="student-name">Aditi Jain</h6>
-                            <div class="student-rank">AIR 1</div>
-                            <small class="exam-label">JEE ADV 2024</small>
+                            <h6 class="student-name">Avik Gupta</h6>
+                            <div class="student-rank">98.4%</div>
+                            <small class="exam-label">CBSE XII</small>
                         </div>
                     </div>
                     <!-- Card 2 -->
@@ -938,9 +938,9 @@ Live Leaderboards That Keep You Sharp</h6>
                         <div class="result-card">
                             <span class="topper-badge">TOPPER</span>
                             <img src="https://randomuser.me/api/portraits/men/32.jpg" class="student-img" alt="Student" />
-                            <h6 class="student-name">Rahul S.</h6>
-                            <div class="student-rank">99.98 %ile</div>
-                            <small class="exam-label">CAT 2023</small>
+                            <h6 class="student-name">Kashvi</h6>
+                            <div class="student-rank">94.4%</div>
+                            <small class="exam-label">CBSE XII</small>
                         </div>
                     </div>
                     <!-- Card 3 -->
