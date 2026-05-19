@@ -1062,7 +1062,7 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
             </a>
 
             <!-- Redirects to WhatsApp -->
-            <a href="https://wa.me/8210935819" target="_blank" class="btn-cta-whatsapp">
+            <a href="https://wa.me/9588234841" target="_blank" class="btn-cta-whatsapp">
                 <i class="bi bi-whatsapp"></i> Chat on WhatsApp
             </a>
         </div>
