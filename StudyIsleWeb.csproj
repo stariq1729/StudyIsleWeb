@@ -171,8 +171,6 @@
     <Content Include="GoogleCallback.aspx" />
     <Content Include="JoinTutor.aspx" />
     <Content Include="Login.aspx" />
-    <Content Include="NCERT.aspx" />
-    <Content Include="NcertBook.aspx" />
     <Content Include="Privacy-Policy.aspx" />
     <Content Include="Quiz\QuizAttempt.aspx" />
     <Content Include="Quiz\QuizList.aspx" />
@@ -649,20 +647,6 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="NCERT.aspx.cs">
-      <DependentUpon>NCERT.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="NCERT.aspx.designer.cs">
-      <DependentUpon>NCERT.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="NcertBook.aspx.cs">
-      <DependentUpon>NcertBook.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="NcertBook.aspx.designer.cs">
-      <DependentUpon>NcertBook.aspx</DependentUpon>
     </Compile>
     <Compile Include="Privacy-Policy.aspx.cs">
       <DependentUpon>Privacy-Policy.aspx</DependentUpon>
