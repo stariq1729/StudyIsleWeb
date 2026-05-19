@@ -1089,7 +1089,7 @@ Live Leaderboards That Keep You Sharp</h6>
     <div class="row g-3 notes-grid">
 
         <div class="col-md-4 col-sm-6">
-            <a href="/Notes/ChapterNotes.aspx" class="note-card pastel-blue">
+            <a href="#" class="note-card pastel-blue">
                 <div class="note-icon">
                     <i class="bi bi-file-earmark-text"></i>
                 </div>
@@ -1099,7 +1099,7 @@ Live Leaderboards That Keep You Sharp</h6>
         </div>
 
         <div class="col-md-4 col-sm-6">
-            <a href="/Notes/MCQs.aspx" class="note-card pastel-green">
+            <a href="#" class="note-card pastel-green">
                 <div class="note-icon">
                     <i class="bi bi-question-circle"></i>
                 </div>
@@ -1109,7 +1109,7 @@ Live Leaderboards That Keep You Sharp</h6>
         </div>
 
         <div class="col-md-4 col-sm-6">
-            <a href="/Notes/MockTests.aspx" class="note-card pastel-purple">
+            <a href="#" class="note-card pastel-purple">
                 <div class="note-icon">
                     <i class="bi bi-journal-check"></i>
                 </div>
@@ -1119,7 +1119,7 @@ Live Leaderboards That Keep You Sharp</h6>
         </div>
 
         <div class="col-md-4 col-sm-6">
-            <a href="/Notes/PreviousYear.aspx" class="note-card pastel-orange">
+            <a href="#" class="note-card pastel-orange">
                 <div class="note-icon">
                     <i class="bi bi-clock-history"></i>
                 </div>
@@ -1129,7 +1129,7 @@ Live Leaderboards That Keep You Sharp</h6>
         </div>
 
         <div class="col-md-4 col-sm-6">
-            <a href="/Notes/VideoConcepts.aspx" class="note-card pastel-pink">
+            <a href="#" class="note-card pastel-pink">
                 <div class="note-icon">
                     <i class="bi bi-play-circle"></i>
                 </div>
@@ -1139,7 +1139,7 @@ Live Leaderboards That Keep You Sharp</h6>
         </div>
 
         <div class="col-md-4 col-sm-6">
-            <a href="/Notes/NCERT.aspx" class="note-card pastel-cyan">
+            <a href="#" class="note-card pastel-cyan">
                 <div class="note-icon">
                     <i class="bi bi-book"></i>
                 </div>
