@@ -948,9 +948,9 @@ Live Leaderboards That Keep You Sharp</h6>
                         <div class="result-card">
                             <span class="topper-badge">TOPPER</span>
                             <img src="https://randomuser.me/api/portraits/women/68.jpg" class="student-img" alt="Student" />
-                            <h6 class="student-name">Priya K.</h6>
-                            <div class="student-rank">AIR 52</div>
-                            <small class="exam-label">NEET 2024</small>
+                            <h6 class="student-name">Dvishree</h6>
+                            <div class="student-rank">94.4%</div>
+                            <small class="exam-label">CBSE XII</small>
                         </div>
                     </div>
                     <!-- Card 4 -->
@@ -958,9 +958,9 @@ Live Leaderboards That Keep You Sharp</h6>
                         <div class="result-card">
                             <span class="topper-badge">TOPPER</span>
                             <img src="https://randomuser.me/api/portraits/men/50.jpg" class="student-img" alt="Student" />
-                            <h6 class="student-name">Arjun M.</h6>
-                            <div class="student-rank">AIR 112</div>
-                            <small class="exam-label">JEE ADV 2024</small>
+                            <h6 class="student-name">Sanskriti Rajput</h6>
+                            <div class="student-rank">94.2%</div>
+                            <small class="exam-label">CBSE XII</small>
                         </div>
                     </div>
                     <!-- Card 5 -->
@@ -968,9 +968,9 @@ Live Leaderboards That Keep You Sharp</h6>
                         <div class="result-card">
                             <span class="topper-badge">TOPPER</span>
                             <img src="https://randomuser.me/api/portraits/women/22.jpg" class="student-img" alt="Student" />
-                            <h6 class="student-name">Sana V.</h6>
-                            <div class="student-rank">99.5 %ile</div>
-                            <small class="exam-label">JEE Main</small>
+                            <h6 class="student-name">Kritika Sharma</h6>
+                            <div class="student-rank">92.6%</div>
+                            <small class="exam-label">CBSE XII</small>
                         </div>
                     </div>
                 </div>
