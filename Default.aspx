@@ -238,7 +238,7 @@ Subject or College to
 
                             <!-- Profile -->
                             <div class="counsellor-top">
-                                <img src="..\assets\tutorimg\Pranav.jpg" alt="Dr. Shweta Iyer" />
+                                <img src="..\assets\tutorimg\Pranav.jpg" alt="Pranav Maheshwari" />
                                 <h5>Pranav Maheshwari</h5>
                                 <p>Certified Career Analyst (CCA)</p>
                             </div>

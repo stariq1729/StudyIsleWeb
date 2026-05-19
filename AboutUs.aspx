@@ -718,7 +718,7 @@
         <!-- Founder 1: Pranav -->
         <div class="founder-card">
             <div class="profile-img-area">
-    <img src="Images/pranav.jpg" alt="Pranav Maheshwari" />
+    <img src="..\assets\tutorimg\Pranav.jpg" alt="Pranav Maheshwari" />
 </div>
             <div class="founder-info">
                 <span class="subject-badge">Physics & Career Counsellor</span>
@@ -739,7 +739,9 @@
         <!-- Founder 2: Md Ambar -->
         <div class="founder-card">
             <div class="profile-img-area">
-    <img src="Images/ambar.jpg" alt="Md Ambar" />
+     <img src="..\assets\tutorimg\Ambar.jpg"
+      
+      alt="MD Ambar">
 </div>
             <div class="founder-info">
                 <span class="subject-badge" style="background: #eef0ff;">Mathematics Faculty</span>
