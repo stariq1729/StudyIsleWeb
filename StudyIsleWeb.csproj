@@ -213,11 +213,18 @@
     <Content Include="Uploads\Students\ToppersClass10\3.Ansh Grover.jpeg" />
     <Content Include="Uploads\Students\ToppersClass10\4.Arushi Mittal.jpeg" />
     <Content Include="Uploads\Students\ToppersClass10\5.Dhairya Sarin.jpeg" />
+    <Content Include="Uploads\Students\ToppersClass12\avik.PNG" />
+    <Content Include="Uploads\Students\ToppersClass12\Devisree.PNG" />
+    <Content Include="Uploads\Students\ToppersClass12\Kashvi.PNG" />
+    <Content Include="Uploads\Students\ToppersClass12\kritika.PNG" />
+    <Content Include="Uploads\Students\ToppersClass12\Sanskriti.PNG" />
     <Content Include="Uploads\Videos\4fc8963b-3258-4b83-a47e-093f78a82191.mp4" />
     <Content Include="Uploads\Videos\5cbdcda4-4463-47b9-9b14-d34f8937a837.mp4" />
     <Content Include="Uploads\Videos\65ac9208-bb02-42dd-a727-ffe8eea72932.mp4" />
     <Content Include="Uploads\Videos\7b146a70-802e-4bd6-b7a0-1acdf6b9aed5.mp4" />
+    <Content Include="Uploads\Videos\avik.mp4" />
     <Content Include="Uploads\Videos\Jahnavi Sinha.mp4" />
+    <Content Include="Uploads\Videos\janvi.mp4" />
     <Content Include="Uploads\Videos\Sagarika Singh.mp4" />
     <Content Include="Uploads\Videos\Sambhavi Sinha.mp4" />
     <Content Include="VerifyOtp.aspx" />
@@ -836,7 +843,6 @@
     <Folder Include="Uploads\Gallery\" />
     <Folder Include="Uploads\NewFolder1\" />
     <Folder Include="Uploads\Resumes\" />
-    <Folder Include="Uploads\Students\ToppersClass12\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
