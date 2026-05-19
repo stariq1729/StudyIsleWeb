@@ -711,8 +711,11 @@ Live Leaderboards That Keep You Sharp</h6>
                         <p>In-class quizzes and live rankings against 10k+ students keep every session sharp.</p>
                     </div>
                 </div>
-                <button class="btn btn-primary btn-lg mt-4">
-                    Join a Free Class → </button> 
+               <asp:HyperLink ID="lnkCareerGuidance" runat="server" NavigateUrl="~/CareerGuidance.aspx" Style="text-decoration: none;">
+    <button type="button" class="btn btn-primary btn-lg mt-4">
+        Join a Free Class →
+    </button>
+</asp:HyperLink>
             </div>
 
         </div>
