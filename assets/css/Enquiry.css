@@ -96,26 +96,7 @@
     box-shadow: 0 15px 40px rgba(0,0,0,0.08);
     overflow: hidden;
 }
-    /* Forces ASP.NET tables to wrap on small screens */
-    .enquiry-card table {
-        display: block;
-        width: 100%;
-    }
 
-        .enquiry-card table tbody,
-        .enquiry-card```
-        **The Change:** This prevents the internal padding from "squashing" the input fields on narrow phone screens.
-
-        ### 3 table tr {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-.enquiry-. ASP.NET Checkbox/Radio Tables
-This is the most likely culprit for breaking responsiveness in your specific stack. ASP.NET `CheckBoxList` and `RadioButtoncard table td {
-    display: inline-block;
-}
 .card-top-border {
     height: 6px;
     background: linear-gradient(90deg, #6c63ff, #8e44ff);
