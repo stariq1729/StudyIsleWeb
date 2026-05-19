@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CareerGuidance.aspx.cs" Inherits="StudyIsleWeb.CareerGuidance" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="assets/css/Enquiry.css" rel="stylesheet" />
-    <style>
+        <style>
         /* Subject Section Styles */
 
         .subjects-section {
@@ -602,6 +602,7 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
                                     <asp:ListItem>UAE</asp:ListItem>
                                     <asp:ListItem>USA</asp:ListItem>
                                     <asp:ListItem>UK</asp:ListItem>
+                                    <asp:ListItem>Other's</asp:ListItem>
                                 </asp:DropDownList>
                             </div>
 
@@ -616,6 +617,7 @@ Personalised 1-on-1 online tuition for IB, IGCSE, A-Level and AP students. Real 
                                     <asp:ListItem>Grade 10</asp:ListItem>
                                     <asp:ListItem>Grade 11</asp:ListItem>
                                     <asp:ListItem>Grade 12</asp:ListItem>
+                                    <asp:ListItem>Other</asp:ListItem>
                                 </asp:DropDownList>
                             </div>
 
